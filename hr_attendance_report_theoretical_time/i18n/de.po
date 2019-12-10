@@ -164,16 +164,6 @@ msgid "Last Updated on"
 msgstr "Zuletzt aktualisiert am"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave
-msgid "Leave"
-msgstr "Urlaub"
-
-#. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
-msgid "Leave Type"
-msgstr "Urlaubsart"
-
-#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
 msgid "My Attendances"
 msgstr "Meine Anwesenheiten"
@@ -244,7 +234,7 @@ msgid "Select Employees"
 msgstr "Angestellte wählen"
 
 #. module: hr_attendance_report_theoretical_time
-#: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:43
+#: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
 msgid "Select Employees to Analyze Theoretical Time"
@@ -282,6 +272,16 @@ msgid "Theoric"
 msgstr "Theoretisch"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave
+msgid "Time Off"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
+msgid "Time Off Type"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_to
 msgid "To"
 msgstr ""
@@ -305,3 +305,9 @@ msgstr "Assistent für theoretische Anwesenheitszeiten"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Gearbeitet"
+
+#~ msgid "Leave"
+#~ msgstr "Urlaub"
+
+#~ msgid "Leave Type"
+#~ msgstr "Urlaubsart"
