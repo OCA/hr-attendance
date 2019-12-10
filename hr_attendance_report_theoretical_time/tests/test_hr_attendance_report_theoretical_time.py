@@ -147,7 +147,7 @@ class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
         # 1946-12-25 - Global public holiday
         self.assertEqual(self.attendances[4].theoretical_hours, 0)
         self.assertEqual(self.attendances[5].theoretical_hours, 0)
-        # 1946-12-26
+        # 1946-12-26 - Employee on Holidays
         self.assertEqual(self.attendances[6].theoretical_hours, 0)
         self.assertEqual(self.attendances[7].theoretical_hours, 0)
         # EMPLOYEE 2
@@ -196,7 +196,12 @@ class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
                 ("date", "<", "1946-12-31"),
                 ("employee_id", "in", (self.employee_1.id, self.employee_2.id)),
             ],
-            ["employee_id", "theoretical_hours", "worked_hours", "difference"],
+            [
+                "employee_id",
+                "theoretical_hours:sum",
+                "worked_hours:sum",
+                "difference:sum",
+            ],
             ["employee_id"],
         )
         # It should include 4 working days (25 is holiday and 26 is leave)
@@ -214,7 +219,7 @@ class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
                 ("date", "<", "1946-12-31"),
                 ("employee_id", "=", self.employee_1.id),
             ],
-            ["employee_id", "theoretical_hours", "date"],
+            ["employee_id", "theoretical_hours:sum", "date"],
             ["date:day"],
         )
         self.assertEqual(res[0]["theoretical_hours"], 8)  # 1946-12-23
