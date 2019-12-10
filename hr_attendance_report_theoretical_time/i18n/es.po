@@ -172,16 +172,6 @@ msgid "Last Updated on"
 msgstr "Última modificación en"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave
-msgid "Leave"
-msgstr "Ausencia"
-
-#. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
-msgid "Leave Type"
-msgstr "Tipo de ausencia"
-
-#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
 msgid "My Attendances"
 msgstr "Mis asistencias"
@@ -254,7 +244,7 @@ msgid "Select Employees"
 msgstr "Empleado"
 
 #. module: hr_attendance_report_theoretical_time
-#: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:43
+#: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
 msgid "Select Employees to Analyze Theoretical Time"
@@ -291,6 +281,16 @@ msgid "Theoric"
 msgstr "Teórico"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave
+msgid "Time Off"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
+msgid "Time Off Type"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_to
 msgid "To"
 msgstr ""
@@ -316,3 +316,9 @@ msgstr "Tiempo teórico vs trabajado"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Trabajado"
+
+#~ msgid "Leave"
+#~ msgstr "Ausencia"
+
+#~ msgid "Leave Type"
+#~ msgstr "Tipo de ausencia"
