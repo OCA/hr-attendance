@@ -127,7 +127,6 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
             date
             """
 
-    @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
@@ -174,7 +173,7 @@ CREATE or REPLACE VIEW %s as (
         tz = employee.resource_id.calendar_id.tz
         return employee.with_context(
             exclude_public_holidays=True, employee_id=employee.id
-        ).get_work_days_data(
+        )._get_work_days_data(
             datetime.combine(date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))),
             datetime.combine(date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))),
             # Pass this domain for excluding leaves whose type is included in
@@ -206,12 +205,15 @@ CREATE or REPLACE VIEW %s as (
             orderby=orderby,
             lazy=lazy,
         )
-        if "theoretical_hours" not in fields:
+
+        if "theoretical_hours:sum" not in fields:
             return res
+
         full_fields = all(
-            x in fields for x in {"theoretical_hours", "worked_hours", "difference"}
+            x in fields
+            for x in {"theoretical_hours:sum", "worked_hours:sum", "difference:sum"}
         )
-        difference_field = "difference" in fields
+        difference_field = "difference:sum" in fields
         for line in res:
             day_dict = {}
             records = self.search(line.get("__domain", domain))
