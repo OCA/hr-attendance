@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* hr_attendance_rfid
+# 	* hr_attendance_rfid
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: hr_attendance_rfid
-#: code:addons/hr_attendance_rfid/models/hr_employee.py:53
+#: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "Attendance recorded for employee %s"
 msgstr "Présence enregistrée pour l'employé(e) %s"
@@ -28,13 +28,13 @@ msgid "Employee"
 msgstr "Employé(e)"
 
 #. module: hr_attendance_rfid
-#: code:addons/hr_attendance_rfid/models/hr_employee.py:62
+#: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "No attendance was recorded for employee %s"
 msgstr "Aucune présence n'a été enregistrée pour l'employé(e) %s"
 
 #. module: hr_attendance_rfid
-#: code:addons/hr_attendance_rfid/models/hr_employee.py:46
+#: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "No employee found with card %s"
 msgstr "Aucun employé(e) trouvé avec la carte %s"
@@ -50,6 +50,6 @@ msgid "RFID Card Code"
 msgstr "Code de carte RFID"
 
 #. module: hr_attendance_rfid
-#: sql_constraint:hr.employee:0
+#: model:ir.model.constraint,message:hr_attendance_rfid.constraint_hr_employee_rfid_card_code_uniq
 msgid "The rfid code should be unique."
 msgstr "Le code rfid doit être unique."
