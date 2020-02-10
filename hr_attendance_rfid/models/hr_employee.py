@@ -63,7 +63,7 @@ class HrEmployee(models.Model):
                     res["action"] = "check_in"
                 return res
             else:
-                msg = _("No attendance was recorded for " "employee %s") % employee.name
+                msg = _("No attendance was recorded for employee %s") % employee.name
                 _logger.error(msg)
                 res["error_message"] = msg
                 return res
