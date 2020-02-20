@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <act_window
         id="recompute_employee_theoretical_attendance"
@@ -10,13 +10,12 @@
         target="new"
         groups="hr_attendance.group_hr_attendance_manager"
     />
-
     <record id="view_employee_form_inherit_hr_attendance" model="ir.ui.view">
         <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="inherit_id" ref="hr.view_employee_form" />
         <field name="arch" type="xml">
             <field name="pin" position="before">
-                <field name="theoretical_hours_start_date"/>
+                <field name="theoretical_hours_start_date" />
             </field>
         </field>
     </record>
