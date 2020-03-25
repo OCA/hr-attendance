@@ -1,4 +1,4 @@
-# Copyright 2019 Eficent Business and IT Consulting Services, S.L.
+# Copyright 2019 ForgeFlow, S.L.
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
 from odoo.tests.common import TransactionCase
