@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-hr-attendance Odoo addons",
     version=version,
     install_requires=[
+        'odoo13-addon-hr_attendance_modification_tracking',
         'odoo13-addon-hr_attendance_report_theoretical_time',
         'odoo13-addon-hr_attendance_rfid',
     ],
