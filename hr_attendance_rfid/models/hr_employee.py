@@ -24,7 +24,7 @@ class HrEmployee(models.Model):
 
     @api.model
     def register_attendance(self, card_code):
-        """ Register the attendance of the employee.
+        """Register the attendance of the employee.
         :returns: dictionary
             'rfid_card_code': char
             'employee_name': char
