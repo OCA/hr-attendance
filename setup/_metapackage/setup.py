@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-hr_attendance_modification_tracking',
+        'odoo13-addon-hr_attendance_reason',
         'odoo13-addon-hr_attendance_report_theoretical_time',
         'odoo13-addon-hr_attendance_rfid',
     ],
