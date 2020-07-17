@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="hr_attendance_reason_view_form" model="ir.ui.view">
+    hr_attendance_reason_view_form" model="ir.ui.view">
         <field name="name">hr.attendance.reason.form</field>
         <field name="model">hr.attendance.reason</field>
         <field name="arch" type="xml">
