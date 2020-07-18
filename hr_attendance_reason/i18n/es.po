@@ -43,7 +43,7 @@ msgid "Attendance reasons"
 msgstr "Motivos de alerta de asistencia"
 
 #. module: hr_attendance_reason
-#: sql_constraint:hr.attendance.reason:0
+#: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
 msgid "Code must be unique"
 msgstr "El c??digo debe ser ??nico"
 
@@ -113,12 +113,12 @@ msgid "Reasons"
 msgstr "Motivos"
 
 #. module: hr_attendance_reason
-#: selection:hr.attendance.reason,action_type:0
+#: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_in
 msgid "Sign in"
 msgstr "Entrada"
 
 #. module: hr_attendance_reason
-#: selection:hr.attendance.reason,action_type:0
+#: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_out
 msgid "Sign out"
 msgstr "Salida"
 
