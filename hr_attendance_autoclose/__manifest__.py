@@ -3,10 +3,10 @@
 
 {
     "name": "HR Attendance Auto Close",
-    "version": "13.0.1.1.0",
+    "version": "13.0.1.0.0",
     "category": "Human Resources",
     "summary": "Close stale Attendances",
-    "website": "https://github.com/OCA/hr",
+    "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,

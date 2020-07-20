@@ -9,7 +9,6 @@ from odoo import api, fields, models
 class HrAttendance(models.Model):
     _inherit = "hr.attendance"
 
-    @api.multi
     @api.depends("check_out", "check_in")
     def _compute_open_worked_hours(self):
         for attendance in self:
@@ -26,7 +25,6 @@ class HrAttendance(models.Model):
         string="Worked hours", compute="_compute_open_worked_hours",
     )
 
-    @api.multi
     def autoclose_attendance(self, reason):
         self.ensure_one()
         max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
@@ -36,7 +34,6 @@ class HrAttendance(models.Model):
             vals["attendance_reason_ids"] = [(4, reason.id)]
         self.write(vals)
 
-    @api.multi
     def needs_autoclose(self):
         self.ensure_one()
         max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
