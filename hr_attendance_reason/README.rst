@@ -23,7 +23,7 @@ HR Attendance Reason
     :target: https://runbot.odoo-community.org/runbot/288/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module allows to define reasons why the attendance is not what expected.
 Some example reasons are
@@ -67,7 +67,7 @@ Contributors
 ~~~~~~~~~~~~
 
 * Odoo S.A.
-* Aaron Henriquez <aheficent@eficent.com>
+* Aaron Henriquez <ahforgeflow@forgeflow.com>
 * Damien Crier <damien.crier@camtocamp.com>
 * Saran Lim. <saranl@ecosoft.co.th>
 
