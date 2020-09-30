@@ -1,5 +1,5 @@
 # Copyright 2017 Odoo S.A.
-# Copyright 2018 Eficent Business and IT Consulting Services, S.L.
+# Copyright 2018 ForgeFlow, S.L.
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
 {
