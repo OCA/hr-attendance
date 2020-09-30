@@ -23,7 +23,7 @@ HR Attendance Auto Close
     :target: https://runbot.odoo-community.org/runbot/288/13.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module close stale attendances automatically. Without this module, when
 an employee forgets to check out at the end on the day and the next day the
@@ -60,7 +60,7 @@ Credits
 Contributors
 ~~~~~~~~~~~~
 
-* Aaron Henriquez <aheficent@eficent.com>
+* Aaron Henriquez <ahforgeflow@forgeflow.com>
 * Kitti U. <kittiu@ecosoft.co.th>
 
 Maintainers
