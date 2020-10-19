@@ -15,7 +15,11 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[hr_attendance_reason](hr_attendance_reason/) | 14.0.1.0.0 | HR Attendance Reason
 
 [//]: # (end addons)
 
