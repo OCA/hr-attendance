@@ -12,7 +12,7 @@ class HrAttendanceReason(models.Model):
     _sql_constraints = [("unique_code", "UNIQUE(code)", "Code must be unique")]
 
     name = fields.Char(
-        String="Reason",
+        string="Reason",
         help="Specifies the reason leaving soon or arriving late",
         required=True,
         index=True,
