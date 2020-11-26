@@ -99,7 +99,7 @@ msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
-msgid "Name"
+msgid "Reason"
 msgstr ""
 
 #. module: hr_attendance_reason
