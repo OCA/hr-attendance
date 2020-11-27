@@ -83,7 +83,9 @@ class TestHrAttendanceTracking(TransactionCase):
         dto = datetime.now() + relativedelta(hours=1)
         att.write({"check_out": dto.strftime(DF)})
         self.assertEqual(
-            att.time_changed_manually, True, "Use case 5: Wrong value, data changed."
+            att.time_changed_manually,
+            False,
+            "Use case 5: Wrong value, data changed.",
         )
         # Use case 6:
         # Create an attendance with correct (now - 15 sec) check-in and incorrect

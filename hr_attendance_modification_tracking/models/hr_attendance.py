@@ -11,9 +11,9 @@ class HrAttendance(models.Model):
     _name = "hr.attendance"
     _inherit = ["hr.attendance", "mail.thread"]
 
-    employee_id = fields.Many2one(track_visibility="onchange")
-    check_in = fields.Datetime(track_visibility="onchange")
-    check_out = fields.Datetime(track_visibility="onchange")
+    employee_id = fields.Many2one(tracking=True)
+    check_in = fields.Datetime(tracking=True)
+    check_out = fields.Datetime(tracking=True)
     time_changed_manually = fields.Boolean(
         string="Time changed",
         compute="_compute_time_changed_manually",
