@@ -29,6 +29,11 @@ msgid "Attendances"
 msgstr ""
 
 #. module: hr_attendance_autoclose
+#: model:ir.model,name:hr_attendance_autoclose.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
 #: model:ir.cron,cron_name:hr_attendance_autoclose.check_attendance_cron
 #: model:ir.cron,name:hr_attendance_autoclose.check_attendance_cron
@@ -42,18 +47,9 @@ msgstr ""
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__no_autoclose
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee_base__no_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee_public__no_autoclose
 msgid "Don't Autoclose Attendances"
-msgstr ""
-
-#. module: hr_attendance_autoclose
-#: model:ir.model,name:hr_attendance_autoclose.model_hr_employee
-msgid "Employee"
-msgstr ""
-
-#. module: hr_attendance_autoclose
-#: model:ir.model,name:hr_attendance_autoclose.model_hr_employee_public
-msgid "Public Employee"
 msgstr ""
 
 #. module: hr_attendance_autoclose
