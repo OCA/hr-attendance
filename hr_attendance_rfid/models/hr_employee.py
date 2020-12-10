@@ -1,5 +1,6 @@
 # Copyright 2017 Comunitea Servicios Tecnológicos S.L.
 # Copyright 2018-19 ForgeFlow S.L. (https://www.forgeflow.com)
+# Copyright 2020 Tecnativa - Víctor Martínez
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import logging
@@ -9,9 +10,9 @@ from odoo import _, api, fields, models
 _logger = logging.getLogger(__name__)
 
 
-class HrEmployee(models.Model):
+class HrEmployeeBase(models.AbstractModel):
 
-    _inherit = "hr.employee"
+    _inherit = "hr.employee.base"
     _sql_constraints = [
         (
             "rfid_card_code_uniq",
