@@ -96,6 +96,7 @@ msgstr "Angestellte"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_employee__theoretical_hours_start_date
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_employee_public__theoretical_hours_start_date
 msgid ""
 "Fill this field for setting a manual start date for computing the "
 "theoretical hours independently from the attendances. If not filled, "
@@ -179,6 +180,11 @@ msgid "Previous Month"
 msgstr "Vorheriger Monat"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_employee_public
+msgid "Public Employee"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_holidays_public_line
 msgid "Public Holidays Lines"
 msgstr "Feiertagszeilen"
@@ -251,6 +257,7 @@ msgstr "Theoretische Stunden"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__theoretical_hours_start_date
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__theoretical_hours_start_date
 msgid "Theoretical Hours Start Date"
 msgstr "Startdatum der theoretischen Stunden"
 
