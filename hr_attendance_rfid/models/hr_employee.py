@@ -21,7 +21,7 @@ class HrEmployeeBase(models.AbstractModel):
         )
     ]
 
-    rfid_card_code = fields.Char("RFID Card Code")
+    rfid_card_code = fields.Char("RFID Card Code", copy=False)
 
     @api.model
     def register_attendance(self, card_code):
