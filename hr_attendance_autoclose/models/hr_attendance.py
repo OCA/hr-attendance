@@ -25,9 +25,23 @@ class HrAttendance(models.Model):
         string="Worked hours", compute="_compute_open_worked_hours",
     )
 
+    def get_done_hours_same_day(self):
+        today = fields.Datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        attendances = self.search(
+            [
+                ("employee_id", "=", self.employee_id.id),
+                ("check_in", ">=", today),
+                ("check_out", "!=", False),
+            ]
+        )
+        return sum(attendances.mapped("worked_hours")) if attendances else 0.0
+
     def autoclose_attendance(self, reason):
         self.ensure_one()
-        max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
+        done_hours = self.get_done_hours_same_day()
+        max_hours = (
+            self.employee_id.company_id.attendance_maximum_hours_per_day - done_hours
+        )
         leave_time = self.check_in + timedelta(hours=max_hours)
         vals = {"check_out": leave_time}
         if reason:
@@ -38,7 +52,8 @@ class HrAttendance(models.Model):
         self.ensure_one()
         max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
         close = not self.employee_id.no_autoclose
-        return close and max_hours and self.open_worked_hours > max_hours
+        done_hours = self.get_done_hours_same_day()
+        return close and max_hours and self.open_worked_hours + done_hours > max_hours
 
     @api.model
     def check_for_incomplete_attendances(self):
