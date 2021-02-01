@@ -3,7 +3,7 @@
 
 {
     "name": "HR Attendance Auto Close",
-    "version": "13.0.1.0.2",
+    "version": "13.0.1.1.0",
     "category": "Human Resources",
     "summary": "Close stale Attendances",
     "website": "https://github.com/OCA/hr-attendance",
