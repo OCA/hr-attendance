@@ -1,5 +1,5 @@
 # Copyright 2019 Creu Blanca
-# Copyright 2020 Landoo
+# Copyright 2021 Landoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from datetime import datetime
@@ -103,4 +103,23 @@ class TestHrAttendanceTracking(TransactionCase):
             att.time_changed_manually,
             True,
             "Use case 6 : Wrong value, tolerance exceeded.",
+        )
+        # Use case 7:
+        # Create an attendance with correct (now - 15 sec) check-in and
+        # manually write leave current check-out
+        # Expected: manually_changed = False
+        self.employee_06 = self.env["hr.employee"].create({"name": "Employee06"})
+        dti = datetime.now() - relativedelta(seconds=15)
+        att = self.hr_attendance.create(
+            {
+                "employee_id": self.employee_06.id,
+                "check_in": dti.strftime(DF),
+            }
+        )
+        dto = datetime.now()
+        att.write({"check_out": dto.strftime(DF)})
+        self.assertEqual(
+            att.time_changed_manually,
+            False,
+            "Use case 7: Wrong value, time not changed manually.",
         )
