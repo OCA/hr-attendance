@@ -1,4 +1,5 @@
 # Copyright 2017-2019 Tecnativa - Pedro M. Baeza
+# Copyright 2021 Landoo Sistemas de Informacion SL
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests import common
@@ -112,7 +113,7 @@ class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
                 "holiday_status_id": cls.leave_type.id,
             }
         )
-        cls.leave._onchange_request_parameters()
+        cls.leave._compute_date_from_to()
         cls.leave.action_validate()
         cls.attendances = []
         for employee in (cls.employee_1, cls.employee_2):
