@@ -4,3 +4,4 @@
   * David Vidal
   * Víctor Martínez
 * Pedro Gonzalez <pedro.gonzalez@pesol.es>
+* Aritz Olea <ao@landoo.es>
