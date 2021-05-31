@@ -58,9 +58,7 @@ class HrAttendance(models.Model):
         reason = self.env["hr.attendance.reason"].search(
             [("code", "=", "S-CO")], limit=1
         )
-        if not reason:
-            return super(HrAttendance, self)._check_validity()
-        if self.filtered(
+        if reason and self.filtered(
             lambda att: att.attendance_reason_ids
             and reason in att.attendance_reason_ids
         ):
