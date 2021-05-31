@@ -22,7 +22,8 @@ class HrAttendance(models.Model):
         return True
 
     open_worked_hours = fields.Float(
-        string="Worked hours", compute="_compute_open_worked_hours",
+        string="Worked hours",
+        compute="_compute_open_worked_hours",
     )
 
     def autoclose_attendance(self, reason):
@@ -51,7 +52,7 @@ class HrAttendance(models.Model):
 
     @api.constrains("check_in", "check_out", "employee_id")
     def _check_validity(self):
-        """ If this is an automatic checkout the constraint is invalid
+        """If this is an automatic checkout the constraint is invalid
         as there may be old attendances not closed
         """
         reason = self.env["hr.attendance.reason"].search(
