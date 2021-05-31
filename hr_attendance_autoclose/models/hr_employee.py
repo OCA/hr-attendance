@@ -4,7 +4,8 @@
 from odoo import fields, models
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployee(models.Model):
+
+    _inherit = "hr.employee"
 
     no_autoclose = fields.Boolean(string="Don't Autoclose Attendances")
