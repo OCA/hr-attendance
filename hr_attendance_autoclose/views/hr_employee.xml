@@ -10,9 +10,9 @@
             ref="hr_attendance.view_employee_form_inherit_hr_attendance"
         />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='identification_group']" position="inside">
+            <field name="barcode" position="after">
                 <field name="no_autoclose" />
-            </xpath>
+            </field>
         </field>
     </record>
 </odoo>
