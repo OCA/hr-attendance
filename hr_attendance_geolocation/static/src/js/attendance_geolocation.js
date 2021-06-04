@@ -1,4 +1,4 @@
-odoo.define("hr_attendance_geolocation.attendances_geolocation", function(require) {
+odoo.define("hr_attendance_geolocation.attendances_geolocation", function (require) {
     "use strict";
 
     var MyAttendances = require("hr_attendance.my_attendances");
@@ -6,12 +6,12 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
 
     MyAttendances.include({
         // eslint-disable-next-line no-unused-vars
-        init: function(parent, action) {
+        init: function (parent, action) {
             this._super.apply(this, arguments);
             this.location = (null, null);
             this.errorCode = null;
         },
-        update_attendance: function() {
+        update_attendance: function () {
             var self = this;
             var options = {
                 enableHighAccuracy: true,
@@ -26,7 +26,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                 );
             }
         },
-        _manual_attendance: function(position) {
+        _manual_attendance: function (position) {
             var self = this;
             this._rpc({
                 model: "hr.employee",
@@ -37,7 +37,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                     null,
                     [position.coords.latitude, position.coords.longitude],
                 ],
-            }).then(function(result) {
+            }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {
@@ -45,7 +45,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                 }
             });
         },
-        _getPositionError: function(error) {
+        _getPositionError: function (error) {
             console.warn("ERROR(" + error.code + "): " + error.message);
             const position = {
                 coords: {
@@ -60,14 +60,14 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
     KioskConfirm.include({
         events: _.extend(KioskConfirm.prototype.events, {
             "click .o_hr_attendance_sign_in_out_icon": _.debounce(
-                function() {
+                function () {
                     this.update_attendance();
                 },
                 200,
                 true
             ),
             "click .o_hr_attendance_pin_pad_button_ok": _.debounce(
-                function() {
+                function () {
                     this.pin_pad = true;
                     this.update_attendance();
                 },
@@ -76,11 +76,11 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
             ),
         }),
         // eslint-disable-next-line no-unused-vars
-        init: function(parent, action) {
+        init: function (parent, action) {
             this._super.apply(this, arguments);
             this.pin_pad = false;
         },
-        update_attendance: function() {
+        update_attendance: function () {
             var self = this;
             var options = {
                 enableHighAccuracy: true,
@@ -95,7 +95,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                 );
             }
         },
-        _manual_attendance: function(position) {
+        _manual_attendance: function (position) {
             var self = this;
             var pinBoxVal = null;
             if (this.pin_pad) {
@@ -114,14 +114,14 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                     pinBoxVal,
                     [position.coords.latitude, position.coords.longitude],
                 ],
-            }).then(function(result) {
+            }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {
                     self.do_warn(result.warning);
                     if (self.pin_pad) {
                         self.$(".o_hr_attendance_PINbox").val("");
-                        setTimeout(function() {
+                        setTimeout(function () {
                             self.$(".o_hr_attendance_pin_pad_button_ok").removeAttr(
                                 "disabled"
                             );
@@ -131,7 +131,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function(requir
                 }
             });
         },
-        _getPositionError: function(error) {
+        _getPositionError: function (error) {
             console.warn("ERROR(" + error.code + "): " + error.message);
             const position = {
                 coords: {
