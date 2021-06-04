@@ -6,12 +6,12 @@
         <field name="arch" type="xml">
             <xpath expr="//form/sheet/group" position="after">
                 <group name="locations" col="2">
-                    <label for="check_in_location" string="Check-in Location" />
+                    <label for="check_in_latitude" string="Check-in Location" />
                     <span class="oe_inline">
                         Latitude: <field name="check_in_latitude" nolabel="1" /><br />
                         Longitude: <field name="check_in_longitude" nolabel="1" />
                     </span>
-                    <label for="check_out_location" string="Check-out Location" />
+                    <label for="check_out_latitude" string="Check-out Location" />
                     <span class="oe_inline">
                         Latitude: <field name="check_out_latitude" nolabel="1" /><br />
                         Longitude: <field name="check_out_longitude" nolabel="1" />
