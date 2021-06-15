@@ -19,6 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[hr_attendance_autoclose](hr_attendance_autoclose/) | 14.0.1.0.0 | Close stale Attendances
 [hr_attendance_reason](hr_attendance_reason/) | 14.0.1.0.0 | HR Attendance Reason
 
 [//]: # (end addons)
