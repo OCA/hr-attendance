@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-hr-attendance Odoo addons",
     version=version,
     install_requires=[
+        'odoo14-addon-hr_attendance_autoclose',
         'odoo14-addon-hr_attendance_reason',
     ],
     classifiers=[
