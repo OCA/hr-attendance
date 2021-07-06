@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-hr_attendance_autoclose',
+        'odoo14-addon-hr_attendance_modification_tracking',
         'odoo14-addon-hr_attendance_reason',
     ],
     classifiers=[
