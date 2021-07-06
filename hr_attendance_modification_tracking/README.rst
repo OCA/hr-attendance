@@ -23,7 +23,7 @@ HR Attendance Modification Tracking
     :target: https://runbot.odoo-community.org/runbot/288/14.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5|
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 Attendance changes will now be registered in the chatter.
 This will help prevent cheating in check-in or check-out time.
