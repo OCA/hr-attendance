@@ -1,0 +1,86 @@
+<odoo>
+    <record id="hr_attendance_sheet_document" model="ir.actions.report">
+        <field name="name">Attendance Sheet</field>
+        <field name="model">hr.attendance.sheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >hr_attendance_sheet.report_hr_attendance_sheet_document</field>
+        <field
+            name="report_file"
+        >hr_attendance_sheet.report_hr_attendance_sheet_document</field>
+        <field name="binding_model_id" ref="model_hr_attendance_sheet" />
+    </record>
+    <record id="hr_attendance_sheet_preview" model="ir.actions.report">
+        <field name="name">Attendance Sheet Preview</field>
+        <field name="model">hr.attendance.sheet</field>
+        <field name="report_type">qweb-html</field>
+        <field
+            name="report_name"
+        >hr_attendance_sheet.report_hr_attendance_sheet_document</field>
+        <field
+            name="report_file"
+        >hr_attendance_sheet.report_hr_attendance_sheet_document</field>
+        <field name="binding_model_id" ref="model_hr_attendance_sheet" />
+    </record>
+
+    <template id="report_hr_attendance_sheet_document">
+        <t t-name="hr_attendance_sheet.report_hr_attendance_sheet_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div align="center">
+                                <h3>Attendance Sheet</h3>
+                            </div>
+                            <br />
+                            <h5><b><span t-field="doc.name" /></b></h5>
+                            <h5><b>Total Time:  <span
+                                        t-field="doc.total_time"
+                                    /></b></h5>
+                            <h5><b>Overtime:  <span t-field="doc.overtime" /></b></h5>
+                            <br />
+                            <table class="table table-sm" t-if="doc.attendance_ids">
+                                <thead>
+                                    <tr>
+                                        <th><strong>Check-In</strong></th>
+                                        <th><strong>Check-Out</strong></th>
+                                        <th><strong>Duration</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t
+                                        t-foreach="doc.attendance_ids.sorted(key=lambda ml: ml.check_in)"
+                                        t-as="attendance"
+                                    >
+                                        <tr>
+                                            <td><span
+                                                    t-field="attendance.check_in"
+                                                /></td>
+                                            <td><span
+                                                    t-field="attendance.check_out"
+                                                /></td>
+                                            <td><span
+                                                    t-field="attendance.duration"
+                                                /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <br />
+                            <div>
+                                <h3>Approval Information</h3>
+                                <h5><b>Approver:  <span
+                                            t-field="doc.reviewer_id"
+                                        /></b></h5>
+                                <h5><b>Approved On:  <span
+                                            t-field="doc.reviewed_on"
+                                        /></b></h5>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+  </template>
+</odoo>
