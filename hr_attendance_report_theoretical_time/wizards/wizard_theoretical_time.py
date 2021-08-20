@@ -54,7 +54,9 @@ class WizardTheoreticalTime(models.TransientModel):
         action = self.env.ref(
             "hr_attendance_report_theoretical_time." "hr_attendance_theoretical_action"
         ).read()[0]
-        action["domain"] = [("employee_id", "in", self.employee_ids.ids)]
+        action["domain"] = [
+            ("employee_id", "in", self.with_context(active_test=False).employee_ids.ids)
+        ]
         action[
             "context"
         ] = "{'search_default_previous_month': 1, 'search_default_current_month': 1}"
