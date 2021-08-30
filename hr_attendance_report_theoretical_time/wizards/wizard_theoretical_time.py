@@ -10,16 +10,21 @@ class WizardTheoreticalTime(models.TransientModel):
     _name = "wizard.theoretical.time"
     _description = "Filtered Theoretical Time"
 
-    employee_ids = fields.Many2many("hr.employee", string="Employees")
+    employee_ids = fields.Many2many(comodel_name="hr.employee", string="Employees")
 
-    department_id = fields.Many2one("hr.department", string="Department")
-    category_ids = fields.Many2many("hr.employee.category", string="Tag")
+    department_id = fields.Many2one(comodel_name="hr.department", string="Department")
+    category_ids = fields.Many2many(comodel_name="hr.employee.category", string="Tag")
 
     @api.model
     def default_get(self, fields):
         res = super().default_get(fields)
         if self.env.user.employee_ids:
-            res["department_id"] = self.env.user.employee_ids[0].department_id.id
+            department = self.env["hr.department"].search(
+                [("id", "in", self.env.user.employee_ids.mapped("department_id").ids)],
+                limit=1,
+            )
+            if department:
+                res["department_id"] = department.id
         return res
 
     def _prepare_employee_domain(self):
@@ -49,7 +54,9 @@ class WizardTheoreticalTime(models.TransientModel):
         action = self.env.ref(
             "hr_attendance_report_theoretical_time." "hr_attendance_theoretical_action"
         ).read()[0]
-        action["domain"] = [("employee_id", "in", self.employee_ids.ids)]
+        action["domain"] = [
+            ("employee_id", "in", self.with_context(active_test=False).employee_ids.ids)
+        ]
         action[
             "context"
         ] = "{'search_default_previous_month': 1, 'search_default_current_month': 1}"
