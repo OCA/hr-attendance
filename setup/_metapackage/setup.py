@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo14-addon-hr_attendance_modification_tracking',
         'odoo14-addon-hr_attendance_reason',
         'odoo14-addon-hr_attendance_report_theoretical_time',
+        'odoo14-addon-hr_attendance_rfid',
     ],
     classifiers=[
         'Programming Language :: Python',
