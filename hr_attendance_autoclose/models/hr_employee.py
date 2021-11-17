@@ -8,4 +8,6 @@ class HrEmployee(models.Model):
 
     _inherit = "hr.employee"
 
-    no_autoclose = fields.Boolean(string="Don't Autoclose Attendances")
+    no_autoclose = fields.Boolean(
+        string="Don't Autoclose Attendances", groups="hr.group_hr_user"
+    )
