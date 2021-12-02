@@ -16,9 +16,7 @@ class HrAttendance(models.Model):
     check_out = fields.Datetime(tracking=True)
     time_changed_manually = fields.Boolean(
         string="Time changed",
-        compute="_compute_time_changed_manually",
         default=False,
-        store=True,
         help="This attendance has been manually changed by user. If attendance"
         " is created from form view, a 60 seconds tolerance will "
         "be applied.",
