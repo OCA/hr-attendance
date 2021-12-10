@@ -14,11 +14,11 @@ class HrAttendance(models.Model):
     _inherit = "hr.attendance"
 
     worked_hours_nighttime = fields.Float(
-        string="Night hours", compute="_compute_worked_hours_night", store=True
+        string="Night hours", compute="_compute_worked_hours", store=True
     )
     worked_hours_daytime = fields.Float(
         string="Day hours",
-        compute="_compute_worked_hours_night",
+        compute="_compute_worked_hours",
         store=True,
         readonly=True,
     )
@@ -100,7 +100,6 @@ class HrAttendance(models.Model):
                     dt.time(hour=hour_night_end, minute=minute_night_end),
                 )
             ).astimezone(UTC)
-            # import pdb; pdb.set_trace()
             rec.worked_hours_nighttime += (
                 min(check_out, curr_day_night_end) - min(curr_day_night_end, check_in)
             ).total_seconds() / 3600.0
