@@ -58,7 +58,7 @@ class HrAttendance(models.Model):
             rec.date = check_in_tz.date()
 
     @api.depends("worked_hours", "check_in", "check_out")
-    def _compute_worked_hours_night(self):
+    def _compute_worked_hours(self):
         UTC = pytz.timezone("utc")
         for rec in self:
             rec.worked_hours_nighttime = 0
@@ -112,5 +112,5 @@ class HrAttendance(models.Model):
                 max(check_out, next_day_night_start) - next_day_night_start
             ).total_seconds() / 3600.0
             if check_out > next_day_night_start:
-                _logger.warning("very long_shift")
+                _logger.warning("very long_shift for employee %s" % rec.employee_id.id)
             rec.worked_hours_daytime = rec.worked_hours - rec.worked_hours_nighttime
