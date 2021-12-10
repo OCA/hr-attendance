@@ -57,8 +57,9 @@ class HrAttendance(models.Model):
             check_in_tz = check_in.astimezone(pytz.timezone(tz))
             rec.date = check_in_tz.date()
 
-    @api.depends("worked_hours", "check_in", "check_out")
+    @api.depends("check_in", "check_out")
     def _compute_worked_hours(self):
+        super()._compute_worked_hours()
         UTC = pytz.timezone("utc")
         for rec in self:
             rec.worked_hours_nighttime = 0
