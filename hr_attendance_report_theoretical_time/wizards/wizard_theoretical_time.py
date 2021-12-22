@@ -51,9 +51,9 @@ class WizardTheoreticalTime(models.TransientModel):
 
     def view_report(self):
         self.ensure_one()
-        action = self.env.ref(
-            "hr_attendance_report_theoretical_time." "hr_attendance_theoretical_action"
-        ).read()[0]
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "hr_attendance_report_theoretical_time.hr_attendance_theoretical_action"
+        )
         action["domain"] = [
             ("employee_id", "in", self.with_context(active_test=False).employee_ids.ids)
         ]
