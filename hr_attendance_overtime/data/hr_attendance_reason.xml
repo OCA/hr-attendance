@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record id="hr_attendance_reason_check_in_earlier" model="hr.attendance.reason">
+        <field name="name">Check-in earlier</field>
+        <field name="code">CHECK-IN-EARLIER</field>
+        <field name="action_type">sign_in</field>
+        <field name="description">Your are a bit early !</field>
+    </record>
+    <record id="hr_attendance_reason_check_in_late" model="hr.attendance.reason">
+        <field name="name">Check-in late</field>
+        <field name="code">CHECK-IN-LATE</field>
+        <field name="action_type">sign_in</field>
+        <field
+            name="description"
+        >Are you late today? Do you told to your manager?</field>
+    </record>
+    <record id="hr_attendance_reason_check_in_no_next" model="hr.attendance.reason">
+        <field name="name">Check-in no next work time found</field>
+        <field name="code">CHECK-IN-NO-NEXT</field>
+        <field name="action_type">sign_in</field>
+        <field name="description">You shouldn't start working at that time...</field>
+    </record>
+    <record id="hr_attendance_reason_check_out_earlier" model="hr.attendance.reason">
+        <field name="name">Check-out earlier</field>
+        <field name="code">CHECK-OUT-EARLIER</field>
+        <field name="action_type">sign_out</field>
+        <field name="description">Should you keep working?</field>
+    </record>
+    <record id="hr_attendance_reason_check_out_late" model="hr.attendance.reason">
+        <field name="name">Check-out late</field>
+        <field name="code">CHECK-OUT-LATE</field>
+        <field name="action_type">sign_out</field>
+        <field name="description">Have a good break, thaks for your time</field>
+    </record>
+    <record
+        id="hr_attendance_reason_check_out_no_previous"
+        model="hr.attendance.reason"
+    >
+        <field name="name">Check-out no previous work time found</field>
+        <field name="code">CHECK-OUT-NO-PREVIOUS</field>
+        <field name="action_type">sign_out</field>
+        <field name="description">Bye!</field>
+    </record>
+</odoo>
