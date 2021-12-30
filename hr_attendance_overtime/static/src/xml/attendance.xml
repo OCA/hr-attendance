@@ -26,9 +26,8 @@
                 <h3 class="mt8 mb24 o_hr_attendance_overtime_message"><t
                         t-esc="widget.overtime_info.message"
                     /></h3>
-                <!-- <h3 class="mt8 mb24">state: <t t-esc="widget.overtime_info.state"/></h3> -->
                 <h4
-                    class="mt0 mb0 text-muted"
+                    class="mt0 mb0 text-muted o_hr_attendance_daily_hours"
                     t-if="checked_in"
                 >Today's work hours: <span t-esc="widget.hours_today" /></h4>
                 <div class="planning">

@@ -14,7 +14,7 @@ class HrEmployeeBase(models.AbstractModel):
 
     @api.model
     def todays_working_times(self, empl_domain):
-        """Method used by my attendance/kiok view in order
+        """Method used by my attendance/kiosk view in order
         to display employee planning and working times"""
         employee = self.search(empl_domain)
         employee.ensure_one()
