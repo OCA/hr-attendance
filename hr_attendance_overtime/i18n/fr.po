@@ -232,7 +232,7 @@ msgstr "Fin départs"
 
 #. module: hr_attendance_overtime
 #: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_in_no_next
-msgid "You should'nt start working at that time..."
+msgid "You shouldn't start working at that time..."
 msgstr "Vous ne devriez pas/plus travailler a cette heure !"
 
 #. module: hr_attendance_overtime

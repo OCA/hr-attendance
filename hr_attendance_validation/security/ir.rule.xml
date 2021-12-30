@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- <data noupdate="1"> -->
+    <data>
+        <record id="hr_attendance_validation_rule_employee" model="ir.rule">
+            <field name="name">user: read own attendance validation sheet only</field>
+            <field name="model_id" ref="model_hr_attendance_validation_sheet" />
+            <field
+                name="domain_force"
+            >[('employee_id.user_id','=',user.id), ('state', '=', 'validated')]</field>
+            <field name="perm_read" eval="1" />
+            <field name="perm_write" eval="0" />
+            <field name="perm_create" eval="0" />
+            <field name="perm_unlink" eval="0" />
+            <field
+                name="groups"
+                eval="[(4,ref('hr_attendance.group_hr_attendance'))]"
+            />
+        </record>
+        <record id="hr_attendance_validation_rule_manager" model="ir.rule">
+            <field name="name">Manager: access to attendances validation sheets</field>
+            <field name="model_id" ref="model_hr_attendance_validation_sheet" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="perm_read" eval="1" />
+            <field name="perm_write" eval="1" />
+            <field name="perm_create" eval="1" />
+            <field name="perm_unlink" eval="1" />
+            <field
+                name="groups"
+                eval="[(4,ref('hr_attendance.group_hr_attendance_manager'))]"
+            />
+        </record>
+    </data>
+</odoo>
