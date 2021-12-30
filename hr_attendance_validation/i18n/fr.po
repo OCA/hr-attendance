@@ -1,0 +1,534 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Leave type</span>"
+msgstr "<span class=\"o_form_label\">Type de congés</span>"
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance_validation_sheet.py:0
+#, python-format
+msgid "Allocation created and validated from attendance validation reviews: %s"
+msgstr "Attribution créé et validé depuis la feuille de revue de temps : %s"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_pivot
+msgid "Attendace validation analysis"
+msgstr "Analyse des feuille de revue de temps de présence"
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_hr_attendance
+msgid "Attendance"
+msgstr "Présence"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_hours
+msgid "Attendance (hours)"
+msgstr "Présence (heures)"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.res_config_settings_view_form
+msgid "Attendance review"
+msgstr "Revue des présences"
+
+#. module: hr_attendance_validation
+#: model:ir.actions.act_window,name:hr_attendance_validation.hr_attendance_validated_sheet_action
+msgid "Attendance sheet"
+msgstr "Feuille de temps de présence"
+
+#. module: hr_attendance_validation
+#: model:ir.ui.menu,name:hr_attendance_validation.hr_attendance_validation_sheet_menu
+msgid "Attendance validation"
+msgstr "Validation des présences"
+
+#. module: hr_attendance_validation
+#: model:ir.actions.act_window,name:hr_attendance_validation.hr_attendance_validation_sheet_action
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+msgid "Attendance validation sheet"
+msgstr "Feuille de validation de présence"
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_hr_attendance_validation_sheet
+msgid "Attendance validation sheet that helps managers review attendances."
+msgstr ""
+"Feuille de validation des présences qui aide les responsables à la revue des "
+"pointanges."
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_tree
+msgid "Attendance validation sheets"
+msgstr "Revue des présences"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_ids
+msgid "Attendances"
+msgstr "Présences"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_allocation_id
+msgid "Automatically generated on validation if compensatory_hour > 0"
+msgstr ""
+"Généré lors de la validation si le nombre d'heure compensatoire est "
+"supérieur à zéro."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_id
+msgid ""
+"Automatically generated on validation if "
+"regularization_compensatory_hour_taken > 0"
+msgstr ""
+"Généré lors de la validation si le nombre d'heure de congés à régulé est "
+"supérieur à zéro."
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_hr_employee_base
+msgid "Basic Employee"
+msgstr "Employé"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__calendar_id
+msgid "Calendar"
+msgstr "Calendrier"
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance.py:0
+#, python-format
+msgid ""
+"Can not change this attendance (%s, %s) which has been already reviewed and "
+"validated."
+msgstr ""
+"Ne peut pas modifier la ligne de présence (%s, %s) car elle a déjà été visée "
+"et validée par le responsable."
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance.py:0
+#, python-format
+msgid ""
+"Can not change this attendance (%s, %s) which would be moved to a validated "
+"day."
+msgstr ""
+"Ne peut pas appliquer cette modification de la ligne de présence (%s, %s) "
+"elle serait sur un jour déjà validé par le responsable."
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance.py:0
+#, python-format
+msgid ""
+"Can not remove this attendance (%s, %s) which has been already reviewed and "
+"validated."
+msgstr ""
+"Ne peut pas supprimer cette ligne de présence (%s, %s) elle est sur une "
+"semaine déjà validée par le responsable."
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance.py:0
+#, python-format
+msgid ""
+"Cannot create new attendance for employee %s. Attendance for the day of the "
+"check in %s has already been reviewed and validated."
+msgstr ""
+"Ne peut pas créer cette ligne de présence (%s, %s) elle est sur une "
+"semaine déjà validée par le responsable."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_hour
+msgid "Compensatory hour"
+msgstr "Heure compensatoire"
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance_validation_sheet.py:0
+#, python-format
+msgid "Compensatory hours regularization generated from %s"
+msgstr "Congés compensatoire de régulation généré depuis %s"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_hour
+msgid "Compensatory hours that will be allocated to the employee."
+msgstr "Heures de compensation qui seront allouées à l'employé."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__regularization_compensatory_hour_taken
+msgid "Compensatory hours that will be counted as leaves for the employee."
+msgstr "Heures de régularisation compté comme congés pour l'employé."
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance_validation_sheet.py:0
+#, python-format
+msgid "Compensatory hours: %s"
+msgstr "Repos compensateur: %s"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_res_config_settings__hr_attendance_compensatory_leave_type_id
+msgid "Compensatory leave type used while validate weekly attendance sheet."
+msgstr ""
+"Type de congés compensatoire utilisé lors de la validation des revues de "
+"présence."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_due_hours
+msgid ""
+"Compute number of attendance lines marked as overtime which are marked as due"
+msgstr ""
+"Nombre d'heures marquées hors temps (heure suplémentaire) et noté comme due "
+"par l'entreprise (avéré par le responsable)."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_not_due_hours
+msgid "Compute number of attendance lines marked as overtime which are not due"
+msgstr ""
+"Nombre d'heures marqué hors temps (heure suplémentaire) mais non due (non "
+"avéré par le responsable)."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_hours
+msgid "Compute number of attendance lines not marked as overtime"
+msgstr "Nombre d'heure sur plage horaire de travail."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_hours
+msgid "Compute number of leaves in hours"
+msgstr "Nombre d'heures de congés."
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__require_regeneration
+msgid ""
+"Couldn't properly call action retrieve lines in onchange instead alert user "
+"to click on it when needs."
+msgstr ""
+"Avec odoo il n'est pas possible de lier des objet lors d'un ochange. Ce "
+"champs technique permet d'afficher une alerte à l'utilisateur avec un "
+"bouton action."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__date_from
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Date from"
+msgstr "Date début"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__date_to
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Date to"
+msgstr "Date fin"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__calendar_id
+msgid "Define the schedule of resource"
+msgstr "Calendrier de l'employé."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar__display_name
+msgid "Display Name"
+msgstr "Libellé"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Employee"
+msgstr "Employé"
+
+#. module: hr_attendance_validation
+#: model:ir.actions.server,name:hr_attendance_validation.check_attendance_cron_ir_actions_server
+#: model:ir.cron,cron_name:hr_attendance_validation.check_attendance_cron
+#: model:ir.cron,name:hr_attendance_validation.check_attendance_cron
+msgid "Generate previous week attendance review"
+msgstr "Génère les feuilles de revue de présences de la semaine précédente"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Group By"
+msgstr "Groupé par"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee__hours_current_week
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base__hours_current_week
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_public__hours_current_week
+msgid "Hours Current Week"
+msgstr "Heures effectuées cette semaine"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__is_overtime_due
+msgid "Is overtime due"
+msgstr "Heure suplémentaire due"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__write_uid
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__write_date
+msgid "Last Updated on"
+msgstr "Dernière modification le"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_id
+msgid "Leave"
+msgstr "Congé"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_allocation_id
+msgid "Leave allocation"
+msgstr "Congés alloué"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_ids
+msgid "Leaves"
+msgstr "Congés"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__leave_hours
+msgid "Leaves (hours)"
+msgstr "Congés (heures)"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings__hr_attendance_compensatory_leave_type_id
+msgid "Overtime compensatory leave type"
+msgstr "Type de congés compensatoire des heures suplémentaire"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_view_search
+msgid "Overtime due"
+msgstr "Heures suplémentaire due"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_due_hours
+msgid "Overtime due (hours)"
+msgstr "Heure sup. (heures)"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_view_search
+msgid "Overtime not due"
+msgstr "Hors temps (non due)"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_not_due_hours
+msgid "Overtime not due (hours)"
+msgstr "hors temps non due (heures)"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__regularization_compensatory_hour_taken
+msgid "Regularization compensatory hours' taken"
+msgstr "Congés pris à régulariser"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__require_regeneration
+msgid "Require regeneration"
+msgstr "Récupération requise"
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Temps de travail"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+msgid "Retrive attendance and leaves"
+msgstr "Récupération des lignes de temps et congés"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+msgid "Retrive attendances and leaves"
+msgstr "Récupération des lignes de temps et congés"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_view_search
+msgid "Review sheet"
+msgstr "Feuille de revue de présence"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Search sheet"
+msgstr "Recherche feuille de temps"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.res_config_settings_view_form
+msgid "Set compensatory leave type"
+msgstr "Défini le type de congés compensatoire des heures suplémentaires."
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Show all records which has been validated."
+msgstr "Affiche les enregistrement validés."
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Show all records which has to be reviewed."
+msgstr "Affiche les enregistrement a pointer."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__state
+msgid "State"
+msgstr "Etat"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Status"
+msgstr "Etat"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__theoretical_hours
+msgid "Theoretical (hours)"
+msgstr "Théorique (heures)"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__theoretical_hours
+msgid "Theoretical calendar hours to spend by week."
+msgstr "Temps de travail théorique par semaine."
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.res_config_settings_view_form
+msgid ""
+"This leave type is used to allocate new leaves during the process of review "
+"and validation of the attendance sheet."
+msgstr ""
+"Type de congés utilisé pour l'allocation de nouveaux congés lors de la validation des "
+"heures suplémentaires depuis les feuilles de revue de présense."
+
+#. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_hr_leave
+msgid "Time Off"
+msgstr "Congés"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields.selection,name:hr_attendance_validation.selection__hr_attendance_validation_sheet__state__draft
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "To review"
+msgstr "A vérifier"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_total_hours
+msgid "Total Attendance (hours)"
+msgstr "Heures comptabilisés"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar__total_hours
+msgid "Total calendar hours"
+msgstr "Nombre d'heure"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_resource_calendar__total_hours
+msgid "Total theoretical hours used to compute compensatory days"
+msgstr ""
+"Nombre totale d'heure théorique de la semaine de travail utilisé pour "
+"calculer les heures suplémentaire."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_due_ids
+msgid "Valid attendances"
+msgstr "Présences comptabilisés"
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+msgid "Validate"
+msgstr "Valider"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields.selection,name:hr_attendance_validation.selection__hr_attendance_validation_sheet__state__validated
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
+msgid "Validated"
+msgstr "Validé"
+
+#. module: hr_attendance_validation
+#: model:ir.ui.menu,name:hr_attendance_validation.hr_attendance_validated_sheet_menu
+msgid "Validated attendance"
+msgstr "Historique des présences"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_total_hours
+msgid "Validated attendances. Sum attendance and due overtime lines."
+msgstr ""
+"Présences comptabilisés. Somme des présences et des heures hors temps dues."
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__validation_sheet_id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave__validation_sheet_id
+msgid "Validation sheet"
+msgstr "Feuille de revue"
+
+#. module: hr_attendance_validation
+#: code:addons/hr_attendance_validation/models/hr_attendance_validation_sheet.py:0
+#, python-format
+msgid "Week %s - %s"
+msgstr "Semaine %s - %s"
+
+#. module: hr_attendance_validation
+#. openerp-web
+#: code:addons/hr_attendance_validation/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Weeks's work hours:"
+msgstr "Heures effectuées cette semaine :"
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance__is_overtime_due
+msgid ""
+"Whether the overtime is due or not. By default overtime is not due until a "
+"manager validates it."
+msgstr ""
+"Détermine si la ligne est à considérer ou non. Par défaut les lignes hors "
+"temps ne sont pas due, le responsable doit les valider une à une pour être "
+"prise en compte."
+
+#. module: hr_attendance_validation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
+msgid ""
+"You have changed employee and/or date you should retrieve attendances\n"
+"                                and leaves for those new settings."
+msgstr ""
+"Vous avez modifié un paramètre nécessitant de relancer la récupération des "
+"lignes de présence et congés."

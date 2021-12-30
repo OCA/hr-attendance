@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_attendance_validation_sheet_manager,hr.attendance.validation.sheet.manager,model_hr_attendance_validation_sheet,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_attendance_validation_sheet_user,hr.attendance.validation.sheet.user,model_hr_attendance_validation_sheet,hr_attendance.group_hr_attendance,1,0,0,0

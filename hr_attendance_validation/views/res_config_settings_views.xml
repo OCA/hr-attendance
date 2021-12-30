@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field
+                name="name"
+            >res.config.settings.view.form.inherit.enrj.solaire</field>
+            <field name="model">res.config.settings</field>
+            <field
+                name="inherit_id"
+                ref="hr_attendance.res_config_settings_view_form"
+            />
+        <field name="priority" eval="100" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='hr_attendance']" position="inside">
+                    <h2>Attendance review</h2>
+                    <div
+                        class="row mt16 o_settings_container"
+                        name="compensatory_leave_type_id"
+                    >
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            title="Set compensatory leave type"
+                        >
+                            <div class="o_setting_left_pane">
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Leave type</span>
+                                <div class="text-muted">
+                                    This leave type is used to allocate new leaves during the process of review and validation of the attendance sheet.
+                                </div>
+                                <field
+                                    name="hr_attendance_compensatory_leave_type_id"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<template id="hr_attendance_overtime_kiosk" xml:space="preserve">
+
+    <t t-extend="HrAttendanceMyMainMenu">
+        <t t-jquery=".o_hr_attendance_daily_hours" t-operation="after">
+            <h4
+                class="mt0 mb1 text-muted o_hr_attendance_daily_hours"
+            >Weeks's work hours: <span t-esc="widget.hours_current_week" /></h4>
+
+        </t>
+    </t>
+</template>

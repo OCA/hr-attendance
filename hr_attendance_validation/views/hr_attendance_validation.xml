@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_validation_sheet_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.validation.sheet.form</field>
+        <field name="model">hr.attendance.validation.sheet</field>
+        <field name="arch" type="xml">
+            <form string="Attendance validation sheet">
+                    <header>
+                        <button
+                        name="action_validate"
+                        string="Validate"
+                        type="object"
+                        class="btn-primary"
+                        states="draft"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <button
+                        name="action_retrieve_attendance_and_leaves"
+                        string="Retrive attendances and leaves"
+                        type="object"
+                        states="draft"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <button
+                        name="action_to_review"
+                        string="To review"
+                        type="object"
+                        states="validated"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,validated"
+                    />
+                    </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field
+                                name="employee_id"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="date_from"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="calendar_id"
+                                readonly="1"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="date_to"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                            />
+                        </group>
+                    </group>
+                    <field name="require_regeneration" invisible="1" />
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        style="margin-bottom:0px;"
+                        attrs="{'invisible': [('require_regeneration', '!=', True)]}"
+                    >
+                        <div class="o_row">
+                            <p>
+                                You have changed employee and/or date you should retrieve attendances
+                                and leaves for those new settings.
+                            </p>
+                            <p><button
+                                    name="action_retrieve_attendance_and_leaves"
+                                    string="Retrive attendance and leaves"
+                                    type="object"
+                                /></p>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                nolabel="1"
+                                name="attendance_due_ids"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                options="{'no_open': True}"
+                            >
+                                <tree>
+                                    <field name="check_in" />
+                                    <field name="check_out" />
+                                    <field
+                                        name="worked_hours"
+                                        widget="float_time"
+                                        readonly="1"
+                                    />
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="leave_ids" nolabel="1" readonly="1">
+                                <tree editable="top">
+                                    <field name="request_date_from" />
+                                    <field name="request_date_to" />
+                                    <field name="state" optional="hide" />
+                                    <field name="holiday_status_id" optional="hide" />
+                                    <field name="name" optional="hide" />
+                                    <field name="report_note" optional="hide" />
+                                    <field name="holiday_type" optional="hide" />
+                                    <field name="number_of_days" />
+                                    <field
+                                        name="number_of_hours_display"
+                                        widget="float_time"
+                                    />
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <group>
+                        <group groups="hr_attendance.group_hr_attendance_manager">
+                            <field name="attendance_hours" widget="float_time" />
+                            <field name="leave_hours" widget="float_time" />
+                            <field name="overtime_due_hours" widget="float_time" />
+                            <field name="overtime_not_due_hours" widget="float_time" />
+                            <field name="theoretical_hours" widget="float_time" />
+                        </group>
+                        <group>
+                            <field name="attendance_total_hours" widget="float_time" />
+                            <field
+                                name="compensatory_hour"
+                                widget="float_time"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="leave_allocation_id"
+                                readonly="1"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="regularization_compensatory_hour_taken"
+                                widget="float_time"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="leave_id"
+                                readonly="1"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                        </group>
+
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_attendance_validation_sheet_views_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.validation.sheet.filter</field>
+        <field name="model">hr.attendance.validation.sheet</field>
+        <field name="type">search</field>
+        <field name="priority">160</field>
+        <field name="arch" type="xml">
+
+                <search string="Search sheet">
+                    <field
+                    name="employee_id"
+                    string="Employee"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                    <separator />
+                    <filter
+                    invisible="0"
+                    string="Validated"
+                    name="validated"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                    domain="[('state', '=', 'validated')]"
+                    help="Show all records which has been validated."
+                />
+                    <filter
+                    invisible="0"
+                    string="To review"
+                    name="toreview"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                    domain="[('state', '=', 'draft')]"
+                    help="Show all records which has to be reviewed."
+                />
+                    <separator />
+                    <group expand="0" string="Group By">
+                        <filter
+                        name="status"
+                        string="Status"
+                        context="{'group_by':'state'}"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <filter
+                        name="employee"
+                        string="Employee"
+                        context="{'group_by':'employee_id'}"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <separator />
+                        <filter
+                        string="Date from"
+                        name="datefrom"
+                        context="{'group_by': 'date_from'}"
+                    />
+                        <filter
+                        string="Date to"
+                        name="dateto"
+                        context="{'group_by': 'date_to'}"
+                    />
+                    </group>
+               </search>
+        </field>
+    </record>
+
+    <record id="hr_attendance_validation_sheet_view_form_manager" model="ir.ui.view">
+        <field name="inherit_id" ref="hr_attendance_validation_sheet_view_form" />
+        <field name="name">hr.attendance.validation.sheet.form.manager</field>
+        <field name="model">hr.attendance.validation.sheet</field>
+        <field name="priority">100</field>
+        <field
+            name="groups_id"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
+        />
+        <field name="arch" type="xml">
+            <field name="attendance_due_ids" position="replace">
+                <field
+                    nolabel="1"
+                    name="attendance_ids"
+                    attrs="{'readonly': [('state', '=', 'validated')]}"
+                    options="{'no_open': True}"
+                >
+                    <tree editable="top">
+                        <field name="check_in" />
+                        <field name="check_out" />
+                        <field
+                            name="time_changed_manually"
+                            readonly="1"
+                            optional="hide"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <field
+                            name="attendance_reason_ids"
+                            widget="many2many_tags"
+                            optional="hide"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <field name="worked_hours" widget="float_time" readonly="1" />
+                        <field
+                            name="is_overtime"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <field
+                            name="is_overtime_due"
+                            attrs="{'readonly': [('is_overtime', '=', False)]}"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_validation_sheet_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.validation.sheet.tree</field>
+        <field name="model">hr.attendance.validation.sheet</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance validation sheets">
+                <field name="employee_id" />
+                <field
+                    name="state"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field
+                    name="compensatory_hour"
+                    widget="float_time"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field name="attendance_total_hours" widget="float_time" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_attendance_validation_sheet_view_pivot" model="ir.ui.view">
+         <field name="name">hr.attendance.validation.sheet.pivot</field>
+         <field name="model">hr.attendance.validation.sheet</field>
+         <field name="arch" type="xml">
+             <pivot
+                string="Attendace validation analysis"
+                disable_linking="True"
+                sample="1"
+            >
+                 <field name="employee_id" type="col" />
+                 <field name="state" type="row" />
+                 <field name="compensatory_hour" type="measure" />
+             </pivot>
+         </field>
+    </record>
+
+    <record id="hr_attendance_validation_sheet_action" model="ir.actions.act_window">
+        <field name="name">Attendance validation sheet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.attendance.validation.sheet</field>
+        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_id" ref="hr_attendance_validation_sheet_view_tree" />
+        <field
+            name="search_view_id"
+            ref="hr_attendance_validation_sheet_views_filter"
+        />
+    </record>
+    <menuitem
+        id="hr_attendance_validation_sheet_menu"
+        name="Attendance validation"
+        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        action="hr_attendance_validation_sheet_action"
+        sequence="14"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+
+    <record id="hr_attendance_validated_sheet_action" model="ir.actions.act_window">
+        <field name="name">Attendance sheet</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.attendance.validation.sheet</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_attendance_validation_sheet_view_tree" />
+        <field
+            name="search_view_id"
+            ref="hr_attendance_validation_sheet_views_filter"
+        />
+        <field name="domain">
+            [
+                ('state', '=', 'validated'),
+                ('employee_id.user_id.id', '=', uid),
+            ]
+        </field>
+    </record>
+    <menuitem
+        id="hr_attendance_validated_sheet_menu"
+        name="Validated attendance"
+        parent="hr_attendance.menu_hr_attendance_root"
+        action="hr_attendance_validated_sheet_action"
+        sequence="9"
+    />
+</odoo>
