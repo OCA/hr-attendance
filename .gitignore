@@ -40,6 +40,9 @@ coverage.xml
 # Pycharm
 .idea
 
+# VS Code
+.vscode/
+
 # Mr Developer
 .mr.developer.cfg
 .project
@@ -54,3 +57,5 @@ docs/_build/
 # Backup files
 *~
 *.swp
+
+
