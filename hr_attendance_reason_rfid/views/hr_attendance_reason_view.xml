@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_reason_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.reason.form</field>
+        <field name="model">hr.attendance.reason</field>
+        <field name="inherit_id" ref="hr_attendance_reason.hr_attendance_reason_view_form" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <field name="action_type" position="after">
+                <field name="rfid_reason_ids"/>
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_reason_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.reason.tree</field>
+        <field name="model">hr.attendance.reason</field>
+        <field name="inherit_id" ref="hr_attendance_reason.hr_attendance_reason_view_tree" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="rfid_reason_ids"/>
+            </field>
+        </field>
+    </record>
+</odoo>

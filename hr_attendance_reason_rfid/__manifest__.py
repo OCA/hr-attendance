@@ -10,7 +10,11 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["hr_attendance_reason"],
+    "depends": [
+        "hr_attendance_reason",
+        "hr_attendance_rfid"],
     "data": [
+        "security/ir.model.access.csv",
+        "views/hr_attendance_reason_view.xml",
     ],
 }
