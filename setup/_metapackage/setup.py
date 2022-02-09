@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo14-addon-hr_attendance_autoclose',
         'odoo14-addon-hr_attendance_geolocation',
+        'odoo14-addon-hr_attendance_hour_type_report',
         'odoo14-addon-hr_attendance_modification_tracking',
         'odoo14-addon-hr_attendance_reason',
         'odoo14-addon-hr_attendance_report_theoretical_time',
