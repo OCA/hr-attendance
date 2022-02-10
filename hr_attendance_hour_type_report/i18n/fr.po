@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-19 12:25+0000\n"
-"PO-Revision-Date: 2022-02-10 11:16+0000\n"
+"PO-Revision-Date: 2022-02-10 16:16+0000\n"
 "Last-Translator: ajaniszewska-dev <anna.janiszewska@camptocamp.com>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -32,23 +32,23 @@ msgstr "Présence"
 #. module: hr_attendance_hour_type_report
 #: model:ir.actions.act_window,name:hr_attendance_hour_type_report.hr_attendance_report_action
 msgid "Attendances for Payroll"
-msgstr ""
+msgstr "Présences pour la Paie"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__hr_night_work_hour_start
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_start
 msgid "Beginning of night work time"
-msgstr "Début du temps de travail de nuit"
+msgstr "Début des heures de nuit"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model,name:hr_attendance_hour_type_report.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Sociétés"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model,name:hr_attendance_hour_type_report.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__date
@@ -58,7 +58,7 @@ msgstr ""
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__date_type
 msgid "Date Type"
-msgstr ""
+msgstr "Type date"
 
 #. module: hr_attendance_hour_type_report
 #: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
@@ -68,20 +68,20 @@ msgstr ""
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__worked_hours_daytime
 msgid "Day hours"
-msgstr ""
+msgstr "Heures de jour"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__display_name
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__display_name
 msgid "Display Name"
-msgstr "Nom affiché"
+msgstr "Nom"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__hr_night_work_hour_end
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_end
 msgid "End of night work time"
-msgstr "Heure de fin de nuit"
+msgstr "Fin des heures de nuit"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__id
@@ -101,28 +101,28 @@ msgstr "Dernière modification le"
 #: code:addons/hr_attendance_hour_type_report/models/hr_attendance.py:0
 #, python-format
 msgid "More than 24h of work in 1 shift is forbidden"
-msgstr ""
+msgstr "Il est interdit de travailler plus de 24 heures d'un coup."
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__worked_hours_nighttime
 #: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.res_config_settings_view_form
 msgid "Night hours"
-msgstr ""
+msgstr "Heures de nuit"
 
 #. module: hr_attendance_hour_type_report
 #: model_terms:ir.actions.act_window,help:hr_attendance_hour_type_report.hr_attendance_report_action
 msgid "No attendance records found"
-msgstr ""
+msgstr "Pas de présences trouvées"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.ui.menu,name:hr_attendance_hour_type_report.menu_hr_attendance_report
 msgid "Payroll Report"
-msgstr ""
+msgstr "Rapport de paie"
 
 #. module: hr_attendance_hour_type_report
 #: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
 msgid "Payroll date"
-msgstr ""
+msgstr "Jour"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__holiday
@@ -142,22 +142,22 @@ msgstr ""
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__sunday
 msgid "Sunday"
-msgstr ""
+msgstr "Dimanche"
 
 #. module: hr_attendance_hour_type_report
 #: model_terms:ir.actions.act_window,help:hr_attendance_hour_type_report.hr_attendance_report_action
 msgid "The attendance records of your employees will be displayed here."
-msgstr ""
+msgstr "Les présences de vos employés seront affichées ici."
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__normal
 msgid "Weekday"
-msgstr ""
+msgstr "Jour de semaine"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,help:hr_attendance_hour_type_report.field_hr_attendance__date
 msgid "date of the attendance, from the payroll point of view"
-msgstr ""
+msgstr "Date de présence selon Paie"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,help:hr_attendance_hour_type_report.field_res_company__hr_night_work_hour_end
@@ -165,7 +165,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_end
 #: model:ir.model.fields,help:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_start
 msgid "expressed in company timezone"
-msgstr ""
+msgstr "exprimé dans le fuseau horaire de l'entreprise"
 
 #~ msgid "Invoice section name"
 #~ msgstr "Nom de section sur facture"
