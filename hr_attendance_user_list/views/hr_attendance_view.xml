@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 Tecnativa - Víctor Martínez
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="hr_attendance_user_list_tree_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.user.list.pivot</field>
+        <field name="model">hr.attendance</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="check_in" type="col" />
+                <field name="worked_hours" type="measure" />
+            </pivot>
+        </field>
+    </record>
+    <record id="hr_attendance_user_list_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.user.list.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree edit="0" create="0">
+                <field name="check_in" />
+                <field name="check_out" />
+                <field name="worked_hours" string="Work Hours" widget="float_time" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_attendance_user_list_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.user.list.filter</field>
+        <field name="model">hr.attendance</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter
+                    string="Check In"
+                    name="check_in_filter"
+                    date="check_in"
+                    default_period="last_month"
+                />
+                <filter
+                    string="No Check Out"
+                    name="nocheckout"
+                    domain="[('check_out', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Check In"
+                        name="groupby_name"
+                        context="{'group_by': 'check_in'}"
+                    />
+                    <filter
+                        string="Check Out"
+                        name="groupby_check_out"
+                        context="{'group_by': 'check_out'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="hr_attendance_user_list_action" model="ir.actions.act_window">
+        <field name="name">My Attendances</field>
+        <field name="res_model">hr.attendance</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="search_view_id" ref="hr_attendance_user_list_filter" />
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),(0, 0, {'view_mode': 'tree', 'view_id': ref('hr_attendance_user_list_tree')})]"
+        />
+        <field name="domain">[('employee_id.user_id','=',uid)]</field>
+    </record>
+    <menuitem
+        id="menu_hr_attendance_user_list_action"
+        name="My Attendances"
+        parent="hr_attendance.menu_hr_attendance_root"
+        groups="hr_attendance.group_hr_attendance"
+        action="hr_attendance_user_list_action"
+        sequence="11"
+    />
+</odoo>
