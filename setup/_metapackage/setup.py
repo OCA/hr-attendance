@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo13-addon-hr_attendance_reason',
         'odoo13-addon-hr_attendance_report_theoretical_time',
         'odoo13-addon-hr_attendance_rfid',
+        'odoo13-addon-hr_attendance_user_list',
     ],
     classifiers=[
         'Programming Language :: Python',
