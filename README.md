@@ -1,7 +1,7 @@
-[![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat/288/15.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-hr-attendance-288)
-[![Build Status](https://travis-ci.com/OCA/hr-attendance.svg?branch=15.0)](https://travis-ci.com/OCA/hr-attendance)
-[![codecov](https://codecov.io/gh/OCA/hr-attendance/branch/15.0/graph/badge.svg)](https://codecov.io/gh/OCA/hr-attendance)
-[![Translation Status](https://translation.odoo-community.org/widgets/hr-attendance-15-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/hr-attendance-15-0/?utm_source=widget)
+[![Runbot Status](https://runbot.odoo-community.org/runbot/badge/flat/288/14.0.svg)](https://runbot.odoo-community.org/runbot/repo/github-com-oca-hr-attendance-288)
+[![Build Status](https://travis-ci.com/OCA/hr-attendance.svg?branch=14.0)](https://travis-ci.com/OCA/hr-attendance)
+[![codecov](https://codecov.io/gh/OCA/hr-attendance/branch/14.0/graph/badge.svg)](https://codecov.io/gh/OCA/hr-attendance)
+[![Translation Status](https://translation.odoo-community.org/widgets/hr-attendance-14-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/hr-attendance-14-0/?utm_source=widget)
 
 <!-- /!\ do not modify above this line -->
 
@@ -15,7 +15,11 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[hr_attendance_geolocation](hr_attendance_geolocation/) | 15.0.1.0.0 |  | With this module the geolocation of the user is tracked at 
 
 [//]: # (end addons)
 
