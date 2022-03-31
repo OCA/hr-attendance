@@ -5,7 +5,7 @@
 from odoo.tests import common
 
 
-class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
+class TestHrAttendanceReportTheoreticalTimeBase(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -137,6 +137,8 @@ class TestHrAttendanceReportTheoreticalTime(common.SavepointCase):
                     )
                 )
 
+
+class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTimeBase):
     def test_theoretical_hours(self):
         # EMPLOYEE 1
         # 1946-12-23
