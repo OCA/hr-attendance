@@ -20,6 +20,5 @@ class HrAttendanceReason(models.Model):
     code = fields.Char("Reason Code")
     action_type = fields.Selection(
         [("sign_in", "Sign in"), ("sign_out", "Sign out")],
-        string="Action Type",
         help="Leave empty if it is independent",
     )
