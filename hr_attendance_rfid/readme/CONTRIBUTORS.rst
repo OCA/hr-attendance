@@ -5,3 +5,4 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
     * Víctor Martínez
+* Juany Davila <juany.davila@forgeflow.com>

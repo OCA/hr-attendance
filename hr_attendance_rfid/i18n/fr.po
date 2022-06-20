@@ -72,6 +72,3 @@ msgstr "Code de carte RFID"
 #: model:ir.model.constraint,message:hr_attendance_rfid.constraint_hr_employee_rfid_card_code_uniq
 msgid "The rfid code should be unique."
 msgstr "Le code rfid doit être unique."
-
-#~ msgid "Employee"
-#~ msgstr "Employé(e)"
