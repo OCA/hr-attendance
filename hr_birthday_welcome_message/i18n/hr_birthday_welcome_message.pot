@@ -1,0 +1,26 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_birthday_welcome_message
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_birthday_welcome_message
+#: model:ir.model,name:hr_birthday_welcome_message.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_birthday_welcome_message
+#. openerp-web
+#: code:addons/hr_birthday_welcome_message/static/src/js/greeting_message.js:0
+#, python-format
+msgid "Happy Birthday! <i class='fa fa-birthday-cake' /> <br/> Enjoy your day"
+msgstr ""
