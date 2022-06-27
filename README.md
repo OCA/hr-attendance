@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 13.0.1.1.3 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 13.0.1.2.0 |  | HR Attendance RFID
 [hr_attendance_user_list](hr_attendance_user_list/) | 13.0.1.0.0 | [![victoralmau](https://github.com/victoralmau.png?size=30px)](https://github.com/victoralmau) | Hr Attendance User List
+[hr_birthday_welcome_message](hr_birthday_welcome_message/) | 13.0.1.0.0 |  | This addon adds a birthday message as welcome message when it is the employee's birthday
 
 [//]: # (end addons)
 
