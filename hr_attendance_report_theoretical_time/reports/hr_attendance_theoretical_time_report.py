@@ -184,7 +184,7 @@ CREATE or REPLACE VIEW %s as (
         tz = employee.resource_id.calendar_id.tz
         return employee.with_context(
             exclude_public_holidays=True, employee_id=employee.id
-        )._get_work_days_data(
+        )._get_work_days_data_batch(
             datetime.combine(date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))),
             datetime.combine(date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))),
             # Pass this domain for excluding leaves whose type is included in
@@ -194,9 +194,7 @@ CREATE or REPLACE VIEW %s as (
                 ("holiday_id", "=", False),
                 ("holiday_id.holiday_status_id.include_in_theoretical", "=", False),
             ],
-        )[
-            "hours"
-        ]
+        )[employee.id].get('hours', 0)
 
     @api.model
     def read_group(
