@@ -9,7 +9,7 @@ from odoo.tests import common
 from odoo.addons.resource.tests.common import TestResourceCommon
 
 
-class TestHrAttendanceReportTheoreticalTimeBase(common.SavepointCase):
+class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -95,8 +95,7 @@ class TestHrAttendanceReportTheoreticalTimeBase(common.SavepointCase):
             {
                 "name": "Leave Type Test",
                 "exclude_public_holidays": True,
-                "allocation_type": "no",
-                "validity_start": False,
+                "requires_allocation": "no",
             }
         )
         # Remove timezone for controlling data better
