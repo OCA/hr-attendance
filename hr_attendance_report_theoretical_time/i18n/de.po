@@ -311,9 +311,3 @@ msgstr "Assistent für theoretische Anwesenheitszeiten"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Gearbeitet"
-
-#~ msgid "Leave"
-#~ msgstr "Urlaub"
-
-#~ msgid "Leave Type"
-#~ msgstr "Urlaubsart"
