@@ -80,7 +80,7 @@
         parent="hr_attendance.menu_hr_attendance_report"
         sequence="10"
         groups="hr_attendance.group_hr_attendance_user"
-        action="hr_attendance.hr_attendance_action_graph"
+        action="hr_attendance.hr_attendance_report_action"
     />
     <menuitem
         id="menu_hr_attendance_theoretical_root"

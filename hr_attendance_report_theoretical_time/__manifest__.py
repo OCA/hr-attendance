@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 {
     "name": "Theoretical vs Attended Time Analysis",
-    "version": "14.0.1.0.4",
+    "version": "15.0.1.0.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Tecnativa, Odoo Community Association (OCA)",
@@ -12,9 +12,9 @@
     "data": [
         "security/ir.model.access.csv",
         "security/hr_attendance_report_theoretical_time_security.xml",
-        "views/hr_attendance_views.xml",
         "views/hr_leave_type_views.xml",
         "views/hr_employee_views.xml",
+        "reports/hr_attendance_report_views.xml",
         "reports/hr_attendance_theoretical_time_report_views.xml",
         "wizards/recompute_theoretical_attendance_views.xml",
         "wizards/wizard_theoretical_time.xml",
