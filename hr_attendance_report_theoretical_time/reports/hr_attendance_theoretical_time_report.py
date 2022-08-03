@@ -25,7 +25,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
         string="Department",
         readonly=True,
     )
-    date = fields.Date(string="Date", readonly=True)
+    date = fields.Date(readonly=True)
     worked_hours = fields.Float(string="Worked", readonly=True)
     theoretical_hours = fields.Float(string="Theoric", readonly=True)
     difference = fields.Float(readonly=True)
@@ -182,9 +182,9 @@ CREATE or REPLACE VIEW %s as (
         if not employee.resource_id.calendar_id:
             return 0
         tz = employee.resource_id.calendar_id.tz
-        return employee.with_context(
+        res = employee.with_context(
             exclude_public_holidays=True, employee_id=employee.id
-        )._get_work_days_data(
+        )._get_work_days_data_batch(
             datetime.combine(date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))),
             datetime.combine(date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))),
             # Pass this domain for excluding leaves whose type is included in
@@ -194,9 +194,8 @@ CREATE or REPLACE VIEW %s as (
                 ("holiday_id", "=", False),
                 ("holiday_id.holiday_status_id.include_in_theoretical", "=", False),
             ],
-        )[
-            "hours"
-        ]
+        )
+        return res[employee.id]["hours"]
 
     @api.model
     def read_group(
