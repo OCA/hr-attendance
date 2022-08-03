@@ -6,8 +6,8 @@
         <field
             name="name"
         >hr.attendance.pivot - Don't show "Theoretical hours" measure</field>
-        <field name="model">hr.attendance</field>
-        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot" />
+        <field name="model">hr.attendance.report</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_report_view_pivot" />
         <field name="arch" type="xml">
             <field name="worked_hours" position="after">
                 <field name="theoretical_hours" invisible="1" />
