@@ -1,11 +1,12 @@
 # Copyright 2018-19 ForgeFlow S.L. (https://www.forgeflow.com)
+# Copyright 2022 thingsintouch.com
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 from odoo import fields
 from odoo.tests.common import TransactionCase
 from odoo.tools.misc import mute_logger
-from unittest.mock import patch
 
 
 class TestHrAttendance(TransactionCase):
@@ -57,7 +58,9 @@ class TestHrAttendance(TransactionCase):
     @mute_logger("odoo.addons.hr_attendance_rfid.models.hr_employee")
     def test_no_attendance_recorded(self):
         """No record found to record the attendance"""
-        with patch('odoo.addons.hr_attendance.models.hr_employee.HrEmployee._attendance_action_change') as attendance_action_change_returns_none:
+        with patch(
+            "odoo.addons.hr_attendance.models.hr_employee.HrEmployee._attendance_action_change"
+        ) as attendance_action_change_returns_none:
             attendance_action_change_returns_none.return_value = None
             res = self.employee_model.register_attendance(self.rfid_card_code)
             self.assertNotEqual(res["error_message"], "")
