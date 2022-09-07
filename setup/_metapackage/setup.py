@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-hr-attendance Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-hr_attendance_reason>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_report_theoretical_time>=15.0dev,<15.1dev',
     ],
     classifiers=[
