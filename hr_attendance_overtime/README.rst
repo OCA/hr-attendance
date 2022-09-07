@@ -122,8 +122,6 @@ Known issues / Roadmap
 * Considering global time off and hr_holidays
 * Ensure there is no overlap between work time
   lines of the same work time calendar
-* Figure out whats wrong with overlap while switching
-  to 2 weeks calendar
 
 Bug Tracker
 ===========
