@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[hr_attendance_reason](hr_attendance_reason/) | 15.0.1.0.0 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 15.0.1.1.0 |  | Theoretical vs Attended Time Analysis
 
 [//]: # (end addons)
