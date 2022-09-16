@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [hr_attendance_geolocation](hr_attendance_geolocation/) | 14.0.1.0.0 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 [hr_attendance_hour_type_report](hr_attendance_hour_type_report/) | 14.0.1.0.0 |  | HR Attendance hours report
 [hr_attendance_modification_tracking](hr_attendance_modification_tracking/) | 14.0.1.0.1 |  | Attendance changes will now be registered in the chatter.
+[hr_attendance_overtime](hr_attendance_overtime/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Mark Attendances as overtime.
 [hr_attendance_reason](hr_attendance_reason/) | 14.0.1.0.0 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 14.0.1.0.4 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 14.0.1.1.0 |  | HR Attendance RFID
