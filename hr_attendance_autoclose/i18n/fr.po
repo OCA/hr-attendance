@@ -73,6 +73,11 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: hr_attendance_autoclose
+#: model:hr.attendance.reason,name:hr_attendance_autoclose.hr_attendance_reason_check_out
+msgid "System automatic check out due to inactivity"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr ""
