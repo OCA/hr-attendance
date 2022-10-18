@@ -12,9 +12,11 @@
     "installable": True,
     "depends": ["hr_attendance"],
     "data": [
-        "data/hr_attendance_reason_data.xml",
         "security/ir.model.access.csv",
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
+    ],
+    "demo": [
+        "demo/hr_attendance_reason_demo.xml",
     ],
 }
