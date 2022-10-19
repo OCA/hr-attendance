@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template
+        id="assets_backend"
+        name="hr_attendance_validation assets"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/hr_attendance_validation/static/src/js/hr_attendance_validation.js"
+            />
+        </xpath>
+    </template>
+</odoo>
