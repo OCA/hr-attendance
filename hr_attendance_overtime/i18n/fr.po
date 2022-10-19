@@ -54,11 +54,26 @@ msgstr ""
 "jusqu'à cette heure."
 
 #. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_earlier
+msgid "Check-in earlier"
+msgstr ""
+
+#. module: hr_attendance_overtime
 #: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-in_from_is_lower_than_c-in_to
 msgid "Check-in from should be lower or equals to check-in to."
 msgstr ""
 "L'heure de pointage d'arrivé doit être plus petite ou égale à la fin d'heure "
 "d'arrivé possible."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_late
+msgid "Check-in late"
+msgstr ""
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_no_next
+msgid "Check-in no next work time found"
+msgstr ""
 
 #. module: hr_attendance_overtime
 #: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-in_to_is_lower_than_c-out_from
@@ -80,10 +95,25 @@ msgid "Check-out before will add an early reason on attendance line."
 msgstr "Dépointer avant marquera la ligne comme parti en avance."
 
 #. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_earlier
+msgid "Check-out earlier"
+msgstr ""
+
+#. module: hr_attendance_overtime
 #: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-out_from_is_lower_than_c-out_to
 msgid "Check-out from should be lower or equals to check-out to."
 msgstr ""
 "L'heure de début de sorti doit-être plus petite que l'heure de fin de sortie."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_late
+msgid "Check-out late"
+msgstr ""
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_no_previous
+msgid "Check-out no previous work time found"
+msgstr ""
 
 #. module: hr_attendance_overtime
 #. openerp-web
