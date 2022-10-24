@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-07-06 11:05+0000\n"
+"PO-Revision-Date: 2022-10-24 15:43+0000\n"
 "Last-Translator: Alessandro Uffreduzzi <alessandro.uffreduzzi@pytech.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__action_type
@@ -30,22 +30,22 @@ msgstr "Presenza"
 #: model:ir.model,name:hr_attendance_reason.model_hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__attendance_reason_ids
 msgid "Attendance Reason"
-msgstr "Motivo Assenza"
+msgstr "Giustificativo assenza"
 
 #. module: hr_attendance_reason
 #: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
 msgid "Attendance Reasons"
-msgstr "Motivi Assenza"
+msgstr "Giustificativi assenze"
 
 #. module: hr_attendance_reason
 #: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_tree
 msgid "Attendance reasons"
-msgstr "Motivi assenza"
+msgstr "Giustificativi assenze"
 
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
 msgid "Bad Weather"
-msgstr ""
+msgstr "Maltempo"
 
 #. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
@@ -70,7 +70,7 @@ msgstr "Creato il"
 #. module: hr_attendance_reason
 #: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_form
 msgid "Define attendance reason"
-msgstr "Definisci il motivo dell'assenza"
+msgstr "Definisci il giustificativo dell'assenza"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__display_name
@@ -81,7 +81,7 @@ msgstr "Nome da visualizzare"
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_2
 msgid "Felt Sick"
-msgstr ""
+msgstr "Malore"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__id
@@ -113,27 +113,27 @@ msgstr "Lasciare vuoto se è indipendente"
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_1
 msgid "Manager Manual Amend"
-msgstr ""
+msgstr "Correzione manuale del manager"
 
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_5
 msgid "Public Transport Strike"
-msgstr ""
+msgstr "Sciopero del trasporto pubblico"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
 msgid "Reason"
-msgstr "Motivo"
+msgstr "Giustificativo"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__code
 msgid "Reason Code"
-msgstr "Codice Motivo"
+msgstr "Codice giustificativo"
 
 #. module: hr_attendance_reason
 #: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_reason_menu
 msgid "Reasons"
-msgstr "Motivi"
+msgstr "Giustificativi"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_in
@@ -160,4 +160,4 @@ msgstr "Specifica il motivo per l'uscita anticipata o l'arrivo in ritardo"
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_3
 msgid "Visit Customer"
-msgstr ""
+msgstr "Visita presso cliente"
