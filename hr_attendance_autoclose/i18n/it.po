@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-09-26 15:07+0000\n"
+"PO-Revision-Date: 2022-10-24 15:43+0000\n"
 "Last-Translator: Alessandro Uffreduzzi <alessandro.uffreduzzi@pytech.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_attendance
@@ -77,7 +77,7 @@ msgstr "Ultima modifica il"
 #. module: hr_attendance_autoclose
 #: model:hr.attendance.reason,name:hr_attendance_autoclose.hr_attendance_reason_check_out
 msgid "System automatic check out due to inactivity"
-msgstr ""
+msgstr "Presenza chiusa automaticamente dal sistema causa inattività"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
