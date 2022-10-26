@@ -35,9 +35,7 @@ class TestHrAttendanceReason(TransactionCase):
         )
         self.hr_attendance.check_for_incomplete_attendances()
         self.assertEqual(att.worked_hours, 11.0, "Attendance not closed")
-        reason = self.env["hr.attendance.reason"].search(
-            [("code", "=", "S-CO")], limit=1
-        )
+        reason = self.env.company.hr_attendance_autoclose_reason
         reason.unlink()
         dti += relativedelta(hours=10)
         dto += relativedelta(hours=10)
