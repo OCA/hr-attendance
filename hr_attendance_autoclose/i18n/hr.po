@@ -18,19 +18,39 @@ msgstr ""
 "X-Generator: Weblate 3.8\n"
 
 #. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_attendance
 msgid "Attendance"
 msgstr "Prisustva"
 
 #. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid "Attendance Autoclosing"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__attendance_maximum_hours_per_day
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__attendance_maximum_hours_per_day
 msgid "Attendance Maximum Hours Per Day"
 msgstr "Maksimalan broj sati dnevno"
 
 #. module: hr_attendance_autoclose
-#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.view_company_inherit_form
-msgid "Attendances"
-msgstr "Prisustva"
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid ""
+"Attendance lines longer than this value will\n"
+"                                    be automatically closed."
+msgstr ""
+
+#. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid "Autoclose Reason"
+msgstr ""
 
 #. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
@@ -45,9 +65,15 @@ msgid "Companies"
 msgstr "Tvrtke"
 
 #. module: hr_attendance_autoclose
+#: model:ir.model,name:hr_attendance_autoclose.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__display_name
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__display_name
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -62,9 +88,16 @@ msgid "Employee"
 msgstr "Djelatnik"
 
 #. module: hr_attendance_autoclose
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__hr_attendance_autoclose_reason
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__hr_attendance_autoclose_reason
+msgid "Hr Attendance Autoclose Reason"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__id
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__id
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__id
 msgid "ID"
 msgstr ""
 
@@ -72,7 +105,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance____last_update
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee____last_update
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company____last_update
+#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid "Max Hours Per Day"
 msgstr ""
 
 #. module: hr_attendance_autoclose
@@ -81,6 +120,16 @@ msgid "System automatic check out due to inactivity"
 msgstr ""
 
 #. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid ""
+"This reason will be added to an attendance\n"
+"                                    when it's autoclosed."
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Odrađeno sati"
+
+#~ msgid "Attendances"
+#~ msgstr "Prisustva"
