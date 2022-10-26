@@ -9,3 +9,10 @@ class ResCompany(models.Model):
     attendance_maximum_hours_per_day = fields.Float(
         string="Attendance Maximum Hours Per Day", digits=(2, 2), default=11.0
     )
+    hr_attendance_autoclose_reason = fields.Many2one(
+        "hr.attendance.reason",
+        default=lambda self: self.env.ref(
+            "hr.attendance_reason.hr_attendance_reason_check_out",
+            raise_if_not_found=False,
+        ),
+    )
