@@ -44,9 +44,7 @@ class HrAttendance(models.Model):
     @api.model
     def check_for_incomplete_attendances(self):
         stale_attendances = self.search([("check_out", "=", False)])
-        reason = self.env["hr.attendance.reason"].search(
-            [("code", "=", "S-CO")], limit=1
-        )
+        reason = self.env.company.hr_attendance_autoclose_reason
         for att in stale_attendances.filtered(lambda a: a.needs_autoclose()):
             att.autoclose_attendance(reason)
 
@@ -55,9 +53,7 @@ class HrAttendance(models.Model):
         """If this is an automatic checkout the constraint is invalid
         as there may be old attendances not closed
         """
-        reason = self.env["hr.attendance.reason"].search(
-            [("code", "=", "S-CO")], limit=1
-        )
+        reason = self.env.company.hr_attendance_autoclose_reason
         if reason and self.filtered(
             lambda att: att.attendance_reason_ids
             and reason in att.attendance_reason_ids

@@ -12,10 +12,11 @@
     "installable": True,
     "depends": ["hr_attendance_reason"],
     "data": [
-        "views/hr_employee.xml",
         "data/hr_attendance_reason.xml",
         "data/hr_attendance.xml",
+        "data/res_company.xml",
         "views/hr_attendance_view.xml",
-        "views/res_company_view.xml",
+        "views/hr_employee.xml",
+        "views/res_config_settings_view.xml",
     ],
 }
