@@ -341,7 +341,7 @@ must be set on the Company %s"
         """Approve button."""
         if self.filtered(lambda sheet: sheet.state != "confirm"):
             raise UserError(_("Cannot approve a non-submitted sheet."))
-        for sheet in self:
+        for _sheet in self:
             reviewer = self.env["hr.employee"].search(
                 [("user_id", "=", self.env.user.id)], limit=1
             )
