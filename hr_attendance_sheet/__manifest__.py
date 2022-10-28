@@ -27,5 +27,5 @@
         "views/res_company.xml",
     ],
     "development_status": "Beta",
-    "maintainer": "patrickrwilson",
+    "maintainer": ["patrickrwilson", "max3903"],
 }
