@@ -128,6 +128,7 @@ class TestAttendanceSheet(TransactionCase):
             {
                 "employee_id": self.test_employee.id,
                 "check_in": time.strftime("%Y-%m-10 22:00"),
+                "check_out": time.strftime("%Y-%m-10 23:59"),
             }
         )
         sheet.action_attendance_sheet_confirm()
