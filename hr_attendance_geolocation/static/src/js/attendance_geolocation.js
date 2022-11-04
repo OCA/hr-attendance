@@ -3,6 +3,7 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function (requi
 
     var MyAttendances = require("hr_attendance.my_attendances");
     var KioskConfirm = require("hr_attendance.kiosk_confirm");
+    const session = require("web.session");
 
     MyAttendances.include({
         // eslint-disable-next-line no-unused-vars
@@ -114,11 +115,12 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function (requi
                     pinBoxVal,
                     [position.coords.latitude, position.coords.longitude],
                 ],
+                context: session.user_context,
             }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
                 } else if (result.warning) {
-                    self.do_warn(result.warning);
+                    self.displayNotification({title: result.warning, type: "danger"});
                     if (self.pin_pad) {
                         self.$(".o_hr_attendance_PINbox").val("");
                         setTimeout(function () {
