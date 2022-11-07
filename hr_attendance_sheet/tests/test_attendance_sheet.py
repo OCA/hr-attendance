@@ -109,10 +109,15 @@ class TestAttendanceSheet(TransactionCase):
         sheet = f.save()
         sheet.attendance_action_change()
         time.sleep(10)
+        no_check_out_attendances = self.env['hr.attendance'].search([
+            ('employee_id', '=', self.test_employee.id),
+            ('check_out', '=', False),
+            ('id', 'in', sheet.attendance_ids.ids),
+        ], order='check_in desc', limit=1)
         if not no_check_out_attendances:
             sheet.attendance_action_change()
             time.sleep(10)
-            self.assertEqual(len(sheet.attendance_ids), 2)
+            self.assertEqual(len(sheet.attendance_ids), 1)
 
             # TEST02: Test new attendance linked to sheet
             time.sleep(5)
