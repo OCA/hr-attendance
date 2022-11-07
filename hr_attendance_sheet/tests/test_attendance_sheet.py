@@ -109,11 +109,15 @@ class TestAttendanceSheet(TransactionCase):
         sheet = f.save()
         sheet.attendance_action_change()
         time.sleep(10)
-        no_check_out_attendances = self.env['hr.attendance'].search([
-            ('employee_id', '=', self.test_employee.id),
-            ('check_out', '=', False),
-            ('id', 'in', sheet.attendance_ids.ids),
-        ], order='check_in desc', limit=1)
+        no_check_out_attendances = self.env["hr.attendance"].search(
+            [
+                ("employee_id", "=", self.test_employee.id),
+                ("check_out", "=", False),
+                ("id", "in", sheet.attendance_ids.ids),
+            ],
+            order="check_in desc",
+            limit=1,
+        )
         if not no_check_out_attendances:
             sheet.attendance_action_change()
             time.sleep(10)
@@ -187,7 +191,9 @@ class TestAttendanceSheet(TransactionCase):
 
             # TEST12: Test error trying to write attendance
             with self.assertRaises(UserError):
-                self.test_attendance3.write({"check_out": time.strftime("%Y-%m-10 20:00")})
+                self.test_attendance3.write(
+                    {"check_out": time.strftime("%Y-%m-10 20:00")}
+                )
 
             # TEST13: Test error trying to delete attendance
             with self.assertRaises(UserError):
