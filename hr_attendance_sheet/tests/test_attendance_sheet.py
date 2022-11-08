@@ -109,131 +109,131 @@ class TestAttendanceSheet(TransactionCase):
         sheet = f.save()
         sheet.attendance_action_change()
         time.sleep(10)
-        # no_check_out_attendances = self.env["hr.attendance"].search(
-        #     [
-        #         ("employee_id", "=", self.test_employee.id),
-        #         ("check_out", "=", False),
-        #         ("id", "in", sheet.attendance_ids.ids),
-        #     ],
-        #     order="check_in desc",
-        #     limit=1,
-        # )
-        # if not no_check_out_attendances:
-        sheet.attendance_action_change()
-        time.sleep(10)
-        self.assertEqual(len(sheet.attendance_ids), 1)
-
-        # TEST02: Test new attendance linked to sheet
-        time.sleep(5)
-        sheet.attendance_action_change()
-        time.sleep(5)
-        sheet.attendance_action_change()
-        self.test_attendance3 = sheet.attendance_ids[1]
-
-        sheet.flush()
-        self.assertEqual(len(sheet.attendance_ids), 2)
-
-        # TEST03: Test sheet confirm with incorrect attendances
-        self.test_attendance_inprogress = self.env["hr.attendance"].create(
-            {
-                "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-10 22:00"),
-            }
+        no_check_out_attendances = self.env["hr.attendance"].search(
+            [
+                ("employee_id", "=", self.test_employee.id),
+                ("check_out", "=", False),
+                ("id", "in", sheet.attendance_ids.ids),
+            ],
+            order="check_in desc",
+            limit=1,
         )
-        sheet.action_attendance_sheet_confirm()
-        self.test_attendance_inprogress.unlink()
+        if not no_check_out_attendances:
+            sheet.attendance_action_change()
+            time.sleep(10)
+            self.assertEqual(len(sheet.attendance_ids), 1)
 
-        # TEST04: Test sheet confirm
-        sheet.action_attendance_sheet_confirm()
-        self.assertEqual(sheet.state, "confirm")
+            # TEST02: Test new attendance linked to sheet
+            time.sleep(5)
+            sheet.attendance_action_change()
+            time.sleep(5)
+            sheet.attendance_action_change()
+            self.test_attendance3 = sheet.attendance_ids[1]
 
-        # TEST05: Test sheet draft error when in confirm
-        with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_manager).action_attendance_sheet_draft()
+            sheet.flush()
+            self.assertEqual(len(sheet.attendance_ids), 2)
 
-        # TEST06: Test sheet lock error when not approved
-        with self.assertRaises(UserError):
-            sheet.action_attendance_sheet_lock()
-
-        # TEST07: Test sheet done (Not Reviewer)
-        with self.assertRaises(UserError):
-            sheet.action_attendance_sheet_done()
-
-        # TEST08: Test sheet done with open attendance error
-        clockin_date = fields.Date.today() + timedelta(days=4)
-        attendance_ids = self.env["hr.attendance"].search(
-            [("employee_id", "=", self.test_employee.id), ("check_out", "=", False)]
-        )
-        attendance_ids.write({"check_out": clockin_date.strftime("%Y-%m-10 08:00")})
-        attendance_ids.flush()
-        self.test_attendance_open = self.env["hr.attendance"].create(
-            {
-                "employee_id": self.test_employee.id,
-                "check_in": clockin_date.strftime("%Y-%m-12 08:00"),
-            }
-        )
-        sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
-        self.test_attendance_open.unlink()
-
-        # TEST09: Test sheet done (As Reviewer)
-        with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
-
-        # TEST10: Test sheet lock
-        sheet.with_user(self.test_user_manager).action_attendance_sheet_lock()
-        self.assertEqual(sheet.state, "locked")
-
-        # TEST11: Test write sheet when locked
-        with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_employee).write(
-                {"date_start": fields.Date.today()}
-            )
-
-        # TEST12: Test error trying to write attendance
-        with self.assertRaises(UserError):
-            self.test_attendance3.write({"check_out": time.strftime("%Y-%m-10 20:00")})
-
-        # TEST13: Test error trying to delete attendance
-        with self.assertRaises(UserError):
-            self.test_attendance3.unlink()
-
-        # TEST14: Test sheet unlock
-        sheet.with_user(self.test_user_manager).action_attendance_sheet_unlock()
-        self.assertEqual(sheet.state, "done")
-
-        # TEST15: Test sheet draft
-        sheet.with_user(self.test_user_manager).action_attendance_sheet_draft()
-        self.assertEqual(sheet.state, "draft")
-
-        # TEST16: Test sheet done error when in draft
-        with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
-
-        # TEST17: Test delete attendance
-        self.test_attendance3.unlink()
-        self.assertEqual(len(sheet.attendance_ids), 1)
-
-        # TEST18: Test sheet refuse
-        with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_manager).action_attendance_sheet_refuse()
-        sheet.with_user(self.test_user_employee).action_attendance_sheet_confirm()
-        sheet.with_user(self.test_user_manager).action_attendance_sheet_refuse()
-        self.assertEqual(sheet.state, "draft")
-
-        # TEST19: Set company date range to bi-weekly
-        company.write({"attendance_sheet_range": "BIWEEKLY"})
-        self.assertEqual(company.date_end, False)
-
-        # TEST20: Test autolunch on attendance
-        clock_date = fields.Date.today() + timedelta(days=2)
-        with self.assertRaises(UserError):
-            self.test_attendance4 = self.env["hr.attendance"].create(
+            # TEST03: Test sheet confirm with incorrect attendances
+            self.test_attendance_inprogress = self.env["hr.attendance"].create(
                 {
-                    "employee_id": self.test_employee1.id,
-                    "check_out": clock_date.strftime("%Y-%m-11 16:00"),
+                    "employee_id": self.test_employee.id,
+                    "check_in": time.strftime("%Y-%m-10 22:00"),
                 }
             )
-            self.assertEqual(self.test_attendance4.auto_lunch, False)
+            sheet.action_attendance_sheet_confirm()
+            self.test_attendance_inprogress.unlink()
+
+            # TEST04: Test sheet confirm
+            sheet.action_attendance_sheet_confirm()
+            self.assertEqual(sheet.state, "confirm")
+
+            # TEST05: Test sheet draft error when in confirm
+            with self.assertRaises(UserError):
+                sheet.with_user(self.test_user_manager).action_attendance_sheet_draft()
+
+            # TEST06: Test sheet lock error when not approved
+            with self.assertRaises(UserError):
+                sheet.action_attendance_sheet_lock()
+
+            # TEST07: Test sheet done (Not Reviewer)
+            with self.assertRaises(UserError):
+                sheet.action_attendance_sheet_done()
+
+            # TEST08: Test sheet done with open attendance error
+            clockin_date = fields.Date.today() + timedelta(days=4)
+            attendance_ids = self.env["hr.attendance"].search(
+                [("employee_id", "=", self.test_employee.id), ("check_out", "=", False)]
+            )
+            attendance_ids.write({"check_out": clockin_date.strftime("%Y-%m-10 08:00")})
+            attendance_ids.flush()
+            self.test_attendance_open = self.env["hr.attendance"].create(
+                {
+                    "employee_id": self.test_employee.id,
+                    "check_in": clockin_date.strftime("%Y-%m-12 08:00"),
+                }
+            )
+            sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
+            self.test_attendance_open.unlink()
+
+            # TEST09: Test sheet done (As Reviewer)
+            with self.assertRaises(UserError):
+                sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
+
+            # TEST10: Test sheet lock
+            sheet.with_user(self.test_user_manager).action_attendance_sheet_lock()
+            self.assertEqual(sheet.state, "locked")
+
+            # TEST11: Test write sheet when locked
+            with self.assertRaises(UserError):
+                sheet.with_user(self.test_user_employee).write(
+                    {"date_start": fields.Date.today()}
+                )
+
+            # TEST12: Test error trying to write attendance
+            with self.assertRaises(UserError):
+                self.test_attendance3.write({"check_out": time.strftime("%Y-%m-10 20:00")})
+
+            # TEST13: Test error trying to delete attendance
+            with self.assertRaises(UserError):
+                self.test_attendance3.unlink()
+
+            # TEST14: Test sheet unlock
+            sheet.with_user(self.test_user_manager).action_attendance_sheet_unlock()
+            self.assertEqual(sheet.state, "done")
+
+            # TEST15: Test sheet draft
+            sheet.with_user(self.test_user_manager).action_attendance_sheet_draft()
+            self.assertEqual(sheet.state, "draft")
+
+            # TEST16: Test sheet done error when in draft
+            with self.assertRaises(UserError):
+                sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
+
+            # TEST17: Test delete attendance
+            self.test_attendance3.unlink()
+            self.assertEqual(len(sheet.attendance_ids), 1)
+
+            # TEST18: Test sheet refuse
+            with self.assertRaises(UserError):
+                sheet.with_user(self.test_user_manager).action_attendance_sheet_refuse()
+            sheet.with_user(self.test_user_employee).action_attendance_sheet_confirm()
+            sheet.with_user(self.test_user_manager).action_attendance_sheet_refuse()
+            self.assertEqual(sheet.state, "draft")
+
+            # TEST19: Set company date range to bi-weekly
+            company.write({"attendance_sheet_range": "BIWEEKLY"})
+            self.assertEqual(company.date_end, False)
+
+            # TEST20: Test autolunch on attendance
+            clock_date = fields.Date.today() + timedelta(days=2)
+            with self.assertRaises(UserError):
+                self.test_attendance4 = self.env["hr.attendance"].create(
+                    {
+                        "employee_id": self.test_employee1.id,
+                        "check_out": clock_date.strftime("%Y-%m-11 16:00"),
+                    }
+                )
+                self.assertEqual(self.test_attendance4.auto_lunch, False)
 
     def test_company_create_sheet_id(self):
         company = self.env.company
