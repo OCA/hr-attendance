@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo14-addon-hr_attendance_reason',
         'odoo14-addon-hr_attendance_report_theoretical_time',
         'odoo14-addon-hr_attendance_rfid',
+        'odoo14-addon-hr_attendance_sheet',
         'odoo14-addon-hr_attendance_validation',
     ],
     classifiers=[
