@@ -40,6 +40,11 @@ msgid "Attendance reasons"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
+msgid "Bad Weather"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
 msgid "Code must be unique"
 msgstr ""
@@ -71,6 +76,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_2
+msgid "Felt Sick"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__id
 msgid "ID"
@@ -95,6 +105,16 @@ msgstr ""
 #. module: hr_attendance_reason
 #: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__action_type
 msgid "Leave empty if it is independent"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_1
+msgid "Manager Manual Amend"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_5
+msgid "Public Transport Strike"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -132,4 +152,9 @@ msgstr ""
 #. module: hr_attendance_reason
 #: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__name
 msgid "Specifies the reason leaving soon or arriving late"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_3
+msgid "Visit Customer"
 msgstr ""

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<template id="hr_attendance_overtime_kiosk" xml:space="preserve">
+
+    <t t-extend="HrAttendanceMyMainMenu">
+
+        <t t-jquery=".o_hr_attendance_kiosk_mode" t-operation="inner">
+            <t
+                t-set="checked_in"
+                t-value="widget.employee.attendance_state=='checked_in'"
+            />
+            <t t-if="widget.employee">
+                <div class="o_hr_attendance_user_badge o_home_menu_background">
+                    <img
+                        class="img rounded-circle"
+                        t-attf-src="/web/image?model=hr.employee.public&amp;field=image_128&amp;id=#{widget.employee.id}"
+                        t-att-title="widget.employee.name"
+                        t-att-alt="widget.employee.name"
+                    />
+                </div>
+                <h1 class="mb8"><t t-esc="widget.employee.name" /></h1>
+                <h3 class="mt8 mb24"><t t-if="!checked_in">Welcome!</t><t
+                        t-else=""
+                    >Want to check out?</t></h3>
+                <h3 class="mt8 mb24 o_hr_attendance_overtime_message"><t
+                        t-esc="widget.overtime_info.message"
+                    /></h3>
+                <h4
+                    class="mt0 mb0 text-muted o_hr_attendance_daily_hours"
+                    t-if="checked_in"
+                >Today's work hours: <span t-esc="widget.hours_today" /></h4>
+                <div class="planning">
+                    <div class="progress bg-light" style="height: 3em;">
+                        <t
+                            t-foreach="widget.overtime_info.theoretical_work_times"
+                            t-as="wt"
+                        >
+                            <div
+                                t-att-title="widget.progressBarWorkedTimeTitle(wt)"
+                                t-att-class="widget.progressBarTheoreticalClass(wt)"
+                                role="progressbar"
+                                t-att-style="widget.progressBarStyle(wt.hours)"
+                                t-att-aria-valuenow="wt.hours"
+                                aria-valuemin="0"
+                                aria-valuemax="24"
+                            >
+                                    <t
+                                    t-if="wt.is_worktime and wt.hours > 3"
+                                    t-esc="widget.progressBarWorkedTimeTitle(wt, '%H:%M')"
+                                />
+                                </div>
+                        </t>
+                    </div>
+                    <div class="progress bg-light" style="height: 3em;">
+                        <t t-foreach="widget.overtime_info.done_attendances" t-as="wt">
+                            <div
+                                t-att-title="widget.progressBarWorkedTimeTitle(wt)"
+                                t-att-class="widget.progressBarWorkedTimeClass(wt)"
+                                role="progressbar"
+                                t-att-style="widget.progressBarStyle(wt.hours)"
+                                t-att-aria-valuenow="wt.hours"
+                                aria-valuemin="0"
+                                aria-valuemax="24"
+                            >
+                                    <!-- <t t-if="wt.is_worktime" t-esc="wt.content"/> -->
+                                </div>
+                        </t>
+                    </div>
+                </div>
+                <t t-if="checked_in">
+                    <a
+                        t-att-class="'fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-out ' + widget.signOutExtraClass()"
+                        aria-label="Sign out"
+                        title="Sign out"
+                    />
+                </t>
+                <t t-if="!checked_in">
+                    <a
+                        t-att-class="'fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-in ' + widget.signInExtraClass()"
+                        aria-label="Sign in"
+                        title="Sign in"
+                    />
+                </t>
+                <h3 class="mt0 mb0 text-muted">Click to <b
+                        t-if="checked_in"
+                    >check out</b><b t-if="!checked_in">check in</b></h3>
+            </t>
+            <t t-else="">
+                Warning : Your user should be linked to an employee to use attendance. Please contact your administrator.
+            </t>
+        </t>
+    </t>
+
+</template>

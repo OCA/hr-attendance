@@ -9,13 +9,18 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-hr_attendance_autoclose',
+        'odoo14-addon-hr_attendance_geolocation',
+        'odoo14-addon-hr_attendance_hour_type_report',
         'odoo14-addon-hr_attendance_modification_tracking',
+        'odoo14-addon-hr_attendance_overtime',
         'odoo14-addon-hr_attendance_reason',
         'odoo14-addon-hr_attendance_report_theoretical_time',
         'odoo14-addon-hr_attendance_rfid',
+        'odoo14-addon-hr_attendance_validation',
     ],
     classifiers=[
         'Programming Language :: Python',
         'Framework :: Odoo',
+        'Framework :: Odoo :: 14.0',
     ]
 )
