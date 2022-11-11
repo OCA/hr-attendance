@@ -29,13 +29,25 @@ class HrAttendance(models.Model):
         m = int((dd - d) * 60)
         s = (dd - d - m / 60) * 3600.00
         z = round(s, 2)
-        return "%s %sº %s' %s'" % ("N" if d >= 0 else "S", abs(d), abs(m), abs(z))
+        return "%sº %s' %s'" % (abs(d), abs(m), abs(z))
+
+    def _get_latitude_raw_value(self, dd):
+        return "%s %s" % (
+            "N" if int(dd) >= 0 else "S",
+            self._get_raw_value_from_geolocation(dd),
+        )
+
+    def _get_longitude_raw_value(self, dd):
+        return "%s %s" % (
+            "E" if int(dd) >= 0 else "W",
+            self._get_raw_value_from_geolocation(dd),
+        )
 
     @api.depends("check_in_latitude")
     def _compute_check_in_latitude_text(self):
         for item in self:
             item.check_in_latitude_text = (
-                self._get_raw_value_from_geolocation(item.check_in_latitude)
+                self._get_latitude_raw_value(item.check_in_latitude)
                 if item.check_in_latitude
                 else False
             )
@@ -44,7 +56,7 @@ class HrAttendance(models.Model):
     def _compute_check_in_longitude_text(self):
         for item in self:
             item.check_in_longitude_text = (
-                self._get_raw_value_from_geolocation(item.check_in_longitude)
+                self._get_longitude_raw_value(item.check_in_longitude)
                 if item.check_in_longitude
                 else False
             )
@@ -53,7 +65,7 @@ class HrAttendance(models.Model):
     def _compute_check_out_latitude_text(self):
         for item in self:
             item.check_out_latitude_text = (
-                self._get_raw_value_from_geolocation(item.check_out_latitude)
+                self._get_latitude_raw_value(item.check_out_latitude)
                 if item.check_out_latitude
                 else False
             )
@@ -62,7 +74,7 @@ class HrAttendance(models.Model):
     def _compute_check_out_longitude_text(self):
         for item in self:
             item.check_out_longitude_text = (
-                self._get_raw_value_from_geolocation(item.check_out_longitude)
+                self._get_longitude_raw_value(item.check_out_longitude)
                 if item.check_out_longitude
                 else False
             )
