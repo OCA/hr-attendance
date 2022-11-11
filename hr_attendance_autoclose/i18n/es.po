@@ -129,9 +129,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Horas trabajadas"
-
-#~ msgid "Attendances"
-#~ msgstr "Asistencias"
-
-#~ msgid "Basic Employee"
-#~ msgstr "Empleado básico"
