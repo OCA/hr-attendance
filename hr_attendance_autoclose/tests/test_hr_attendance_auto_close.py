@@ -6,15 +6,16 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests.common import TransactionCase
+from odoo.tests import common, new_test_user, users
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
 
-class TestHrAttendanceReason(TransactionCase):
+class TestHrAttendanceReason(common.TransactionCase):
     def setUp(self):
-        super(TestHrAttendanceReason, self).setUp()
+        super().setUp()
         self.hr_attendance = self.env["hr.attendance"]
         self.employee = self.env["hr.employee"].create({"name": "Employee"})
+        new_test_user(self.env, login="test-user")
 
     def test_employee_edit(self):
         dti = datetime.now()
@@ -49,6 +50,7 @@ class TestHrAttendanceReason(TransactionCase):
         self.hr_attendance.check_for_incomplete_attendances()
         self.assertFalse(att2.attendance_reason_ids)
 
+    @users("test-user")
     def test_hr_employee_can_still_read_employee_and_hr_public_employee(self):
         """This test ensure the following comment from hr.employee model has been take
         in consideration::
@@ -59,16 +61,5 @@ class TestHrAttendanceReason(TransactionCase):
             hr.employee model. Indeed, the prefetch loads the data for all the fields
             that are available according to the group defined on them.
         """
-        test_user = self.env["res.users"].create(
-            {
-                "name": "test",
-                "login": "test",
-                "groups_id": [
-                    (6, 0, [self.env.ref("base.group_user").id]),
-                ],
-            }
-        )
-
-        employees = self.env["hr.employee"].with_user(test_user).search([])
-        for empl in employees:
+        for empl in self.env["hr.employee"].search([]):
             self.assertTrue(empl.name)

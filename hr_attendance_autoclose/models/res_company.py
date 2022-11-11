@@ -6,9 +6,7 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    attendance_maximum_hours_per_day = fields.Float(
-        string="Attendance Maximum Hours Per Day", digits=(2, 2), default=11.0
-    )
+    attendance_maximum_hours_per_day = fields.Float(digits=(2, 2), default=11.0)
     hr_attendance_autoclose_reason = fields.Many2one(
         "hr.attendance.reason",
         default=lambda self: self.env.ref(
