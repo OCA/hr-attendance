@@ -9,22 +9,17 @@ from odoo import api, fields, models
 class HrAttendance(models.Model):
     _inherit = "hr.attendance"
 
-    @api.depends("check_out", "check_in")
-    def _compute_open_worked_hours(self):
-        for attendance in self:
-            if attendance.check_out:
-                delta = attendance.check_out - attendance.check_in
-                open_worked_hours = delta.total_seconds() / 3600.0
-            else:
-                delta = datetime.now() - attendance.check_in
-                open_worked_hours = delta.total_seconds() / 3600.0
-            attendance.open_worked_hours = open_worked_hours
-        return True
-
     open_worked_hours = fields.Float(
         string="Worked hours",
         compute="_compute_open_worked_hours",
     )
+
+    @api.depends("check_out", "check_in")
+    def _compute_open_worked_hours(self):
+        for item in self:
+            item_from = item.check_out if item.check_out else datetime.now()
+            delta = item_from - item.check_in
+            item.open_worked_hours = delta.total_seconds() / 3600.0
 
     def autoclose_attendance(self, reason):
         self.ensure_one()
@@ -59,4 +54,4 @@ class HrAttendance(models.Model):
             and reason in att.attendance_reason_ids
         ):
             return True
-        return super(HrAttendance, self)._check_validity()
+        return super()._check_validity()
