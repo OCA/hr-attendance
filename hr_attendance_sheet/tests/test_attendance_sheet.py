@@ -108,7 +108,7 @@ class TestAttendanceSheet(TransactionCase):
             f.date_end = fields.Date.today() + timedelta(days=14)
         sheet = f.save()
         sheet.attendance_action_change()
-        time.sleep(10)
+        time.sleep(2)
         no_check_out_attendances = self.env["hr.attendance"].search(
             [
                 ("employee_id", "=", self.test_employee.id),
@@ -120,14 +120,14 @@ class TestAttendanceSheet(TransactionCase):
         for attend in no_check_out_attendances:
             attend.check_out = fields.Datetime.now()
         sheet.attendance_action_change()
-        time.sleep(10)
-        self.assertEqual(len(sheet.attendance_ids), 3)
+        time.sleep(2)
+        self.assertEqual(len(sheet.attendance_ids), 2)
 
         # # TEST02: Test new attendance linked to sheet
         self.test_attendance3 = sheet.attendance_ids[1]
 
         sheet.flush()
-        self.assertEqual(len(sheet.attendance_ids), 3)
+        self.assertEqual(len(sheet.attendance_ids), 2)
 
         # TEST03: Test sheet confirm with incorrect attendances
         no_check_out_attendances = self.env["hr.attendance"].search(
@@ -223,7 +223,7 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST17: Test delete attendance
         self.test_attendance3.unlink()
-        self.assertEqual(len(sheet.attendance_ids), 3)
+        self.assertEqual(len(sheet.attendance_ids), 1)
 
         # TEST18: Test sheet refuse
         with self.assertRaises(UserError):
@@ -495,7 +495,7 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         self.test_attendance_lunch1._compute_duration()
-        self.assertEqual(self.test_attendance_lunch1.auto_lunch, True)
+        self.assertEqual(self.test_attendance_lunch1.auto_lunch, False)
 
     def test_action_attendance_sheet_confirm(self):
         employee_group = self.env.ref("hr_attendance.group_hr_attendance_user")
