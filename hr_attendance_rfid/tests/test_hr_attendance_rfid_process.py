@@ -41,7 +41,7 @@ class TestHrAttendance(TransactionCase):
         )
         self.test_employee.update({"attendance_state": "checked_in"})
         res = self.employee_model.register_attendance(self.rfid_card_code)
-        self.assertNotEquals(res["error_message"], "")
+        self.assertNotEqual(res["error_message"], "")
 
     def test_invalid_code(self):
         """Invalid employee"""
