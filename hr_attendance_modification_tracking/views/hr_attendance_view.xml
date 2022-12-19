@@ -26,11 +26,26 @@
     <record id="hr_attendance_view_tree" model="ir.ui.view">
         <field name="name">hr.attendance.tree</field>
         <field name="model">hr.attendance</field>
-        <field name="type">tree</field>
         <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='check_out']" position="after">
                 <field name="time_changed_manually" />
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_tree_open" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="priority">99</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[last()]" position="after">
+                <button
+                    name="get_formview_action"
+                    type="object"
+                    string="Open"
+                    class="btn btn-primary"
+                />
             </xpath>
         </field>
     </record>
