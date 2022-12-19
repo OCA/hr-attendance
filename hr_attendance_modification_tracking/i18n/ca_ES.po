@@ -132,6 +132,11 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: hr_attendance_modification_tracking
+#: model_terms:ir.ui.view,arch_db:hr_attendance_modification_tracking.hr_attendance_view_tree_open
+msgid "Open"
+msgstr ""
+
+#. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr ""
