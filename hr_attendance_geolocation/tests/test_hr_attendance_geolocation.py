@@ -21,8 +21,12 @@ class TestHrAttendanceGeolocation(TransactionCase):
             [("employee_id", "=", self.employee.id)]
         )
         self.assertEqual(len(attendances), 1, "One attendance should have been created")
-        self.assertEqual(attendances[0].check_in_latitude, float(self.location[0]))
-        self.assertEqual(attendances[0].check_in_longitude, float(self.location[1]))
+        self.assertAlmostEqual(
+            attendances[0].check_in_latitude, float(self.location[0]), places=7
+        )
+        self.assertAlmostEqual(
+            attendances[0].check_in_longitude, float(self.location[1]), places=7
+        )
         self.assertTrue(attendances[0].check_in_latitude_text)
         self.assertTrue(attendances[0].check_in_longitude_text)
         self.assertFalse(attendances[0].check_out_latitude_text)
