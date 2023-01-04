@@ -62,6 +62,7 @@ Authors
 ~~~~~~~
 
 * Odoo S.A.
+* Tecnativa
 
 Contributors
 ~~~~~~~~~~~~
@@ -72,6 +73,10 @@ Contributors
 * Saran Lim. <saranl@ecosoft.co.th>
 * David Alonso <david.alonso@solvos.es>
 * Juany Davila <juany.davila@forgeflow.com>
+
+* `Tecnativa <https://www.tecnativa.com>`_:
+
+  * Víctor Martínez
 
 Maintainers
 ~~~~~~~~~~~
