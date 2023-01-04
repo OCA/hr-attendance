@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script
+                type="text/javascript"
+                src="/hr_attendance_reason/static/src/js/my_attendances.js"
+            />
+            <script
+                type="text/javascript"
+                src="/hr_attendance_reason/static/src/js/kiosk_confirm.js"
+            />
+            <link
+                rel="stylesheet"
+                href="/hr_attendance_reason/static/src/scss/hr_attendance_reason.scss"
+            />
+        </xpath>
+    </template>
+</odoo>
