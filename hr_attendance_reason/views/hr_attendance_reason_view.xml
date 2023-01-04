@@ -10,6 +10,10 @@
                         <field name="name" />
                         <field name="code" />
                         <field name="action_type" />
+                        <field
+                            name="show_on_attendance_screen"
+                            attrs="{'invisible': [('action_type', '==', False)]}"
+                        />
                     </group>
                 </sheet>
             </form>
@@ -20,9 +24,11 @@
         <field name="model">hr.attendance.reason</field>
         <field name="arch" type="xml">
             <tree string="Attendance reasons">
+                <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="code" />
                 <field name="action_type" />
+                <field name="show_on_attendance_screen" />
             </tree>
         </field>
     </record>

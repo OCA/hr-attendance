@@ -8,9 +8,11 @@ from odoo import fields, models
 class HrAttendanceReason(models.Model):
     _name = "hr.attendance.reason"
     _description = "Attendance Reason"
+    _order = "sequence,id"
 
     _sql_constraints = [("unique_code", "UNIQUE(code)", "Code must be unique")]
 
+    sequence = fields.Integer()
     name = fields.Char(
         String="Reason",
         help="Specifies the reason leaving soon or arriving late",
@@ -23,3 +25,4 @@ class HrAttendanceReason(models.Model):
         string="Action Type",
         help="Leave empty if it is independent",
     )
+    show_on_attendance_screen = fields.Boolean(string="Show on attendance screen?")
