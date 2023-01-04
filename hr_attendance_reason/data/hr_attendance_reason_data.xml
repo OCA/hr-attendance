@@ -8,11 +8,13 @@
         <field name="name">Felt Sick</field>
         <field name="code">FS</field>
         <field name="action_type">sign_out</field>
+        <field name="show_on_attendance_screen" eval="True" />
     </record>
     <record id="hr_act_reason_3" model="hr.attendance.reason">
         <field name="name">Visit Customer</field>
         <field name="code">VS</field>
         <field name="action_type">sign_in</field>
+        <field name="show_on_attendance_screen" eval="True" />
     </record>
     <record id="hr_act_reason_4" model="hr.attendance.reason">
         <field name="name">Bad Weather</field>
@@ -22,5 +24,6 @@
         <field name="name">Public Transport Strike</field>
         <field name="code">PTS</field>
         <field name="action_type">sign_in</field>
+        <field name="show_on_attendance_screen" eval="True" />
     </record>
 </odoo>
