@@ -1,4 +1,5 @@
 # Copyright 2019 ForgeFlow, S.L.
+# Copyright 2023 Tecnativa - Víctor Martínez
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
 from odoo.tests.common import TransactionCase
@@ -14,9 +15,8 @@ class TestHrAttendanceGeolocation(TransactionCase):
 
     def test_attendance_geolocation(self):
         # Called from js
-        self.employee.attendance_manual(
-            "hr_attendance.hr_attendance_action_my_attendances", None, self.location
-        )
+        lat, long = self.location
+        self.employee.with_context(latitude=lat, longitude=long).attendance_manual({})
         attendances = self.hr_attendance_model.search(
             [("employee_id", "=", self.employee.id)]
         )
