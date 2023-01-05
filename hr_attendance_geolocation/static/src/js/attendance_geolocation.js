@@ -29,15 +29,18 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function (requi
         },
         _manual_attendance: function (position) {
             var self = this;
+            const ctx = Object.assign(session.user_context, {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            });
             this._rpc({
                 model: "hr.employee",
                 method: "attendance_manual",
                 args: [
                     [self.employee.id],
                     "hr_attendance.hr_attendance_action_my_attendances",
-                    null,
-                    [position.coords.latitude, position.coords.longitude],
                 ],
+                context: ctx,
             }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
@@ -106,16 +109,15 @@ odoo.define("hr_attendance_geolocation.attendances_geolocation", function (requi
                 );
                 pinBoxVal = this.$(".o_hr_attendance_PINbox").val();
             }
+            const ctx = Object.assign(session.user_context, {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            });
             this._rpc({
                 model: "hr.employee",
                 method: "attendance_manual",
-                args: [
-                    [this.employee_id],
-                    this.next_action,
-                    pinBoxVal,
-                    [position.coords.latitude, position.coords.longitude],
-                ],
-                context: session.user_context,
+                args: [[this.employee_id], this.next_action, pinBoxVal],
+                context: ctx,
             }).then(function (result) {
                 if (result.action) {
                     self.do_action(result.action);
