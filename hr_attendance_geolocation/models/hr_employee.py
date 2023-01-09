@@ -7,12 +7,6 @@ from odoo import models
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    def attendance_manual(self, next_action, entered_pin=False, location=False):
-        res = super(
-            HrEmployee, self.with_context(attendance_location=location)
-        ).attendance_manual(next_action, entered_pin)
-        return res
-
     def _attendance_action_change(self):
         res = super()._attendance_action_change()
         location = self.env.context.get("attendance_location", False)
