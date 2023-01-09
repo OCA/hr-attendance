@@ -1,4 +1,5 @@
 # Copyright 2019 ForgeFlow S.L.
+# Copyright 2023 Tecnativa
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
@@ -8,7 +9,7 @@
         check-in/check-out step""",
     "version": "15.0.1.0.2",
     "license": "AGPL-3",
-    "author": "ForgeFlow S.L., Odoo Community Association (OCA)",
+    "author": "ForgeFlow S.L., Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
     "depends": ["hr_attendance"],
     "data": [

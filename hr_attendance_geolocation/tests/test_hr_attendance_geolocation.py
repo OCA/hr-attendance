@@ -15,8 +15,9 @@ class TestHrAttendanceGeolocation(TransactionCase):
 
     def test_attendance_geolocation(self):
         # Called from js
-        lat, long = self.location
-        self.employee.with_context(latitude=lat, longitude=long).attendance_manual({})
+        self.employee.with_context(attendance_location=self.location).attendance_manual(
+            "hr_attendance.hr_attendance_action_my_attendances"
+        )
         attendances = self.hr_attendance_model.search(
             [("employee_id", "=", self.employee.id)]
         )
