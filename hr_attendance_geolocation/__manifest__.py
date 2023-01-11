@@ -7,7 +7,7 @@
     "summary": """
         With this module the geolocation of the user is tracked at the
         check-in/check-out step""",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "license": "AGPL-3",
     "author": "ForgeFlow S.L., Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
