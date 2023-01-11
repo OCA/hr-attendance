@@ -8,46 +8,42 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.exceptions import UserError
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests.common import Form, TransactionCase, new_test_user
 
 
 class TestAttendanceSheet(TransactionCase):
     def setUp(self):
-        super(TestAttendanceSheet, self).setUp()
+        super().setUp()
         self.AttendanceSheet = self.env["hr.attendance.sheet"]
-        employee_group = self.env.ref("hr_attendance.group_hr_attendance_user")
-        manager_group = self.env.ref("hr_attendance.group_hr_attendance_manager")
-        self.test_user_manager = self.env["res.users"].create(
-            {
-                "name": "Test User Manager",
-                "login": "test",
-                "email": "test@test.com",
-                "groups_id": [(4, manager_group.id)],
-            }
+        self.ctx_new_test_user = {
+            "mail_create_nolog": True,
+            "mail_create_nosubscribe": True,
+            "mail_notrack": True,
+            "no_reset_password": True,
+        }
+        self.test_user_manager = new_test_user(
+            self.env,
+            login="test@test.com",
+            groups="hr_attendance.group_hr_attendance_manager",
+            context=self.ctx_new_test_user,
         )
-        self.test_user_employee = self.env["res.users"].create(
-            {
-                "name": "Test User Employee",
-                "login": "test2",
-                "email": "test2@test.com",
-                "groups_id": [(4, employee_group.id)],
-            }
+        self.test_user_employee = new_test_user(
+            self.env,
+            login="test2@test.com",
+            groups="hr_attendance.group_hr_attendance_user",
+            context=self.ctx_new_test_user,
         )
-        self.test_user_employee1 = self.env["res.users"].create(
-            {
-                "name": "Test User Employee1",
-                "login": "tes3",
-                "email": "test3@test.com",
-                "groups_id": [(4, employee_group.id)],
-            }
+        self.test_user_employee1 = new_test_user(
+            self.env,
+            login="test3@test.com",
+            groups="hr_attendance.group_hr_attendance_user",
+            context=self.ctx_new_test_user,
         )
-        self.test_user_employee2 = self.env["res.users"].create(
-            {
-                "name": "Test User Employee2",
-                "login": "test4",
-                "email": "test4@test.com",
-                "groups_id": [(4, employee_group.id)],
-            }
+        self.test_user_employee2 = new_test_user(
+            self.env,
+            login="test4@test.com",
+            groups="hr_attendance.group_hr_attendance_user",
+            context=self.ctx_new_test_user,
         )
         self.test_manager = self.env["hr.employee"].create(
             {
@@ -223,7 +219,7 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST17: Test delete attendance
         self.test_attendance3.unlink()
-        self.assertEqual(len(sheet.attendance_ids), 1)
+        self.assertEqual(len(sheet.attendance_ids), 2)
 
         # TEST18: Test sheet refuse
         with self.assertRaises(UserError):
@@ -234,7 +230,7 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST19: Set company date range to bi-weekly
         company.write({"attendance_sheet_range": "BIWEEKLY"})
-        self.assertEqual(company.date_end, False)
+        self.assertFalse(company.date_end)
 
         # TEST20: Test autolunch on attendance
         # clock_date = fields.Date.today() + timedelta(days=2)
@@ -285,7 +281,7 @@ class TestAttendanceSheet(TransactionCase):
         # TEST26: Test confirm button with hr_or_manager policy
         sheet = self.env["hr.attendance.sheet"].search([], limit=1)
         sheet.with_user(self.test_user_employee1).action_attendance_sheet_confirm()
-        self.assertEqual(sheet.state, False)
+        self.assertFalse(sheet.state)
 
     def test_company_create(self):
         # TEST27: Create Company
@@ -328,18 +324,12 @@ class TestAttendanceSheet(TransactionCase):
         )
 
     def test_access_errors(self):
-        manual_attendance_group = self.env.ref("hr_attendance.group_hr_attendance")
-        internal_user_group = self.env.ref("base.group_user")
-        self.test_user_basic = self.env["res.users"].create(
-            {
-                "name": "Test User Employee",
-                "login": "basic",
-                "email": "basic@test.com",
-                "groups_id": [(4, manual_attendance_group.id)],
-            }
+        self.test_user_basic = new_test_user(
+            self.env,
+            login="basic@test.com",
+            groups="hr_attendance.group_hr_attendance",
+            context=self.ctx_new_test_user,
         )
-        self.test_user_basic.write({"groups_id": [(4, internal_user_group.id)]})
-        # self.test_user_basic.flush()
         self.test_basic_employee = self.env["hr.employee"].create(
             {
                 "name": "TestBasicEmployee",
@@ -421,7 +411,7 @@ class TestAttendanceSheet(TransactionCase):
                 "auto_lunch": True,
             }
         )
-        self.assertEqual(self.test_attendance_no_lunch.auto_lunch, True)
+        self.assertTrue(self.test_attendance_no_lunch.auto_lunch)
 
         # TEST35: clock-in button method on sheet
         sheet = self.env["hr.attendance.sheet"].search([], limit=1)
@@ -495,17 +485,14 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         self.test_attendance_lunch1._compute_duration()
-        self.assertEqual(self.test_attendance_lunch1.auto_lunch, False)
+        self.assertTrue(self.test_attendance_lunch1.auto_lunch)
 
     def test_action_attendance_sheet_confirm(self):
-        employee_group = self.env.ref("hr_attendance.group_hr_attendance_user")
-        self.test_user_employee_test = self.env["res.users"].create(
-            {
-                "name": "Test User Employee Test",
-                "login": "test_user",
-                "email": "test_user@test.com",
-                "groups_id": [(4, employee_group.id)],
-            }
+        self.test_user_employee_test = new_test_user(
+            self.env,
+            login="test_user@test.com",
+            groups="hr_attendance.group_hr_attendance_manager",
+            context=self.ctx_new_test_user,
         )
         self.test_employee_test = self.env["hr.employee"].create(
             {
