@@ -62,6 +62,7 @@ Authors
 ~~~~~~~
 
 * Odoo S.A.
+* Tecnativa
 
 Contributors
 ~~~~~~~~~~~~
