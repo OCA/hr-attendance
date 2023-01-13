@@ -1,5 +1,6 @@
 # Copyright 2017 Odoo S.A.
 # Copyright 2018 ForgeFlow, S.L.
+# Copyright 2023 Tecnativa - Víctor Martínez
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
 from datetime import datetime
@@ -27,3 +28,11 @@ class TestHrAttendanceReason(TransactionCase):
             att.attendance_reason_ids.ids, self.att_reason.ids, "Bad Attendance Reason"
         )
         self.employee._attendance_action_change()
+
+    def test_employee_create(self):
+        self.employee.with_context(
+            attendance_reason_id=self.att_reason.id
+        ).attendance_manual({})
+        self.assertIn(
+            self.att_reason, self.employee.last_attendance_id.attendance_reason_ids
+        )
