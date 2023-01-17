@@ -17,7 +17,11 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[hr_attendance_geolocation](hr_attendance_geolocation/) | 16.0.1.0.1 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 
 [//]: # (end addons)
 
