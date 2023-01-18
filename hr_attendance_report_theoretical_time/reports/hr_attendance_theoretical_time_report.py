@@ -136,6 +136,19 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
             date
             """
 
+    def _union(self):
+        return """
+            (
+                SELECT %s
+                FROM %s
+                WHERE %s
+            )
+        """ % (
+            self._select_sub2(),
+            self._from_sub2(),
+            self._where_sub2(),
+        )
+
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
@@ -148,11 +161,7 @@ CREATE or REPLACE VIEW %s as (
             FROM %s
             WHERE %s
         )
-        UNION (
-            SELECT %s
-            FROM %s
-            WHERE %s
-        )
+        UNION %s
     ) AS u
     GROUP BY %s
 )
@@ -163,9 +172,7 @@ CREATE or REPLACE VIEW %s as (
                 AsIs(self._select_sub1()),
                 AsIs(self._from_sub1()),
                 AsIs(self._where_sub1()),
-                AsIs(self._select_sub2()),
-                AsIs(self._from_sub2()),
-                AsIs(self._where_sub2()),
+                AsIs(self._union()),
                 AsIs(self._group_by()),
             ),
         )
