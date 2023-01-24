@@ -98,8 +98,6 @@ class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
                 "requires_allocation": "no",
             }
         )
-        # Remove timezone for controlling data better
-        cls.env.user.tz = False
         # Force employee create_date for having auto-generated report entries
         cls.env.cr.execute(
             "UPDATE hr_employee SET create_date = %s " "WHERE id in %s",
