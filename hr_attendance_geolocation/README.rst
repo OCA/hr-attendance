@@ -19,9 +19,9 @@ Hr Attendance Geolocation
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/hr-attendance-15-0/hr-attendance-15-0-hr_attendance_geolocation
     :alt: Translate me on Weblate
-.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/288/15.0
-    :alt: Try me on Runbot
+.. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
+    :target: https://runboat.odoo-community.org/webui/builds.html?repo=OCA/hr-attendance&target_branch=15.0
+    :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
@@ -52,11 +52,18 @@ Authors
 ~~~~~~~
 
 * ForgeFlow S.L.
+* Tecnativa
+* Grupo Isonor
 
 Contributors
 ~~~~~~~~~~~~
 
 * Adria Gil Sorribes <adria.gil@forgeFlow.com>
+* `Tecnativa <https://www.tecnativa.com>`__:
+
+  * David Vidal
+
+* Alexandre D. Díaz (`Grupo Isonor <https://www.grupoisonor.es>`_)
 
 Maintainers
 ~~~~~~~~~~~
