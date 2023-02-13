@@ -4,7 +4,7 @@
 
 {
     "name": "HR Attendance Reason",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.1.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo S.A., Odoo Community Association (OCA)",
@@ -14,6 +14,7 @@
     "data": [
         "data/hr_attendance_reason_data.xml",
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
     ],
