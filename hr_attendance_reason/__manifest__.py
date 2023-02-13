@@ -14,6 +14,7 @@
     "data": [
         "data/hr_attendance_reason_data.xml",
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
     ],
