@@ -38,14 +38,14 @@ msgid "Attendance Reasons"
 msgstr "Motivos de alerta de asistencia"
 
 #. module: hr_attendance_reason
-#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_tree
-msgid "Attendance reasons"
-msgstr "Motivos de alerta de asistencia"
-
-#. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
 msgid "Code must be unique"
 msgstr "El código debe ser único"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
+msgid "Company"
+msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_settings_redefinition_menu
@@ -99,8 +99,8 @@ msgstr "Dejar vacío si es independiente"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
-msgid "Name"
-msgstr "Nombre"
+msgid "Reason"
+msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__code
@@ -133,3 +133,9 @@ msgstr "Especifica la razón de entrada/salida inusual."
 #: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__name
 msgid "Specifies the reason leaving soon or arriving late"
 msgstr "Especifica la razón por salir antes o llegar tarde"
+
+#~ msgid "Attendance reasons"
+#~ msgstr "Motivos de alerta de asistencia"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
