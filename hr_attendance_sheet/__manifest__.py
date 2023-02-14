@@ -3,7 +3,7 @@
 
 {
     "name": "HR Attendance Sheet",
-    "version": "14.0.1.0.2",
+    "version": "14.0.1.0.3",
     "category": "Human Resources",
     "summary": "Group attendances into attendance sheets.",
     "website": "https://github.com/OCA/hr-attendance",
