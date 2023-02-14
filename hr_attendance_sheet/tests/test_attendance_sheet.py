@@ -2,15 +2,15 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
 import time
-from datetime import datetime, timedelta
 
-from dateutil.relativedelta import relativedelta
+from freezegun import freeze_time
 
 from odoo import fields
 from odoo.exceptions import UserError
 from odoo.tests.common import Form, TransactionCase, new_test_user
 
 
+@freeze_time("2023-02-01")
 class TestAttendanceSheet(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -71,15 +71,15 @@ class TestAttendanceSheet(TransactionCase):
         self.test_attendance1 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-10 08:00"),
-                "check_out": time.strftime("%Y-%m-10 12:00"),
+                "check_in": "2023-01-10 08:00",
+                "check_out": "2023-01-10 12:00",
             }
         )
         self.test_attendance2 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-05 13:00"),
-                "check_out": time.strftime("%Y-%m-05 17:00"),
+                "check_in": "2023-01-05 13:00",
+                "check_out": "2023-01-05 17:00",
             }
         )
 
@@ -88,7 +88,7 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "WEEKLY",
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
@@ -100,8 +100,8 @@ class TestAttendanceSheet(TransactionCase):
         view_id = "hr_attendance_sheet.hr_attendance_sheet_view_form"
         with Form(self.AttendanceSheet, view=view_id) as f:
             f.employee_id = self.test_employee
-            f.date_start = fields.Date.today()
-            f.date_end = fields.Date.today() + timedelta(days=14)
+            f.date_start = "2023-01-01"
+            f.date_end = "2023-01-15"
         sheet = f.save()
         sheet.attendance_action_change()
         time.sleep(2)
@@ -139,7 +139,7 @@ class TestAttendanceSheet(TransactionCase):
         self.test_attendance_inprogress = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-10 22:00"),
+                "check_in": "2023-01-10 22:00",
             }
         )
         # sheet.action_attendance_sheet_confirm()
@@ -168,16 +168,15 @@ class TestAttendanceSheet(TransactionCase):
             sheet.action_attendance_sheet_done()
 
         # TEST08: Test sheet done with open attendance error
-        clockin_date = fields.Date.today() + timedelta(days=4)
         attendance_ids = self.env["hr.attendance"].search(
             [("employee_id", "=", self.test_employee.id), ("check_out", "=", False)]
         )
-        attendance_ids.write({"check_out": clockin_date.strftime("%Y-%m-10 08:00")})
+        attendance_ids.write({"check_out": "2023-01-10 08:00"})
         attendance_ids.flush()
         self.test_attendance_open = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": clockin_date.strftime("%Y-%m-12 08:00"),
+                "check_in": "2023-01-12 08:00",
             }
         )
         sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
@@ -193,13 +192,11 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST11: Test write sheet when locked
         with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_employee).write(
-                {"date_start": fields.Date.today()}
-            )
+            sheet.with_user(self.test_user_employee).write({"date_start": "2023-02-01"})
 
         # TEST12: Test error trying to write attendance
         with self.assertRaises(UserError):
-            self.test_attendance3.write({"check_out": time.strftime("%Y-%m-10 20:00")})
+            self.test_attendance3.write({"check_out": "2023-01-10 20:00"})
 
         # TEST13: Test error trying to delete attendance
         with self.assertRaises(UserError):
@@ -257,12 +254,12 @@ class TestAttendanceSheet(TransactionCase):
             {
                 "attendance_sheet_range": "WEEKLY",
                 "attendance_sheet_review_policy": "employee_manager",
-                "date_start": fields.Date.today(),
-                "date_end": fields.Date.today() + timedelta(days=14),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-15",
             }
         )
         company.onchange_attendance_sheet_range()
-        self.assertEqual(company.date_start, fields.Date.today())
+        self.assertEqual(company.date_start, fields.Date.from_string("2023-02-01"))
 
         # TEST23: Create Sheets Cron Method
         #        self.AttendanceSheet._create_sheet_id()
@@ -288,39 +285,39 @@ class TestAttendanceSheet(TransactionCase):
         company = self.test_company = self.env["res.company"].create(
             {
                 "name": "Test Company",
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "BIWEEKLY",
             }
         )
-        self.assertEqual(company.date_end, fields.Date.today() + timedelta(days=13))
+        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-14"))
 
     def test_company_start_end_date_change(self):
         # TEST28: Test changing start/end date on company via cron
         company = self.env.company
         company.write(
             {
-                "date_start": fields.Date.today() - timedelta(days=7),
-                "date_end": fields.Date.today(),
+                "date_start": "2023-01-25",
+                "date_end": "2023-02-01",
                 "use_attendance_sheets": True,
                 "attendance_sheet_range": "WEEKLY",
                 "attendance_sheet_review_policy": "employee_manager",
             }
         )
         self.AttendanceSheet._create_sheet_id()
-        self.assertEqual(company.date_end, fields.Date.today())
+        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-01"))
 
     def test_set_date_end(self):
         # TEST29: Create Company and test else statement in set end date
         company = self.test_company = self.env["res.company"].create(
             {
                 "name": "Test Company",
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "DAILY",
             }
         )
         self.assertEqual(
             company.date_end,
-            fields.Date.today() + relativedelta(months=1, day=1, days=-1),
+            fields.Date.from_string("2023-02-28"),
         )
 
     def test_access_errors(self):
@@ -342,8 +339,8 @@ class TestAttendanceSheet(TransactionCase):
         self.test_attendance1 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_basic_employee.id,
-                "check_in": time.strftime("%Y-%m-10 08:00"),
-                "check_out": time.strftime("%Y-%m-10 12:00"),
+                "check_in": "2023-01-10 08:00",
+                "check_out": "2023-01-10 12:00",
             }
         )
         # self.test_attendance1.flush()
@@ -352,8 +349,8 @@ class TestAttendanceSheet(TransactionCase):
         view_id = "hr_attendance_sheet.hr_attendance_sheet_view_form"
         with Form(self.AttendanceSheet, view=view_id) as f:
             f.employee_id = self.test_basic_employee
-            f.date_start = fields.Date.today()
-            f.date_end = fields.Date.today() + timedelta(days=14)
+            f.date_start = "2023-02-01"
+            f.date_end = "2023-02-15"
         sheet = f.save()
         sheet.action_attendance_sheet_confirm()
 
@@ -372,14 +369,12 @@ class TestAttendanceSheet(TransactionCase):
         # TEST31: error if basic employee tries to update approved sheet
         sheet.with_user(self.test_user_manager).action_attendance_sheet_done()
         with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_basic).write(
-                {"date_start": fields.Date.today() + timedelta(days=1)}
-            )
+            sheet.with_user(self.test_user_basic).write({"date_start": "2023-02-02"})
 
         # TEST32: error if basic employee tries to update attendance on approved sheet
         with self.assertRaises(UserError):
             self.test_attendance1.with_user(self.test_user_basic).write(
-                {"check_in": time.strftime("%Y-%m-10 08:00")}
+                {"check_in": "2023-01-10 08:00"}
             )
 
         # TEST33: permission error locking/unlocking done sheet
@@ -398,16 +393,16 @@ class TestAttendanceSheet(TransactionCase):
                 "auto_lunch": True,
                 "auto_lunch_duration": 5,
                 "auto_lunch_hours": 0.5,
-                "date_start": fields.Date.today(),
-                "date_end": fields.Date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
             }
         )
         self.AttendanceSheet._create_sheet_id()
         self.test_attendance_no_lunch = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-15 08:00"),
-                "check_out": time.strftime("%Y-%m-15 12:00"),
+                "check_in": "2023-01-15 08:00",
+                "check_out": "2023-01-15 12:00",
                 "auto_lunch": True,
             }
         )
@@ -426,8 +421,8 @@ class TestAttendanceSheet(TransactionCase):
             {
                 "use_attendance_sheets": True,
                 "attendance_sheet_review_policy": "employee_manager",
-                "date_start": fields.Date.today(),
-                "date_end": fields.Date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
             }
         )
         self.test_admin = self.env["hr.employee"].create({"name": "TestAdmin"})
@@ -442,8 +437,8 @@ class TestAttendanceSheet(TransactionCase):
         self.test_attendance_no_lunch = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-15 12:00"),
-                "check_out": time.strftime("%Y-%m-15 12:00"),
+                "check_in": "2023-01-15 12:00",
+                "check_out": "2023-01-15 12:00",
                 "auto_lunch": True,
             }
         )
@@ -465,26 +460,27 @@ class TestAttendanceSheet(TransactionCase):
                 "auto_lunch": True,
                 "auto_lunch_duration": 5,
                 "auto_lunch_hours": 1,
-                "date_start": fields.Date.today(),
-                "date_end": fields.Date.today() + timedelta(days=7),
+                "date_start": "2023-01-01",
+                "date_end": "2023-01-15",
             }
         )
         self.AttendanceSheet._create_sheet_id()
         self.test_attendance_lunch1 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-13 08:00"),
-                "check_out": time.strftime("%Y-%m-13 14:00"),
+                "check_in": "2023-01-13 08:00",
+                "check_out": "2023-01-13 14:00",
             }
         )
         self.test_attendance_lunch2 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
-                "check_in": time.strftime("%Y-%m-14 14:15"),
-                "check_out": time.strftime("%Y-%m-14 18:15"),
+                "check_in": "2023-01-14 14:15",
+                "check_out": "2023-01-14 18:15",
             }
         )
         self.test_attendance_lunch1._compute_duration()
+        # create attendance_sheet
         self.assertTrue(self.test_attendance_lunch1.auto_lunch)
 
     def test_action_attendance_sheet_confirm(self):
@@ -505,15 +501,15 @@ class TestAttendanceSheet(TransactionCase):
         attednance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": fields.date.today(),
-                "date_end": fields.date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
                         0,
                         {
                             "employee_id": self.test_employee_test.id,
-                            "check_in": time.strftime("%Y-%m-%d 13:00"),
+                            "check_in": "2023-02-01 13:00",
                         },
                     )
                 ],
@@ -531,23 +527,23 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_end": fields.date.today() - timedelta(days=1),
+                "date_end": "2023-01-31",
             }
         )
         attednance_sheet.check_pay_period_dates()
         attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": fields.date.today(),
-                "date_end": fields.date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
                         0,
                         {
                             "employee_id": self.test_employee_test.id,
-                            "check_in": time.strftime("%Y-%m-%d 13:00"),
-                            "check_out": time.strftime("%Y-%m-%d 14:00"),
+                            "check_in": "2023-02-01 13:00",
+                            "check_out": "2023-02-01 14:00",
                         },
                     )
                 ],
@@ -559,16 +555,16 @@ class TestAttendanceSheet(TransactionCase):
         attednance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": fields.date.today(),
-                "date_end": fields.date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
                         0,
                         {
                             "employee_id": self.test_employee_test.id,
-                            "check_in": time.strftime("%Y-%m-%d 00:00"),
-                            "check_out": time.strftime("%Y-%m-%d 00:00"),
+                            "check_in": "2023-02-01 00:00",
+                            "check_out": "2023-02-01 00:00",
                         },
                     )
                 ],
@@ -581,16 +577,16 @@ class TestAttendanceSheet(TransactionCase):
         attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": fields.date.today(),
-                "date_end": fields.date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
                         0,
                         {
                             "employee_id": self.test_employee_test.id,
-                            "check_in": time.strftime("%Y-%m-%d 15:00"),
-                            "check_out": time.strftime("%Y-%m-%d 16:00"),
+                            "check_in": "2023-02-01 15:00",
+                            "check_out": "2023-02-01 16:00",
                         },
                     )
                 ],
@@ -599,19 +595,17 @@ class TestAttendanceSheet(TransactionCase):
         attednance_sheet_check_out.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
-        check_in = time.strftime("%Y-%m-%d 17:00")
-        check_out = time.strftime("%Y-%m-%d 18:00")
         sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": fields.date.today(),
-                "date_end": fields.date.today() + timedelta(days=7),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-08",
             }
         )
         vals = {
             "employee_id": attednance_sheet_check_out.employee_id.id,
-            "check_in": datetime.strptime(check_in, "%Y-%m-%d %H:%M"),
-            "check_out": datetime.strptime(check_out, "%Y-%m-%d %H:%M"),
+            "check_in": "2023-02-01 17:00",
+            "check_out": "2023-02-01 18:00",
         }
         hr_attendance = self.env["hr.attendance"].create(vals)
         hr_attendance.write({"attendance_sheet_id": sheet.id})
@@ -627,7 +621,7 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "WEEKLY",
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
@@ -637,15 +631,15 @@ class TestAttendanceSheet(TransactionCase):
         self.test_attendance_lunch = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-26 14:00"),
-                "check_out": time.strftime("%Y-%m-26 15:00"),
+                "check_in": "2023-01-26 14:00",
+                "check_out": "2023-01-26 15:00",
             }
         )
         self.test_attendance_lunch_new = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-26 19:00"),
-                "check_out": time.strftime("%Y-%m-26 20:00"),
+                "check_in": "2023-01-26 19:00",
+                "check_out": "2023-01-26 20:00",
             }
         )
         self.test_attendance_lunch._compute_duration()
@@ -653,15 +647,15 @@ class TestAttendanceSheet(TransactionCase):
         self.attendance_lunch_2 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-30 14:00"),
-                "check_out": time.strftime("%Y-%m-30 15:00"),
+                "check_in": "2023-01-30 14:00",
+                "check_out": "2023-01-30 15:00",
             }
         )
         self.attendance_lunch_3 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-30 16:00"),
-                "check_out": time.strftime("%Y-%m-30 17:00"),
+                "check_in": "2023-01-30 16:00",
+                "check_out": "2023-01-30 17:00",
             }
         )
         self.attendance_lunch_3._compute_duration()
@@ -669,7 +663,7 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "WEEKLY",
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
@@ -679,8 +673,8 @@ class TestAttendanceSheet(TransactionCase):
         self.attendance_lunch = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-28 14:00"),
-                "check_out": time.strftime("%Y-%m-28 15:00"),
+                "check_in": "2023-01-30 18:00",
+                "check_out": "2023-01-30 19:00",
             }
         )
         self.attendance_lunch._compute_duration()
@@ -688,7 +682,7 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": fields.Date.today(),
+                "date_start": "2023-02-01",
                 "attendance_sheet_range": "WEEKLY",
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
@@ -698,8 +692,8 @@ class TestAttendanceSheet(TransactionCase):
         self.attendance_lunch_1 = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "check_in": time.strftime("%Y-%m-25 00:00"),
-                "check_out": time.strftime("%Y-%m-25 00:00"),
+                "check_in": "2023-01-25 00:00",
+                "check_out": "2023-01-25 00:00",
                 "auto_lunch": True,
             }
         )
@@ -709,8 +703,8 @@ class TestAttendanceSheet(TransactionCase):
             {
                 "attendance_sheet_range": "MONTHLY",
                 "attendance_sheet_review_policy": "employee_manager",
-                "date_start": fields.Date.today(),
-                "date_end": fields.Date.today() + timedelta(days=14),
+                "date_start": "2023-02-01",
+                "date_end": "2023-02-15",
             }
         )
         company.onchange_attendance_sheet_range()
