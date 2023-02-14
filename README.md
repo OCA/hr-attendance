@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [hr_attendance_reason](hr_attendance_reason/) | 14.0.1.0.2 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 14.0.1.0.4 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 14.0.1.1.1 |  | HR Attendance RFID
-[hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.2 | [![patrickrwilson](https://github.com/patrickrwilson.png?size=30px)](https://github.com/patrickrwilson) [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Group attendances into attendance sheets.
+[hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.3 | [![patrickrwilson](https://github.com/patrickrwilson.png?size=30px)](https://github.com/patrickrwilson) [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Group attendances into attendance sheets.
 [hr_attendance_validation](hr_attendance_validation/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Employee attendance validation.
 
 [//]: # (end addons)
