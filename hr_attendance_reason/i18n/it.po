@@ -53,6 +53,11 @@ msgid "Code must be unique"
 msgstr "Il codice deve essere univoco"
 
 #. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
+msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_settings_redefinition_menu
 msgid "Configuration"
 msgstr "Configurazione"
