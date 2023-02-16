@@ -32,17 +32,29 @@ msgid "Attendance"
 msgstr "Presenza"
 
 #. module: hr_attendance_modification_tracking
+#: model:ir.model,name:hr_attendance_modification_tracking.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__check_in
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_in
 msgid "Check In"
 msgstr "Ingresso"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__check_out
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_out
 msgid "Check Out"
 msgstr "Uscita"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__display_name
 msgid "Display Name"
 msgstr "Nome visualizzato"
 
@@ -68,6 +80,7 @@ msgstr "Chi sta seguendo (partner)"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__id
 msgid "ID"
 msgstr "ID"
 
@@ -90,6 +103,7 @@ msgstr "Sta seguendo"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance____last_update
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base____last_update
 msgid "Last Modified on"
 msgstr "Ultima modifica il"
 
