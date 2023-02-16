@@ -40,6 +40,11 @@ msgid "Attendance reasons"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
 msgid "Code must be unique"
 msgstr ""
@@ -157,6 +162,8 @@ msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__show_reasons_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_base__show_reasons_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_public__show_reasons_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__show_reasons_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__show_reasons_on_attendance_screen
 #: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
