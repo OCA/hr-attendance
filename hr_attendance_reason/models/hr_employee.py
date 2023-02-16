@@ -1,15 +1,11 @@
 # Copyright 2023 Tecnativa - Víctor Martínez
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-
-    show_reasons_on_attendance_screen = fields.Boolean(
-        related="company_id.show_reasons_on_attendance_screen", store=True
-    )
 
     def attendance_manual(self, next_action, entered_pin=None):
         res = super().attendance_manual(
