@@ -31,6 +31,7 @@ addon | version | maintainers | summary
 [hr_attendance_rfid](hr_attendance_rfid/) | 14.0.1.1.1 |  | HR Attendance RFID
 [hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.3 | [![patrickrwilson](https://github.com/patrickrwilson.png?size=30px)](https://github.com/patrickrwilson) [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Group attendances into attendance sheets.
 [hr_attendance_validation](hr_attendance_validation/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Employee attendance validation.
+[hr_birthday_welcome_message](hr_birthday_welcome_message/) | 14.0.1.0.0 |  | This addon adds a birthday message as welcome message when it is the employee's birthday
 
 [//]: # (end addons)
 
