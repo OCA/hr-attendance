@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo14-addon-hr_attendance_rfid',
         'odoo14-addon-hr_attendance_sheet',
         'odoo14-addon-hr_attendance_validation',
+        'odoo14-addon-hr_birthday_welcome_message',
     ],
     classifiers=[
         'Programming Language :: Python',
