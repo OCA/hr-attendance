@@ -1,0 +1,111 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_employee_attendance_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-20 14:43+0000\n"
+"PO-Revision-Date: 2023-02-20 14:43+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_employee_attendance_report
+#: model:ir.actions.report,print_report_name:hr_employee_attendance_report.res_users_report
+msgid "'Attendance Report'"
+msgstr "'Bericht Anwesenheit'"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid ""
+"<br/>\n"
+"                    Until:"
+msgstr ""
+"<br/>\n"
+"                    Bis:"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Allocation"
+msgstr "Anspruch"
+
+#. module: hr_employee_attendance_report
+#: model:ir.actions.report,name:hr_employee_attendance_report.res_users_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Attendance Report"
+msgstr "Bericht Anwesenheit"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Date"
+msgstr "Datum"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Description"
+msgstr "Beschreibung"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Employee:"
+msgstr "Mitarbeitende:"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "From:"
+msgstr "Von:"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model,name:hr_employee_attendance_report.model_report_hr_employee_attendance_report_res_users
+msgid "Attendance and leave report"
+msgstr "Bericht Abwesenheit und Anwesenheit"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Leave Allocations"
+msgstr "Abwesenheitsansprüche"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Leave Hours"
+msgstr "Abwesenheiten Stunden"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Leaves Taken"
+msgstr "Abwesenheiten"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Overtime"
+msgstr "Überzeit"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Overtime Total"
+msgstr "Total Überzeit"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Planned Hours"
+msgstr "Geplante Stunden"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Remaining (Days/Hours)"
+msgstr "Verbleibend (Tage/Stunden)"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Time Off Type"
+msgstr "Abwesenheitstyp"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
+msgid "Worked Hours"
+msgstr "Gearbeitete Stunden"

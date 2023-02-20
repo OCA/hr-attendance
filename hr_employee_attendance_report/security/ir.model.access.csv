@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+model_report_hr_employee_attendance_report_res_users_readonly,report.hr_employee_attendance_report.res_users,model_report_hr_employee_attendance_report_res_users,base.group_user,1,0,0,0
