@@ -68,7 +68,7 @@ class ReportResUsers(models.AbstractModel):
             leave_hours = sum(leave_ids.holiday_id.mapped('number_of_hours_display'))
             summary[user.id] = {
                 'planned_hours': round(planned_hours, 2),
-                'leave_hours': leave_hours,
+                'leave_hours': round(leave_hours, 2),
                 'worked_hours': round(sum(attendance_ids.mapped('worked_hours')), 2),
                 'overtime': round(sum(overtime_ids.mapped('duration')), 2),
                 'overtime_total': round(employee.total_overtime, 2),
@@ -102,7 +102,6 @@ class ReportResUsers(models.AbstractModel):
                         leave_hours = work_hours
                     else:
                         leave_hours = number_of_hours
-                # _logger.warning([date, leave_ids[0].date_from, leave_ids[0].date_to, min_check_date, max_check_date, leave_hours])
                 
                 # Get attendance hours for this date
                 worked_hours = sum(attendance_ids.filtered(lambda a: min_check_date < a.check_in < max_check_date).mapped('worked_hours'))
@@ -113,7 +112,7 @@ class ReportResUsers(models.AbstractModel):
                 # Create data entry
                 attendances[user.id].append({
                     'date': date,
-                    'planned_hours': work_hours,
+                    'planned_hours': round(work_hours, 2),
                     'leave_hours': round(leave_hours, 2),
                     'worked_hours': round(worked_hours, 2),                    
                     'overtime': round(overtime, 2),
