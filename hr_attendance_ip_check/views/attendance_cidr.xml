@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="view_tree" model="ir.ui.view">
+    <field name="name">hr_attendance_ip_check.view_tree</field>
+    <field name="model">attendance.cidr</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="employee_ids" widget="many2many_tags" />
+        <field name="cidr" placeholder="192.168.2.0/24" />
+        <field name="single_check" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_form" model="ir.ui.view">
+    <field name="name">hr_attendance_ip_check.view_form</field>
+    <field name="model">attendance.cidr</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <group>
+              <field name="employee_ids" widget="many2many_tags" />
+              <field name="cidr" placeholder="192.168.2.0/24" />
+              <field name="single_check" attrs="{'readonly': [('employee_ids', '=', [])]}"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="ir_attendance_cidr_act" model="ir.actions.act_window">
+    <field name="name">Attendance IP Check</field>
+    <field name="res_model">attendance.cidr</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem name="Attendance IP Check"
+    id="menu_ir_attendance_cidr"
+    action="ir_attendance_cidr_act"
+    parent="base.menu_security"
+    sequence="15" />
+
+</odoo>

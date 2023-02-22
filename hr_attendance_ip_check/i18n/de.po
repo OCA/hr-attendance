@@ -1,0 +1,119 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_ip_check
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-22 10:08+0000\n"
+"PO-Revision-Date: 2023-02-22 10:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_ip_check
+#: model_terms:ir.ui.view,arch_db:hr_attendance_ip_check.view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_ip_check.view_tree
+msgid "192.168.2.0/24"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model,name:hr_attendance_ip_check.model_attendance_cidr
+msgid "Allowed Attendance CIDR"
+msgstr "Erlaube Anwesenheit CIDR"
+
+#. module: hr_attendance_ip_check
+#: model:ir.model,name:hr_attendance_ip_check.model_hr_attendance
+msgid "Attendance"
+msgstr "Anwesenheit"
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_hr_employee__attendance_cidr_ids
+msgid "Attendance Cidr"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.actions.act_window,name:hr_attendance_ip_check.ir_attendance_cidr_act
+#: model:ir.ui.menu,name:hr_attendance_ip_check.menu_ir_attendance_cidr
+msgid "Attendance IP Check"
+msgstr "Anwesenheit IP Check"
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__cidr
+msgid "CIDR"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,help:hr_attendance_ip_check.field_attendance_cidr__single_check
+msgid "Check if CIDR should no be combined with other CIDRs."
+msgstr "Aktiveren wenn die CIDR nicht mit anderen CIDRs kombiniert werden soll."
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model,name:hr_attendance_ip_check.model_hr_employee
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__employee_ids
+msgid "Employees"
+msgstr "Mitarbeitende"
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_attendance_ip_check
+#: code:addons/hr_attendance_ip_check/models/hr_employee.py:0
+#, python-format
+msgid ""
+"Not allowed to create new attendance record for %(empl_name)s, the client ip"
+" is not in the list of allowed ip networks."
+msgstr ""
+"Die Erstellung von neuen Anwesenheits-Einträgen ist für %(empl_name)s nicht "
+"erlaubt, die Client-IP ist nicht in der Liste der erlaubt IP-Netzwerken."
+
+#. module: hr_attendance_ip_check
+#: model:ir.model.fields,field_description:hr_attendance_ip_check.field_attendance_cidr__single_check
+msgid "Single Check"
+msgstr "Einzelprüfung"
+
+#. module: hr_attendance_ip_check
+#: code:addons/hr_attendance_ip_check/models/allowed_cidrs.py:0
+#, python-format
+msgid "This is not a valid CIDR."
+msgstr "Das ist keine valide CIDR."
