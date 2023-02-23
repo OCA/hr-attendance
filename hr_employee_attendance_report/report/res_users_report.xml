@@ -150,7 +150,7 @@
                                 Leaves Taken
                             </th>
                             <th name="th_remaining_leaves">
-                                Remaining (Days/Hours)
+                                Remaining
                             </th>
                         </tr>
                     </thead>

@@ -83,12 +83,12 @@ msgstr "Abwesenheiten"
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Overtime"
-msgstr "Überzeit"
+msgstr "Überstunden"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Overtime Total"
-msgstr "Total Überzeit"
+msgstr "Überstunden Total"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -97,8 +97,8 @@ msgstr "Geplante Stunden"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
-msgid "Remaining (Days/Hours)"
-msgstr "Verbleibend (Tage/Stunden)"
+msgid "Remaining"
+msgstr "Verbleibend"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
