@@ -4,6 +4,7 @@ _logger = logging.getLogger(__name__)
 import pytz
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, date, timedelta, time
+from odoo.osv import expression
 
 
 class ReportResUsers(models.AbstractModel):
@@ -57,15 +58,20 @@ class ReportResUsers(models.AbstractModel):
                 ('date', '<=', end_naive),
                 ('date', '>=', start_naive),
             ])
-            leave_ids = self.env['resource.calendar.leaves'].search([
+            # Get leave ids with from or to date in range
+            from_domain = [('date_from', '>=', start_tz), ('date_from', '<=', end_tz)]
+            to_domain = [('date_to', '>=', start_tz), ('date_to', '<=', end_tz)]
+            domain = [
                 ('calendar_id', '=', employee.resource_calendar_id.id),
                 ('resource_id', '=', employee.resource_id.id),
-                '|', ('date_from', '>=', start_tz), ('date_to', '<=', end_tz),
-            ])
+            ]
+            filters = expression.AND([domain, expression.OR([from_domain, to_domain])])
+            leave_ids = self.env['resource.calendar.leaves'].search(filters)
 
             # Update summary
             planned_hours = employee.resource_calendar_id.get_work_hours_count(start_naive, end_naive, True)
             leave_hours = sum(leave_ids.holiday_id.mapped('number_of_hours_display'))
+                        
             summary[user.id] = {
                 'planned_hours': round(planned_hours, 2),
                 'leave_hours': round(leave_hours, 2),
@@ -137,6 +143,7 @@ class ReportResUsers(models.AbstractModel):
             # Get active allocations
             allocation_ids = self.env['hr.leave.allocation'].search([
                 ('employee_id', '=', employee.id),
+                '|',
                 ('date_to', '>=', now),
                 ('date_from', '<=', now)
             ])
