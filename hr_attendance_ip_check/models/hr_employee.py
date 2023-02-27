@@ -15,10 +15,9 @@ class HrEmployee(models.Model):
 
         # Get remote ip
         ip_address = ipaddress.IPv4Address(request.httprequest.environ['REMOTE_ADDR'])
-        # _logger.warning(ip_address)
         
         # Get cidrs from employee
-        employee_cidrs = self.attendance_cidr_ids
+        employee_cidrs = self.sudo().attendance_cidr_ids
         
         # Get single check cidrs
         allowed_cidrs = employee_cidrs.filtered('single_check')[:1]
