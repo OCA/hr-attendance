@@ -10,30 +10,31 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
 
 class TestHrAttendanceReason(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.env = self.env(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(
             context=dict(
-                self.env.context,
+                cls.env.context,
                 mail_create_nolog=True,
                 mail_create_nosubscribe=True,
                 mail_notrack=True,
                 no_reset_password=True,
             )
         )
-        self.att_reason_model = self.env["hr.attendance.reason"]
-        self.user = new_test_user(
-            self.env,
+        cls.att_reason_model = cls.env["hr.attendance.reason"]
+        cls.user = new_test_user(
+            cls.env,
             login="test-user",
             groups="base.group_user,hr_attendance.group_hr_attendance",
         )
-        self.employee = self.env["hr.employee"].create(
-            {"name": self.user.login, "user_id": self.user.id}
+        cls.employee = cls.env["hr.employee"].create(
+            {"name": cls.user.login, "user_id": cls.user.id}
         )
-        self.att_reason_in = self.att_reason_model.create(
+        cls.att_reason_in = cls.att_reason_model.create(
             {"name": "Bus did not come", "code": "BB", "action_type": "sign_in"}
         )
-        self.att_reason_out = self.att_reason_model.create(
+        cls.att_reason_out = cls.att_reason_model.create(
             {"name": "A lot of work", "code": "WORK", "action_type": "sign_out"}
         )
 
