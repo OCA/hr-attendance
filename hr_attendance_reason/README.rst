@@ -14,7 +14,7 @@ HR Attendance Reason
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
-    :target: https://github.com/OCA/hr-attendance/tree/15.0/hr_attendance_reason
+    :target: https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_reason
     :alt: OCA/hr-attendance
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
     :target: https://translation.odoo-community.org/projects/hr-attendance-15-0/hr-attendance-15-0-hr_attendance_reason
@@ -86,6 +86,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/15.0/hr_attendance_reason>`_ project on GitHub.
+This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_reason>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
