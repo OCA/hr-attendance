@@ -14,7 +14,7 @@ class HrAttendanceOvertime(models.Model):
     def _compute_planned_hours(self):
         for overtime in self:
             # Get work hours from calendar
-            planned_hours = self.employee_id.resource_calendar_id.get_work_hours_count(
+            planned_hours = overtime.employee_id.resource_calendar_id.get_work_hours_count(
                 datetime.combine(overtime.date, time.min),
                 datetime.combine(overtime.date, time.max),
                 True)
@@ -25,7 +25,7 @@ class HrAttendanceOvertime(models.Model):
         for overtime in self:
             # Get sum of attendance entries
             attendance_ids = self.env['hr.attendance'].search([
-                ('employee_id', '=', self.employee_id.id),
+                ('employee_id', '=', overtime.employee_id.id),
                 ('check_in', '>=', datetime.combine(overtime.date, time.min)),
                 ('check_out', '<=', datetime.combine(overtime.date, time.max)),
             ])
