@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2022-10-24 15:43+0000\n"
-"Last-Translator: Alessandro Uffreduzzi <alessandro.uffreduzzi@pytech.it>\n"
+"PO-Revision-Date: 2023-03-23 13:28+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgstr "Definisci il giustificativo dell'assenza"
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__display_name
 msgid "Display Name"
-msgstr "Nome da visualizzare"
+msgstr "Nome visualizzato"
 
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_2
