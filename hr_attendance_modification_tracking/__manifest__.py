@@ -6,7 +6,7 @@
     "name": "HR Attendance Modification Tracking",
     "summary": """
         Attendance changes will now be registered in the chatter.""",
-    "version": "14.0.1.0.3",
+    "version": "14.0.1.0.4",
     "license": "AGPL-3",
     "author": "Creu Blanca, Landoo, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
