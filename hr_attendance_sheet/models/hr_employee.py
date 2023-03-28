@@ -15,7 +15,6 @@ class HrEmployee(models.Model):
     )
 
     use_attendance_sheets = fields.Boolean(
-        string="Use Attendance Sheets",
         help="""Used in the attendance sheet auto creation process. Employees \
              that have the 'Hourly' type will have attendance sheets \
              automatically created""",
@@ -42,7 +41,6 @@ class HrEmployeePublic(models.Model):
     )
 
     use_attendance_sheets = fields.Boolean(
-        string="Use Attendance Sheets",
         help="""Used in the attendance sheet auto creation process. Employees \
              that have the 'Hourly' type will have attendance sheets \
              automatically created""",

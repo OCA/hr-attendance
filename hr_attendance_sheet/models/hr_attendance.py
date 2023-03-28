@@ -34,11 +34,9 @@ class HrAttendance(models.Model):
         string="Auto Lunch Enabled", related="company_id.auto_lunch"
     )
     override_auto_lunch = fields.Boolean(
-        string="Override Auto Lunch",
         help="Enable if you don't want the auto lunch to calculate.",
     )
     override_reason = fields.Text(
-        string="Override Reason",
         help="State the reason you are overriding the auto lunch.",
     )
     attendance_admin = fields.Many2one(

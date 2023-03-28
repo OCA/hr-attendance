@@ -11,7 +11,7 @@ from odoo import api, fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    use_attendance_sheets = fields.Boolean("Use Attendance Sheets", default=False)
+    use_attendance_sheets = fields.Boolean(default=False)
     attendance_sheet_range = fields.Selection(
         selection=[
             ("MONTHLY", "Month"),
@@ -19,7 +19,6 @@ class ResCompany(models.Model):
             ("WEEKLY", "Week"),
             ("DAILY", "Day"),
         ],
-        string="Attendance Sheet Range",
         default="WEEKLY",
         help="The range of your Attendance Sheet.",
     )
@@ -72,7 +71,6 @@ class ResCompany(models.Model):
     )
 
     attendance_sheet_review_policy = fields.Selection(
-        string="Attendance Sheet Review Policy",
         selection=[
             ("hr", "HR Manager/Officer"),
             ("employee_manager", "Employee's Manager or Attendance Admin"),
@@ -83,7 +81,6 @@ class ResCompany(models.Model):
     )
 
     auto_lunch = fields.Boolean(
-        string="Auto Lunch",
         help="Applies a lunch period if duration is over the max time.",
     )
 
