@@ -9,3 +9,6 @@ class HrEmployeeBase(models.AbstractModel):
 
     last_check_in = fields.Datetime(tracking=False)
     last_check_out = fields.Datetime(tracking=False)
+
+    def _valid_field_parameter(self, field, name):
+        return name == "tracking" or super()._valid_field_parameter(field, name)
