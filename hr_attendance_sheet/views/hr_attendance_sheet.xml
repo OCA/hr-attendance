@@ -245,15 +245,6 @@
     </record>
 
     <menuitem
-        id="hr_attendance_sheet_manager_menu"
-        name="Attendance Sheets"
-        parent="hr_attendance.menu_hr_attendance_manage_attendances"
-        action="hr_attendance_sheet_manager_action"
-        sequence="9"
-        groups="hr_attendance.group_hr_attendance_manager"
-    />
-
-    <menuitem
         id="hr_attendance_sheet_main_menu"
         name="Attendance Sheets"
         parent="hr_attendance.menu_hr_attendance_root"
@@ -278,4 +269,14 @@
         sequence="30"
         groups="hr_attendance.group_hr_attendance"
     />
+
+    <menuitem
+        id="hr_attendance_sheet_manager_menu"
+        name="All Attendance Sheets"
+        parent="hr_attendance_sheet_main_menu"
+        action="hr_attendance_sheet_manager_action"
+        sequence="40"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+
 </odoo>
