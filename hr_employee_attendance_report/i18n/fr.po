@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-20 14:43+0000\n"
-"PO-Revision-Date: 2023-02-20 14:43+0000\n"
+"POT-Creation-Date: 2023-03-30 18:33+0000\n"
+"PO-Revision-Date: 2023-03-30 18:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: hr_employee_attendance_report
 #: model:ir.actions.report,print_report_name:hr_employee_attendance_report.res_users_report
 msgid "'Attendance Report'"
-msgstr "'Décompte d\'heures mensuel'"
+msgstr "'Décompte d\\'heures mensuel'"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -41,14 +41,50 @@ msgid "Attendance Report"
 msgstr "Décompte d'heures"
 
 #. module: hr_employee_attendance_report
+#: model:ir.actions.act_window,name:hr_employee_attendance_report.action_select_range
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Attendance Report Select Range"
+msgstr "Décompte d'heures"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model,name:hr_employee_attendance_report.model_report_hr_employee_attendance_report_res_users
+msgid "Attendance and leave report"
+msgstr "Présences et congés"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model,name:hr_employee_attendance_report.model_hr_employee_attendance_report_select_range
+msgid "Attendance and leave report range selector"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Date"
-msgstr "Date"
+msgstr ""
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Description"
-msgstr "Description"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__display_name
+msgid "Display Name"
+msgstr ""
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -56,14 +92,34 @@ msgid "Employee:"
 msgstr "Employée:"
 
 #. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__date_from
+msgid "From"
+msgstr "Du"
+
+#. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "From:"
 msgstr "Du:"
 
 #. module: hr_employee_attendance_report
-#: model:ir.model,name:hr_employee_attendance_report.model_report_hr_employee_attendance_report_res_users
-msgid "Attendance and leave report"
-msgstr "Présences et congés"
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__write_date
+msgid "Last Updated on"
+msgstr ""
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -88,12 +144,17 @@ msgstr "Heures supplémentaires"
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Overtime Total"
-msgstr "Heures supprlémentaires actuelles"
+msgstr "Heures supplémentaires actuelles"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Planned Hours"
 msgstr "Heures planifiées"
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Print"
+msgstr "Imprimer"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -104,6 +165,11 @@ msgstr "Restantes"
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Time Off Type"
 msgstr "Type de congés"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__date_until
+msgid "Until"
+msgstr "Au"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template

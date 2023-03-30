@@ -12,77 +12,65 @@ class ReportResUsers(models.AbstractModel):
     _description = 'Attendance and leave report'
 
     def _daterange(self, start_date, end_date):
+        """Return list of dates."""
         for n in range(int((end_date - start_date).days)):
             yield start_date + timedelta(n)
 
-    def get_attendances(self, users):
+    def get_attendances(self, users, start_date, end_date):
         """Group attendances by user and day."""
 
         # Data mappings
         dates = {}
         attendances = {}
         summary = {}
-
-        # Init statics
-        now = fields.Datetime.now()
-        now_utc = pytz.utc.localize(now)
         
         # Iterate on users
         for user in users:
             employee = user.employee_id
             hours_per_day = user.company_id.resource_calendar_id.hours_per_day
-
-            # Get first and last day of last month
-            tz = pytz.timezone(employee.tz or 'UTC')
-            now_tz = now_utc.astimezone(tz)
-            start_tz = now_tz + relativedelta(months=-1, day=1, hour=0, minute=0, second=0, microsecond=0)            
-            end_tz = now_tz + relativedelta(day=1, hour=0, minute=0, second=0, microsecond=0)
             
             # Log time range
             dates[user.id] = {}
-            dates[user.id]['start_date'] = start_tz
-            dates[user.id]['end_date'] = end_tz
-
-            # Get all leaves, attendances and overtime in range
-            start_naive = start_tz.astimezone(pytz.utc).replace(tzinfo=None)
-            end_naive = end_tz.astimezone(pytz.utc).replace(tzinfo=None)
+            dates[user.id]['start_date'] = start_date
+            dates[user.id]['end_date'] = end_date - timedelta(days=1)
+            
+            # Get all attendances and overtime in range
             attendance_ids = self.env['hr.attendance'].search([
                 ('employee_id', '=', employee.id),
                 '&',
-                ('check_in', '<=', end_naive),
-                ('check_out', '>=', start_naive),
+                ('check_in', '<=', end_date),
+                ('check_out', '>=', start_date),
             ])
             overtime_ids = self.env['hr.attendance.overtime'].search([
                 ('employee_id', '=', employee.id),
                 '&',
-                ('date', '<=', end_naive),
-                ('date', '>=', start_naive),
+                ('date', '<=', end_date),
+                ('date', '>=', start_date),
             ])
-            # Get leave ids with from or to date in range
-            from_domain = [('date_from', '>=', start_tz), ('date_from', '<=', end_tz)]
-            to_domain = [('date_to', '>=', start_tz), ('date_to', '<=', end_tz)]
+
+            # Get leaves with from or to date in range
+            from_domain = [('date_from', '>=', start_date), ('date_from', '<=', end_date)]
+            to_domain = [('date_to', '>=', end_date), ('date_to', '<=', end_date)]
             domain = [
                 ('calendar_id', '=', employee.resource_calendar_id.id),
                 ('resource_id', '=', employee.resource_id.id),
             ]
             filters = expression.AND([domain, expression.OR([from_domain, to_domain])])
             leave_ids = self.env['resource.calendar.leaves'].search(filters)
-
-            # Update summary
-            planned_hours = employee.resource_calendar_id.get_work_hours_count(start_naive, end_naive, True)
             leave_hours = sum(leave_ids.holiday_id.mapped('number_of_hours_display'))
-                        
+
+            # Update summary            
             summary[user.id] = {
-                'planned_hours': round(planned_hours, 2),
                 'leave_hours': round(leave_hours, 2),
                 'worked_hours': round(sum(attendance_ids.mapped('worked_hours')), 2),
                 'overtime': round(sum(overtime_ids.mapped('duration')), 2),
                 'overtime_total': round(employee.total_overtime, 2),
             }
 
-            # For each date in rage compute data
+            # For each date in range compute details
             attendances[user.id] = []
-            for date in self._daterange(start_tz, end_tz):
+            planned_hours = 0
+            for date in self._daterange(start_date, end_date):
                 
                 # Get work hours
                 min_check_date = datetime.combine(date, time.min)
@@ -92,15 +80,16 @@ class ReportResUsers(models.AbstractModel):
                     max_check_date,
                     True
                 )
+                planned_hours += work_hours
 
                 # Get leave hours for this date
-                date_naive = date.astimezone(pytz.utc).replace(tzinfo=None)
                 active_leaves = leave_ids.filtered(lambda l: 
-                    l.date_from < date_naive < l.date_to or
+                    l.date_from < date < l.date_to or
                     min_check_date <= l.date_from <= max_check_date or 
                     min_check_date <= l.date_to <= max_check_date
                 )
-                
+
+                # Set leave hours                
                 leave_hours = 0.0
                 if active_leaves.holiday_id:
                     number_of_hours = active_leaves.holiday_id.number_of_hours_display
@@ -124,6 +113,9 @@ class ReportResUsers(models.AbstractModel):
                     'overtime': round(overtime, 2),
                     'background_color': 'lightgrey' if work_hours == 0 else 'none'
                 })
+
+            # Update summary
+            summary[user.id]['planned_hours'] = round(planned_hours, 2)
 
         return dates, attendances, summary
 
@@ -154,9 +146,23 @@ class ReportResUsers(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
+
+        now = fields.Datetime.now()
+        start_date = now + relativedelta(months=-1, day=1, hour=0, minute=0, second=0)
+        end_date = now + relativedelta(day=1, hour=0, minute=0, second=0)
+
+        # Check data for params
+        if data.get('date_from'):
+            start_date = datetime.strptime(data['date_from'], '%Y-%m-%d')
+        if data.get('date_until'):
+            end_date = datetime.strptime(data['date_until'], '%Y-%m-%d') + timedelta(days=1)
+        if data.get('context').get('active_ids'):
+            docids = data['context']['active_ids']
+
+        # Browse documents
         docs = self.env['res.users'].browse(docids)
 
-        dates, attendances, summary = self.get_attendances(docs)
+        dates, attendances, summary = self.get_attendances(docs, start_date, end_date)
         leave_allocations = self.get_leave_allocations(docs)
 
         return {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="select_range" model="ir.ui.view">
+            <field name="name">hr_employee_attendance_report.select_range</field>
+            <field name="model">hr_employee_attendance_report.select_range</field>
+            <field name="arch" type="xml">
+                <form string="Attendance Report Select Range">
+                    <group col="4" colspan="6">
+                        <field name="date_from"/>
+                        <field name="date_until"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_select_range" model="ir.actions.act_window">
+            <field name="name">Attendance Report Select Range</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr_employee_attendance_report.select_range</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_users" />
+            <field name="binding_type">report</field>
+        </record>
+
+</odoo>

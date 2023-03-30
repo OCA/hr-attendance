@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-20 14:43+0000\n"
-"PO-Revision-Date: 2023-02-20 14:43+0000\n"
+"POT-Creation-Date: 2023-03-30 16:54+0000\n"
+"PO-Revision-Date: 2023-03-30 16:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,6 +41,37 @@ msgid "Attendance Report"
 msgstr "Bericht Anwesenheit"
 
 #. module: hr_employee_attendance_report
+#: model:ir.actions.act_window,name:hr_employee_attendance_report.action_select_range
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Attendance Report Select Range"
+msgstr "Bericht Anwesenheit"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model,name:hr_employee_attendance_report.model_report_hr_employee_attendance_report_res_users
+msgid "Attendance and leave report"
+msgstr "Bericht Abwesenheit und Anwesenheit"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model,name:hr_employee_attendance_report.model_hr_employee_attendance_report_select_range
+msgid "Attendance and leave report range selector"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Date"
 msgstr "Datum"
@@ -51,9 +82,19 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Employee:"
 msgstr "Mitarbeitende:"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__date_from
+msgid "From"
+msgstr "Von"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -61,9 +102,24 @@ msgid "From:"
 msgstr "Von:"
 
 #. module: hr_employee_attendance_report
-#: model:ir.model,name:hr_employee_attendance_report.model_report_hr_employee_attendance_report_res_users
-msgid "Attendance and leave report"
-msgstr "Bericht Abwesenheit und Anwesenheit"
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__write_date
+msgid "Last Updated on"
+msgstr ""
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
@@ -96,6 +152,11 @@ msgid "Planned Hours"
 msgstr "Geplante Stunden"
 
 #. module: hr_employee_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.select_range
+msgid "Print"
+msgstr "Drucken"
+
+#. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Remaining"
 msgstr "Verbleibend"
@@ -104,6 +165,11 @@ msgstr "Verbleibend"
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
 msgid "Time Off Type"
 msgstr "Abwesenheitstyp"
+
+#. module: hr_employee_attendance_report
+#: model:ir.model.fields,field_description:hr_employee_attendance_report.field_hr_employee_attendance_report_select_range__date_until
+msgid "Until"
+msgstr "Bis"
 
 #. module: hr_employee_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_employee_attendance_report.res_users_template
