@@ -63,13 +63,13 @@ class ReportResUsers(models.AbstractModel):
             summary[user.id] = {
                 'leave_hours': round(leave_hours, 2),
                 'worked_hours': round(sum(attendance_ids.mapped('worked_hours')), 2),
-                'overtime': round(sum(overtime_ids.mapped('duration')), 2),
                 'overtime_total': round(employee.total_overtime, 2),
             }
 
             # For each date in range compute details
             attendances[user.id] = []
             planned_hours = 0
+            overtime = 0
             for date in self._daterange(start_date, end_date):
                 
                 # Get work hours
@@ -102,7 +102,8 @@ class ReportResUsers(models.AbstractModel):
                 worked_hours = sum(attendance_ids.filtered(lambda a: min_check_date < a.check_in < max_check_date).mapped('worked_hours'))
 
                 # Get overtime hours for this date
-                overtime = sum(overtime_ids.filtered(lambda o: o.date == date.date()).mapped('duration'))
+                overtime_hours = sum(overtime_ids.filtered(lambda o: o.date == date.date()).mapped('duration'))
+                overtime += overtime_hours
 
                 # Create data entry
                 attendances[user.id].append({
@@ -110,13 +111,14 @@ class ReportResUsers(models.AbstractModel):
                     'planned_hours': round(work_hours, 2),
                     'leave_hours': round(leave_hours, 2),
                     'worked_hours': round(worked_hours, 2),                    
-                    'overtime': round(overtime, 2),
+                    'overtime': round(overtime_hours, 2),
                     'background_color': 'lightgrey' if work_hours == 0 else 'none'
                 })
 
             # Update summary
             summary[user.id]['planned_hours'] = round(planned_hours, 2)
-
+            summary[user.id]['overtime'] = round(overtime, 2)
+            
         return dates, attendances, summary
 
     def get_leave_allocations(self, users):
@@ -155,7 +157,7 @@ class ReportResUsers(models.AbstractModel):
         if data.get('date_from'):
             start_date = datetime.strptime(data['date_from'], '%Y-%m-%d')
         if data.get('date_until'):
-            end_date = datetime.strptime(data['date_until'], '%Y-%m-%d') + timedelta(days=1)
+            end_date = datetime.strptime(data['date_until'], '%Y-%m-%d')
         if data.get('context').get('active_ids'):
             docids = data['context']['active_ids']
 

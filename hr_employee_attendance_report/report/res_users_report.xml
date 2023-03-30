@@ -8,8 +8,8 @@
         <field name="report_name">hr_employee_attendance_report.res_users</field>
         <field name="report_file">hr_employee_attendance_report.res_users</field>
         <field name="print_report_name">'Attendance Report'</field>
-        <!-- <field name="binding_model_id" ref="base.model_res_users" />
-        <field name="binding_type">report</field> -->
+        <field name="binding_model_id" ref="base.model_res_users" />
+        <field name="binding_type">report</field>
     </record>
 
     <template id="hr_employee_attendance_report.res_users">

@@ -11,8 +11,8 @@ class HREmployeeAttendanceReportSelectRange(models.TransientModel):
     _name = 'hr_employee_attendance_report.select_range'
     _description = 'Attendance and leave report range selector'
 
-    date_from = fields.Date(string='From', required=True, default=lambda *a: time.strftime('%Y-%m-01'))
-    date_until = fields.Date(string='Until', required=True, default=lambda *a: str(datetime.now() + relativedelta(months=+1, day=1, days=-1))[:10],)
+    date_from = fields.Date(string='From', required=True, default=lambda *a: str(datetime.now() + relativedelta(months=-1, day=1, hour=0, second=0))[:10])
+    date_until = fields.Date(string='Until', required=True, default=lambda *a: str(datetime.now() + relativedelta(day=1, hour=0, minute=0, second=0))[:10])
 
     def print_report(self):
         self.ensure_one()
