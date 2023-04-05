@@ -1,4 +1,4 @@
-#. Go to *Settings > Company > Attendances*.
+#. Go to *Attendances > Configuration > Configuration*.
 #. Set the maximum number of hours allowed for an attendance.
-#. Go to *Attendances > Manage Attedances > Attendances*.
-#. Attendance are autoclosed after the hours passed are bigger.
+#. Go to *Attendances > Manage Attendances > Attendances*.
+#. Attendance are automatically closed if they have remained open for longer than specified in the setting.
