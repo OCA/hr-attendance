@@ -27,13 +27,14 @@ class HrAttendance(models.Model):
     def create(self, vals):
         tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
-        for check in ["check_in", "check_out"]:
-            if (
-                vals.get(check, False)
-                and abs(fields.Datetime.from_string(vals.get(check)) - now) > tolerance
-            ):
-                vals.update({"time_changed_manually": True})
-                break
+        for val in vals:
+            for check in ["check_in", "check_out"]:
+                if (
+                    val.get(check, False)
+                    and abs(fields.Datetime.from_string(val.get(check)) - now) > tolerance
+                ):
+                    val.update({"time_changed_manually": True})
+                    break
         return super().create(vals)
 
     def write(self, vals):
