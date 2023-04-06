@@ -6,8 +6,6 @@ import datetime
 
 from odoo.tests import common
 
-from odoo.addons.resource.tests.common import TestResourceCommon
-
 
 class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
     @classmethod
@@ -285,16 +283,59 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         )
 
 
-class TestHrAttendanceReportTheoreticalTimeResource(TestResourceCommon):
-    def setUp(self):
-        super().setUp()
-        self.env.company.resource_calendar_id = self.calendar_jules
-        self.employee = self.env["hr.employee"].create(
-            {"name": "Employee", "resource_calendar_id": self.calendar_jules.id}
+class TestHrAttendanceReportTheoreticalTimeResource(common.TransactionCase):
+    @classmethod
+    def _define_calendar_2_weeks(cls, name, attendances, tz):
+        return cls.env["resource.calendar"].create(
+            {
+                "name": name,
+                "tz": tz,
+                "two_weeks_calendar": True,
+                "attendance_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "%s_%d" % (name, index),
+                            "hour_from": att[0],
+                            "hour_to": att[1],
+                            "dayofweek": str(att[2]),
+                            "week_type": att[3],
+                            "display_type": att[4],
+                            "sequence": att[5],
+                        },
+                    )
+                    for index, att in enumerate(attendances)
+                ],
+            }
+        )
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.calendar_jules = cls._define_calendar_2_weeks(
+            "Week 1: 30 Hours - Week 2: 16 Hours",
+            [
+                (0, 0, 0, "0", "line_section", 0),
+                (8, 16, 0, "0", False, 1),
+                (9, 17, 1, "0", False, 2),
+                (0, 0, 0, "1", "line_section", 10),
+                (8, 16, 0, "1", False, 11),
+                (7, 15, 2, "1", False, 12),
+                (8, 16, 3, "1", False, 13),
+                (10, 16, 4, "1", False, 14),
+            ],
+            "Europe/Brussels",
+        )
+
+        cls.env.company.resource_calendar_id = cls.calendar_jules
+        cls.employee = cls.env["hr.employee"].create(
+            [{"name": "Employee", "resource_calendar_id": cls.calendar_jules.id}]
         )
         # 2 weeks calendar with date_from and date_to to check work_hours
-        self.employee.resource_calendar_id.attendance_ids.unlink()
-        self.employee.resource_calendar_id.write(
+        cls.employee.resource_calendar_id.attendance_ids.unlink()
+        cls.employee.resource_calendar_id.write(
             {
                 "attendance_ids": [
                     (
