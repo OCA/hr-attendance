@@ -27,6 +27,11 @@ msgid "Attendance"
 msgstr "Присъствие"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_report
+msgid "Attendance Statistics"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
 msgid "Attendances Analysis"
 msgstr "Анализи на присъствия"
@@ -76,13 +81,7 @@ msgid "Difference"
 msgstr "Разлика"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__display_name
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__display_name
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__display_name
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_holidays_public_line__display_name
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave__display_name
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__display_name
 msgid "Display Name"
@@ -107,8 +106,8 @@ msgstr "Служители"
 msgid ""
 "Fill this field for setting a manual start date for computing the "
 "theoretical hours independently from the attendances. If not filled, "
-"employee creation date or the calendar start date will be used (the greatest"
-" of both)."
+"employee creation date or the calendar start date will be used (the greatest "
+"of both)."
 msgstr ""
 "Попълнете това поле, за да зададете ръчна начална дата за изчисляване на "
 "теоретичните часове независимо от присъствията. Ако не е попълнено, ще се "
@@ -131,13 +130,7 @@ msgid "From"
 msgstr "От"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__id
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__id
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__id
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_holidays_public_line__id
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave__id
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__id
 msgid "ID"
@@ -158,13 +151,7 @@ msgid "Include in theoretical hours"
 msgstr "Включи в теоретичните часове"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance____last_update
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_holidays_public_line____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type____last_update
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance____last_update
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time____last_update
 msgid "Last Modified on"
@@ -254,6 +241,7 @@ msgid "Select Employees"
 msgstr "Избери Служители"
 
 #. module: hr_attendance_report_theoretical_time
+#. odoo-python
 #: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
@@ -267,6 +255,7 @@ msgstr "Маркер"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__theoretical_hours
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_report__theoretical_hours
 msgid "Theoretical Hours"
 msgstr "Теоретични часове"
 
