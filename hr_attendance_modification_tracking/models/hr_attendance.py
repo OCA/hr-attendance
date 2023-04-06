@@ -31,7 +31,8 @@ class HrAttendance(models.Model):
             for check in ["check_in", "check_out"]:
                 if (
                     val.get(check, False)
-                    and abs(fields.Datetime.from_string(val.get(check)) - now) > tolerance
+                    and abs(fields.Datetime.from_string(val.get(check)) - now)
+                    > tolerance
                 ):
                     val.update({"time_changed_manually": True})
                     break
