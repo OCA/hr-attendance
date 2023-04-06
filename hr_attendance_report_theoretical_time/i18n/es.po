@@ -28,6 +28,11 @@ msgid "Attendance"
 msgstr "Asistencias"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_report
+msgid "Attendance Statistics"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
 msgid "Attendances Analysis"
 msgstr "Análisis de asistencias"
@@ -237,6 +242,7 @@ msgid "Select Employees"
 msgstr "Seleccionar empleados"
 
 #. module: hr_attendance_report_theoretical_time
+#. odoo-python
 #: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
@@ -250,6 +256,7 @@ msgstr "Etiqueta"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__theoretical_hours
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_report__theoretical_hours
 msgid "Theoretical Hours"
 msgstr "Horas teóricas"
 
