@@ -23,7 +23,7 @@ class HrAttendance(models.Model):
         "be applied.",
     )
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
