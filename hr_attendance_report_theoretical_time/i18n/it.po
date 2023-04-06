@@ -106,8 +106,8 @@ msgstr "Dipendenti"
 msgid ""
 "Fill this field for setting a manual start date for computing the "
 "theoretical hours independently from the attendances. If not filled, "
-"employee creation date or the calendar start date will be used (the greatest"
-" of both)."
+"employee creation date or the calendar start date will be used (the greatest "
+"of both)."
 msgstr ""
 "Compilare questo campo per impostare manualmente la data iniziale per il "
 "calcolo delle ore teoriche indipendentemente dalle presenze. Se non "
@@ -241,6 +241,7 @@ msgid "Select Employees"
 msgstr "Selezionare dipendente"
 
 #. module: hr_attendance_report_theoretical_time
+#. odoo-python
 #: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
