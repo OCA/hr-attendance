@@ -8,7 +8,7 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
-    "depends": ["hr_attendance", "hr_holidays_public"],
+    "depends": ["hr_attendance", "hr_holidays_public", "resource"],
     "data": [
         "security/ir.model.access.csv",
         "security/hr_attendance_report_theoretical_time_security.xml",
