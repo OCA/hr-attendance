@@ -8,7 +8,7 @@ HR Employee Timesheet Report
 
 Attendance and leave report.
 
-For a detailed documentation have a look at https://www.odoo-wiki.org/.
+For a detailed documentation have a look at https://www.odoo-wiki.org/hr-employee-attendance-report.html.
 
 .. image:: https://raw.githubusercontent.com/Mint-System/Wiki/master/assets/icon-box.png
   :height: 100
