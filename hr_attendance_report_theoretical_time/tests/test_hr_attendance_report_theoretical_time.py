@@ -6,7 +6,7 @@ import datetime
 
 from odoo.tests import common
 
-from odoo.addons.resource.tests.common import TestResourceCommon
+from odoo.addons.test_resource.tests.common import TestResourceCommon
 
 
 class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
