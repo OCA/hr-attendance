@@ -1,6 +1,9 @@
 <?xml version="1.0" ?>
 <odoo>
-    <record id="act_wizard_recompute_theoretical_attendance" model="ir.actions.act_window">
+    <record
+        id="act_wizard_recompute_theoretical_attendance"
+        model="ir.actions.act_window"
+    >
         <field name="name">Recompute Theoretical Attendances</field>
         <field name="res_model">recompute.theoretical.attendance</field>
         <field name="view_mode">form</field>
@@ -18,7 +21,12 @@
                     </group>
                 </group>
                 <footer>
-                    <button name="action_recompute" type="object" string="Recompute" class="oe_highlight"/>
+                    <button
+                        name="action_recompute"
+                        type="object"
+                        string="Recompute"
+                        class="oe_highlight"
+                    />
                     <button special="cancel" string="Cancel" />
                 </footer>
             </form>
