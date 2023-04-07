@@ -16,6 +16,7 @@ class HrHolidaysPublicLine(models.Model):
 
         :param: date: Date for recomputing attendances.
         """
+        print("---------------_check_theoretical_hours---------------------")
         if not date:
             return
         if isinstance(date, str):
@@ -33,6 +34,7 @@ class HrHolidaysPublicLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         """Trigger recomputation for the date of the new lines."""
+        print("-------------------------createeeeeeeeeee")
         records = super().create(vals_list)
         for record in records:
             self._check_theoretical_hours(record.date)

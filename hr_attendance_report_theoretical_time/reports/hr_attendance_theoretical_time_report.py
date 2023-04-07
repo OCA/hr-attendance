@@ -21,9 +21,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
         comodel_name="hr.employee", string="Employee", readonly=True
     )
     department_id = fields.Many2one(
-        comodel_name="hr.department",
-        string="Department",
-        readonly=True,
+        comodel_name="hr.department", string="Department", readonly=True
     )
     date = fields.Date(readonly=True)
     worked_hours = fields.Float(string="Worked", readonly=True)

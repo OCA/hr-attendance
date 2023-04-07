@@ -377,7 +377,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(TestResourceCommon):
                             "date_from": "2022-01-17",
                         },
                     ),
-                ],
+                ]
             }
         )
 
