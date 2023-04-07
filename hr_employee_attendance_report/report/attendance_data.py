@@ -22,7 +22,11 @@ def get_attendances(self, employees, start_date, end_date):
     
     # Iterate on users
     for employee in employees:
-        hours_per_day = employee.company_id.resource_calendar_id.hours_per_day
+
+        # Get statics
+        hours_per_day = employee.resource_calendar_id.hours_per_day
+        fixed_work_hours = False if hours_per_day == 0 else True
+        company_hours_per_day = employee.company_id.resource_calendar_id.hours_per_day
         
         # Log time range
         dates[employee.id] = {}
@@ -56,6 +60,7 @@ def get_attendances(self, employees, start_date, end_date):
 
         # Update summary            
         summary[employee.id] = {
+            'fixed_work_hours': fixed_work_hours,
             'leave_hours': round(leave_hours, 2),
             'worked_hours': round(sum(attendance_ids.mapped('worked_hours')), 2),
             'overtime_total': round(employee.total_overtime, 2),
@@ -88,7 +93,7 @@ def get_attendances(self, employees, start_date, end_date):
             leave_hours = 0.0
             if active_leaves.holiday_id:
                 number_of_hours = active_leaves.holiday_id.number_of_hours_display
-                if number_of_hours > hours_per_day:
+                if number_of_hours > company_hours_per_day:
                     leave_hours = work_hours
                 else:
                     leave_hours = number_of_hours
@@ -107,7 +112,7 @@ def get_attendances(self, employees, start_date, end_date):
                 'leave_hours': round(leave_hours, 2),
                 'worked_hours': round(worked_hours, 2),                    
                 'overtime': round(overtime_hours, 2),
-                'background_color': 'lightgrey' if work_hours == 0 else 'none'
+                'background_color': 'lightgrey' if work_hours == 0 and fixed_work_hours else 'none'
             })
 
         # Update summary
@@ -142,18 +147,20 @@ def get_leave_allocations(self, employees):
 
 def _get_report_values(self, docids, data=None, report_name=None):
 
-    # _logger.warning([self, docids, data, report_name])
-
     now = fields.Datetime.now()
+    # Last month default dates
     start_date = now + relativedelta(months=-1, day=1, hour=0, minute=0, second=0)
     end_date = now + relativedelta(day=1, hour=0, minute=0, second=0)
+    # Current month default dates
+    # start_date = now + relativedelta(day=1, hour=0, minute=0, second=0)
+    # end_date = now + relativedelta(month=5, day=1, hour=0, minute=0, second=0)
 
     # Check data for params
-    if data.get('date_from'):
+    if data and data.get('date_from'):
         start_date = datetime.strptime(data['date_from'], '%Y-%m-%d')
-    if data.get('date_until'):
+    if data and data.get('date_until'):
         end_date = datetime.strptime(data['date_until'], '%Y-%m-%d')
-    if data.get('context').get('active_ids'):
+    if data.get('context', {}).get('active_ids'):
         docids = data['context']['active_ids']
 
     # Browse documents

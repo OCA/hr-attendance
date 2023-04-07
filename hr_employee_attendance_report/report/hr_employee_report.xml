@@ -23,7 +23,8 @@
     <template id="hr_employee_template">
         <t t-call="web.internal_layout">
             <div class="page">
-
+                <t t-set="fixed_work_hours" t-value="summary[doc.id]['fixed_work_hours']" />
+                                
                 <h1>Attendance Report</h1>
 
                 <p>Employee: <span t-out="doc.name" /></p>
@@ -42,16 +43,16 @@
                             <th name="th_date">
                                 Date
                             </th>
-                            <th name="th_planned_hours">
+                            <th name="th_planned_hours" t-if="fixed_work_hours">
                                 Planned Hours
                             </th>
-                            <th name="th_leave_hours">
+                            <th name="th_leave_hours" t-if="fixed_work_hours">
                                 Leave Hours
                             </th>
                             <th name="th_worked_hours">
                                 Worked Hours
                             </th>
-                            <th name="th_overtime">
+                            <th name="th_overtime" t-if="fixed_work_hours">
                                 Overtime
                             </th>
                         </tr>
@@ -63,16 +64,16 @@
                                 <td id="date">
                                     <t t-out="attendance['date']" t-options="{'widget': 'date'}" />
                                 </td>
-                                <td id="planned_hours">
+                                <td id="planned_hours" t-if="fixed_work_hours">
                                     <t t-out="attendance['planned_hours']" />
                                 </td>
-                                <td id="leave_hours">
+                                <td id="leave_hours" t-if="fixed_work_hours">
                                     <t t-out="attendance['leave_hours']" />
                                 </td>
                                 <td id="worked_hours">
                                     <t t-out="attendance['worked_hours']" />
                                 </td>
-                                <td id="overtime">
+                                <td id="overtime" t-if="fixed_work_hours">
                                     <t t-out="attendance['overtime']" />
                                 </td>
                             </tr>
@@ -87,7 +88,7 @@
                         <table class="table table-sm" name="summary_table">
 
                             <tbody class="summary_table">
-                                <tr>
+                                <tr t-if="fixed_work_hours">
                                     <th name="th_planned_hours">
                                         Planned Hours
                                     </th>
@@ -95,7 +96,7 @@
                                         <t t-out="summary[doc.id]['planned_hours']" />
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr t-if="fixed_work_hours">
                                     <th name="th_leave_hours">
                                         Leave Hours
                                     </th>
@@ -111,7 +112,7 @@
                                         <t t-out="summary[doc.id]['worked_hours']" />
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr t-if="fixed_work_hours">
                                     <th name="th_overtime">
                                         Overtime
                                     </th>
@@ -119,7 +120,7 @@
                                         <t t-out="summary[doc.id]['overtime']" />
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr t-if="fixed_work_hours">
                                     <th name="th_overtime_total">
                                         Overtime Total
                                     </th>
@@ -132,54 +133,55 @@
                     </div>
                 </div>
 
-                <h2>Leave Allocations</h2>
+                <t t-if="fixed_work_hours">
+                    <h2>Leave Allocations</h2>
 
-                <table class="table table-sm allocations_table" name="allocations_table">
-                    <thead>
-                        <tr>
-                            <th name="th_description">
-                                Description
-                            </th>
-                            <th name="th_leave_type">
-                                Time Off Type
-                            </th>
-                            <th name="th_allocation">
-                                Allocation
-                            </th>
-                            <th name="th_leaves_taken">
-                                Leaves Taken
-                            </th>
-                            <th name="th_remaining_leaves">
-                                Remaining
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="leaves_table">
-                        <t t-foreach="leave_allocations[doc.id]" t-as="allocation">
-
+                    <table class="table table-sm allocations_table" name="allocations_table">
+                        <thead>
                             <tr>
-                                <td id="description">
-                                    <t t-out="allocation.name" />
-                                </td>
-                                <td id="leave_type">
-                                    <t t-out="allocation.holiday_status_id.name" />
-                                </td>
-                                <td id="allocation">
-                                    <t t-out="allocation.duration_display" />
-                                </td>
-                                <td id="leaves_taken">
-                                    <t t-out="round(allocation.leaves_taken, 2)" />
-                                </td>
-                                <td id="remaining_leaves">
-                                    <t t-out="allocation.remaining_leaves_display" />
-                                </td>
+                                <th name="th_description">
+                                    Description
+                                </th>
+                                <th name="th_leave_type">
+                                    Time Off Type
+                                </th>
+                                <th name="th_allocation">
+                                    Allocation
+                                </th>
+                                <th name="th_leaves_taken">
+                                    Leaves Taken
+                                </th>
+                                <th name="th_remaining_leaves">
+                                    Remaining
+                                </th>
                             </tr>
+                        </thead>
+                        <tbody class="leaves_table">
+                            <t t-foreach="leave_allocations[doc.id]" t-as="allocation">
 
-                        </t>
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td id="description">
+                                        <t t-out="allocation.name" />
+                                    </td>
+                                    <td id="leave_type">
+                                        <t t-out="allocation.holiday_status_id.name" />
+                                    </td>
+                                    <td id="allocation">
+                                        <t t-out="allocation.duration_display" />
+                                    </td>
+                                    <td id="leaves_taken">
+                                        <t t-out="round(allocation.leaves_taken, 2)" />
+                                    </td>
+                                    <td id="remaining_leaves">
+                                        <t t-out="allocation.remaining_leaves_display" />
+                                    </td>
+                                </tr>
 
-            </div>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+            </div>            
 
         </t>
     </template>
