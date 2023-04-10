@@ -10,3 +10,6 @@ class ResCompany(models.Model):
     show_reasons_on_attendance_screen = fields.Boolean(
         string="Show reasons on attendance screen"
     )
+    required_reason_on_attendance_screen = fields.Boolean(
+        string="Required reason on attendance screen"
+    )
