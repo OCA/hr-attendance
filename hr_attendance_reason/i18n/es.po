@@ -58,13 +58,14 @@ msgid "Code must be unique"
 msgstr "El código debe ser único"
 
 #. module: hr_attendance_reason
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
-msgid "Company"
-msgstr ""
-
 #: model:ir.model,name:hr_attendance_reason.model_res_company
 msgid "Companies"
 msgstr "Empresas"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
+msgid "Company"
+msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model,name:hr_attendance_reason.model_res_config_settings
