@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-extend="HrAttendanceMyMainMenu">
+        <t t-jquery="h4:first" t-operation="after">
+            <t t-if="widget.employee.show_reasons_on_attendance_screen">
+                <div class="reasons_lists" t-if="widget.reasons">
+                    <h3 class="mt8">Reason</h3>
+                    <select
+                        class="o_hr_attendance_reason o_input_dropdown o_input o_field_widget o_required_modifier"
+                    >
+                        <option value="0" />
+                        <t t-foreach="widget.reasons" t-as="reason">
+                            <option
+                                t-att-value="reason.id"
+                                t-esc="reason.name"
+                                t-if="reason.action_type === 'sign_in' and !checked_in"
+                            />
+                            <option
+                                t-att-value="reason.id"
+                                t-esc="reason.name"
+                                t-if="reason.action_type === 'sign_out' and checked_in"
+                            />
+                        </t>
+                    </select>
+                </div>
+            </t>
+        </t>
+    </t>
+    <t t-extend="HrAttendanceKioskConfirm">
+        <t t-jquery="h4:first" t-operation="after">
+            <t t-if="widget.employee.show_reasons_on_attendance_screen">
+                <div class="reasons_lists" t-if="widget.reasons">
+                    <h3 class="mt8">Reason</h3>
+                    <select
+                        class="o_hr_attendance_reason o_input_dropdown o_input o_field_widget o_required_modifier"
+                    >
+                        <option value="0" />
+                        <t t-foreach="widget.reasons" t-as="reason">
+                            <option
+                                t-att-value="reason.id"
+                                t-esc="reason.name"
+                                t-if="reason.action_type === 'sign_in' and !checked_in"
+                            />
+                            <option
+                                t-att-value="reason.id"
+                                t-esc="reason.name"
+                                t-if="reason.action_type === 'sign_out' and checked_in"
+                            />
+                        </t>
+                    </select>
+                </div>
+            </t>
+        </t>
+    </t>
+</templates>
