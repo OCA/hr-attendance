@@ -24,7 +24,10 @@ odoo.define("hr_attendance_reason.kiosk_confirm", function (require) {
                 method: "search_read",
                 args: [
                     [["user_id", "=", this.getSession().uid]],
-                    ["show_reasons_on_attendance_screen"],
+                    [
+                        "show_reasons_on_attendance_screen",
+                        "required_reason_on_attendance_screen",
+                    ],
                 ],
             }).then((res) => {
                 this.employee = res.length && res[0];
@@ -46,7 +49,10 @@ odoo.define("hr_attendance_reason.kiosk_confirm", function (require) {
             Object.assign(session.user_context, {
                 attendance_reason_id: attendance_reason_id,
             });
-            if (attendance_reason_id === 0) {
+            if (
+                attendance_reason_id === 0 &&
+                this.employee.required_reason_on_attendance_screen
+            ) {
                 this.do_warn(_t("Please, select a reason"));
             } else {
                 event_func = event_func.bind(this);

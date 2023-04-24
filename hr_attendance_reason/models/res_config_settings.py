@@ -10,3 +10,6 @@ class ResConfigSettings(models.TransientModel):
     show_reasons_on_attendance_screen = fields.Boolean(
         related="company_id.show_reasons_on_attendance_screen", readonly=False
     )
+    required_reason_on_attendance_screen = fields.Boolean(
+        related="company_id.required_reason_on_attendance_screen", readonly=False
+    )

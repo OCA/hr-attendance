@@ -10,3 +10,6 @@ class HrEmployeeBase(models.AbstractModel):
     show_reasons_on_attendance_screen = fields.Boolean(
         related="company_id.show_reasons_on_attendance_screen", store=True
     )
+    required_reason_on_attendance_screen = fields.Boolean(
+        related="company_id.required_reason_on_attendance_screen", store=True
+    )
