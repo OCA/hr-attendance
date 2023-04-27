@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [hr_attendance_autoclose](hr_attendance_autoclose/) | 15.0.1.0.0 |  | Close stale Attendances
+[hr_attendance_calendar_view](hr_attendance_calendar_view/) | 15.0.1.0.0 |  | This module adds the calendar view as an option to display attendance
 [hr_attendance_geolocation](hr_attendance_geolocation/) | 15.0.1.0.3 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 [hr_attendance_reason](hr_attendance_reason/) | 15.0.1.1.0 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 15.0.1.1.1 |  | Theoretical vs Attended Time Analysis
