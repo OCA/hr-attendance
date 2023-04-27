@@ -498,7 +498,7 @@ class TestAttendanceSheet(TransactionCase):
                 "hours_to_work": 20.0,
             }
         )
-        attednance_sheet = self.env["hr.attendance.sheet"].create(
+        attendance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
                 "date_start": "2023-02-01",
@@ -516,22 +516,22 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         with self.assertRaises(UserError):
-            attednance_sheet.with_user(
+            attendance_sheet.with_user(
                 self.test_user_employee_test
             ).action_attendance_sheet_confirm()
         company = self.env.company
         company.write({"attendance_sheet_review_policy": "hr_or_manager"})
-        attednance_sheet.write({"can_review": False})
+        attendance_sheet.write({"can_review": False})
         with self.assertRaises(UserError):
-            attednance_sheet._check_can_review()
+            attendance_sheet._check_can_review()
         company.write(
             {
                 "use_attendance_sheets": True,
                 "date_end": "2023-01-31",
             }
         )
-        attednance_sheet.check_pay_period_dates()
-        attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
+        attendance_sheet.check_pay_period_dates()
+        attendance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
                 "date_start": "2023-02-01",
@@ -549,10 +549,10 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet_check_out.with_user(
+        attendance_sheet_check_out.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
-        attednance_sheet = self.env["hr.attendance.sheet"].create(
+        attendance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
                 "date_start": "2023-02-01",
@@ -570,11 +570,11 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet.with_user(
+        attendance_sheet.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
 
-        attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
+        attendance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
                 "date_start": "2023-02-01",
@@ -592,7 +592,7 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet_check_out.with_user(
+        attendance_sheet_check_out.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
         sheet = self.env["hr.attendance.sheet"].create(
@@ -603,7 +603,7 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         vals = {
-            "employee_id": attednance_sheet_check_out.employee_id.id,
+            "employee_id": attendance_sheet_check_out.employee_id.id,
             "check_in": "2023-02-01 17:00",
             "check_out": "2023-02-01 18:00",
         }
