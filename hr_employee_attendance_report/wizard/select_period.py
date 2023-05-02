@@ -1,6 +1,6 @@
 import time
 from dateutil.relativedelta import relativedelta
-from datetime import datetime
+from datetime import datetime, timedelta, date
 from odoo import api, fields, models
 import logging
 _logger = logging.getLogger(__name__)
@@ -11,8 +11,8 @@ class HREmployeeAttendanceReportSelectPeriod(models.TransientModel):
     _name = 'hr_employee_attendance_report.select_period'
     _description = 'Attendance and leave report period selector'
 
-    date_from = fields.Date(string='From', required=True, default=lambda *a: str(datetime.now() + relativedelta(months=-1, day=1, hour=0, second=0))[:10])
-    date_until = fields.Date(string='Until', required=True, default=lambda *a: str(datetime.now() + relativedelta(day=1, hour=0, minute=0, second=0))[:10])
+    date_from = fields.Date(string='From', required=True, default=lambda *a: str(date.today() + relativedelta(months=-1, day=1)))
+    date_until = fields.Date(string='Until', required=True, default=lambda *a: str(date.today() + relativedelta(day=1) - timedelta(days=1)))
 
     def print_report(self, download_only=False):
         self.ensure_one()

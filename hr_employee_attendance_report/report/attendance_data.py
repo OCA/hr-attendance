@@ -155,11 +155,11 @@ def _get_report_values(self, docids, data=None, report_name=None):
     # start_date = now + relativedelta(day=1, hour=0, minute=0, second=0)
     # end_date = now + relativedelta(month=5, day=1, hour=0, minute=0, second=0)
 
-    # Check data for params
+    # Check data for params from dialog
     if data and data.get('date_from'):
         start_date = datetime.strptime(data['date_from'], '%Y-%m-%d')
     if data and data.get('date_until'):
-        end_date = datetime.strptime(data['date_until'], '%Y-%m-%d')
+        end_date = datetime.strptime(data['date_until'], '%Y-%m-%d') + timedelta(days=1)
     if data.get('context', {}).get('active_ids'):
         docids = data['context']['active_ids']
 
