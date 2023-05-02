@@ -28,8 +28,11 @@ class TestHrAttendanceReason(common.TransactionCase):
         self.employee = self.env["hr.employee"].create(
             {"name": self.user.login, "user_id": self.user.id}
         )
-        self.att_reason = self.att_reason_model.create(
+        self.att_reason_in = self.att_reason_model.create(
             {"name": "Bus did not come", "code": "BB", "action_type": "sign_in"}
+        )
+        self.att_reason_out = self.att_reason_model.create(
+            {"name": "A lot of work", "code": "WORK", "action_type": "sign_out"}
         )
 
     @users("test-user")
@@ -40,18 +43,27 @@ class TestHrAttendanceReason(common.TransactionCase):
                 "check_in": datetime.now().strftime(DF),
             }
         )
-        att.write({"attendance_reason_ids": [(4, self.att_reason.id)]})
+        att.write({"attendance_reason_ids": [(4, self.att_reason_in.id)]})
         self.assertEqual(
-            att.attendance_reason_ids.ids, self.att_reason.ids, "Bad Attendance Reason"
+            att.attendance_reason_ids.ids,
+            self.att_reason_in.ids,
+            "Bad Attendance Reason",
         )
         self.env.user.employee_id._attendance_action_change()
 
     @users("test-user")
     def test_user_attendance_manual(self):
-        self.env.user.employee_id.with_context(
-            attendance_reason_id=self.att_reason.id
+        # check in
+        res = self.env.user.employee_id.with_context(
+            attendance_reason_id=self.att_reason_in.id
         ).attendance_manual({})
         self.assertIn(
-            self.att_reason,
-            self.env.user.employee_id.last_attendance_id.attendance_reason_ids,
+            self.att_reason_in.id, res["action"]["attendance"]["attendance_reason_ids"]
+        )
+        # check out
+        res = self.env.user.employee_id.with_context(
+            attendance_reason_id=self.att_reason_out.id
+        ).attendance_manual({})
+        self.assertIn(
+            self.att_reason_out.id, res["action"]["attendance"]["attendance_reason_ids"]
         )

@@ -14,15 +14,13 @@ class HrEmployeeBase(models.AbstractModel):
         related="company_id.required_reason_on_attendance_screen", store=True
     )
 
-    def attendance_manual(self, next_action, entered_pin=None):
-        res = super().attendance_manual(
-            next_action=next_action, entered_pin=entered_pin
-        )
+    def _attendance_action_change(self):
+        attendance = super()._attendance_action_change()
         if self.env.context.get("attendance_reason_id"):
-            self.last_attendance_id.attendance_reason_ids = [
+            attendance.attendance_reason_ids = [
                 (4, self.env.context.get("attendance_reason_id"))
             ]
-        return res
+        return attendance
 
     @api.model
     def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
