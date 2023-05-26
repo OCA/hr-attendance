@@ -227,7 +227,7 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST19: Set company date range to bi-weekly
         company.write({"attendance_sheet_range": "BIWEEKLY"})
-        self.assertFalse(company.date_end)
+        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-14"))
 
         # TEST20: Test autolunch on attendance
         # clock_date = fields.Date.today() + timedelta(days=2)
