@@ -46,8 +46,11 @@ class ResCompany(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
-        if vals.get("date_start") or vals.get("attendance_sheet_range"):
-            vals.update({"date_end": self.set_date_end(company=self.id)})
+        if "date_end" not in vals and (
+            vals.get("date_start") or vals.get("attendance_sheet_range")
+        ):
+            for rec in self:
+                rec.write({"date_end": self.set_date_end(company=rec.id)})
         return res
 
     @api.model
