@@ -69,6 +69,6 @@ class HrEmployeeBase(models.AbstractModel):
                 res["error_message"] = msg
                 return res
         except Exception as e:
-            res["error_message"] = e
-            _logger.error(e)
+            res["error_message"] = str(e)
+            _logger.error(str(e))
         return res
