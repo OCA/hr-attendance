@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[hr_attendance_calendar_view](hr_attendance_calendar_view/) | 16.0.1.0.0 |  | This module adds the calendar view as an option to display attendance
 [hr_attendance_geolocation](hr_attendance_geolocation/) | 16.0.1.0.1 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 
 [//]: # (end addons)
