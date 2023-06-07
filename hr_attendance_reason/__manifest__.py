@@ -21,8 +21,6 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "hr_attendance_reason/static/src/js/hr_attendance_reason_context_legacy.esm.js",
-            "hr_attendance_reason/static/src/js/legacy.js",
             "hr_attendance_reason/static/src/js/my_attendances.esm.js",
             "hr_attendance_reason/static/src/js/kiosk_confirm.esm.js",
             "hr_attendance_reason/static/src/scss/hr_attendance_reason.scss",
