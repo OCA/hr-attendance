@@ -7,8 +7,8 @@ from odoo import api, fields, models
 class HrEmployeeBase(models.AbstractModel):
     _inherit = "hr.employee.base"
 
-    show_reasons_on_attendance_screen = fields.Boolean(
-        related="company_id.show_reasons_on_attendance_screen", store=True
+    show_reason_on_attendance_screen = fields.Boolean(
+        related="company_id.show_reason_on_attendance_screen", store=True
     )
     required_reason_on_attendance_screen = fields.Boolean(
         related="company_id.required_reason_on_attendance_screen", store=True
