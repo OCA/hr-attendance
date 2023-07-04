@@ -26,21 +26,6 @@ msgid "Basic Employee"
 msgstr ""
 
 #. module: hr_attendance_rfid
-#: model:ir.model.fields,field_description:hr_attendance_rfid.field_hr_employee_base__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: hr_attendance_rfid
-#: model:ir.model.fields,field_description:hr_attendance_rfid.field_hr_employee_base__id
-msgid "ID"
-msgstr ""
-
-#. module: hr_attendance_rfid
-#: model:ir.model.fields,field_description:hr_attendance_rfid.field_hr_employee_base____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: hr_attendance_rfid
 #: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "No attendance was recorded for employee %s"
