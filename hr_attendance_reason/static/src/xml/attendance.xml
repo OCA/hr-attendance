@@ -2,7 +2,7 @@
 <templates>
     <t t-extend="HrAttendanceMyMainMenu">
         <t t-jquery="h4:first" t-operation="after">
-            <t t-if="widget.employee.show_reasons_on_attendance_screen">
+            <t t-if="widget.employee.show_reason_on_attendance_screen">
                 <div class="reasons_lists" t-if="widget.reasons">
                     <h3 class="mt8">Reason</h3>
                     <select
@@ -28,7 +28,7 @@
     </t>
     <t t-extend="HrAttendanceKioskConfirm">
         <t t-jquery="h4:first" t-operation="after">
-            <t t-if="widget.employee.show_reasons_on_attendance_screen">
+            <t t-if="widget.employee.show_reason_on_attendance_screen">
                 <div class="reasons_lists" t-if="widget.reasons">
                     <h3 class="mt8">Reason</h3>
                     <select
