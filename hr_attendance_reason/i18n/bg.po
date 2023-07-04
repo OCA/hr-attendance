@@ -38,13 +38,28 @@ msgid "Attendance Reasons"
 msgstr "Причини за отсъствие"
 
 #. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
 msgid "Code must be unique"
 msgstr "Кода трябва да е уникален"
 
 #. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
 msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -73,6 +88,11 @@ msgid "Display Name"
 msgstr "Име за показване"
 
 #. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__id
 msgid "ID"
 msgstr "ИН"
@@ -98,7 +118,18 @@ msgid "Leave empty if it is independent"
 msgstr "Остави празно ако не е зависимо"
 
 #. module: hr_attendance_reason
+#. openerp-web
+#: code:addons/hr_attendance_reason/static/src/js/kiosk_confirm.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/js/my_attendances.esm.js:0
+#, python-format
+msgid "Please, select a reason"
+msgstr ""
+
+#. module: hr_attendance_reason
+#. openerp-web
+#: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
+#, python-format
 msgid "Reason"
 msgstr "Причина"
 
@@ -111,6 +142,36 @@ msgstr "Код на причина"
 #: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_reason_menu
 msgid "Reasons"
 msgstr "Причини"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__required_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_base__required_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_public__required_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__required_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__required_reason_on_attendance_screen
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Required reason on attendance screen"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__show_on_attendance_screen
+msgid "Show on attendance screen?"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__show_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_base__show_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_public__show_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__show_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__show_reason_on_attendance_screen
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Show reasons on attendance screen"
+msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_in
