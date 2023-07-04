@@ -13,6 +13,16 @@ class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context,
+                mail_create_nolog=True,
+                mail_create_nosubscribe=True,
+                mail_notrack=True,
+                no_reset_password=True,
+                tracking_disable=True,
+            )
+        )
         cls.HrLeave = cls.env["hr.leave"]
         cls.HrHolidaysPublic = cls.env["hr.holidays.public"]
         cls.HrLeaveType = cls.env["hr.leave.type"]
@@ -52,6 +62,7 @@ class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
                 "state_id": cls.env.ref("base.state_es_cr").id,
             }
         )
+        cls.env.company.resource_calendar_id = cls.calendar
         cls.employee_1 = cls.env["hr.employee"].create(
             {
                 "name": "Employee 1",
@@ -171,7 +182,9 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
     def test_theoretical_hours_recompute(self):
         """Change calendar, and then recompute with the wizard"""
         # Get rid of 4 hours per day so the theoretical should be 4.
-        self.calendar.attendance_ids.filtered(lambda x: x.hour_from == 14.0).unlink()
+        self.employee_1.resource_calendar_id.attendance_ids.filtered(
+            lambda x: x.hour_from == 14.0
+        ).unlink()
         # The attendances theoretical hours remain at 8 if not recomputed
         self.assertEqual(self.attendances[0].theoretical_hours, 8)
         self.assertEqual(self.attendances[1].theoretical_hours, 8)
@@ -275,12 +288,13 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
 class TestHrAttendanceReportTheoreticalTimeResource(TestResourceCommon):
     def setUp(self):
         super().setUp()
+        self.env.company.resource_calendar_id = self.calendar_jules
         self.employee = self.env["hr.employee"].create(
             {"name": "Employee", "resource_calendar_id": self.calendar_jules.id}
         )
         # 2 weeks calendar with date_from and date_to to check work_hours
-        self.calendar_jules.attendance_ids.unlink()
-        self.calendar_jules.write(
+        self.employee.resource_calendar_id.attendance_ids.unlink()
+        self.employee.resource_calendar_id.write(
             {
                 "attendance_ids": [
                     (
