@@ -7,7 +7,7 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    show_reasons_on_attendance_screen = fields.Boolean(
+    show_reason_on_attendance_screen = fields.Boolean(
         string="Show reasons on attendance screen"
     )
     required_reason_on_attendance_screen = fields.Boolean(

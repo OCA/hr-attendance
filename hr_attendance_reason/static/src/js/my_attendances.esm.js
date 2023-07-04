@@ -7,7 +7,7 @@ MyAttendances.include({
     willStart: function () {
         Object.assign(session.user_context, {
             extra_fields: [
-                "show_reasons_on_attendance_screen",
+                "show_reason_on_attendance_screen",
                 "required_reason_on_attendance_screen",
             ],
         });
@@ -37,7 +37,7 @@ MyAttendances.include({
         }
         if (model === "hr.employee" && method === "search_read") {
             context.extra_fields = [
-                "show_reasons_on_attendance_screen",
+                "show_reason_on_attendance_screen",
                 "required_reason_on_attendance_screen",
             ];
         }

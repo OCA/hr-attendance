@@ -10,10 +10,10 @@
             >
                 <div class="col-12 col-lg-6 o_setting_box">
                     <div class="o_setting_left_pane">
-                        <field name="show_reasons_on_attendance_screen" />
+                        <field name="show_reason_on_attendance_screen" />
                     </div>
                     <div class="o_setting_right_pane">
-                        <label for="show_reasons_on_attendance_screen" />
+                        <label for="show_reason_on_attendance_screen" />
                         <div class="text-muted">Show reasons on attendance screen</div>
                     </div>
                 </div>
