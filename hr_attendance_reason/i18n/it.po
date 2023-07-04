@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-14 14:12+0000\n"
+"PO-Revision-Date: 2023-07-04 15:09+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -35,7 +35,7 @@ msgstr "Motivo presenza"
 #. module: hr_attendance_reason
 #: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
 msgid "Attendance Reasons"
-msgstr "Giustificativi assenze"
+msgstr "Motivi presenza"
 
 #. module: hr_attendance_reason
 #: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_tree
@@ -163,7 +163,7 @@ msgstr "Sciopero del trasporto pubblico"
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
 #, python-format
 msgid "Reason"
-msgstr "Giustificativo"
+msgstr "Motivo"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__code
