@@ -24,7 +24,7 @@ KioskConfirm.include({
             args: [
                 [["user_id", "=", this.getSession().uid]],
                 [
-                    "show_reasons_on_attendance_screen",
+                    "show_reason_on_attendance_screen",
                     "required_reason_on_attendance_screen",
                 ],
             ],
@@ -48,7 +48,7 @@ KioskConfirm.include({
         }
         if (model === "hr.employee" && method === "search_read") {
             context.extra_fields = [
-                "show_reasons_on_attendance_screen",
+                "show_reason_on_attendance_screen",
                 "required_reason_on_attendance_screen",
             ];
         }

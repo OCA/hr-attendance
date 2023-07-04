@@ -7,8 +7,8 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    show_reasons_on_attendance_screen = fields.Boolean(
-        related="company_id.show_reasons_on_attendance_screen", readonly=False
+    show_reason_on_attendance_screen = fields.Boolean(
+        related="company_id.show_reason_on_attendance_screen", readonly=False
     )
     required_reason_on_attendance_screen = fields.Boolean(
         related="company_id.required_reason_on_attendance_screen", readonly=False
