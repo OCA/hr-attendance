@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [hr_attendance_modification_tracking](hr_attendance_modification_tracking/) | 14.0.1.0.4 |  | Attendance changes will now be registered in the chatter.
 [hr_attendance_overtime](hr_attendance_overtime/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Mark Attendances as overtime.
 [hr_attendance_reason](hr_attendance_reason/) | 14.0.1.1.3 |  | HR Attendance Reason
-[hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 14.0.1.0.4 |  | Theoretical vs Attended Time Analysis
+[hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 14.0.1.0.5 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 14.0.1.1.2 |  | HR Attendance RFID
 [hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.3 | [![patrickrwilson](https://github.com/patrickrwilson.png?size=30px)](https://github.com/patrickrwilson) [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Group attendances into attendance sheets.
 [hr_attendance_validation](hr_attendance_validation/) | 14.0.1.0.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Employee attendance validation.
