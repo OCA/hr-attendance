@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-04 15:09+0000\n"
+"PO-Revision-Date: 2023-07-06 08:09+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -150,7 +150,7 @@ msgstr "Correzione manuale del manager"
 #: code:addons/hr_attendance_reason/static/src/js/my_attendances.js:0
 #, python-format
 msgid "Please, select a reason"
-msgstr "Prego, selezionare un giustificativo"
+msgstr "Selezionare un giustificativo"
 
 #. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_5
