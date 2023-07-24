@@ -85,8 +85,8 @@
                         <field name="attendance_admin" />
                     </group>
                     <group col="4" colspan="2">
-                        <field name="date_start" />
-                        <field name="date_end" />
+                        <field name="start_date" />
+                        <field name="end_date" />
                     </group>
                     <notebook>
                         <page string="Check-in/Check-out">
@@ -121,6 +121,7 @@
                                         <field
                                             name="override_auto_lunch"
                                             readonly="1"
+                                            optional="hide"
                                         />
                                         <field name="duration" widget="timesheet_uom" />
                                     </tree>
@@ -188,13 +189,13 @@
                 <filter
                     string="Current Period"
                     name="current_period"
-                    domain="['&amp;',('date_start','&lt;=', context_today().strftime('%Y-%m-%d')),('date_end','&gt;', context_today().strftime('%Y-%m-%d'))]"
+                    domain="['&amp;',('start_date','&lt;=', context_today().strftime('%Y-%m-%d')),('end_date','&gt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Overdue invoices, maturity date passed"
                 />
                 <filter
                     string="Previous Periods"
                     name="previous_periods"
-                    domain="[('date_start','&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    domain="[('start_date','&lt;', context_today().strftime('%Y-%m-%d'))]"
                 />
                 <group expand="0" string="Group By">
                     <filter
@@ -209,9 +210,9 @@
                     />
                     <separator />
                     <filter
-                        name="groupby_date_start"
+                        name="groupby_start_date"
                         string="Start Date"
-                        context="{'group_by': 'date_start'}"
+                        context="{'group_by': 'start_date'}"
                     />
                 </group>
             </search>

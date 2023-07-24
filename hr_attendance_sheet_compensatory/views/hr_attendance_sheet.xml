@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="hr_attendance_sheet_view_form">
+        <field name="name">hr.attendance.sheet.form</field>
+        <field name="model">hr.attendance.sheet</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance_sheet.hr_attendance_sheet_view_form"
+        />
+        <field name="priority">160</field>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <field name="require_regeneration" invisible="1" />
+                <button
+                    name="action_retrieve_attendance_and_leaves"
+                    string="Retrieve attendances and leaves"
+                    type="object"
+                    states="draft"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <button
+                    name="action_compute_compensatory_hour"
+                    string="Recompute compensatory hour"
+                    type="object"
+                    states="draft"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+            </header>
+            <field name="overtime" position="replace" />
+            <field name="override_auto_lunch" position="after">
+                <field name="is_overtime" />
+                <field name="is_overtime_due" optional="hide" />
+            </field>
+            <field name="attendance_ids" position="attributes">
+                <attribute name="options" />
+            </field>
+            <notebook position="inside">
+                <page string="Leaves" name="leaves">
+                    <group name="leaves">
+                        <field name="leave_ids" nolabel="1" readonly="1">
+                            <tree editable="top">
+                                <field name="request_date_from" />
+                                <field name="request_date_to" />
+                                <field name="state" optional="hide" />
+                                <field name="holiday_status_id" optional="hide" />
+                                <field name="name" optional="hide" />
+                                <field name="report_note" optional="hide" />
+                                <field name="holiday_type" optional="hide" />
+                                <field name="number_of_days" />
+                                <field
+                                    name="number_of_hours_display"
+                                    widget="float_time"
+                                />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+                <page string="Hours Information" name="hours_information">
+                    <group>
+                        <group groups="hr_attendance.group_hr_attendance_manager">
+                            <field name="attendance_full_hours" widget="float_time" />
+                            <field
+                                string="Attendance without Lunch"
+                                name="total_time"
+                                widget="float_time"
+                            />
+                            <field name="attendance_hours" widget="float_time" />
+                            <field name="overtime_due_hours" widget="float_time" />
+                            <field name="overtime_not_due_hours" widget="float_time" />
+                            <field name="leave_hours" widget="float_time" />
+                        </group>
+                        <group>
+                            <field name="attendance_total_hours" widget="float_time" />
+                            <field
+                                name="compensatory_hour"
+                                widget="float_time"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="leave_allocation_id"
+                                readonly="1"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="regularization_compensatory_hour_taken"
+                                widget="float_time"
+                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                            <field
+                                name="leave_id"
+                                readonly="1"
+                                groups="hr_attendance.group_hr_attendance_manager"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

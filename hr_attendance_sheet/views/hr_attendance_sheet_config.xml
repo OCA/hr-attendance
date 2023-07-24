@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="hr_attendance_sheet_config_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.sheet.config.form</field>
+        <field name="model">hr.attendance.sheet.config</field>
+        <field name="arch" type="xml">
+            <form string="Define Attendance Sheet Config">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_date" />
+                            <field name="end_date" />
+                            <field name="period" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                        <group>
+                            <field name="auto_lunch" />
+                            <field
+                                name="auto_lunch_duration"
+                                attrs="{'invisible': [('auto_lunch', '=', False)]}"
+                            />
+                            <field
+                                name="auto_lunch_hours"
+                                attrs="{'invisible': [('auto_lunch', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_attendance_sheet_config_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.sheet.config.tree</field>
+        <field name="model">hr.attendance.sheet.config</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Sheet Config">
+                <field name="start_date" />
+                <field name="end_date" />
+                <field name="period" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="auto_lunch" />
+                <field
+                    name="auto_lunch_duration"
+                    attrs="{'invisible': [('auto_lunch', '=', False)]}"
+                />
+                <field
+                    name="auto_lunch_hours"
+                    attrs="{'invisible': [('auto_lunch', '=', False)]}"
+                />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_attendance_sheet_config_action" model="ir.actions.act_window">
+        <field name="name">Attendance Sheet Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.attendance.sheet.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="hr_attendance_sheet_config_view_tree" />
+    </record>
+    <menuitem
+        id="hr_attendance_sheet_config_menu"
+        name="Attendance Sheet Configuration"
+        parent="hr_attendance.menu_hr_attendance_settings"
+        action="hr_attendance_sheet_config_action"
+        sequence="100"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+</odoo>

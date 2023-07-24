@@ -15,6 +15,7 @@ class TestAttendanceSheet(TransactionCase):
     def setUp(self):
         super().setUp()
         self.AttendanceSheet = self.env["hr.attendance.sheet"]
+        self.AttendanceSheetConfig = self.env["hr.attendance.sheet.config"]
         self.ctx_new_test_user = {
             "mail_create_nolog": True,
             "mail_create_nosubscribe": True,
@@ -88,11 +89,16 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "WEEKLY",
+            }
+        )
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-02-01",
+                "period": "WEEKLY",
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
                 "auto_lunch_hours": 0.5,
+                "company_id": company.id,
             }
         )
 
@@ -100,8 +106,8 @@ class TestAttendanceSheet(TransactionCase):
         view_id = "hr_attendance_sheet.hr_attendance_sheet_view_form"
         with Form(self.AttendanceSheet, view=view_id) as f:
             f.employee_id = self.test_employee
-            f.date_start = "2023-01-01"
-            f.date_end = "2023-01-15"
+            f.start_date = "2023-01-01"
+            f.end_date = "2023-01-15"
         sheet = f.save()
         sheet.attendance_action_change()
         time.sleep(2)
@@ -192,7 +198,7 @@ class TestAttendanceSheet(TransactionCase):
 
         # TEST11: Test write sheet when locked
         with self.assertRaises(UserError):
-            sheet.with_user(self.test_user_employee).write({"date_start": "2023-02-01"})
+            sheet.with_user(self.test_user_employee).write({"start_date": "2023-02-01"})
 
         # TEST12: Test error trying to write attendance
         with self.assertRaises(UserError):
@@ -225,41 +231,29 @@ class TestAttendanceSheet(TransactionCase):
         # sheet.with_user(self.test_user_manager).action_attendance_sheet_refuse()
         self.assertEqual(sheet.state, "draft")
 
-        # TEST19: Set company date range to bi-weekly
-        company.write({"attendance_sheet_range": "BIWEEKLY"})
-        self.assertFalse(company.date_end)
-
-        # TEST20: Test autolunch on attendance
-        # clock_date = fields.Date.today() + timedelta(days=2)
-        # with self.assertRaises(UserError):
-        #     self.test_attendance4 = self.env["hr.attendance"].create(
-        #         {
-        #             "employee_id": self.test_employee1.id,
-        #             "check_out": clock_date.strftime("%Y-%m-11 16:00"),
-        #         }
-        #     )
-        #     self.assertEqual(self.test_attendance4.auto_lunch, False)
-
     def test_company_create_sheet_id(self):
         company = self.env.company
         company.write({"use_attendance_sheets": True})
 
         # TEST21: Scheduled Action No Company Start/End Date Error
-        with self.assertRaises(UserError):
-            self.AttendanceSheet._create_sheet_id()
+        res = self.AttendanceSheet._create_sheet_id()
+        self.assertFalse(res)
         # TEST22: Company Start/End Date onchange
         company = self.env.company
 
         company.write(
             {
-                "attendance_sheet_range": "WEEKLY",
                 "attendance_sheet_review_policy": "employee_manager",
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-15",
             }
         )
-        company.onchange_attendance_sheet_range()
-        self.assertEqual(company.date_start, fields.Date.from_string("2023-02-01"))
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-15",
+                "period": "WEEKLY",
+                "company_id": company.id,
+            }
+        )
 
         # TEST23: Create Sheets Cron Method
         #        self.AttendanceSheet._create_sheet_id()
@@ -279,46 +273,6 @@ class TestAttendanceSheet(TransactionCase):
         sheet = self.env["hr.attendance.sheet"].search([], limit=1)
         sheet.with_user(self.test_user_employee1).action_attendance_sheet_confirm()
         self.assertFalse(sheet.state)
-
-    def test_company_create(self):
-        # TEST27: Create Company
-        company = self.test_company = self.env["res.company"].create(
-            {
-                "name": "Test Company",
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "BIWEEKLY",
-            }
-        )
-        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-14"))
-
-    def test_company_start_end_date_change(self):
-        # TEST28: Test changing start/end date on company via cron
-        company = self.env.company
-        company.write(
-            {
-                "date_start": "2023-01-25",
-                "date_end": "2023-02-01",
-                "use_attendance_sheets": True,
-                "attendance_sheet_range": "WEEKLY",
-                "attendance_sheet_review_policy": "employee_manager",
-            }
-        )
-        self.AttendanceSheet._create_sheet_id()
-        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-01"))
-
-    def test_set_date_end(self):
-        # TEST29: Create Company and test else statement in set end date
-        company = self.test_company = self.env["res.company"].create(
-            {
-                "name": "Test Company",
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "DAILY",
-            }
-        )
-        self.assertEqual(
-            company.date_end,
-            fields.Date.from_string("2023-02-28"),
-        )
 
     def test_access_errors(self):
         self.test_user_basic = new_test_user(
@@ -349,8 +303,8 @@ class TestAttendanceSheet(TransactionCase):
         view_id = "hr_attendance_sheet.hr_attendance_sheet_view_form"
         with Form(self.AttendanceSheet, view=view_id) as f:
             f.employee_id = self.test_basic_employee
-            f.date_start = "2023-02-01"
-            f.date_end = "2023-02-15"
+            f.start_date = "2023-02-01"
+            f.end_date = "2023-02-15"
         sheet = f.save()
         sheet.action_attendance_sheet_confirm()
 
@@ -390,11 +344,16 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
+            }
+        )
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-8",
+                "company_id": company.id,
                 "auto_lunch": True,
                 "auto_lunch_duration": 5,
                 "auto_lunch_hours": 0.5,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
             }
         )
         self.AttendanceSheet._create_sheet_id()
@@ -403,10 +362,9 @@ class TestAttendanceSheet(TransactionCase):
                 "employee_id": self.test_employee.id,
                 "check_in": "2023-01-15 08:00",
                 "check_out": "2023-01-15 12:00",
-                "auto_lunch": True,
             }
         )
-        self.assertTrue(self.test_attendance_no_lunch.auto_lunch)
+        self.assertFalse(self.test_attendance_no_lunch.auto_lunch)
 
         # TEST35: clock-in button method on sheet
         sheet = self.env["hr.attendance.sheet"].search([], limit=1)
@@ -421,8 +379,13 @@ class TestAttendanceSheet(TransactionCase):
             {
                 "use_attendance_sheets": True,
                 "attendance_sheet_review_policy": "employee_manager",
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+            }
+        )
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-8",
+                "company_id": company.id,
             }
         )
         self.test_admin = self.env["hr.employee"].create({"name": "TestAdmin"})
@@ -457,11 +420,17 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
+            }
+        )
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-01-01",
+                "end_date": "2023-01-15",
+                "period": "WEEKLY",
+                "company_id": company.id,
                 "auto_lunch": True,
                 "auto_lunch_duration": 5,
                 "auto_lunch_hours": 1,
-                "date_start": "2023-01-01",
-                "date_end": "2023-01-15",
             }
         )
         self.AttendanceSheet._create_sheet_id()
@@ -498,11 +467,11 @@ class TestAttendanceSheet(TransactionCase):
                 "hours_to_work": 20.0,
             }
         )
-        attednance_sheet = self.env["hr.attendance.sheet"].create(
+        attendance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
@@ -516,26 +485,33 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         with self.assertRaises(UserError):
-            attednance_sheet.with_user(
+            attendance_sheet.with_user(
                 self.test_user_employee_test
             ).action_attendance_sheet_confirm()
         company = self.env.company
         company.write({"attendance_sheet_review_policy": "hr_or_manager"})
-        attednance_sheet.write({"can_review": False})
+        attendance_sheet.write({"can_review": False})
         with self.assertRaises(UserError):
-            attednance_sheet._check_can_review()
+            attendance_sheet._check_can_review()
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_end": "2023-01-31",
             }
         )
-        attednance_sheet.check_pay_period_dates()
-        attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
+        self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-01-01",
+                "end_date": "2023-01-31",
+                "period": "WEEKLY",
+                "company_id": company.id,
+            }
+        )
+
+        attendance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
@@ -549,14 +525,14 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet_check_out.with_user(
+        attendance_sheet_check_out.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
-        attednance_sheet = self.env["hr.attendance.sheet"].create(
+        attendance_sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
@@ -570,15 +546,15 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet.with_user(
+        attendance_sheet.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
 
-        attednance_sheet_check_out = self.env["hr.attendance.sheet"].create(
+        attendance_sheet_check_out = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-08",
                 "attendance_ids": [
                     (
                         0,
@@ -592,18 +568,18 @@ class TestAttendanceSheet(TransactionCase):
                 ],
             }
         )
-        attednance_sheet_check_out.with_user(
+        attendance_sheet_check_out.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
         sheet = self.env["hr.attendance.sheet"].create(
             {
                 "employee_id": self.test_employee_test.id,
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-08",
+                "start_date": "2023-02-01",
+                "end_date": "2023-02-08",
             }
         )
         vals = {
-            "employee_id": attednance_sheet_check_out.employee_id.id,
+            "employee_id": attendance_sheet_check_out.employee_id.id,
             "check_in": "2023-02-01 17:00",
             "check_out": "2023-02-01 18:00",
         }
@@ -621,8 +597,13 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "use_attendance_sheets": True,
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "WEEKLY",
+            }
+        )
+        config = self.AttendanceSheetConfig.create(
+            {
+                "start_date": "2023-02-01",
+                "period": "WEEKLY",
+                "company_id": company.id,
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
                 "auto_lunch_hours": 6.0,
@@ -660,12 +641,8 @@ class TestAttendanceSheet(TransactionCase):
         )
         self.attendance_lunch_3._compute_duration()
 
-        company.write(
+        config.write(
             {
-                "use_attendance_sheets": True,
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "WEEKLY",
-                "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
                 "auto_lunch_hours": 3.0,
             }
@@ -679,12 +656,8 @@ class TestAttendanceSheet(TransactionCase):
         )
         self.attendance_lunch._compute_duration()
 
-        company.write(
+        config.write(
             {
-                "use_attendance_sheets": True,
-                "date_start": "2023-02-01",
-                "attendance_sheet_range": "WEEKLY",
-                "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
                 "auto_lunch_hours": 3.0,
             }
@@ -698,13 +671,3 @@ class TestAttendanceSheet(TransactionCase):
             }
         )
         self.attendance_lunch_1._compute_duration()
-
-        company.write(
-            {
-                "attendance_sheet_range": "MONTHLY",
-                "attendance_sheet_review_policy": "employee_manager",
-                "date_start": "2023-02-01",
-                "date_end": "2023-02-15",
-            }
-        )
-        company.onchange_attendance_sheet_range()

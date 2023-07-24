@@ -26,12 +26,13 @@ class HrAttendance(models.Model):
     auto_lunch = fields.Boolean(
         string="Auto Lunch Applied",
         help="If Auto Lunch is enabled and applied on this attendance.",
+        compute="_compute_duration",
     )
     company_id = fields.Many2one(
         "res.company", string="Company", related="attendance_sheet_id.company_id"
     )
     auto_lunch_enabled = fields.Boolean(
-        string="Auto Lunch Enabled", related="company_id.auto_lunch"
+        string="Auto Lunch Enabled", related="attendance_sheet_config_id.auto_lunch"
     )
     override_auto_lunch = fields.Boolean(
         string="Override Auto Lunch",
@@ -49,6 +50,31 @@ class HrAttendance(models.Model):
         is set on the department.""",
         related="department_id.attendance_admin",
     )
+    attendance_sheet_config_id = fields.Many2one(
+        comodel_name="hr.attendance.sheet.config",
+        compute="_compute_attendance_sheet_config_id",
+    )
+
+    @api.depends(
+        "check_in",
+        "check_out",
+        "employee_id.company_id",
+    )
+    def _compute_attendance_sheet_config_id(self):
+        for attendance in self:
+            if attendance.attendance_sheet_id:
+                config = attendance.attendance_sheet_id.attendance_sheet_config_id
+            else:
+                config = self.env["hr.attendance.sheet.config"].search(
+                    [
+                        ("start_date", "<=", attendance.check_in),
+                        "|",
+                        ("end_date", ">=", attendance.check_out),
+                        ("end_date", "=", False),
+                        ("company_id", "=", attendance.employee_id.company_id.id),
+                    ]
+                )
+            attendance.attendance_sheet_config_id = config
 
     # Get Methods
     def _get_attendance_employee_tz(self, date=None):
@@ -88,16 +114,22 @@ class HrAttendance(models.Model):
                 domain = [("employee_id", "=", attendance.employee_id.id)]
                 if check_in:
                     domain += [
-                        ("date_start", "<=", check_in),
-                        ("date_end", ">=", check_in),
+                        ("start_date", "<=", check_in),
+                        ("end_date", ">=", check_in),
                     ]
                     attendance_sheet_ids = sheet_obj.search(domain, limit=1)
                     if attendance_sheet_ids.state not in ("locked", "done"):
                         attendance.attendance_sheet_id = attendance_sheet_ids or False
 
+    @api.depends(
+        "check_in",
+        "check_out",
+        "employee_id.company_id",
+    )
     def _compute_duration(self):
         for rec in self:
             rec.duration = 0.0
+            rec.auto_lunch = False
             if rec.check_in and rec.check_out:
                 delta = rec.check_out - rec.check_in
                 duration = delta.total_seconds() / 3600
@@ -121,38 +153,31 @@ class HrAttendance(models.Model):
                 # If auto lunch is enabled for the company and time between
                 # other attendances < lunch period, then adjust the duration
                 # calculation for the first attendance.
+                config = rec.attendance_sheet_config_id
                 if (
-                    rec.company_id.auto_lunch
-                    and total_duration > rec.company_id.auto_lunch_duration != 0.0
+                    config.auto_lunch
+                    and total_duration > config.auto_lunch_duration != 0.0
                     and not rec.override_auto_lunch
                 ):
                     first_attendance = self.get_first_attendances(today_attendances)
                     if first_attendance and first_attendance.id == rec.id:
                         if len(today_attendances) > 1:
-                            rec.write({"auto_lunch": False})
                             time_between_attendances = (
                                 self.compute_time_between_attendances(today_attendances)
                             )
                             total_time_between_attendances = sum(
                                 time_between_attendances
                             )
-                            if (
-                                total_time_between_attendances
-                                < rec.company_id.auto_lunch_hours
-                            ):
+                            if total_time_between_attendances < config.auto_lunch_hours:
                                 rec.duration = self.compute_rest_of_autolunch(
                                     duration,
                                     time_between_attendances,
-                                    rec.company_id.auto_lunch_hours,
+                                    config.auto_lunch_hours,
                                 )
-                                rec.write({"auto_lunch": True})
+                                rec.auto_lunch = True
                         else:
-                            rec.duration = duration - rec.company_id.auto_lunch_hours
-                            rec.write({"auto_lunch": True})
-                    else:
-                        rec.write({"auto_lunch": False})
-                elif rec.company_id.auto_lunch and rec.auto_lunch:
-                    rec.write({"auto_lunch": False})
+                            rec.duration = duration - config.auto_lunch_hours
+                            rec.auto_lunch = True
 
     def compute_time_between_attendances(self, attendances):
         previous_attendance = attendances[0]

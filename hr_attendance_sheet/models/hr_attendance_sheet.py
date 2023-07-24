@@ -21,8 +21,8 @@ class HrAttendanceSheet(models.Model):
     user_id = fields.Many2one(
         "res.users", related="employee_id.user_id", string="User", store=True
     )
-    date_start = fields.Date(string="Date From", required=True, index=True)
-    date_end = fields.Date(string="Date To", required=True, index=True)
+    start_date = fields.Date(string="Date From", required=True, index=True)
+    end_date = fields.Date(string="Date To", required=True, index=True)
     attendance_ids = fields.One2many(
         "hr.attendance", "attendance_sheet_id", string="Attendances"
     )
@@ -80,6 +80,23 @@ class HrAttendanceSheet(models.Model):
         is set on the department.""",
         related="department_id.attendance_admin",
     )
+    attendance_sheet_config_id = fields.Many2one(
+        comodel_name="hr.attendance.sheet.config",
+        compute="_compute_attendance_sheet_config_id",
+    )
+
+    def _compute_attendance_sheet_config_id(self):
+        for sheet in self:
+            config = self.env["hr.attendance.sheet.config"].search(
+                [
+                    ("start_date", "<=", sheet.start_date),
+                    "|",
+                    ("end_date", ">=", sheet.end_date),
+                    ("end_date", "=", False),
+                    ("company_id", "=", sheet.company_id.id),
+                ]
+            )
+            sheet.attendance_sheet_config_id = config if config else None
 
     def _valid_field_parameter(self, field, name):
         # I can't even
@@ -90,6 +107,7 @@ class HrAttendanceSheet(models.Model):
         """Activity processing that shows in chatter for approval activity."""
         to_clean = self.env["hr.attendance.sheet"]
         to_do = self.env["hr.attendance.sheet"]
+        external_id = "hr_attendance_sheet.mail_act_attendance_sheet_approval"
         for sheet in self:
             if sheet.state == "draft":
                 to_clean |= sheet
@@ -99,87 +117,86 @@ class HrAttendanceSheet(models.Model):
             ):
                 if sheet.sudo().employee_id.parent_id.user_id.id:
                     sheet.activity_schedule(
-                        "hr_attendance_sheet." "mail_act_attendance_sheet_approval",
+                        external_id,
                         user_id=sheet.sudo().employee_id.parent_id.user_id.id,
                     )
 
             elif sheet.state == "done":
                 to_do |= sheet
         if to_clean:
-            to_clean.activity_unlink(
-                ["hr_attendance_sheet.mail_act_attendance_sheet_approval"]
-            )
+            to_clean.activity_unlink([external_id])
         if to_do:
-            to_do.activity_feedback(
-                ["hr_attendance_sheet.mail_act_attendance_sheet_approval"]
-            )
+            to_do.activity_feedback([external_id])
 
     # Scheduled Action Methods
     def _create_sheet_id(self):
         """Method used by the scheduling action to auto create sheets."""
-        companies = (
-            self.env["res.company"].search([("use_attendance_sheets", "=", True)]).ids
+        companies = self.env["res.company"].search(
+            [("use_attendance_sheets", "=", True)]
         )
-        employees = self.env["hr.employee"].search(
-            [
-                ("use_attendance_sheets", "=", True),
-                ("company_id", "in", companies),
-                ("active", "=", True),
-            ]
-        )
-        for employee in employees:
-            if not employee.company_id.date_start or not employee.company_id.date_end:
-                raise UserError(
-                    _(
-                        "Date From and Date To for Attendance \
-must be set on the Company %s"
-                    )
-                    % employee.company_id.name
-                )
-            sheet = self.env["hr.attendance.sheet"].search(
+        sheets = self.env["hr.attendance.sheet"]
+        for company in companies:
+            employees = self.env["hr.employee"].search(
                 [
-                    ("employee_id", "=", employee.id),
-                    ("date_start", ">=", employee.company_id.date_start),
-                    ("date_end", "<=", employee.company_id.date_end),
+                    ("use_attendance_sheets", "=", True),
+                    ("company_id", "=", company.id),
+                    ("active", "=", True),
                 ]
             )
-            if not sheet:
-                self.env["hr.attendance.sheet"].create(
-                    {
-                        "employee_id": employee.id,
-                        "date_start": employee.company_id.date_start,
-                        "date_end": employee.company_id.date_end,
-                    }
+            last_sheet = sheets.search(
+                [("company_id", "=", company.id)], limit=1, order="end_date DESC"
+            )
+            next_sheet_date = None
+            if last_sheet:
+                next_sheet_date = last_sheet.end_date + relativedelta(days=1)
+                config = self.env["hr.attendance.sheet.config"].search(
+                    [
+                        ("start_date", "<=", next_sheet_date),
+                        ("company_id", "=", company.id),
+                    ]
                 )
-        self.check_pay_period_dates()
-
-    def check_pay_period_dates(self):
-        companies = self.env["res.company"].search(
-            [("use_attendance_sheets", "!=", False)]
-        )
-        for company_id in companies:
-            if company_id.date_end and datetime.today().date() > company_id.date_end:
-                company_id.date_start = company_id.date_end + relativedelta(days=1)
-                company_id.set_date_end(company_id.id)
+            else:
+                config = self.env["hr.attendance.sheet.config"].search(
+                    [
+                        ("company_id", "=", company.id),
+                    ],
+                    limit=1,
+                    order="end_date DESC",
+                )
+            if not config:
+                continue
+            if not next_sheet_date:
+                next_sheet_date = config.start_date
+            if next_sheet_date <= fields.Date.today():
+                for employee in employees:
+                    sheet = self.env["hr.attendance.sheet"].create(
+                        {
+                            "employee_id": employee.id,
+                            "start_date": next_sheet_date,
+                            "end_date": config.compute_end_date(next_sheet_date),
+                        }
+                    )
+                    sheets += sheet
+        return sheets
 
     # Compute Methods
-    @api.depends("employee_id", "date_start", "date_end")
+    @api.depends("employee_id", "start_date", "end_date")
     def _compute_name(self):
         for sheet in self:
             sheet.name = False
-            if sheet.employee_id and sheet.date_start and sheet.date_end:
+            if sheet.employee_id and sheet.start_date and sheet.end_date:
                 sheet.name = (
                     sheet.employee_id.name
                     + " ("
                     + str(
                         datetime.strptime(
-                            str(sheet.date_start), DEFAULT_SERVER_DATE_FORMAT
+                            str(sheet.start_date), DEFAULT_SERVER_DATE_FORMAT
                         ).strftime("%m/%d/%y")
                     )
                     + " - "
                     + str(
                         datetime.strptime(
-                            str(sheet.date_end), DEFAULT_SERVER_DATE_FORMAT
+                            str(sheet.end_date), DEFAULT_SERVER_DATE_FORMAT
                         ).strftime("%m/%d/%y")
                     )
                     + ")"
@@ -274,13 +291,13 @@ must be set on the Company %s"
             [
                 ("employee_id", "=", res.employee_id.id),
                 ("attendance_sheet_id", "=", False),
-                ("check_in", ">=", res.date_start),
-                ("check_in", "<=", res.date_end),
+                ("check_in", ">=", res.start_date),
+                ("check_in", "<=", res.end_date),
                 "|",
                 ("check_out", "=", False),
                 "&",
-                ("check_out", ">=", res.date_start),
-                ("check_out", "<=", res.date_end),
+                ("check_out", ">=", res.start_date),
+                ("check_out", "<=", res.end_date),
             ]
         )
         attendances._compute_attendance_sheet_id()
@@ -292,8 +309,8 @@ must be set on the Company %s"
             "employee_id",
             "name",
             "attendance_ids",
-            "date_start",
-            "date_end",
+            "start_date",
+            "end_date",
         ]
         for record in self:
             if record.state == "locked" and any(
@@ -321,8 +338,8 @@ must be set on the Company %s"
                 lambda att: att.check_in and not att.check_out
             )
             if not ids_not_checkout:
-                self.write({"state": "confirm"})
-                self.activity_update()
+                sheet.write({"state": "confirm"})
+                sheet.activity_update()
             else:
                 raise UserError(
                     _(
@@ -344,27 +361,23 @@ must be set on the Company %s"
         """Approve button."""
         if self.filtered(lambda sheet: sheet.state != "confirm"):
             raise UserError(_("Cannot approve a non-submitted sheet."))
-        for _sheet in self:
-            reviewer = self.env["hr.employee"].search(
-                [("user_id", "=", self.env.user.id)], limit=1
+        reviewer = self.env.user.employee_id
+        if not reviewer:
+            raise UserError(
+                _(
+                    """In order to review a attendance sheet,
+            your user needs to be linked to an employee record."""
+                )
             )
-            if not reviewer:
-                raise UserError(
-                    _(
-                        """In order to review a attendance sheet,
-                your user needs to be linked to an employee record."""
-                    )
-                )
-            else:
-                self._check_can_review()
-                self.write(
-                    {
-                        "state": "done",
-                        "reviewer_id": reviewer.id,
-                        "reviewed_on": fields.Datetime.now(),
-                    }
-                )
-                self.activity_update()
+        self._check_can_review()
+        self.write(
+            {
+                "state": "done",
+                "reviewer_id": reviewer.id,
+                "reviewed_on": fields.Datetime.now(),
+            }
+        )
+        self.activity_update()
         return True
 
     def action_attendance_sheet_lock(self):

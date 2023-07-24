@@ -16,10 +16,12 @@
     "data": [
         "security/ir.model.access.csv",
         "security/security_groups.xml",
+        "security/hr_attendance_sheet_config_acl.xml",
         "data/cron.xml",
         "data/mail_data.xml",
         "report/hr_attendance_sheet_report.xml",
         "views/hr_attendance_sheet.xml",
+        "views/hr_attendance_sheet_config.xml",
         "views/hr_attendance_view.xml",
         "views/hr_department.xml",
         "views/hr_employee.xml",

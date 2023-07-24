@@ -7,7 +7,7 @@
            <field name="check_out" position="after">
                <field name="attendance_sheet_id" />
                <field name="auto_lunch" />
-               <field name="override_auto_lunch" />
+               <field name="override_auto_lunch" optional="hide" />
                <field name="duration" widget="timesheet_uom" />
             </field>
         </field>
