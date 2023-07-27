@@ -100,67 +100,103 @@ class HrAttendance(models.Model):
             rec.duration = 0.0
             if rec.check_in and rec.check_out:
                 delta = rec.check_out - rec.check_in
-                rec.duration = delta.total_seconds() / 3600
+                duration = delta.total_seconds() / 3600
+                rec.duration = duration
+                day_start = rec.check_in.replace(
+                    hour=0, minute=0, second=0, microsecond=0
+                )
+                day_end = rec.check_out.replace(
+                    hour=23, minute=59, second=59, microsecond=59
+                )
+                today_attendances = self.env["hr.attendance"].search(
+                    [
+                        ("check_in", ">=", day_start),
+                        ("check_in", "<=", day_end),
+                        ("employee_id", "=", rec.employee_id.id),
+                    ],
+                    order="check_in asc",
+                )
+                total_duration = sum(today_attendances.mapped("worked_hours"))
 
                 # If auto lunch is enabled for the company and time between
                 # other attendances < lunch period, then adjust the duration
                 # calculation for the first attendance.
                 if (
                     rec.company_id.auto_lunch
-                    and rec.duration > rec.company_id.auto_lunch_duration != 0.0
+                    and total_duration > rec.company_id.auto_lunch_duration != 0.0
                     and not rec.override_auto_lunch
                 ):
-                    day_start = rec.check_in.replace(
-                        hour=0, minute=0, second=0, microsecond=0
-                    )
-                    day_end = rec.check_out.replace(
-                        hour=23, minute=59, second=59, microsecond=59
-                    )
-                    first_attendance = self.env["hr.attendance"].search(
-                        [
-                            ("check_in", ">=", day_start),
-                            ("check_in", "<=", day_end),
-                            ("employee_id", "=", rec.employee_id.id),
-                        ],
-                        order="check_in asc",
-                        limit=1,
-                    )
-                    today_attendances = self.env["hr.attendance"].search(
-                        [
-                            ("check_in", ">=", day_start),
-                            ("check_in", "<=", day_end),
-                            ("employee_id", "=", rec.employee_id.id),
-                        ]
-                    )
-                    time_between_attendances = 0.0
+                    first_attendance = self.get_first_attendances(today_attendances)
                     if first_attendance and first_attendance.id == rec.id:
                         if len(today_attendances) > 1:
-                            for attendance in today_attendances:
-                                if attendance.id != first_attendance.id:
-                                    delta2 = (
-                                        attendance.check_in - first_attendance.check_out
-                                    )
-                                    time_between_attendances = (
-                                        delta2.total_seconds() / 3600
-                                    )
-                                    rec.write({"auto_lunch": False})
-                            if (
+                            rec.write({"auto_lunch": False})
+                            time_between_attendances = (
+                                self.compute_time_between_attendances(today_attendances)
+                            )
+                            total_time_between_attendances = sum(
                                 time_between_attendances
+                            )
+                            if (
+                                total_time_between_attendances
                                 < rec.company_id.auto_lunch_hours
                             ):
-                                rec.duration = (
-                                    delta.total_seconds() / 3600
-                                ) - rec.company_id.auto_lunch_hours
+                                rec.duration = self.compute_rest_of_autolunch(
+                                    duration,
+                                    time_between_attendances,
+                                    rec.company_id.auto_lunch_hours,
+                                )
                                 rec.write({"auto_lunch": True})
                         else:
-                            rec.duration = (
-                                delta.total_seconds() / 3600
-                            ) - rec.company_id.auto_lunch_hours
+                            rec.duration = duration - rec.company_id.auto_lunch_hours
                             rec.write({"auto_lunch": True})
                     else:
                         rec.write({"auto_lunch": False})
                 elif rec.company_id.auto_lunch and rec.auto_lunch:
                     rec.write({"auto_lunch": False})
+
+    def compute_time_between_attendances(self, attendances):
+        previous_attendance = attendances[0]
+        times = []
+        for attendance in attendances[1:]:
+            delta = attendance.check_in - previous_attendance.check_out
+            times.append(delta.total_seconds() / 3600)
+            previous_attendance = attendance
+        return times
+
+    def get_first_attendances(self, attendances):
+        """
+        Overwrite this method if you want to apply the autolunch on a specific
+        attendance line.
+        Parameters
+        ----------
+        attendances : list[hr.attendance]
+            List of attendance
+        Returns
+        -------
+        hr.attendance
+            return the specific attendance who does the autolunch apply to
+        """
+        return attendances[0]
+
+    def compute_rest_of_autolunch(self, duration, breaks, autolunch):
+        """
+        Overwrite this method if you want to define a specific way to compute
+        the rest of the autolunch duration. It is applied only if it exists
+        multiple attendance line.
+        Parameters
+        ----------
+        duration : float
+            Attendance duration
+        breaks : list[float]
+            List of all time between attendances
+        autolunch : float
+            the autolunch duration define on the company_id of the attendance
+        Returns
+        -------
+        list
+            a list of strings used that are the header columns
+        """
+        return duration - autolunch
 
     # Unlink/Write/Create Methods
     def unlink(self):
