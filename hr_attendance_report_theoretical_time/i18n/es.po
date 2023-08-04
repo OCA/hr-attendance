@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-14 13:18+0000\n"
-"PO-Revision-Date: 2021-01-25 15:44+0000\n"
-"Last-Translator: Víctor Martínez <victor.martinez@tecnativa.com>\n"
+"PO-Revision-Date: 2023-08-04 12:11+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
@@ -30,7 +30,7 @@ msgstr "Asistencias"
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_report
 msgid "Attendance Statistics"
-msgstr ""
+msgstr "Estadísticas de asistencia"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
@@ -110,10 +110,10 @@ msgid ""
 "employee creation date or the calendar start date will be used (the greatest "
 "of both)."
 msgstr ""
-"Rellene este campo para establecer una fecha manual para calcular las horas "
-"teóricas independientemente de de las asistencias. Si no está rellenado, se "
-"utilizará la fecha de creación del empleado o la fecha de comienzo del "
-"calendario (la mayor de ambas)."
+"Rellene este campo para establecer una fecha de inicio manual para el "
+"cómputo de las horas teóricas independientemente de las asistencias. Si no "
+"se rellena, se utilizará la fecha de creación del empleado o la fecha de "
+"inicio del calendario (la mayor de ambas)."
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_wizard_theoretical_time
@@ -289,12 +289,12 @@ msgstr "Tiempo libre"
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
 msgid "Time Off Type"
-msgstr ""
+msgstr "Tipo de tiempo libre"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_to
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
