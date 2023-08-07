@@ -54,7 +54,7 @@ class HrAttendance(models.Model):
             )
 
             if not overtime:
-                self.env["hr.attendance.overtime"].create(
+                self.env["hr.attendance.overtime"].sudo().create(
                     {
                         "employee_id": this.employee_id.id,
                         "date": date,
