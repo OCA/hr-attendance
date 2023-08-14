@@ -92,3 +92,25 @@ class TestAttendance(TransactionCase):
             for attendance in attendances:
                 checkin = convert_tz(attendance.check_in, to_tz=tz)
                 self.assertNotIn(checkin.date(), attended)
+
+    def test_attendance_creation_during_day(self):
+        self.env.company.attendance_missing_days_reason = self.reason
+
+        start = datetime(2023, 7, 3, 12, 30)
+        self.env["hr.attendance"].create(
+            {
+                "employee_id": self.employee.id,
+                "check_in": start,
+                "check_out": start + timedelta(minutes=30),
+            }
+        )
+
+        attendances_before = self.employee.attendance_ids
+        self.employee._create_missing_attendances(
+            start - timedelta(hours=12),
+            start - timedelta(minutes=30),
+        )
+        attendances_after = self.employee.attendance_ids
+
+        attendances_new = attendances_after - attendances_before
+        self.assertFalse(attendances_new)
