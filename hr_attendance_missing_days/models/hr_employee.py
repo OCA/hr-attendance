@@ -45,6 +45,15 @@ class Employee(models.Model):
         work_dates = {}
         for start, _stop, _attendance in sorted(intervals[False]):
             start_date = start.date()
+
+            # Check that the end of the day for the employee is before date_to to
+            # avoid a run mid working day
+            tz = pytz.timezone(self.tz or "UTC")
+            end_of_day = datetime.combine(start_date, time.max)
+            end_of_day = tz.localize(end_of_day).astimezone(pytz.utc)
+            if end_of_day >= date_to:
+                continue
+
             if start_date not in work_dates:
                 work_dates[start_date] = ensure_tz(start, pytz.utc).replace(tzinfo=None)
 
