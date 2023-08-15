@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
-from datetime import datetime, time
+from datetime import date, datetime, time, timedelta
 
 import pytz
 
@@ -20,6 +20,15 @@ def ensure_tz(dt, tz=None):
 class Employee(models.Model):
     _inherit = "hr.employee"
 
+    def _prepare_missing_attendance_values(self, dt, reasons):
+        self.ensure_one()
+        return {
+            "employee_id": self.id,
+            "check_in": dt,
+            "check_out": dt,
+            "attendance_reason_ids": [(6, 0, reasons.ids)],
+        }
+
     def create_missing_attendances(self, date_from=None, date_to=None):
         for emp in self.search([]):
             emp._create_missing_attendances(date_from, date_to)
@@ -32,36 +41,37 @@ class Employee(models.Model):
             return
 
         if not date_from:
-            date_from = datetime.combine(
-                self.env.company.sudo().overtime_start_date, time.min
-            )
+            date_from = self.env.company.sudo().overtime_start_date
 
         if not date_to:
-            date_to = datetime.now()
+            date_to = date.today()
 
-        date_from, date_to = map(ensure_tz, (date_from, date_to))
+        # Determine the start and end of the day and convert to UTC
+        dt_from = datetime.combine(date_from, time.min)
+        dt_to = datetime.combine(date_to, time.max)
 
-        intervals = self.resource_calendar_id._work_intervals_batch(date_from, date_to)
+        tz = pytz.timezone(self.tz or "UTC")
+        dt_from, dt_to = map(tz.localize, (dt_from, dt_to))
+        dt_from, dt_to = ensure_tz(dt_from, pytz.utc), ensure_tz(dt_to, pytz.utc)
+
+        # Skip the active day
+        if dt_to.replace(tzinfo=None) > datetime.now():
+            dt_to -= timedelta(days=1)
+
+        if dt_from > dt_to:
+            return
+
+        intervals = self.resource_calendar_id._work_intervals_batch(dt_from, dt_to)
         work_dates = {}
         for start, _stop, _attendance in sorted(intervals[False]):
             start_date = start.date()
-
-            # Check that the end of the day for the employee is before date_to to
-            # avoid a run mid working day
-            tz = pytz.timezone(self.tz or "UTC")
-            end_of_day = datetime.combine(start_date, time.max)
-            end_of_day = tz.localize(end_of_day).astimezone(pytz.utc)
-            if end_of_day >= date_to:
-                continue
-
             if start_date not in work_dates:
                 work_dates[start_date] = ensure_tz(start, pytz.utc).replace(tzinfo=None)
 
         domain = [
-            ("check_in", ">=", date_from.replace(tzinfo=None)),
-            ("check_in", "<=", date_to.replace(tzinfo=None)),
+            ("check_in", ">=", dt_from.replace(tzinfo=None)),
+            ("check_in", "<=", dt_to.replace(tzinfo=None)),
         ]
-        tz = pytz.timezone(self.tz)
         attendances = {
             ensure_tz(attendance.check_in, tz).date()
             for attendance in self.attendance_ids.filtered_domain(domain)
@@ -70,12 +80,7 @@ class Employee(models.Model):
         vals = []
         for missing in set(work_dates) - attendances:
             vals.append(
-                {
-                    "employee_id": self.id,
-                    "check_in": work_dates[missing],
-                    "check_out": work_dates[missing],
-                    "attendance_reason_ids": [(4, reason.id)],
-                }
+                self._prepare_missing_attendance_values(work_dates[missing], reason)
             )
 
         self.env["hr.attendance"].create(vals)
