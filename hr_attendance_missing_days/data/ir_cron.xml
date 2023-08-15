@@ -14,7 +14,7 @@
         <field name="active" eval="False" />
         <field name="state">code</field>
         <field name="code">
-            model.create_missing_attendances(datetime.datetime.now() - datetime.timedelta(days=31))
+            model.create_missing_attendances(datetime.date.today() - datetime.timedelta(days=31))
         </field>
     </record>
 </odoo>

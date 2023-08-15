@@ -79,9 +79,7 @@ class TestAttendance(TransactionCase):
                 )
 
             # Cover a huge time span
-            employee._create_missing_attendances(
-                datetime(2023, 6, 1, 0, 0), datetime(2023, 8, 1, 0, 0)
-            )
+            employee._create_missing_attendances(date(2023, 6, 1), date(2023, 8, 1))
 
             domain = [
                 ("employee_id", "=", employee.id),
@@ -96,20 +94,17 @@ class TestAttendance(TransactionCase):
     def test_attendance_creation_during_day(self):
         self.env.company.attendance_missing_days_reason = self.reason
 
-        start = datetime(2023, 7, 3, 12, 30)
+        now = datetime.now()
         self.env["hr.attendance"].create(
             {
                 "employee_id": self.employee.id,
-                "check_in": start,
-                "check_out": start + timedelta(minutes=30),
+                "check_in": now - timedelta(minutes=30),
+                "check_out": now + timedelta(minutes=30),
             }
         )
 
         attendances_before = self.employee.attendance_ids
-        self.employee._create_missing_attendances(
-            start - timedelta(hours=12),
-            start - timedelta(minutes=30),
-        )
+        self.employee._create_missing_attendances(now, now)
         attendances_after = self.employee.attendance_ids
 
         attendances_new = attendances_after - attendances_before
