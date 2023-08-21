@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data noupdate="True">
+    <record id="action_mandatory_break_activity" model="ir.actions.server">
+        <field name="name">Flag mandatory breaks</field>
+        <field name="state">next_activity</field>
+        <field name="model_id" ref="hr.model_hr_employee" />
+        <field name="activity_type_id" ref="activity_type_mandatory_break" />
+        <field name="activity_user_type">generic</field>
+        <field name="activity_user_field_name">user_id</field>
+        <field
+            name="activity_note"
+        >You didn't record enough break time, please adjust your time record</field>
+    </record>
+    <record id="action_mandatory_break_impose" model="ir.actions.server">
+        <field name="name">Impose mandatory breaks</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance" />
+        <field
+            name="code"
+        >env.context.get('hr_attendance_break_attendances', model)._impose_break(env.context.get('hr_attendance_break_threshold', env['hr.attendance.break.threshold']).min_break - env.context.get('hr_attendance_break_hours', 0))</field>
+    </record>
+    <record id="action_mandatory_break_email" model="ir.actions.server">
+        <field name="name">Mail about mandatory breaks</field>
+        <field name="state">email</field>
+        <field name="model_id" ref="hr_attendance.model_hr_employee" />
+        <field name="template_id" ref="template_mandatory_break" />
+    </record>
+    <record id="action_mandatory_break" model="ir.actions.server">
+        <field name="name">Take action if employee didn't take mandatory break</field>
+        <field name="state">multi</field>
+        <field name="model_id" ref="hr.model_hr_employee" />
+        <field
+            name="child_ids"
+            eval="[(6, 0, [ref('action_mandatory_break_activity'), ref('action_mandatory_break_impose'), ref('action_mandatory_break_email')])]"
+        />
+    </record>
+</data>

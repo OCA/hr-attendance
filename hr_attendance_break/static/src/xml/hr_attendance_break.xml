@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<template>
+    <t t-extend="HrAttendanceMyMainMenu">
+        <t t-jquery="a.fa-sign-out[t-if='checked_in']" t-operation="attributes">
+            <attribute
+                name="t-if"
+            >checked_in and widget.break_state != 'on_break'</attribute>
+        </t>
+        <t t-jquery="h4[t-if='checked_in']" t-operation="append">
+            <span t-if="widget.break_hours_today">(<t
+                    t-esc="widget.break_hours_today"
+                /> break)</span>
+        </t>
+        <t t-jquery="a.fa-sign-out" t-operation="after">
+            <a
+                class="fa fa-7x o_hr_attendance_break_icon fa-coffee btn-secondary"
+                t-if="checked_in and widget.break_state == 'no_break'"
+                aria-label="Take break"
+                title="Take break"
+            />
+            <a
+                class="fa fa-7x o_hr_attendance_break_icon fa-gears btn-secondary"
+                t-if="checked_in and widget.break_state == 'on_break'"
+                aria-label="End break"
+                title="End break"
+            />
+        </t>
+        <t t-jquery="a + h3.text-muted" t-operation="append">
+            <span t-if="checked_in">or to <b
+                    t-if="widget.break_state == 'no_break'"
+                >take a break</b><b t-else="">return from break</b></span>
+        </t>
+    </t>
+</template>

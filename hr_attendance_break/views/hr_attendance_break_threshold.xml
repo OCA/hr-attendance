@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="view_hr_attendance_break_threshold_tree" model="ir.ui.view">
+        <field name="model">hr.attendance.break.threshold</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="min_hours" widget="float_time" />
+                <field name="min_break" widget="float_time" />
+            </tree>
+        </field>
+    </record>
+</data>

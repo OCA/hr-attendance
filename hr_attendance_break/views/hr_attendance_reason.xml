@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="hr_attendance_reason_view_form" model="ir.ui.view">
+        <field name="model">hr.attendance.reason</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance_reason.hr_attendance_reason_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="show_on_attendance_screen" position="after">
+                <field name="bypass_minimum_break" />
+            </field>
+        </field>
+    </record>
+</data>

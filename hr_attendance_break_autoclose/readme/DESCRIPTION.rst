@@ -1,0 +1,1 @@
+This modules ensures hr_attendance_autoclose and hr_attandance_break work together

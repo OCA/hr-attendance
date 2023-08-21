@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="hr_attendance_report_view_pivot" model="ir.ui.view">
+        <field name="model">hr.attendance.report</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_report_view_pivot" />
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="break_hours" type="measure" widget="float_time" />
+            </field>
+        </field>
+    </record>
+</data>

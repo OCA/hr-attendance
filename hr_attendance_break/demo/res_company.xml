@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="base.main_company" model="res.company">
+        <field name="hr_attendance_break_min_break">0.25</field>
+        <field
+            name="hr_attendance_break_threshold_ids"
+            eval="[(6, 0, []), (0, 0, {'min_hours': 6, 'min_break': .5}), (0, 0, {'min_hours': 9, 'min_break': .75})]"
+        />
+    </record>
+</data>

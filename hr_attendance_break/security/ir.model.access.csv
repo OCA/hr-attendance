@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+manage_hr_attendance_break,access_hr_attendance_break,model_hr_attendance_break,hr_attendance.group_hr_attendance_user,1,1,1,1
+access_hr_attendance_break,access_hr_attendance_break,model_hr_attendance_break,base.group_user,1,1,1,0
+manage_hr_attendance_break_threshold,access_hr_attendance_break_threshold,model_hr_attendance_break_threshold,hr_attendance.group_hr_attendance_user,1,1,1,1
+access_hr_attendance_break_threshold,access_hr_attendance_break_threshold,model_hr_attendance_break_threshold,base.group_user,1,0,0,0
