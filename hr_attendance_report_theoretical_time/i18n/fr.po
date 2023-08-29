@@ -6,21 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2021-12-20 23:39+0000\n"
-"Last-Translator: Pierre Verkest <pierreverkest84@gmail.com>\n"
+"PO-Revision-Date: 2023-10-09 03:13+0000\n"
+"Last-Translator: Nils Hamerlinck <nils@hamerlinck.fr>\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
-#, fuzzy
-msgid "All Employees"
-msgstr "Employé(e)"
+msgid "Analysis"
+msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
@@ -247,9 +246,8 @@ msgstr "Rapport de durée théorique / durée de présence"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report_select
-#, fuzzy
 msgid "Select Employees"
-msgstr "Employé(e)"
+msgstr "Sélectionner les employés(e)"
 
 #. module: hr_attendance_report_theoretical_time
 #. odoo-python
@@ -257,7 +255,7 @@ msgstr "Employé(e)"
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
 #, python-format
 msgid "Select Employees to Analyze Theoretical Time"
-msgstr ""
+msgstr "Sélectionner les employés(e)"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__category_ids
@@ -327,3 +325,7 @@ msgstr "Durée théorique / Durée réelle"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Travaillé"
+
+#, fuzzy
+#~ msgid "All Employees"
+#~ msgstr "Employé(e)"

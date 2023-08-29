@@ -18,8 +18,8 @@ msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
-msgid "All Employees"
-msgstr "Alle Angestellte"
+msgid "Analysis"
+msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
@@ -318,3 +318,6 @@ msgstr "Assistent für theoretische Anwesenheitszeiten"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Gearbeitet"
+
+#~ msgid "All Employees"
+#~ msgstr "Alle Angestellte"
