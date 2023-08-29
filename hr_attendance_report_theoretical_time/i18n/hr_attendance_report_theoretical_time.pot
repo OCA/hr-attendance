@@ -15,7 +15,7 @@ msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
-msgid "All Employees"
+msgid "Analysis"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
