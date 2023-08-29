@@ -73,6 +73,10 @@
             name="groups_id"
             eval="[(4, ref('hr_attendance.group_hr_attendance'))]"
         />
+        <!-- We need to leave the action empty for consistency because we are going
+            to set different submenus, otherwise the Reports menu would not be
+            displayed to a basic user. !-->
+        <field name="action" eval="False" />
     </record>
     <menuitem
         id="menu_hr_attendance_report"
@@ -91,7 +95,7 @@
     />
     <menuitem
         id="menu_hr_attendance_theoretical_report"
-        name="All Employees"
+        name="Analysis"
         action="hr_attendance_theoretical_action"
         parent="menu_hr_attendance_theoretical_root"
         groups="hr_attendance.group_hr_attendance"
