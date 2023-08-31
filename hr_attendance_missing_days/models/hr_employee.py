@@ -29,6 +29,10 @@ class Employee(models.Model):
             "attendance_reason_ids": [(6, 0, reasons.ids)],
         }
 
+    def _get_work_intervals_batch(self, dt_from, dt_to):
+        self.ensure_one()
+        return self.resource_calendar_id._work_intervals_batch(dt_from, dt_to)[False]
+
     def create_missing_attendances(self, date_from=None, date_to=None):
         for emp in self.search([]):
             emp._create_missing_attendances(date_from, date_to)
@@ -61,9 +65,9 @@ class Employee(models.Model):
         if dt_from > dt_to:
             return
 
-        intervals = self.resource_calendar_id._work_intervals_batch(dt_from, dt_to)
+        intervals = self._get_work_intervals_batch(dt_from, dt_to)
         work_dates = {}
-        for start, _stop, _attendance in sorted(intervals[False]):
+        for start, _stop, _attendance in sorted(intervals):
             start_date = start.date()
             if start_date not in work_dates:
                 work_dates[start_date] = ensure_tz(start, pytz.utc).replace(tzinfo=None)
