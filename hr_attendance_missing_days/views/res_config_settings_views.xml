@@ -14,7 +14,7 @@
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
                             <label
-                                string="Autoclose Reason"
+                                string="Reason"
                                 for="attendance_missing_days_reason"
                             />
                             <span
