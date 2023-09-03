@@ -167,12 +167,12 @@ msgstr ""
 #. module: hr_attendance_modification_tracking
 #: model_terms:ir.ui.view,arch_db:hr_attendance_modification_tracking.hr_attendance_view_search
 msgid "Time Changed"
-msgstr ""
+msgstr "Tiempo editado"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__time_changed_manually
+#: model_terms:ir.ui.view,arch_db:hr_attendance_modification_tracking.hr_attendance_view_search
 msgid "Time changed"
-msgstr ""
+msgstr "Tiempo editado"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_unread
@@ -183,3 +183,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr ""
+
+#. module: hr_attendance_modification_tracking
+#. odoo-python
+#: code:addons/hr_attendance_modification_tracking/models/hr_attendance.py:0
+#, python-format
+msgid ""
+"It is not possible to register a new entry because there is already an "
+"existing one."
+msgstr ""
+"No es posible registrar entrada de nuevo porque ya hay una existente"
