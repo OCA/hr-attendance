@@ -18,14 +18,18 @@ msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
-#, fuzzy
-msgid "All Employees"
-msgstr "Employé(e)"
+msgid "Analysis"
+msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
 msgid "Attendance"
 msgstr "Présence"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_report
+msgid "Attendance Statistics"
+msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
@@ -260,6 +264,7 @@ msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__theoretical_hours
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_report__theoretical_hours
 msgid "Theoretical Hours"
 msgstr "Heures théoriques"
 
@@ -320,3 +325,7 @@ msgstr "Durée théorique / Durée réelle"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Travaillé"
+
+#, fuzzy
+#~ msgid "All Employees"
+#~ msgstr "Employé(e)"

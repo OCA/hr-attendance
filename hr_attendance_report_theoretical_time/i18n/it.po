@@ -18,8 +18,8 @@ msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
-msgid "All Employees"
-msgstr "Tutti i dipendenti"
+msgid "Analysis"
+msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
@@ -106,8 +106,8 @@ msgstr "Dipendenti"
 msgid ""
 "Fill this field for setting a manual start date for computing the "
 "theoretical hours independently from the attendances. If not filled, "
-"employee creation date or the calendar start date will be used (the greatest"
-" of both)."
+"employee creation date or the calendar start date will be used (the greatest "
+"of both)."
 msgstr ""
 "Compilare questo campo per impostare manualmente la data iniziale per il "
 "calcolo delle ore teoriche indipendentemente dalle presenze. Se non "
@@ -313,3 +313,6 @@ msgstr "Procedura guidata ore teoriche"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Lavorate"
+
+#~ msgid "All Employees"
+#~ msgstr "Tutti i dipendenti"
