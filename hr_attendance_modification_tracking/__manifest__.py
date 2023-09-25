@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 {
-    "name": "HR Attendance Modification Tracking",
+    "name": "HR Attendance Modification Tracking.",
     "summary": """
         Attendance changes will now be registered in the chatter.""",
     "version": "14.0.1.0.4",
