@@ -190,6 +190,6 @@ msgstr ""
 #, python-format
 msgid ""
 "It is not possible to register a new entry because there is already an "
-"existing one."
+"existing one"
 msgstr ""
 "No es posible registrar entrada de nuevo porque ya hay una existente"

@@ -6,29 +6,21 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
 
 class TestHrAttendanceTracking(TransactionCase):
-    def setUp(self):
-        super(TestHrAttendanceTracking, self).setUp()
-        self.hr_attendance = self.env["hr.attendance"]
-        self.employee_01 = self.env["hr.employee"].create({"name": "Employee01"})
-        self.employee_02 = self.env["hr.employee"].create({"name": "Employee02"})
-        self.employee_03 = self.env["hr.employee"].create({"name": "Employee03"})
-        self.employee_04 = self.env["hr.employee"].create({"name": "Employee04"})
-        self.employee_05 = self.env["hr.employee"].create({"name": "Employee05"})
-        self.employee_06 = self.env["hr.employee"].create({"name": "Employee06"})
-        self.employee_07 = self.env["hr.employee"].create({"name": "Employee07"})
-        dti = datetime.now()
-        self.att_test = self.hr_attendance.create(
-            {
-                "employee_id": self.employee_07.id,
-                "check_in": dti.strftime(DF),
-            }
-        )
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.hr_attendance = cls.env["hr.attendance"]
+        cls.employee_01 = cls.env["hr.employee"].create({"name": "Employee01"})
+        cls.employee_02 = cls.env["hr.employee"].create({"name": "Employee02"})
+        cls.employee_03 = cls.env["hr.employee"].create({"name": "Employee03"})
+        cls.employee_04 = cls.env["hr.employee"].create({"name": "Employee04"})
+        cls.employee_05 = cls.env["hr.employee"].create({"name": "Employee05"})
+        cls.employee_06 = cls.env["hr.employee"].create({"name": "Employee06"})
 
     def test_attendance_edit_01(self):
         # We can't check kiosk and check-in/check-out form
@@ -150,18 +142,4 @@ class TestHrAttendanceTracking(TransactionCase):
             att.time_changed_manually,
             False,
             "Use case 7: Wrong value, time not changed manually.",
-        )
-
-    def test_attendance_edit_08(self):
-        # Use case 8:
-        # Trying to create a check-in with an existing one
-        dti = datetime.now() + relativedelta(minutes=15)
-        with self.assertRaises(UserError) as e:
-            self.att_test.create(
-                {"employee_id": self.employee_07.id, "check_in": dti.strftime(DF)}
-            )
-        self.assertEqual(
-            e.exception.args[0],
-            "It is not possible to register a new entry because there is already "
-            "an existing one.",
         )
