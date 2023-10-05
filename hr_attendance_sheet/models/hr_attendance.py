@@ -183,8 +183,9 @@ class HrAttendance(models.Model):
         previous_attendance = attendances[0]
         times = []
         for attendance in attendances[1:]:
-            delta = attendance.check_in - previous_attendance.check_out
-            times.append(delta.total_seconds() / 3600)
+            if attendance.check_in and previous_attendance.check_out:
+                delta = attendance.check_in - previous_attendance.check_out
+                times.append(delta.total_seconds() / 3600)
             previous_attendance = attendance
         return times
 
