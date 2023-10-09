@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-09 03:13+0000\n"
+"PO-Revision-Date: 2023-10-09 04:55+0000\n"
 "Last-Translator: Nils Hamerlinck <nils@hamerlinck.fr>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -19,7 +19,7 @@ msgstr ""
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
 msgid "Analysis"
-msgstr ""
+msgstr "Tous les employés(e)"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
