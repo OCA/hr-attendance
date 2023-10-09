@@ -141,8 +141,8 @@ msgid ""
 "Cannot create new attendance for employee %s. Attendance for the day of the "
 "check in %s has already been reviewed and validated."
 msgstr ""
-"Ne peut pas créer cette ligne de présence (%s, %s) elle est sur une "
-"semaine déjà validée par le responsable."
+"Ne peut pas créer cette ligne de présence (%s, %s) elle est sur une semaine "
+"déjà validée par le responsable."
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_hour
@@ -215,8 +215,8 @@ msgid ""
 "to click on it when needs."
 msgstr ""
 "Avec odoo il n'est pas possible de lier des objet lors d'un ochange. Ce "
-"champs technique permet d'afficher une alerte à l'utilisateur avec un "
-"bouton action."
+"champs technique permet d'afficher une alerte à l'utilisateur avec un bouton "
+"action."
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__create_uid
@@ -436,8 +436,9 @@ msgid ""
 "This leave type is used to allocate new leaves during the process of review "
 "and validation of the attendance sheet."
 msgstr ""
-"Type de congés utilisé pour l'allocation de nouveaux congés lors de la validation des "
-"heures suplémentaires depuis les feuilles de revue de présense."
+"Type de congés utilisé pour l'allocation de nouveaux congés lors de la "
+"validation des heures suplémentaires depuis les feuilles de revue de "
+"présense."
 
 #. module: hr_attendance_validation
 #: model:ir.model,name:hr_attendance_validation.model_hr_leave
