@@ -73,14 +73,6 @@ msgid "Config Settings"
 msgstr "Impostazioni configurazione"
 
 #. module: hr_attendance_autoclose
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__display_name
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__display_name
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__display_name
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__display_name
-msgid "Display Name"
-msgstr "Nome visualizzato"
-
-#. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__no_autoclose
 msgid "Don't Autoclose Attendances"
 msgstr "Non chiudere le presenze automaticamente"
@@ -97,30 +89,9 @@ msgid "Hr Attendance Autoclose Reason"
 msgstr "Motivazione chiusura automatica presenze RU"
 
 #. module: hr_attendance_autoclose
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__id
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__id
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__id
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__id
-msgid "ID"
-msgstr "ID"
-
-#. module: hr_attendance_autoclose
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance____last_update
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee____last_update
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company____last_update
-#: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Max Hours Per Day"
 msgstr "Massimo di ore al giorno"
-
-#. module: hr_attendance_autoclose
-#: model:hr.attendance.reason,name:hr_attendance_autoclose.hr_attendance_reason_check_out
-msgid "System automatic check out due to inactivity"
-msgstr "Presenza chiusa automaticamente dal sistema causa inattività"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -135,3 +106,15 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Ore lavorate"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome visualizzato"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
+
+#~ msgid "System automatic check out due to inactivity"
+#~ msgstr "Presenza chiusa automaticamente dal sistema causa inattività"
