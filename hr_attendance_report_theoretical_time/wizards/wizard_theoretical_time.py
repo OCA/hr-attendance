@@ -6,7 +6,6 @@ from odoo import _, api, fields, models
 
 
 class WizardTheoreticalTime(models.TransientModel):
-
     _name = "wizard.theoretical.time"
     _description = "Filtered Theoretical Time"
 
