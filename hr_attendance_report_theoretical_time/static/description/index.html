@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -369,14 +368,15 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:35210bdcd77e7ffed3c717c87a0920c8b115f1005c5a7b8da17f939c879ae6d1
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_report_theoretical_time"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-16-0/hr-attendance-16-0-hr_attendance_report_theoretical_time"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
-<p>This module adds a new report called “Theoretical vs Attended Time Analysis”
-that compares worked time, measured through attendances records, with the
-theoretical time, computed from employee’s working calendar, public holidays
-and employee specific leaves. Missing attendance days are generated on the fly
-in the report with their corresponding theoretical hours.</p>
-<p>There is the possibility of counting as theoretical time some leave types if
-specified in them.</p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_report_theoretical_time"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-17-0/hr-attendance-17-0-hr_attendance_report_theoretical_time"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module adds a new report called “Theoretical vs Attended Time
+Analysis” that compares worked time, measured through attendances
+records, with the theoretical time, computed from employee’s working
+calendar, public holidays and employee specific leaves. Missing
+attendance days are generated on the fly in the report with their
+corresponding theoretical hours.</p>
+<p>There is the possibility of counting as theoretical time some leave
+types if specified in them.</p>
 <p>As an example, imagine a work week with 40 theoretical hours, and these
 attendance situation:</p>
 <ul class="simple">
@@ -384,15 +384,16 @@ attendance situation:</p>
 <li>Tuesday: Worked 10 hours</li>
 <li>Wednesday: Worked 10 hours</li>
 <li>Thursday: Worked 10 hours</li>
-<li>Friday: Ask for a compensation leave (said leave type), as already worked
-40 hours.</li>
+<li>Friday: Ask for a compensation leave (said leave type), as already
+worked 40 hours.</li>
 </ul>
-<p>On the report, whole week should put 40 theoretical hours - 8 per day - against
-40 worked hours (although they were on previous days, and none on Friday).</p>
-<p>On contrary, if you want to take a holiday one of that days, you should ask for
-a leave type without the check for counting as theoretical time, and then the
-whole week will be 32 theoretical hours against the worked hours of that week
-without the leave.</p>
+<p>On the report, whole week should put 40 theoretical hours - 8 per day -
+against 40 worked hours (although they were on previous days, and none
+on Friday).</p>
+<p>On contrary, if you want to take a holiday one of that days, you should
+ask for a leave type without the check for counting as theoretical time,
+and then the whole week will be 32 theoretical hours against the worked
+hours of that week without the leave.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
@@ -412,22 +413,22 @@ without the leave.</p>
 </div>
 <div class="section" id="installation">
 <h1><a class="toc-backref" href="#toc-entry-1">Installation</a></h1>
-<p>On installation time, this module computes the theoretical hours for the day of
-the attendance check-in, so if you have a lot of records, this would be a bit
-slow.</p>
+<p>On installation time, this module computes the theoretical hours for the
+day of the attendance check-in, so if you have a lot of records, this
+would be a bit slow.</p>
 </div>
 <div class="section" id="configuration">
 <h1><a class="toc-backref" href="#toc-entry-2">Configuration</a></h1>
-<p>You need to be at least “Attendance / Manual Attendance” for being able to see
-the attendances report.</p>
+<p>You need to be at least “Attendance / Manual Attendance” for being able
+to see the attendances report.</p>
 <p>For including some leave types in the theoretical time, you have to:</p>
 <ol class="arabic simple">
 <li>Go to <em>Leaves &gt; Configuration &gt; Leave Types</em>.</li>
 <li>Select leave type you want to include.</li>
 <li>Check the mark “Include in theoretical hours”.</li>
 </ol>
-<p>When generating non worked days, this module uses a start date for beginning
-the series generation, which is:</p>
+<p>When generating non worked days, this module uses a start date for
+beginning the series generation, which is:</p>
 <ul class="simple">
 <li>Manual start date set on the employee.</li>
 <li>If not set, the greatest of these 2 dates:<ul>
@@ -443,14 +444,15 @@ the series generation, which is:</p>
 <li>Go to “HR Settings” page.</li>
 <li>Set the date in “Theoretical hours start date” field.</li>
 </ol>
-<p>The generation will stop on the end date of the working calendar line or today,
-so don’t forget to properly set start and end dates of the lines of the working
-calendar for not leaving empty spaces between them.</p>
+<p>The generation will stop on the end date of the working calendar line or
+today, so don’t forget to properly set start and end dates of the lines
+of the working calendar for not leaving empty spaces between them.</p>
 </div>
 <div class="section" id="usage">
 <h1><a class="toc-backref" href="#toc-entry-3">Usage</a></h1>
 <ol class="arabic simple">
-<li>Go to <em>Attendances &gt; Reporting &gt; Theoretical vs Attended Time Analysis</em>.</li>
+<li>Go to <em>Attendances &gt; Reporting &gt; Theoretical vs Attended Time
+Analysis</em>.</li>
 <li>Check pivot table or look at the graph view.</li>
 </ol>
 </div>
@@ -459,12 +461,13 @@ calendar for not leaving empty spaces between them.</p>
 <ul class="simple">
 <li>Employees with less than 1 week in the company will show full week
 theoretical hours.</li>
-<li>Activate ORM cache for improving performance on computing theoretical hours,
-but assuring that the cache is cleared when the conditions of the computation
-changes.</li>
-<li>If you change employee’s working time, theoretical hours for non attended
-days will be computed according this new calendar. You have to define
-start and end dates inside the calendar for avoiding this side effect.</li>
+<li>Activate ORM cache for improving performance on computing theoretical
+hours, but assuring that the cache is cleared when the conditions of
+the computation changes.</li>
+<li>If you change employee’s working time, theoretical hours for non
+attended days will be computed according this new calendar. You have
+to define start and end dates inside the calendar for avoiding this
+side effect.</li>
 <li>Theoretical hours of affected days when changing the leave type to be
 included or not in theoretical time are not recomputed.</li>
 </ul>
@@ -474,7 +477,7 @@ included or not in theoretical time are not recomputed.</li>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/hr-attendance/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_report_theoretical_time%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_report_theoretical_time%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -520,7 +523,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_report_theoretical_time">OCA/hr-attendance</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_report_theoretical_time">OCA/hr-attendance</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
