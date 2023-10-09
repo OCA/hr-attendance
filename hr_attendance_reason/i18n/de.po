@@ -128,7 +128,6 @@ msgstr "Bitte wählen Sie einen Grund"
 #. module: hr_attendance_reason
 #. openerp-web
 #: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
-#: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
 #, python-format
 msgid "Reason"
