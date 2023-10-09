@@ -138,7 +138,6 @@ msgstr "Selezionare un motivo"
 #. module: hr_attendance_reason
 #. openerp-web
 #: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
-#: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Reason"
 msgstr "Motivo"
