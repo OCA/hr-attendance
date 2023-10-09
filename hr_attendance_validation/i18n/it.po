@@ -24,9 +24,9 @@ msgstr "<span class=\"o_form_label\">Tipo permesso</span>"
 #. module: hr_attendance_validation
 #: code:addons/hr_attendance_validation/models/hr_attendance_validation_sheet.py:0
 #, python-format
-msgid ""
-"Allocation created and validated from attendance validation reviews: %s"
-msgstr "Assegnazione creata e validata dalla revisione validazione presenza: %s"
+msgid "Allocation created and validated from attendance validation reviews: %s"
+msgstr ""
+"Assegnazione creata e validata dalla revisione validazione presenza: %s"
 
 #. module: hr_attendance_validation
 #: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_pivot
@@ -182,16 +182,14 @@ msgstr ""
 #. module: hr_attendance_validation
 #: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_due_hours
 msgid ""
-"Compute number of attendance lines marked as overtime which are marked as "
-"due"
+"Compute number of attendance lines marked as overtime which are marked as due"
 msgstr ""
 "Calcola numero di righe presenza marcate come straordinario segnate come "
 "dovute"
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__overtime_not_due_hours
-msgid ""
-"Compute number of attendance lines marked as overtime which are not due"
+msgid "Compute number of attendance lines marked as overtime which are not due"
 msgstr ""
 "Calcola numero di righe presenza marcate come straordinario segnate come non "
 "dovute"
