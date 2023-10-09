@@ -194,14 +194,12 @@ msgstr "Devi continuare a lavorare?"
 #. module: hr_attendance_overtime
 #. openerp-web
 #: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
-#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Sign in"
 msgstr "Ingresso"
 
 #. module: hr_attendance_overtime
 #. openerp-web
-#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
 #: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
 #, python-format
 msgid "Sign out"
