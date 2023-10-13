@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="open_hr_attendance_overtime_wizard" model="ir.actions.act_window">
+        <field name="name">Add Attendance Overtime</field>
+        <field name="res_model">hr.attendance.overtime.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(open_hr_attendance_overtime_wizard)d"
+                    string="Add Manual Overtime"
+                    type="action"
+                    groups="hr_attendance.group_hr_attendance_user"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_form_inherit_hr_attendance" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance.view_employee_form_inherit_hr_attendance"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[.//field[@name='total_overtime']]"
+                position="attributes"
+            >
+                <attribute name="attrs">{'invisible': False}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
