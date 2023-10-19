@@ -252,7 +252,7 @@ class HrAttendanceSheet(models.Model):
         HrAllocation = self.env["hr.leave.allocation"]
         for sheet in self:
             holiday_status_id = sheet.config_holiday_status_leave_allocation().id
-            if sheet.compensatory_hour > 0 and not sheet.leave_allocation_id:
+            if holiday_status_id and sheet.compensatory_hour > 0 and not sheet.leave_allocation_id:
                 sheet.leave_allocation_id = HrAllocation.create(
                     {
                         "employee_id": sheet.employee_id.id,
@@ -280,7 +280,7 @@ class HrAttendanceSheet(models.Model):
         HrLeave = self.env["hr.leave"]
         for sheet in self:
             holiday_status_id = sheet.config_holiday_status_leave().id
-            if sheet.regularization_compensatory_hour_taken > 0 and not sheet.leave_id:
+            if holiday_status_id and sheet.regularization_compensatory_hour_taken > 0 and not sheet.leave_id:
                 leave = HrLeave.create(
                     {
                         "employee_id": sheet.employee_id.id,
