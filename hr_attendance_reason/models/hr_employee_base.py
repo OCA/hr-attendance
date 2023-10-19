@@ -15,9 +15,16 @@ class HrEmployeeBase(models.AbstractModel):
     )
 
     @api.model
-    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
+    def search_read(
+        self, domain=None, fields=None, offset=0, limit=None, order=None, **read_kwargs
+    ):
         fields = fields or []
         fields += self.env.context.get("extra_fields", [])
         return super().search_read(
-            domain=domain, fields=fields, offset=offset, limit=limit, order=order
+            domain=domain,
+            fields=fields,
+            offset=offset,
+            limit=limit,
+            order=order,
+            **read_kwargs
         )
