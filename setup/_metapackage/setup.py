@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-hr-attendance Odoo addons",
     version=version,
     install_requires=[
+        'odoo-addon-hr_attendance_autoclose>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_calendar_view>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_geolocation>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_reason>=16.0dev,<16.1dev',
