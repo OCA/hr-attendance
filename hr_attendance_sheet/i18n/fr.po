@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 11:32+0000\n"
-"PO-Revision-Date: 2023-10-19 11:32+0000\n"
+"POT-Creation-Date: 2023-10-19 13:09+0000\n"
+"PO-Revision-Date: 2023-10-19 13:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_manager_action
 msgid "All Attendance Sheets"
-msgstr ""
+msgstr "Toutes les fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance__auto_lunch_enabled
@@ -93,12 +93,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__hr_attendance_sheet__state__done
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_search
 msgid "Approved"
-msgstr ""
+msgstr "Validé"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.report_hr_attendance_sheet_document
 msgid "Approved On:"
-msgstr ""
+msgstr "Validé le:"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.report_hr_attendance_sheet_document
@@ -113,7 +113,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_hr_attendance
 msgid "Attendance"
-msgstr ""
+msgstr "Présence"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance__attendance_admin
@@ -172,25 +172,25 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_employee_view_form
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.res_config_settings_view_form
 msgid "Attendance Sheets"
-msgstr ""
+msgstr "Fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model:ir.actions.server,name:hr_attendance_sheet.ir_cron_attendance_sheet_creation_ir_actions_server
 #: model:ir.cron,cron_name:hr_attendance_sheet.ir_cron_attendance_sheet_creation
 #: model:ir.cron,name:hr_attendance_sheet.ir_cron_attendance_sheet_creation
 msgid "Attendance Sheets: Create Sheets"
-msgstr ""
+msgstr "Créér les fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_tree
 msgid "Attendance sheets"
-msgstr ""
+msgstr "Fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_attendance_action_employee
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__attendance_ids
 msgid "Attendances"
-msgstr ""
+msgstr "Présences"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_company__attendance_sheet_config_ids
@@ -266,19 +266,19 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Sociétés"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance__company_id
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__company_id
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet_config__company_id
 msgid "Company"
-msgstr ""
+msgstr "Entreprise"
 
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Paramètres de config"
 
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_hr_attendance_sheet_config
@@ -306,13 +306,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__start_date
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet_config__start_date
 msgid "Date From"
-msgstr ""
+msgstr "Date du "
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__end_date
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet_config__end_date
 msgid "Date To"
-msgstr ""
+msgstr "Date au"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__hr_attendance_sheet_config__period__daily
@@ -333,7 +333,7 @@ msgstr ""
 #: model:ir.model,name:hr_attendance_sheet.model_hr_department
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__department_id
 msgid "Department"
-msgstr ""
+msgstr "Département"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance__display_name
@@ -345,13 +345,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_company__display_name
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_config_settings__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Libellé"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__hr_attendance_sheet__state__draft
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_search
 msgid "Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet_config__auto_lunch_duration
@@ -361,19 +361,19 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance__duration
 msgid "Duration (Hrs)"
-msgstr ""
+msgstr "Durée (h)"
 
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_hr_employee
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__employee_id
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_search
 msgid "Employee"
-msgstr ""
+msgstr "Employé"
 
 #. module: hr_attendance_sheet
 #: model:ir.ui.menu,name:hr_attendance_sheet.hr_attendance_sheet_employee_menu
 msgid "Employee's Attendance Sheets"
-msgstr ""
+msgstr "Les fiches de mon équipe"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__res_company__attendance_sheet_review_policy__employee_manager
@@ -449,7 +449,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_employee__hours_to_work
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_employee_public__hours_to_work
 msgid "Hours to Work"
-msgstr ""
+msgstr "Heures à travailler"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance_sheet__review_policy
@@ -538,7 +538,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_company____last_update
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_config_settings____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__write_uid
@@ -561,7 +561,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__hr_attendance_sheet__state__locked
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_search
 msgid "Locked"
-msgstr ""
+msgstr "Verrouillé"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet_config__auto_lunch_hours
@@ -602,12 +602,12 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_employee_action
 #: model:ir.ui.menu,name:hr_attendance_sheet.hr_attendance_sheet_my_menu
 msgid "My Attendance Sheets"
-msgstr ""
+msgstr "Mes fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_my_employees_action
 msgid "My Employee's Attendance Sheets"
-msgstr ""
+msgstr "Les fiches de mon équipe"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_search
@@ -617,7 +617,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__name
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__activity_date_deadline
@@ -726,7 +726,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model,name:hr_attendance_sheet.model_hr_employee_public
 msgid "Public Employee"
-msgstr ""
+msgstr "Employé public"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_form
@@ -771,7 +771,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_form
 msgid "Set to Draft"
-msgstr ""
+msgstr "Remettre en brouillon"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance__attendance_sheet_id
@@ -803,7 +803,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__state
 msgid "Status"
-msgstr ""
+msgstr "Etat"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance_sheet__activity_state
@@ -817,7 +817,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_form
 msgid "Submit to Reviewer"
-msgstr ""
+msgstr "Soumettre au responsable"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance_sheet_config__auto_lunch_duration
@@ -851,7 +851,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__total_time
 msgid "Total Time"
-msgstr ""
+msgstr "Temps total"
 
 #. module: hr_attendance_sheet
 #: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.report_hr_attendance_sheet_document
@@ -883,7 +883,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_employee_public__use_attendance_sheets
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_res_company__use_attendance_sheets
 msgid "Use Attendance Sheets"
-msgstr ""
+msgstr "Utiliser fiches hebdomadaires"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_employee__use_attendance_sheets
@@ -902,7 +902,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__hr_attendance_sheet__state__confirm
 msgid "Waiting Review"
-msgstr ""
+msgstr "A valider"
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__website_message_ids
@@ -922,7 +922,7 @@ msgstr ""
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__working_hours
 msgid "Working Hours"
-msgstr ""
+msgstr "Planning"
 
 #. module: hr_attendance_sheet
 #: code:addons/hr_attendance_sheet/models/hr_attendance_sheet.py:0
@@ -946,16 +946,17 @@ msgstr ""
 #: code:addons/hr_attendance_sheet/models/hr_attendance_sheet.py:0
 #, python-format
 msgid "You do not have permissions to lock sheets."
-msgstr ""
+msgstr "Vous n'avez pas la permission de bloquer des fiches"
 
 #. module: hr_attendance_sheet
 #: code:addons/hr_attendance_sheet/models/hr_attendance_sheet.py:0
 #, python-format
 msgid "You do not have permissions to unlock sheets."
-msgstr ""
+msgstr "Vous n'avez pas la permission de débloquer des fiches"
 
 #. module: hr_attendance_sheet
 #: code:addons/hr_attendance_sheet/models/hr_attendance_sheet.py:0
 #, python-format
 msgid "You don't have permission to edit submitted/approved sheets"
 msgstr ""
+"Vous n'avez pas la permission de modifier des fiches acceptées/refusées"
