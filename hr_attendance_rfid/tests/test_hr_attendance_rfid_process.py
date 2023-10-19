@@ -9,12 +9,13 @@ from odoo.tools.misc import mute_logger
 
 
 class TestHrAttendance(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.employee_model = self.env["hr.employee"]
-        self.test_employee = self.browse_ref("hr.employee_al")
-        self.rfid_card_code = "5b3f5"
-        self.test_employee.rfid_card_code = self.rfid_card_code
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.employee_model = cls.env["hr.employee"]
+        cls.test_employee = cls.env.ref("hr.employee_al")
+        cls.rfid_card_code = "5b3f5"
+        cls.test_employee.rfid_card_code = cls.rfid_card_code
 
     def test_valid_employee(self):
         """Valid employee"""
