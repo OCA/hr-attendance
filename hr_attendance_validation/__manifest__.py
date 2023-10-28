@@ -5,7 +5,7 @@
     "name": "Hr Attendance Validation",
     "summary": "Employee attendance validation.",
     "category": "Human Resources",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "license": "AGPL-3",
     "author": "Pierre Verkest, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
