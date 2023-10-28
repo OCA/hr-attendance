@@ -4,7 +4,6 @@
         <field name="model">hr.attendance.sheet</field>
         <field name="arch" type="xml">
             <tree
-                string="Attendance sheets"
                 decoration-danger="state=='draft'"
                 decoration-info="state=='confirm'"
                 decoration-success="state=='done'"
