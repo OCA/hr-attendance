@@ -67,11 +67,6 @@ msgid "Attendance validation sheet that helps managers review attendances."
 msgstr ""
 
 #. module: hr_attendance_validation
-#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_tree
-msgid "Attendance validation sheets"
-msgstr ""
-
-#. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_ids
 msgid "Attendances"
 msgstr ""
