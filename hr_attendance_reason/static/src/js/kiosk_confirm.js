@@ -44,7 +44,7 @@ odoo.define("hr_attendance_reason.kiosk_confirm", function (require) {
         update_attendance: function (event_func) {
             const attendance_reason_id = parseInt(
                 this.$(".o_hr_attendance_reason").val(),
-                0
+                10
             );
             Object.assign(session.user_context, {
                 attendance_reason_id: attendance_reason_id,

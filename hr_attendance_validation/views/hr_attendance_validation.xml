@@ -268,7 +268,7 @@
         <field name="name">hr.attendance.validation.sheet.tree</field>
         <field name="model">hr.attendance.validation.sheet</field>
         <field name="arch" type="xml">
-            <tree string="Attendance validation sheets">
+            <tree>
                 <field name="employee_id" />
                 <field
                     name="state"
