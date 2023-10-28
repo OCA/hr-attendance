@@ -173,11 +173,6 @@ msgid "Attendance Sheets: Create Sheets"
 msgstr ""
 
 #. module: hr_attendance_sheet
-#: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_tree
-msgid "Attendance sheets"
-msgstr ""
-
-#. module: hr_attendance_sheet
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_attendance_action_employee
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__attendance_ids
 msgid "Attendances"
