@@ -35,11 +35,6 @@ msgid "Attendance Reasons"
 msgstr ""
 
 #. module: hr_attendance_reason
-#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_tree
-msgid "Attendance reasons"
-msgstr ""
-
-#. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
 msgid "Bad Weather"
 msgstr ""

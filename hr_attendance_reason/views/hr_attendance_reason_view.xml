@@ -24,7 +24,7 @@
         <field name="name">hr.attendance.reason.tree</field>
         <field name="model">hr.attendance.reason</field>
         <field name="arch" type="xml">
-            <tree string="Attendance reasons">
+            <tree>
                 <field name="sequence" widget="handle" />
                 <field name="name" />
                 <field name="code" />
