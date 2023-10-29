@@ -92,7 +92,6 @@ msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__message_has_error
-#: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
@@ -153,11 +152,6 @@ msgid "Open"
 msgstr "Apri"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Errore consegna SMS"
-
-#. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__time_changed_manually
 msgid ""
 "This attendance has been manually changed by user. If attendance is created "
@@ -185,3 +179,6 @@ msgstr "Messaggi non letti"
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Numero messaggi non letti"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "Errore consegna SMS"
