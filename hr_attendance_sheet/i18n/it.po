@@ -179,11 +179,6 @@ msgid "Attendance Sheets: Create Sheets"
 msgstr "Prospetti presenza: crea fogli"
 
 #. module: hr_attendance_sheet
-#: model_terms:ir.ui.view,arch_db:hr_attendance_sheet.hr_attendance_sheet_view_tree
-msgid "Attendance sheets"
-msgstr "Prospetti presenza"
-
-#. module: hr_attendance_sheet
 #: model:ir.actions.act_window,name:hr_attendance_sheet.hr_attendance_sheet_attendance_action_employee
 #: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__attendance_ids
 msgid "Attendances"
@@ -527,7 +522,6 @@ msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: hr_attendance_sheet
 #: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance_sheet__message_has_error
-#: model:ir.model.fields,help:hr_attendance_sheet.field_hr_attendance_sheet__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
@@ -816,11 +810,6 @@ msgid "Reviewer"
 msgstr "Revisore"
 
 #. module: hr_attendance_sheet
-#: model:ir.model.fields,field_description:hr_attendance_sheet.field_hr_attendance_sheet__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Errore consegna SMS"
-
-#. module: hr_attendance_sheet
 #: model:ir.model.fields.selection,name:hr_attendance_sheet.selection__res_company__attendance_week_start__5
 msgid "Saturday"
 msgstr "Sabato"
@@ -1035,3 +1024,9 @@ msgstr "Non si ha il permesso per sbloccare il prospetto."
 #, python-format
 msgid "You don't have permission to edit submitted/approved sheets"
 msgstr "Non si ha il permesso di modificare i prospetti inviati/approvati"
+
+#~ msgid "Attendance sheets"
+#~ msgstr "Prospetti presenza"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "Errore consegna SMS"
