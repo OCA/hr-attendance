@@ -69,11 +69,6 @@ msgstr ""
 "pointanges."
 
 #. module: hr_attendance_validation
-#: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_tree
-msgid "Attendance validation sheets"
-msgstr "Revue des présences"
-
-#. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_ids
 msgid "Attendances"
 msgstr "Présences"
@@ -533,3 +528,6 @@ msgid ""
 msgstr ""
 "Vous avez modifié un paramètre nécessitant de relancer la récupération des "
 "lignes de présence et congés."
+
+#~ msgid "Attendance validation sheets"
+#~ msgstr "Revue des présences"
