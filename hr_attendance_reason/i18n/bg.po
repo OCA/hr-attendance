@@ -38,11 +38,6 @@ msgid "Attendance Reasons"
 msgstr "Причини за отсъствие"
 
 #. module: hr_attendance_reason
-#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_tree
-msgid "Attendance reasons"
-msgstr "Причини за отсъствие"
-
-#. module: hr_attendance_reason
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
 msgid "Bad Weather"
 msgstr ""
@@ -231,3 +226,6 @@ msgstr "Уточни причината за тръгване по-рано ил
 #: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_3
 msgid "Visit Customer"
 msgstr ""
+
+#~ msgid "Attendance reasons"
+#~ msgstr "Причини за отсъствие"
