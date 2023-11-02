@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-01 23:52+0000\n"
+"PO-Revision-Date: 2023-11-02 18:37+0000\n"
 "Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
 "Language-Team: none\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr "Asistencia"
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Attendance Autoclosing"
-msgstr ""
+msgstr "Autocierre de Asistencia"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__attendance_maximum_hours_per_day
@@ -47,11 +47,13 @@ msgid ""
 "Attendance lines longer than this value will\n"
 "                                    be automatically closed."
 msgstr ""
+"Las líneas de asistencia que superen este valor\n"
+"                                    se cerrarán automáticamente."
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Autoclose Reason"
-msgstr ""
+msgstr "Motivo de Cierre Automático"
 
 #. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
@@ -67,7 +69,7 @@ msgstr "Compañías"
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Ajustes de Configuración"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__no_autoclose
@@ -77,18 +79,18 @@ msgstr "No auto-cerrar asistencias"
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_employee
 msgid "Employee"
-msgstr ""
+msgstr "Empleado/a"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__hr_attendance_autoclose_reason
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__hr_attendance_autoclose_reason
 msgid "Hr Attendance Autoclose Reason"
-msgstr ""
+msgstr "Razón de Cierre Automático de Asistencia de Recursos Humanos"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Max Hours Per Day"
-msgstr ""
+msgstr "Horas Máximas por Día"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -96,6 +98,8 @@ msgid ""
 "This reason will be added to an attendance\n"
 "                                    when it's autoclosed."
 msgstr ""
+"Este motivo se agregará a una asistencia.\n"
+"                                    cuando sea cerrada automáticamente."
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
