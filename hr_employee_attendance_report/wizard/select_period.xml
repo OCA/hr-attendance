@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
         <record id="select_period" model="ir.ui.view">
@@ -7,13 +7,29 @@
             <field name="arch" type="xml">
                 <form string="Attendance Report Select Period">
                     <group col="4" colspan="6">
-                        <field name="date_from"/>
-                        <field name="date_until"/>
+                        <field name="date_from" />
+                        <field name="date_until" />
                     </group>
                     <footer>
-                        <button name="print_report" string="Print" type="object" class="btn-primary" data-hotkey="q"/>
-                        <button name="download_report" string="Download" type="object" data-hotkey="q"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z" />
+                        <button
+                        name="print_report"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                        <button
+                        name="download_report"
+                        string="Download"
+                        type="object"
+                        data-hotkey="q"
+                    />
+                        <button
+                        string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"
+                        data-hotkey="z"
+                    />
                     </footer>
                 </form>
             </field>

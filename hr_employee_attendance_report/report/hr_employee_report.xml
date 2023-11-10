@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="hr_employee_report" model="ir.actions.report">
@@ -23,13 +23,22 @@
     <template id="hr_employee_template">
         <t t-call="web.internal_layout">
             <div class="page">
-                <t t-set="fixed_work_hours" t-value="summary[doc.id]['fixed_work_hours']" />
+                <t
+                    t-set="fixed_work_hours"
+                    t-value="summary[doc.id]['fixed_work_hours']"
+                />
 
                 <h1>Attendance Report</h1>
 
                 <p>Employee: <span t-out="doc.name" /></p>
-                <p>From: <span t-out="dates[doc.id]['start_date']" t-options="{'widget': 'date'}" /><br />
-                    Until: <span t-out="dates[doc.id]['end_date']" t-options="{'widget': 'date'}" /></p>
+                <p>From: <span
+                        t-out="dates[doc.id]['start_date']"
+                        t-options="{'widget': 'date'}"
+                    /><br />
+                    Until: <span
+                        t-out="dates[doc.id]['end_date']"
+                        t-options="{'widget': 'date'}"
+                    /></p>
 
                 <style>
                     table.attendances_table th:not(:first-child),
@@ -37,7 +46,10 @@
                     text-align: right;
                     }
                 </style>
-                <table class="table table-sm attendances_table" name="attendances_table">
+                <table
+                    class="table table-sm attendances_table"
+                    name="attendances_table"
+                >
                     <thead>
                         <tr>
                             <th name="th_date">
@@ -60,9 +72,14 @@
                     <tbody class="attendances_table">
                         <t t-foreach="attendances[doc.id]" t-as="attendance">
 
-                            <tr t-attf-style="background-color: #{attendance['background_color']};">
+                            <tr
+                                t-attf-style="background-color: #{attendance['background_color']};"
+                            >
                                 <td id="date">
-                                    <t t-out="attendance['date']" t-options="{'widget': 'date'}" />
+                                    <t
+                                        t-out="attendance['date']"
+                                        t-options="{'widget': 'date'}"
+                                    />
                                 </td>
                                 <td id="planned_hours" t-if="fixed_work_hours">
                                     <t t-out="attendance['planned_hours']" />
@@ -84,7 +101,8 @@
 
                 <div id="summary" class="clearfix" name="summary">
                     <div
-                        t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                        t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto"
+                    >
                         <style>
                             table.summary_table th {
                                 text-align: left;
@@ -93,7 +111,10 @@
                                 text-align: right;
                             }
                         </style>
-                        <table class="table table-sm summary_table" name="summary_table">
+                        <table
+                            class="table table-sm summary_table"
+                            name="summary_table"
+                        >
 
                             <tbody class="summary_table">
                                 <tr t-if="fixed_work_hours">
@@ -144,7 +165,10 @@
                 <t t-if="fixed_work_hours">
                     <h2>Leave Allocations</h2>
 
-                    <table class="table table-sm allocations_table" name="allocations_table">
+                    <table
+                        class="table table-sm allocations_table"
+                        name="allocations_table"
+                    >
                         <thead>
                             <tr>
                                 <th name="th_description" class="text-start">
@@ -181,7 +205,9 @@
                                         <t t-out="round(allocation.leaves_taken, 2)" />
                                     </td>
                                     <td id="remaining_leaves" class="text-end">
-                                        <t t-out="allocation.remaining_leaves_display" />
+                                        <t
+                                            t-out="allocation.remaining_leaves_display"
+                                        />
                                     </td>
                                 </tr>
 
