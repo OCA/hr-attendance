@@ -245,6 +245,7 @@ msgstr "Calendrier de l'employé."
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__display_name
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base__display_name
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave__display_name
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__display_name
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar__display_name
 msgid "Display Name"
@@ -280,10 +281,16 @@ msgstr "Heures effectuées cette semaine"
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__id
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base__id
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave__id
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__id
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings__id
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar__id
 msgid "ID"
 msgstr ""
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__ignored_in_attendance_validation
+msgid "Ignored In Attendance Validation"
+msgstr "Ignoré dans les feuilles de revue de présences"
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__is_overtime_due
@@ -295,6 +302,7 @@ msgstr "Heure suplémentaire due"
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet____last_update
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_employee_base____last_update
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave____last_update
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type____last_update
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_resource_calendar____last_update
 msgid "Last Modified on"
@@ -441,6 +449,11 @@ msgid "Time Off"
 msgstr "Congés"
 
 #. module: hr_attendance_validation
+#: model:ir.model,name:hr_attendance_validation.model_hr_leave_type
+msgid "Time Off Type"
+msgstr "Type de congés"
+
+#. module: hr_attendance_validation
 #: model:ir.model.fields.selection,name:hr_attendance_validation.selection__hr_attendance_validation_sheet__state__draft
 #: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_view_form
 #: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
@@ -528,6 +541,3 @@ msgid ""
 msgstr ""
 "Vous avez modifié un paramètre nécessitant de relancer la récupération des "
 "lignes de présence et congés."
-
-#~ msgid "Attendance validation sheets"
-#~ msgstr "Revue des présences"
