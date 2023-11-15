@@ -213,6 +213,11 @@ class HrAttendanceValidationSheet(models.Model):
                     [
                         ("state", "in", ["validate", "validate1"]),
                         ("employee_id", "=", record.employee_id.id),
+                        (
+                            "holiday_status_id.ignored_in_attendance_validation",
+                            "=",
+                            False,
+                        ),
                     ],
                     expression.OR(
                         [

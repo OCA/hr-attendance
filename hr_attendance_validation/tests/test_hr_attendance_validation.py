@@ -91,6 +91,29 @@ class TestHrAttendanceValidation(TransactionCase):
         )
         self.empl_leave_comp.action_validate()
 
+    def setup_employee_remote_days(self):
+        self.env["hr.leave.allocation"].create(
+            {
+                "employee_id": self.employee.id,
+                "holiday_status_id": self.leave_remote.id,
+                "number_of_days": 5,
+                "holiday_type": "employee",
+                "state": "validate",
+                "name": "5 days - Remote days",
+            }
+        )
+        self.empl_remote = self.env["hr.leave"].create(
+            {
+                "employee_id": self.employee.id,
+                "holiday_status_id": self.leave_remote.id,
+                # overlap two weeks
+                "request_date_from": "2021-12-09",
+                "request_date_to": "2021-12-10",
+                "number_of_days": 1,
+            }
+        )
+        self.empl_remote.action_validate()
+
     def setup_employee_attendances(self):
         self.env["hr.attendance"].create(
             [
@@ -149,9 +172,22 @@ class TestHrAttendanceValidation(TransactionCase):
         self.HrAttendanceValidation = self.env["hr.attendance.validation.sheet"]
         self.leave_cl = self.env.ref("hr_holidays.holiday_status_cl")
         self.leave_comp = self.env.ref("hr_holidays.holiday_status_comp")
+        self.leave_remote = self.env["hr.leave.type"].create(
+            {
+                "name": "Remote test",
+                "code": "REM1",
+                "request_unit": "half_day",
+                "color_name": "blue",
+                "allocation_type": "fixed",
+                "leave_validation_type": "no_validation",
+                "create_calendar_meeting": True,
+                "ignored_in_attendance_validation": True,
+            }
+        )
         self.setup_employee()
         self.setup_employee_allocation()
         self.setup_employee_holidays()
+        self.setup_employee_remote_days()
         self.setup_employee_attendances()
 
     def test_name_get_missing_employee(self):
