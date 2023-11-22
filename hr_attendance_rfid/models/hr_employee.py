@@ -43,7 +43,10 @@ class HrEmployeeBase(models.AbstractModel):
             "logged": False,
             "action": "FALSE",
         }
-        employee = self.search([("rfid_card_code", "=", card_code)], limit=1)
+        # We need to apply sudo() because a RFID basic user does not have access to
+        # hr.employee. Hr.employee.public model does not have the
+        # _attendance_action_change() method that will be used later.
+        employee = self.sudo().search([("rfid_card_code", "=", card_code)], limit=1)
         if employee:
             res["employee_name"] = employee.name
             res["employee_id"] = employee.id
