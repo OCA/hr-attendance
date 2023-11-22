@@ -17,6 +17,7 @@ msgstr ""
 "X-Generator: Weblate 3.6.1\n"
 
 #. module: hr_attendance_rfid
+#. odoo-python
 #: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "Attendance recorded for employee %s"
@@ -28,12 +29,14 @@ msgid "Basic Employee"
 msgstr ""
 
 #. module: hr_attendance_rfid
+#. odoo-python
 #: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "No attendance was recorded for employee %s"
 msgstr "Aucune présence n'a été enregistrée pour l'employé(e) %s"
 
 #. module: hr_attendance_rfid
+#. odoo-python
 #: code:addons/hr_attendance_rfid/models/hr_employee.py:0
 #, python-format
 msgid "No employee found with card %s"
