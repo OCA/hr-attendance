@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [hr_attendance_geolocation](hr_attendance_geolocation/) | 16.0.1.0.1 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 [hr_attendance_reason](hr_attendance_reason/) | 16.0.1.0.1 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 16.0.1.1.0 |  | Theoretical vs Attended Time Analysis
+[hr_attendance_rfid](hr_attendance_rfid/) | 16.0.1.0.0 |  | HR Attendance RFID
 
 [//]: # (end addons)
 
