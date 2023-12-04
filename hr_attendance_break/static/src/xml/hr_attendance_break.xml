@@ -8,6 +8,11 @@
                 name="t-if"
             >checked_in and widget.break_state != 'on_break'</attribute>
         </t>
+        <t t-jquery="a + h3.text-muted b[t-if='checked_in']" t-operation="attributes">
+            <attribute
+                name="t-if"
+            >checked_in and widget.break_state != 'on_break'</attribute>
+        </t>
         <t t-jquery="h4[t-if='checked_in']" t-operation="append">
             <span t-if="widget.break_hours_today">(<t
                     t-esc="widget.break_hours_today"
@@ -28,9 +33,11 @@
             />
         </t>
         <t t-jquery="a + h3.text-muted" t-operation="append">
-            <span t-if="checked_in">or to <b
-                    t-if="widget.break_state == 'no_break'"
-                >take a break</b><b t-else="">return from break</b></span>
+            <span t-if="checked_in">
+                <t t-if="widget.break_state == 'no_break'">
+                    or to <b>take a break</b>
+                </t>
+                <b t-else="">return from break</b></span>
         </t>
     </t>
 </template>
