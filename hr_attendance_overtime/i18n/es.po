@@ -1,0 +1,287 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_overtime
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-01-10 18:35+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_in_late
+msgid "Are you late today? Do you told to your manager?"
+msgstr "¿Llegas tarde hoy? ¿Se lo has dicho a tu encargado?"
+
+#. module: hr_attendance_overtime
+#: model:ir.model,name:hr_attendance_overtime.model_hr_attendance
+msgid "Attendance"
+msgstr "Asistencias"
+
+#. module: hr_attendance_overtime
+#: model:ir.model,name:hr_attendance_overtime.model_hr_attendance_reason
+msgid "Attendance Reason"
+msgstr "Motivo de Asistencia"
+
+#. module: hr_attendance_overtime
+#: model:ir.model,name:hr_attendance_overtime.model_hr_employee_base
+msgid "Basic Employee"
+msgstr "Empleado Básico"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_out_no_previous
+msgid "Bye!"
+msgstr "¡Adiós!"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,help:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_in_to
+msgid "Check-in after will add a late reason on the attendance line."
+msgstr ""
+"Si se registra después, se añadirá un motivo de retraso en la línea de "
+"asistencia."
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,help:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_in_from
+msgid ""
+"Check-in before will create attendance lines marked as overtime until this "
+"hour."
+msgstr ""
+"Si se registra antes, se crearán colas de asistencia marcadas como horas "
+"extra hasta esa hora."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_earlier
+msgid "Check-in earlier"
+msgstr "Facturación anticipada"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-in_from_is_lower_than_c-in_to
+msgid "Check-in from should be lower or equals to check-in to."
+msgstr "La facturación desde debe ser inferior o igual a la facturación hasta."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_late
+msgid "Check-in late"
+msgstr "Registro tardío"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_in_no_next
+msgid "Check-in no next work time found"
+msgstr "No se ha encontrado el siguiente horario de trabajo"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-in_to_is_lower_than_c-out_from
+msgid "Check-in to should be lower or equals to check-out from."
+msgstr "La entrada debe ser inferior o igual a la salida."
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,help:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_out_to
+msgid ""
+"Check-out after will create two attendances the last marked as overtime."
+msgstr ""
+"La salida posterior creará dos asistencias, la última marcada como hora "
+"extra."
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,help:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_out_from
+msgid "Check-out before will add an early reason on attendance line."
+msgstr ""
+"La salida antes añadirá un motivo de antelación en la cola de asistencia."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_earlier
+msgid "Check-out earlier"
+msgstr "Salida más temprana"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.constraint,message:hr_attendance_overtime.constraint_resource_calendar_attendance_c-out_from_is_lower_than_c-out_to
+msgid "Check-out from should be lower or equals to check-out to."
+msgstr "La salida desde debe ser inferior o igual a la salida hacia."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_late
+msgid "Check-out late"
+msgstr "Salida tardía"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,name:hr_attendance_overtime.hr_attendance_reason_check_out_no_previous
+msgid "Check-out no previous work time found"
+msgstr "Salida no se ha encontrado tiempo de trabajo previo"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Click to"
+msgstr "Haz clic para"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance_reason__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,help:hr_attendance_overtime.field_hr_attendance_reason__description
+msgid ""
+"Description displayed on kiosk while Check-in/Check-out.Leave empty if you "
+"wish to display nothing."
+msgstr ""
+"Descripción mostrada en el quiosco durante el registro de entrada y salida."
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance_reason__display_name
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_employee_base__display_name
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar__display_name
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_out_late
+msgid "Have a good break, thaks for your time"
+msgstr "Buen descanso, gracias por su tiempo"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance_reason__id
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_employee_base__id
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar__id
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance____last_update
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance_reason____last_update
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_employee_base____last_update
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar____last_update
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: hr_attendance_overtime
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime.hr_attendance_view_search
+msgid "On time"
+msgstr "A tiempo"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_hr_attendance__is_overtime
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime.hr_attendance_view_search
+msgid "Overtime"
+msgstr "Horas Extra"
+
+#. module: hr_attendance_overtime
+#: model:ir.model,name:hr_attendance_overtime.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Horario de Trabajo del Recurso"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_out_earlier
+msgid "Should you keep working?"
+msgstr "¿Deberías seguir trabajando?"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Sign in"
+msgstr "Entrada"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Sign out"
+msgstr "Salida"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Today's work hours:"
+msgstr "Las horas de trabajo de hoy:"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Want to check out?"
+msgstr "¿Quieres verificarlo?"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid ""
+"Warning : Your user should be linked to an employee to use attendance. "
+"Please contact your administrator."
+msgstr ""
+"Atención : Su usuario debe estar vinculado a un empleado para poder utilizar "
+"la asistencia. Por favor, póngase en contacto con su administrador."
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "Welcome!"
+msgstr "¡Bienvenido!"
+
+#. module: hr_attendance_overtime
+#: model:ir.model,name:hr_attendance_overtime.model_resource_calendar_attendance
+msgid "Work Detail"
+msgstr "Detalle de Trabajo"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_in_from
+msgid "Work from check-in from"
+msgstr "Trabajar desde el registro de"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_in_to
+msgid "Work from check-in to"
+msgstr "Trabajar desde el registro hasta"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_out_from
+msgid "Work to check-out from"
+msgstr "Trabajar en la salida desde"
+
+#. module: hr_attendance_overtime
+#: model:ir.model.fields,field_description:hr_attendance_overtime.field_resource_calendar_attendance__hour_check_out_to
+msgid "Work to check-out to"
+msgstr "Trabajar para salir a"
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_in_no_next
+msgid "You shouldn't start working at that time..."
+msgstr "No deberías empezar a trabajar a esa hora..."
+
+#. module: hr_attendance_overtime
+#: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_in_earlier
+msgid "Your are a bit early !"
+msgstr "¡Llegas un poco pronto!"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "check in"
+msgstr "registrarse"
+
+#. module: hr_attendance_overtime
+#. openerp-web
+#: code:addons/hr_attendance_overtime/static/src/xml/attendance.xml:0
+#, python-format
+msgid "check out"
+msgstr "salida"
