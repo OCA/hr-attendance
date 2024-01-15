@@ -60,7 +60,9 @@ class TestAttendance(TransactionCase):
 
         attended = {date(2023, 7, 3 + offset) for offset in range(4)}
         for tz in ["Europe/Amsterdam", "Pacific/Auckland", "America/New_York"]:
-            employee = self.employee.copy({"tz": tz, "name": f"Employee {tz}"})
+            employee = self._clone_employee(
+                self.employee, {"tz": tz, "name": f"Employee {tz}"}
+            )
             for offset, times in enumerate(((0, 30), (23, 30), (11, 30), (12, 30))):
                 # Convert the times from the employee TZ zo UTC. 3rd is monday
                 start = convert_tz(
@@ -109,3 +111,24 @@ class TestAttendance(TransactionCase):
 
         attendances_new = attendances_after - attendances_before
         self.assertFalse(attendances_new)
+
+    def test_multi_day_attendance(self):
+        """Test that having an attendance crossing a day border doesn't break"""
+        self.employee.tz = "Europe/Amsterdam"
+        attendance = self.env["hr.attendance"].create(
+            {
+                "employee_id": self.employee.id,
+                "check_in": "2023-12-18 21:00:00",
+                "check_out": "2023-12-19 13:00:00",
+            }
+        )
+        self.employee._create_missing_attendances(
+            date(2023, 12, 18), date(2023, 12, 19)
+        )
+        self.assertEqual(
+            self.env["hr.attendance"].search([("employee_id", "=", self.employee.id)]),
+            attendance,
+        )
+
+    def _clone_employee(self, employee, defaults):
+        return employee.copy(defaults)

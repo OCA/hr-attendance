@@ -76,9 +76,11 @@ class Employee(models.Model):
             ("check_in", ">=", dt_from.replace(tzinfo=None)),
             ("check_in", "<=", dt_to.replace(tzinfo=None)),
         ]
+        attendance_records = self.attendance_ids.filtered_domain(domain)
         attendances = {
-            ensure_tz(attendance.check_in, tz).date()
-            for attendance in self.attendance_ids.filtered_domain(domain)
+            ensure_tz(attendance_date, tz).date()
+            for attendance_date in attendance_records.mapped("check_in")
+            + attendance_records.mapped("check_out")
         }
 
         vals = []
