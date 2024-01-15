@@ -184,6 +184,24 @@ class TestHrAttendance(TransactionCase):
             }
         )
         self.assertEqual(get_overtime(no_work_attendance).duration, 9.5)
+        exact_worktime_attendance = self.env["hr.attendance"].create(
+            {
+                "employee_id": self.employee.id,
+                "check_in": datetime.datetime(2023, 8, 28, 7, 0, 0),
+                "check_out": datetime.datetime(2023, 8, 28, 15, 0, 0),
+                "break_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "begin": datetime.datetime(2023, 8, 28, 7, 30, 0),
+                            "end": datetime.datetime(2023, 8, 28, 8, 0, 0),
+                        },
+                    ),
+                ],
+            }
+        )
+        self.assertEqual(get_overtime(exact_worktime_attendance).duration, -0.5)
 
     def test_overlap(self):
         """Test we can't have overlapping breaks"""

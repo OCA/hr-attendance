@@ -175,18 +175,27 @@ class HrAttendance(models.Model):
                 + [("adjustment", "=", False)],
             )
         )
-        for overtime in overtimes:
-            overtime.duration -= sum(
-                attendances.filtered(
-                    lambda x: x.employee_id == overtime.employee_id
-                    and any(
-                        overtime.date == attendance_date[1]
-                        and x.check_in >= attendance_date[0]
-                        and x.check_in < attendance_date[0] + timedelta(hours=24)
-                        for attendance_date in employee_attendance_dates[
-                            overtime.employee_id
-                        ]
+        for employee_id, attendance_dates in employee_attendance_dates.items():
+            for attendance_datetime, attendance_date in attendance_dates:
+                overtime = overtimes.filtered(
+                    lambda x: x.employee_id == employee_id and x.date == attendance_date
+                )
+                break_duration = sum(
+                    attendances.filtered(
+                        lambda x: x.employee_id == employee_id
+                        and x.check_in >= attendance_datetime
+                        and x.check_in < attendance_datetime + timedelta(hours=24)
+                    ).mapped("break_hours")
+                )
+
+                if overtime:
+                    overtime.duration -= break_duration
+                else:
+                    self.env["hr.attendance.overtime"].sudo().create(
+                        {
+                            "employee_id": employee_id.id,
+                            "date": attendance_date,
+                            "duration": -break_duration,
+                        }
                     )
-                ).mapped("break_hours")
-            )
         return result
