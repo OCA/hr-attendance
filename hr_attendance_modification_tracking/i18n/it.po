@@ -39,24 +39,14 @@ msgstr "Dipendente base"
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__check_in
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee__last_check_in
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_in
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_in
 msgid "Check In"
 msgstr "Check-in"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__check_out
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee__last_check_out
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_out
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_out
 msgid "Check Out"
 msgstr "Check-out"
-
-#. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__display_name
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__display_name
-msgid "Display Name"
-msgstr "Nome visualizzato"
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__employee_id
@@ -69,20 +59,14 @@ msgid "Followers"
 msgstr "Seguito da"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Seguito da (canali)"
-
-#. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Seguito da (partner)"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__id
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__id
-msgid "ID"
-msgstr "ID"
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__has_message
+msgid "Has Message"
+msgstr ""
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__message_needaction
@@ -92,7 +76,6 @@ msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__message_has_error
-#: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
@@ -102,10 +85,16 @@ msgid "Is Follower"
 msgstr "Sta seguendo"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance____last_update
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_in
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_in
+msgid "Last Check In"
+msgstr ""
+
+#. module: hr_attendance_modification_tracking
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_base__last_check_out
+#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_employee_public__last_check_out
+msgid "Last Check Out"
+msgstr ""
 
 #. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_main_attachment_id
@@ -153,11 +142,6 @@ msgid "Open"
 msgstr "Apri"
 
 #. module: hr_attendance_modification_tracking
-#: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_has_sms_error
-msgid "SMS Delivery error"
-msgstr "Errore consegna SMS"
-
-#. module: hr_attendance_modification_tracking
 #: model:ir.model.fields,help:hr_attendance_modification_tracking.field_hr_attendance__time_changed_manually
 msgid ""
 "This attendance has been manually changed by user. If attendance is created "
@@ -185,3 +169,18 @@ msgstr "Messaggi non letti"
 #: model:ir.model.fields,field_description:hr_attendance_modification_tracking.field_hr_attendance__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Numero messaggi non letti"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome visualizzato"
+
+#~ msgid "Followers (Channels)"
+#~ msgstr "Seguito da (canali)"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
+
+#~ msgid "SMS Delivery error"
+#~ msgstr "Errore consegna SMS"
