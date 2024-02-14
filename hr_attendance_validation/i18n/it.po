@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-11-02 10:37+0000\n"
+"PO-Revision-Date: 2024-02-14 16:41+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -475,7 +475,7 @@ msgstr "Valida"
 #: model:ir.model.fields.selection,name:hr_attendance_validation.selection__hr_attendance_validation_sheet__state__validated
 #: model_terms:ir.ui.view,arch_db:hr_attendance_validation.hr_attendance_validation_sheet_views_filter
 msgid "Validated"
-msgstr "Validata"
+msgstr "Approvata"
 
 #. module: hr_attendance_validation
 #: model:ir.ui.menu,name:hr_attendance_validation.hr_attendance_validated_sheet_menu
