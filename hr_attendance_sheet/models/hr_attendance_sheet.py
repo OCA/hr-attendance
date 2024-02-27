@@ -295,15 +295,18 @@ must be set on the Company %s"
             "date_start",
             "date_end",
         ]
-        if self.state == "locked" and any(f in values.keys() for f in protected_fields):
-            raise UserError(_("You can't edit a locked sheet."))
-        elif (
-            self.state in ("confirm", "done")
-            and self.env.user not in self._get_possible_reviewers()
-        ):
-            raise UserError(
-                _("You don't have permission to edit submitted/approved sheets")
-            )
+        for record in self:
+            if record.state == "locked" and any(
+                f in values.keys() for f in protected_fields
+            ):
+                raise UserError(_("You can't edit a locked sheet."))
+            elif (
+                record.state in ("confirm", "done")
+                and self.env.user not in record._get_possible_reviewers()
+            ):
+                raise UserError(
+                    _("You don't have permission to edit submitted/approved sheets")
+                )
         return super(HrAttendanceSheet, self).write(values)
 
     # BUTTON ACTIONS
