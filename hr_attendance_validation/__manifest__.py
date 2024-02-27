@@ -21,6 +21,7 @@
         "views/hr_attendance_validation.xml",
         "views/hr_attendance.xml",
         "views/res_config_settings_views.xml",
+        "views/hr_leave_type.xml",
         "security/ir.model.access.csv",
         "security/ir.rule.xml",
         "data/ir_cron.xml",
