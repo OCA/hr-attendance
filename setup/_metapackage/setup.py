@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo-addon-hr_attendance_autoclose>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_calendar_view>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_geolocation>=16.0dev,<16.1dev',
+        'odoo-addon-hr_attendance_modification_tracking>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_reason>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_report_theoretical_time>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_rfid>=16.0dev,<16.1dev',
