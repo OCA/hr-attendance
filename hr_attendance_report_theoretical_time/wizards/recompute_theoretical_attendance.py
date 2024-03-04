@@ -22,6 +22,20 @@ class RecomputeTheoreticalAttendance(models.TransientModel):
 
     def action_recompute(self):
         self.ensure_one()
+        # First we need to manage leaves (as they are linked to the calendar
+        # and need to be removed and added back to be correctly processed)
+        leave_model = self.env["hr.leave"]
+        leaves = leave_model.search([
+            ("employee_id", "in", self.employee_ids.ids),
+            # Here we need to include leaves even partially contained in
+            # the date range. Otherwise leaves won't be retrieved.
+            ("date_from", ">=", self.date_from),
+            ("date_from", "<=", self.date_to),
+        ])
+        leaves._remove_resource_leave()
+        leaves._create_resource_leave()
+        leaves._check_theoretical_hours()
+        # Then we can process remaining attendances
         attendances = self.env["hr.attendance"].search(
             [
                 ("employee_id", "in", self.employee_ids.ids),
