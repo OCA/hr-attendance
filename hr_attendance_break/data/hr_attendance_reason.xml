@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data noupdate="True">
+    <record id="reason_imposed" model="hr.attendance.reason">
+        <field name="name">Imposed break</field>
+        <field name="action_type">break</field>
+        <field name="show_on_attendance_screen" eval="False" />
+        <field name="bypass_minimum_break" eval="True" />
+    </record>
+</data>

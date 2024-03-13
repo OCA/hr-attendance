@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data noupdate="True">
+    <record id="template_mandatory_break" model="mail.template">
+        <field name="name">Attendance: Mandatory break</field>
+        <field name="model_id" ref="hr.model_hr_employee" />
+        <field
+            name="subject"
+        >Please review your breaks from {{ format_date(ctx.get('hr_attendance_break_date', object.last_attendance_id.check_in)) }}</field>
+        <field name="email_to">{{ object.work_email or object.user_id.email }}</field>
+        <field
+            name="email_cc"
+        >{{ object.parent_id.work_email or object.parent_id.user_id.email }}</field>
+        <field name="body_html" type="html">
+            <p>Dear <t t-out="object.name" />,</p>
+            <p>on <t
+                    t-out="format_date(ctx.get('hr_attendance_break_date', object.last_attendance_id.check_in))"
+                />, you only took <t
+                    t-out="format_duration(ctx.get('hr_attendance_break_hours') or 0)"
+                /> hours of break, while you should have been taking <t
+                    t-out="format_duration(ctx.get('hr_attendance_break_threshold', object.env['hr.attendance.break.threshold']).min_break)"
+                /> hours.</p>
+            <p>Please review the attendances below:</p>
+            <ul>
+                <li
+                    t-foreach="ctx.get('hr_attendance_break_attendances', object.last_attendance_id)"
+                    t-as="attendance"
+                >
+                    <a
+                        t-attf-href="/mail/view?model={{ attendance._name }}&amp;res_id={{ attendance.id }}"
+                    ><t t-out="attendance.display_name" /></a>
+                </li>
+            </ul>
+        </field>
+    </record>
+</data>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="rule_hr_attendance_break_company" model="ir.rule">
+        <field name="name">Restrict to own company</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field
+            name="domain_force"
+        >['|', ('attendance_id.employee_id.company_id', '=', False), ('attendance_id.employee_id.company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="rule_hr_attendance_break_user" model="ir.rule">
+        <field name="name">Restrict to own breaks for users</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field
+            name="domain_force"
+        >[('attendance_id.employee_id.user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    </record>
+
+    <record id="rule_hr_attendance_break_manager" model="ir.rule">
+        <field name="name">Lift restrictions for managers</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field
+            name="groups"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"
+        />
+    </record>
+
+    <record id="rule_hr_attendance_break_threshold_company" model="ir.rule">
+        <field name="name">Restrict to own company</field>
+        <field name="model_id" ref="model_hr_attendance_break_threshold" />
+        <field
+            name="domain_force"
+        >['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
+</data>

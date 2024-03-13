@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="activity_type_mandatory_break" model="mail.activity.type">
+            <field name="name">Take mandatory breaks</field>
+            <field name="icon">fa-coffee</field>
+            <field name="res_model">hr.employee</field>
+    </record>
+</data>

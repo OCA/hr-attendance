@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 Hunki Enterprises BV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl-3.0) -->
+<data>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div name="overtime_settings" position="after">
+                <h2>Breaks</h2>
+                <div class="row mt16 o_settings_container" name="break_settings">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <span
+                                class="fa fa-lg fa-building-o"
+                                title="Values set here are company-specific."
+                                role="img"
+                                aria-label="Values set here are company-specific."
+                                groups="base.group_multi_company"
+                            />
+                            <label for="hr_attendance_break_min_break" />
+                            <div
+                                class="text-muted"
+                            >Breaks shorter than this value will not be counted towards mandatory breaks</div>
+                            <field
+                                name="hr_attendance_break_min_break"
+                                widget="float_time"
+                            />
+                            <div class="mt16">
+                                <button
+                                    type="object"
+                                    name="button_hr_attendance_break_thresholds"
+                                    icon="fa-arrow-right"
+                                    string="Edit thresholds for mandatory breaks"
+                                    class="btn-link"
+                                />
+                            </div>
+                            <div class="mt16">
+                                <button
+                                    type="object"
+                                    name="button_hr_attendance_break_action"
+                                    icon="fa-arrow-right"
+                                    string="Edit action to run if mandatory breaks are not adhered"
+                                    class="btn-link"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</data>
