@@ -22,6 +22,8 @@ class TestAttendance(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
 
+        cls.env.company.overtime_start_date = datetime(2020, 1, 1)
+
         cls.employee = cls.env["hr.employee"].create(
             {
                 "name": "Test Employee",
