@@ -10,7 +10,9 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-hr_attendance_autoclose>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_calendar_view>=15.0dev,<15.1dev',
+        'odoo-addon-hr_attendance_contract_missing_days>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_geolocation>=15.0dev,<15.1dev',
+        'odoo-addon-hr_attendance_missing_days>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_modification_tracking>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_reason>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_report_theoretical_time>=15.0dev,<15.1dev',
