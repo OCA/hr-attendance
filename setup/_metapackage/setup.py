@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo-addon-hr_attendance_geolocation>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_missing_days>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_modification_tracking>=15.0dev,<15.1dev',
+        'odoo-addon-hr_attendance_overtime_manual>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_reason>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_report_theoretical_time>=15.0dev,<15.1dev',
         'odoo-addon-hr_attendance_rfid>=15.0dev,<15.1dev',
