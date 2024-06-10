@@ -1,0 +1,77 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_overtime_manual
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-04 07:04+0000\n"
+"PO-Revision-Date: 2023-08-04 07:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.actions.act_window,name:hr_attendance_overtime_manual.open_hr_attendance_overtime_wizard
+msgid "Add Attendance Overtime"
+msgstr "Überstunden hinzufügen"
+
+#. module: hr_attendance_overtime_manual
+#: code:addons/hr_attendance_overtime_manual/models/hr_attendance_overtime.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_employee_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_attendance_overtime_manual_form
+#, python-format
+msgid "Add Manual Overtime"
+msgstr "Manuelle Überstunden hinzufügen"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model,name:hr_attendance_overtime_manual.model_hr_attendance_overtime
+msgid "Attendance Overtime"
+msgstr "Überstunden"
+
+#. module: hr_attendance_overtime_manual
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_attendance_overtime_manual_form
+msgid "Close"
+msgstr "Schließen"
+
+#. module: hr_attendance_overtime_manual
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_attendance_overtime_manual_form
+msgid "Create Overtime"
+msgstr "Überstunden anlegen"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__date
+msgid "Day"
+msgstr "Tag"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model,name:hr_attendance_overtime_manual.model_hr_employee
+msgid "Employee"
+msgstr "Mitarbeiter"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__duration
+msgid "Extra Hours"
+msgstr "Überstunden"
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime__note
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__note
+msgid "Note"
+msgstr "Notiz"
+
+#. module: hr_attendance_overtime_manual
+#: code:addons/hr_attendance_overtime_manual/wizard/hr_attendance_overtime_manual_wizard.py:0
+#: model:ir.model,name:hr_attendance_overtime_manual.model_hr_attendance_overtime_wizard
+#, python-format
+msgid "Wizard to add manual overtime"
+msgstr "Wizard um Überstunden hinzuzufügen"
+
+#. module: hr_attendance_overtime_manual
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_attendance_overtime_manual_form
+msgid "or"
+msgstr "oder"
