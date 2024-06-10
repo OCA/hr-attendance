@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-04 07:04+0000\n"
-"PO-Revision-Date: 2023-08-04 07:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,10 +19,8 @@ msgid "Add Attendance Overtime"
 msgstr ""
 
 #. module: hr_attendance_overtime_manual
-#: code:addons/hr_attendance_overtime_manual/models/hr_attendance_overtime.py:0
-#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_employee_form
 #: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_attendance_overtime_manual_form
-#, python-format
+#: model_terms:ir.ui.view,arch_db:hr_attendance_overtime_manual.view_employee_form
 msgid "Add Manual Overtime"
 msgstr ""
 
@@ -44,18 +40,48 @@ msgid "Create Overtime"
 msgstr ""
 
 #. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
 #: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__date
 msgid "Day"
 msgstr ""
 
 #. module: hr_attendance_overtime_manual
-#: model:ir.model,name:hr_attendance_overtime_manual.model_hr_employee
-msgid "Employee"
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__display_name
+msgid "Display Name"
 msgstr ""
 
 #. module: hr_attendance_overtime_manual
 #: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__duration
 msgid "Extra Hours"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_attendance_overtime_manual
+#: model:ir.model.fields,field_description:hr_attendance_overtime_manual.field_hr_attendance_overtime_wizard__write_date
+msgid "Last Updated on"
 msgstr ""
 
 #. module: hr_attendance_overtime_manual
