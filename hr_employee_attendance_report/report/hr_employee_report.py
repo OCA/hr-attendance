@@ -1,10 +1,13 @@
+# Copyright 2024 Janik von Rotz <janik.vonrotz@mint-system.ch>
+# Copyright 2024 Camptocamp
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 
 from odoo import api, models
 
-_logger = logging.getLogger(__name__)
-
 from . import attendance_data
+
+_logger = logging.getLogger(__name__)
 
 
 class ReportHrEmployee(models.AbstractModel):

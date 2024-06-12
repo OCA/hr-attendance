@@ -1,13 +1,15 @@
+# Copyright 2024 Janik von Rotz <janik.vonrotz@mint-system.ch>
+# Copyright 2024 Camptocamp
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
-
-from odoo import fields
-
-_logger = logging.getLogger(__name__)
 from datetime import datetime, time, timedelta
 
 from dateutil.relativedelta import relativedelta
 
+from odoo import fields
 from odoo.osv import expression
+
+_logger = logging.getLogger(__name__)
 
 
 def _daterange(start_date, end_date):
@@ -21,7 +23,7 @@ def get_attendances(self, employees, start_date, end_date):
 
     # Data mappings
     dates = {}
-    attendances = {}
+    attendances_data = {}
     summary = {}
 
     # Iterate on users
@@ -37,7 +39,7 @@ def get_attendances(self, employees, start_date, end_date):
         dates[employee.id]["end_date"] = end_date - timedelta(days=1)
 
         # Get all attendances and overtime in range
-        attendance_ids = self.env["hr.attendance"].search(
+        attendances = self.env["hr.attendance"].search(
             [
                 ("employee_id", "=", employee.id),
                 "&",
@@ -45,7 +47,7 @@ def get_attendances(self, employees, start_date, end_date):
                 ("check_out", ">=", start_date),
             ]
         )
-        overtime_ids = self.env["hr.attendance.overtime"].search(
+        overtimes = self.env["hr.attendance.overtime"].search(
             [
                 ("employee_id", "=", employee.id),
                 "&",
@@ -62,19 +64,19 @@ def get_attendances(self, employees, start_date, end_date):
             ("resource_id", "=", employee.resource_id.id),
         ]
         filters = expression.AND([domain, expression.OR([from_domain, to_domain])])
-        leave_ids = self.env["resource.calendar.leaves"].search(filters)
-        leave_hours = sum(leave_ids.holiday_id.mapped("number_of_hours_display"))
+        leaves = self.env["resource.calendar.leaves"].search(filters)
+        leave_hours = sum(leaves.holiday_id.mapped("number_of_hours_display"))
 
         # Update summary
         summary[employee.id] = {
             "fixed_work_hours": fixed_work_hours,
             "leave_hours": round(leave_hours, 2),
-            "worked_hours": round(sum(attendance_ids.mapped("worked_hours")), 2),
+            "worked_hours": round(sum(attendances.mapped("worked_hours")), 2),
             "overtime_total": round(employee.total_overtime, 2),
         }
 
         # For each date in range compute details
-        attendances[employee.id] = []
+        attendances_data[employee.id] = []
         planned_hours = 0
         overtime = 0
         for date in _daterange(start_date, end_date):
@@ -87,10 +89,13 @@ def get_attendances(self, employees, start_date, end_date):
             planned_hours += work_hours
 
             # Get leave hours for this date
-            active_leaves = leave_ids.filtered(
-                lambda l: l.date_from < date < l.date_to
-                or min_check_date <= l.date_from <= max_check_date
-                or min_check_date <= l.date_to <= max_check_date
+            active_leaves = leaves.filtered(
+                lambda leave,
+                date=date,
+                min_check_date=min_check_date,
+                max_check_date=max_check_date: leave.date_from < date < leave.date_to
+                or min_check_date <= leave.date_from <= max_check_date
+                or min_check_date <= leave.date_to <= max_check_date
             )
 
             # Set leave hours
@@ -104,21 +109,23 @@ def get_attendances(self, employees, start_date, end_date):
 
             # Get attendance hours for this date
             worked_hours = sum(
-                attendance_ids.filtered(
-                    lambda a: min_check_date < a.check_in < max_check_date
+                attendances.filtered(
+                    lambda attendance,
+                    min_date=min_check_date,
+                    max_date=max_check_date: min_date < attendance.check_in < max_date
                 ).mapped("worked_hours")
             )
 
             # Get overtime hours for this date
             overtime_hours = sum(
-                overtime_ids.filtered(lambda o: o.date == date.date()).mapped(
+                overtimes.filtered(lambda o, date=date: o.date == date.date()).mapped(
                     "duration"
                 )
             )
             overtime += overtime_hours
 
             # Create data entry
-            attendances[employee.id].append(
+            attendances_data[employee.id].append(
                 {
                     "date": date,
                     "planned_hours": round(work_hours, 2),
@@ -135,7 +142,7 @@ def get_attendances(self, employees, start_date, end_date):
         summary[employee.id]["planned_hours"] = round(planned_hours, 2)
         summary[employee.id]["overtime"] = round(overtime, 2)
 
-    return dates, attendances, summary
+    return dates, attendances_data, summary
 
 
 def get_leave_allocations(self, employees):
@@ -150,7 +157,7 @@ def get_leave_allocations(self, employees):
     # Iterate on users
     for employee in employees:
         # Get active allocations
-        allocation_ids = self.env["hr.leave.allocation"].search(
+        allocations = self.env["hr.leave.allocation"].search(
             [
                 ("employee_id", "=", employee.id),
                 "|",
@@ -159,7 +166,7 @@ def get_leave_allocations(self, employees):
             ]
         )
 
-        leave_allocations[employee.id] = allocation_ids
+        leave_allocations[employee.id] = allocations
 
     return leave_allocations
 
