@@ -26,7 +26,6 @@ def get_attendances(self, employees, start_date, end_date):
 
     # Iterate on users
     for employee in employees:
-
         # Get statics
         hours_per_day = employee.resource_calendar_id.hours_per_day
         fixed_work_hours = False if hours_per_day == 0 else True
@@ -79,7 +78,6 @@ def get_attendances(self, employees, start_date, end_date):
         planned_hours = 0
         overtime = 0
         for date in _daterange(start_date, end_date):
-
             # Get work hours
             min_check_date = datetime.combine(date, time.min)
             max_check_date = datetime.combine(date, time.max)
@@ -151,7 +149,6 @@ def get_leave_allocations(self, employees):
 
     # Iterate on users
     for employee in employees:
-
         # Get active allocations
         allocation_ids = self.env["hr.leave.allocation"].search(
             [
@@ -168,7 +165,6 @@ def get_leave_allocations(self, employees):
 
 
 def _get_report_values(self, docids, data=None, report_name=None):
-
     now = fields.Datetime.now()
     # Last month default dates
     start_date = now + relativedelta(months=-1, day=1, hour=0, minute=0, second=0)

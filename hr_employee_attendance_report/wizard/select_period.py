@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 
 
 class HREmployeeAttendanceReportSelectPeriod(models.TransientModel):
-
     _name = "hr_employee_attendance_report.select_period"
     _description = "Attendance and leave report period selector"
 
