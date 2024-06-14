@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
   <record id="view_tree" model="ir.ui.view">
@@ -23,7 +23,10 @@
             <group>
               <field name="employee_ids" widget="many2many_tags" />
               <field name="cidr" placeholder="192.168.2.0/24" />
-              <field name="single_check" attrs="{'readonly': [('employee_ids', '=', [])]}"/>
+              <field
+                                name="single_check"
+                                attrs="{'readonly': [('employee_ids', '=', [])]}"
+                            />
             </group>
           </group>
         </sheet>
@@ -37,10 +40,12 @@
     <field name="view_mode">tree,form</field>
   </record>
 
-  <menuitem name="Attendance IP Check"
-    id="menu_ir_attendance_cidr"
-    action="ir_attendance_cidr_act"
-    parent="base.menu_security"
-    sequence="15" />
+  <menuitem
+        name="Attendance IP Check"
+        id="menu_ir_attendance_cidr"
+        action="ir_attendance_cidr_act"
+        parent="base.menu_security"
+        sequence="15"
+    />
 
 </odoo>
