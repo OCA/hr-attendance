@@ -1,3 +1,6 @@
+# Copyright 2024 Janik von Rotz <janik.vonrotz@mint-system.ch>
+# Copyright 2024 Camptocamp
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import ipaddress
 import logging
 
@@ -25,5 +28,5 @@ class AttendanceCidr(models.Model):
         for rec in self:
             try:
                 ipaddress.IPv4Network(rec.cidr)
-            except:
-                raise ValidationError(_("This is not a valid CIDR."))
+            except Exception:
+                raise ValidationError(_("This is not a valid CIDR.")) from None

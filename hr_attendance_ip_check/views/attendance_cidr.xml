@@ -23,10 +23,7 @@
             <group>
               <field name="employee_ids" widget="many2many_tags" />
               <field name="cidr" placeholder="192.168.2.0/24" />
-              <field
-                                name="single_check"
-                                attrs="{'readonly': [('employee_ids', '=', [])]}"
-                            />
+              <field name="single_check" readonly="not employee_ids" />
             </group>
           </group>
         </sheet>
