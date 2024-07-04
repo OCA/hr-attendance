@@ -6,11 +6,16 @@
     "summary": """
         This addon adds a birthday message as welcome message
         when it is the employee's birthday""",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "CreuBlanca,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
     "depends": ["hr_attendance"],
-    "data": ["templates/assets.xml"],
+    "data": [],
     "demo": [],
+    "assets": {
+        "web.assets_backend": [
+            "/hr_birthday_welcome_message/static/src/js/*.js",
+        ],
+    },
 }

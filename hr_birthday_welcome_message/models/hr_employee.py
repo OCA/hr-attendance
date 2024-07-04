@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+    _inherit = "hr.employee"
 
     def _attendance_action(self, next_action):
         result = super()._attendance_action(next_action)
