@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record
+        id="hr_contract_history_update_overtime_all_action"
+        model="ir.actions.server"
+    >
+        <field name="name">Update Overtime</field>
+        <field name="model_id" ref="hr_contract.model_hr_contract_history" />
+        <field name="binding_model_id" ref="hr_contract.model_hr_contract_history" />
+        <field name="binding_view_types">tree</field>
+        <field
+            name="groups_id"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"
+        />
+        <field name="state">code</field>
+        <field name="code">records.action_update_overtime()</field>
+    </record>
+</odoo>
