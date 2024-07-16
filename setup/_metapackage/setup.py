@@ -15,6 +15,7 @@ setuptools.setup(
         'odoo-addon-hr_attendance_reason>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_report_theoretical_time>=16.0dev,<16.1dev',
         'odoo-addon-hr_attendance_rfid>=16.0dev,<16.1dev',
+        'odoo-addon-hr_contract_update_overtime>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
