@@ -7,6 +7,7 @@ from datetime import datetime
 from freezegun import freeze_time
 from psycopg2 import IntegrityError
 
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 from odoo.tools import mute_logger
 
@@ -609,6 +610,18 @@ class TestHrAttendanceOverTimeEuropeParis(TransactionCase):
             self.assertEqual(attendance.check_out, datetime(2021, 12, 13, 9, 1))
             self.assertFalse(attendance.is_overtime)
             self.assertFalse(attendance.attendance_reason_ids)
+
+    def test_todays_working_times_user_without_employee(self):
+        user = self.env["res.users"].create(
+            {
+                "name": "Test User",
+                "login": "test_user",
+                "email": "test2@user.com",
+                "tz": "UTC",
+            }
+        )
+        with self.assertRaises(UserError):
+            self.employee.todays_working_times([("id", "=", user.id)])
 
     def test_todays_working_times(self):
         self.maxDiff = None
