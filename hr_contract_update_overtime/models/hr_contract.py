@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0)
 from datetime import datetime, timedelta
 
-from odoo import fields, models
+from odoo import _, fields, models
 
 
 class HrContract(models.Model):
@@ -25,3 +25,9 @@ class HrContract(models.Model):
                 continue
             attendances = record._get_attendances()
             attendances._update_overtime()
+            record.message_post(
+                body=_("Overtime updated"),
+                subtype_xmlid="mail.mt_note",
+                message_type="comment",
+                author_id=self.env.user.partner_id.id,
+            )
