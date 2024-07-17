@@ -5,3 +5,6 @@ You can Update Overtime in different ways:
 - An action on the Contract History tree view
 - Header button on Contract History form view
 - Header button on Contract form view
+
+If you Update Overtime from Contract History, leaves will also be reorganized
+across their contract calendars.

@@ -13,6 +13,7 @@
                     type="object"
                     groups="hr_attendance.group_hr_attendance_user"
                     help="Update Overtime on Running and Expired contracts"
+                    confirm="This action will also reorganize all the Employee's leaves by distributing them across their contract calendars. If you do not want this to happen, you can Update Overtime from a specific contract."
                 />
             </xpath>
         </field>
