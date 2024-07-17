@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-11 08:46+0000\n"
-"PO-Revision-Date: 2024-07-11 10:47+0200\n"
+"POT-Creation-Date: 2024-07-17 06:10+0000\n"
+"PO-Revision-Date: 2024-07-17 08:10+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -26,6 +26,13 @@ msgstr "Contrato"
 #: model:ir.model,name:hr_contract_update_overtime.model_hr_contract_history
 msgid "Contract history"
 msgstr "Histórico de contratación"
+
+#. module: hr_contract_update_overtime
+#. odoo-python
+#: code:addons/hr_contract_update_overtime/models/hr_contract.py:0
+#, python-format
+msgid "Overtime updated"
+msgstr "Horas Extra actualizadas"
 
 #. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_history_update_overtime_all_action
