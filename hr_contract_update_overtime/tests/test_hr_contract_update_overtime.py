@@ -196,6 +196,35 @@ class HRContractUpdateOvertime(TransactionCase):
                 ("employee_id", "=", cls.employee.id),
             ]
         )
+        # Create all leaves on last contract
+        cls.env["resource.calendar.leaves"].create(
+            [
+                {
+                    "name": "Test Leave 2h",
+                    "date_from": make_dtt(4, h=8, m=0),
+                    "date_to": make_dtt(4, h=8, m=30),
+                    "resource_id": cls.employee.resource_id.id,
+                    "calendar_id": rc_8h_day.id,
+                    "company_id": company.id,
+                },
+                {
+                    "name": "Test Leave 4h",
+                    "date_from": make_dtt(3, h=8, m=0),
+                    "date_to": make_dtt(3, h=8, m=30),
+                    "resource_id": cls.employee.resource_id.id,
+                    "calendar_id": rc_8h_day.id,
+                    "company_id": company.id,
+                },
+                {
+                    "name": "Test Leave 8h",
+                    "date_from": make_dtt(2, h=8, m=0),
+                    "date_to": make_dtt(2, h=8, m=30),
+                    "resource_id": cls.employee.resource_id.id,
+                    "calendar_id": rc_8h_day.id,
+                    "company_id": company.id,
+                },
+            ]
+        )
         cls.overtime_model = cls.env["hr.attendance.overtime"]
 
     def test_overtime(self):
@@ -210,4 +239,8 @@ class HRContractUpdateOvertime(TransactionCase):
             )
             .mapped("duration")
         )
-        self.assertEqual(sum(total_overtime), -3.0)
+        # Check Overtime
+        self.assertEqual(sum(total_overtime), -1.5)
+        # Check Leaves has been moved correctly
+        for contract in self.contract_history.contract_ids:
+            self.assertEqual(len(contract.resource_calendar_id.leave_ids), 1)

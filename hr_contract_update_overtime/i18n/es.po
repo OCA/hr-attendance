@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 06:10+0000\n"
-"PO-Revision-Date: 2024-07-17 08:10+0200\n"
+"POT-Creation-Date: 2024-07-17 09:15+0000\n"
+"PO-Revision-Date: 2024-07-17 11:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -33,6 +33,17 @@ msgstr "Histórico de contratación"
 #, python-format
 msgid "Overtime updated"
 msgstr "Horas Extra actualizadas"
+
+#. module: hr_contract_update_overtime
+#: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
+msgid ""
+"This action will also reorganize all the Employee's leaves by distributing "
+"them across their contract calendars. If you do not want this to happen, "
+"you can Update Overtime from a specific contract."
+msgstr ""
+"Esta acción también reorganizará todas las ausencias del Empleado "
+"distribuyéndolas en los calendarios de sus contratos. Si no quieres que "
+"esto pase, puedes actualizar las Horas Extra desde un contrato específico."
 
 #. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_history_update_overtime_all_action
