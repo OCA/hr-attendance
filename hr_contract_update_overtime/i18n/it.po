@@ -27,6 +27,21 @@ msgid "Contract history"
 msgstr "Storico contatto"
 
 #. module: hr_contract_update_overtime
+#. odoo-python
+#: code:addons/hr_contract_update_overtime/models/hr_contract.py:0
+#, python-format
+msgid "Overtime updated"
+msgstr ""
+
+#. module: hr_contract_update_overtime
+#: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
+msgid ""
+"This action will also reorganize all the Employee's leaves by distributing "
+"them across their contract calendars. If you do not want this to happen, you "
+"can Update Overtime from a specific contract."
+msgstr ""
+
+#. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_history_update_overtime_all_action
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_view_form
