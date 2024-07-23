@@ -197,7 +197,7 @@ class HRContractUpdateOvertime(TransactionCase):
             ]
         )
         # Create all leaves on last contract
-        cls.env["resource.calendar.leaves"].create(
+        leaves = cls.env["resource.calendar.leaves"].create(
             [
                 {
                     "name": "Test Leave 2h",
@@ -225,7 +225,30 @@ class HRContractUpdateOvertime(TransactionCase):
                 },
             ]
         )
-        cls.overtime_model = cls.env["hr.attendance.overtime"]
+        # `hr_holidays_attendance` adds extra constrains when considering one
+        # leave valid for an employee. It wouldn't be a problem, but it's
+        # auto-installable. Thus, if you run this test at install time where
+        # that module is included for installation, it will be on scope for the
+        # test and break it. Therefore, we need to create the holiday request
+        # if it's installed, even when we don't need that dependency normally.
+        if "holiday_id" in leaves._fields:
+            leave_type = cls.env["hr.leave.type"].create(
+                {"name": "Beach 🏖️", "time_type": "leave"}
+            )
+            for res_leave in leaves:
+                res_leave.holiday_id = (
+                    cls.env["hr.leave"]
+                    .with_context(leave_skip_state_check=True)
+                    .create(
+                        {
+                            "state": "validate",
+                            "date_from": res_leave.date_from,
+                            "date_to": res_leave.date_to,
+                            "employee_id": cls.employee.id,
+                            "holiday_status_id": leave_type.id,
+                        }
+                    )
+                )
 
     def test_overtime(self):
         self.assertEqual(self.contract_history.contract_count, 3)
