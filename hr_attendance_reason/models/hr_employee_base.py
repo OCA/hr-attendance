@@ -26,5 +26,5 @@ class HrEmployeeBase(models.AbstractModel):
             offset=offset,
             limit=limit,
             order=order,
-            **read_kwargs
+            **read_kwargs,
         )
