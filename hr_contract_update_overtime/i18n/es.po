@@ -38,12 +38,12 @@ msgstr "Horas Extra actualizadas"
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
 msgid ""
 "This action will also reorganize all the Employee's leaves by distributing "
-"them across their contract calendars. If you do not want this to happen, "
-"you can Update Overtime from a specific contract."
+"them across their contract calendars. If you do not want this to happen, you "
+"can Update Overtime from a specific contract."
 msgstr ""
 "Esta acción también reorganizará todas las ausencias del Empleado "
-"distribuyéndolas en los calendarios de sus contratos. Si no quieres que "
-"esto pase, puedes actualizar las Horas Extra desde un contrato específico."
+"distribuyéndolas en los calendarios de sus contratos. Si no quieres que esto "
+"pase, puedes actualizar las Horas Extra desde un contrato específico."
 
 #. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_history_update_overtime_all_action
