@@ -27,11 +27,6 @@ msgid "Attendance"
 msgstr "Presenza"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_report
-msgid "Attendance Statistics"
-msgstr "Statistiche presenza"
-
-#. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
 msgid "Attendances Analysis"
 msgstr "Analisi presenze"
@@ -151,13 +146,6 @@ msgid "Include in theoretical hours"
 msgstr "Inclusa nelle ore teoriche"
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance____last_update
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__write_uid
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__write_uid
 msgid "Last Updated by"
@@ -255,7 +243,6 @@ msgstr "Etichetta"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__theoretical_hours
-#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_report__theoretical_hours
 msgid "Theoretical Hours"
 msgstr "Ore teoriche"
 
@@ -314,6 +301,12 @@ msgstr "Procedura guidata ore teoriche"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Lavorate"
+
+#~ msgid "Attendance Statistics"
+#~ msgstr "Statistiche presenza"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
 
 #~ msgid "All Employees"
 #~ msgstr "Tutti i dipendenti"

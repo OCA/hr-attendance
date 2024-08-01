@@ -18,3 +18,12 @@ class HrAttendance(models.Model):
             record.theoretical_hours = obj._theoretical_hours(
                 record.employee_id, record.check_in
             )
+
+    @api.model
+    def _select(self):
+        return super()._select() + """, hra.theoretical_hours"""
+
+    @api.model
+    def _from(self):
+        res = super()._from()
+        return res.replace("worked_hours", "worked_hours, theoretical_hours")
