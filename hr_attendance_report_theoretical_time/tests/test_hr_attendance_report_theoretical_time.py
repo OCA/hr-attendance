@@ -4,23 +4,13 @@
 
 import datetime
 
-from odoo.tests import common
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestHrAttendanceReportTheoreticalTimeBase(common.TransactionCase):
+class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(
-            context=dict(
-                cls.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-                tracking_disable=True,
-            )
-        )
         cls.HrLeave = cls.env["hr.leave"]
         cls.HrHolidaysPublic = cls.env["hr.holidays.public"]
         cls.HrLeaveType = cls.env["hr.leave.type"]
@@ -283,7 +273,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         )
 
 
-class TestHrAttendanceReportTheoreticalTimeResource(common.TransactionCase):
+class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
     @classmethod
     def _define_calendar_2_weeks(cls, name, attendances, tz):
         return cls.env["resource.calendar"].create(
