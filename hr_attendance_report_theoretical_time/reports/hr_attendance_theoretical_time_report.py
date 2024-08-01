@@ -206,7 +206,7 @@ CREATE or REPLACE VIEW %s as (
         This technique has proven to be more efficient than trying to call
         recursively `read_group` grouping by date and employee.
         """
-        res = super(HrAttendanceTheoreticalTimeReport, self).read_group(
+        res = super().read_group(
             domain,
             fields,
             groupby,

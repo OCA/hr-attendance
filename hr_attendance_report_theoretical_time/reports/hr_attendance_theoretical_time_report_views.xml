@@ -39,7 +39,7 @@
     <record id="hr_attendance_theoretical_view_pivot" model="ir.ui.view">
         <field name="model">hr.attendance.theoretical.time.report</field>
         <field name="arch" type="xml">
-            <pivot disable_linking="1">
+            <pivot>
                 <field name="employee_id" type="row" />
                 <field name="department_id" />
                 <field name="date" type="col" />
@@ -67,11 +67,15 @@
             name="context"
         >{'search_default_previous_month': 1, 'search_default_current_month': 1, 'search_default_my': 1}</field>
         <field name="view_mode">pivot,graph</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0), (0, 0, {'view_mode': 'pivot', 'view_id': ref('hr_attendance_theoretical_view_pivot')}), (0, 0, {'view_mode': 'graph', 'view_id': ref('hr_attendance_theoretical_view_graph')})]"
+        />
     </record>
-    <record id="hr_attendance.menu_hr_attendance_report" model="ir.ui.menu">
+    <record id="hr_attendance.menu_hr_attendance_reporting" model="ir.ui.menu">
         <field
             name="groups_id"
-            eval="[(4, ref('hr_attendance.group_hr_attendance'))]"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_officer'))]"
         />
         <!-- We need to leave the action empty for consistency because we are going
             to set different submenus, otherwise the Reports menu would not be
@@ -81,24 +85,24 @@
     <menuitem
         id="menu_hr_attendance_report"
         name="Attendances Analysis"
-        parent="hr_attendance.menu_hr_attendance_report"
-        sequence="10"
-        groups="hr_attendance.group_hr_attendance_user"
-        action="hr_attendance.hr_attendance_report_action"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        sequence="05"
+        groups="hr_attendance.group_hr_attendance_officer"
+        action="hr_attendance.hr_attendance_reporting"
     />
     <menuitem
         id="menu_hr_attendance_theoretical_root"
         name="Theoretical vs Attended Time"
-        parent="hr_attendance.menu_hr_attendance_report"
-        sequence="15"
-        groups="hr_attendance.group_hr_attendance"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        sequence="10"
+        groups="hr_attendance.group_hr_attendance_officer"
     />
     <menuitem
         id="menu_hr_attendance_theoretical_report"
         name="Analysis"
         action="hr_attendance_theoretical_action"
         parent="menu_hr_attendance_theoretical_root"
-        groups="hr_attendance.group_hr_attendance"
-        sequence="20"
+        groups="hr_attendance.group_hr_attendance_officer"
+        sequence="15"
     />
 </odoo>
