@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t t-name="hr_attendance_reason.KioskReason">
+        <button
+            t-on-click="() => this.props.onClickBack()"
+            class="o_hr_attendance_back_button btn btn-block btn-secondary btn-lg d-block d-md-none py-5"
+        >
+            <i class="oi oi-chevron-left me-2" /> Go back
+        </button>
+        <t t-call="hr_attendance.EmployeeBadge">
+            <t
+                t-set="employeeAvatar"
+                t-value="this.props.employeeData.employee_avatar"
+            />
+        </t>
+        <button
+            t-on-click="() => this.props.onClickBack()"
+            class="o_hr_attendance_back_button o_hr_attendance_back_button_md btn btn-secondary d-none d-md-inline-flex align-items-center position-absolute top-0 start-0 rounded-circle"
+        >
+            <i
+                class="oi fa-2x fa-fw oi-chevron-left me-1"
+                role="img"
+                aria-label="Go back"
+                title="Go back"
+            />
+        </button>
+
+        <div t-if="this.props.employeeData" class="flex-grow-1">
+            <h1 class="mt-5 mb8" t-esc="this.props.employeeData.employee_name" />
+            <h3 class="mt8 mb24"><t t-if="!checkedIn">Welcome!</t><t
+                    t-else=""
+                >Want to check out?</t></h3>
+            <h3 class="mt-4 mb0 text-muted">Please select a reason to <b
+                    t-if="checkedIn"
+                >check out</b><b t-else="">check in</b></h3>
+            <div class="mt-2 reasons_lists" t-if="this.props.reasons">
+                    <select
+                    id="attendance_reason"
+                    t-ref="attendance_reason"
+                    t-attf-class="o_hr_attendance_reason {{ this.props.employeeData.required_reason_on_attendance_screen ? 'o_attendance_reason_required' : '' }}"
+                >
+                    <option value="0" />
+                    <t
+                        t-foreach="this.props.reasons"
+                        t-as="reason"
+                        t-key="reason_index"
+                    >
+                        <option t-att-value="reason.id" t-esc="reason.name" />
+                    </t>
+                </select>
+            </div>
+            <div
+                class="mt-4 flex-grow-1 d-flex align-items-center justify-content-center"
+            >
+                <button
+                    t-on-click="() => this.onClickSelectReason()"
+                    t-attf-class="btn btn-primary btn-block btn-lg"
+                >
+                    Continue
+                </button>
+            </div>
+        </div>
+</t>
+
+</templates>
