@@ -5,28 +5,21 @@
 
 from datetime import datetime
 
-from odoo.tests import common, new_test_user, users
+from odoo.tests import new_test_user, users
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
+from odoo.addons.base.tests.common import BaseCommon
 
-class TestHrAttendanceReason(common.TransactionCase):
+
+class TestHrAttendanceReason(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(
-            context=dict(
-                cls.env.context,
-                mail_create_nolog=True,
-                mail_create_nosubscribe=True,
-                mail_notrack=True,
-                no_reset_password=True,
-            )
-        )
         cls.att_reason_model = cls.env["hr.attendance.reason"]
         cls.user = new_test_user(
             cls.env,
             login="test-user",
-            groups="base.group_user,hr_attendance.group_hr_attendance",
+            groups="base.group_user,hr_attendance.group_hr_attendance_own_reader",
         )
         cls.employee = cls.env["hr.employee"].create(
             {"name": cls.user.login, "user_id": cls.user.id}
@@ -40,7 +33,7 @@ class TestHrAttendanceReason(common.TransactionCase):
 
     @users("test-user")
     def test_employee_edit(self):
-        self.env["hr.attendance"].create(
+        self.env["hr.attendance"].sudo().create(
             {
                 "employee_id": self.env.user.employee_id.id,
                 "check_in": datetime.now().strftime(DF),
@@ -48,29 +41,21 @@ class TestHrAttendanceReason(common.TransactionCase):
             }
         )
         # check out
-        res = self.env.user.employee_id.with_context(
+        attendance = self.env.user.employee_id.with_context(
             attendance_reason_id=self.att_reason_out.id
-        ).attendance_manual({})
-        self.assertIn(
-            self.att_reason_in.id, res["action"]["attendance"]["attendance_reason_ids"]
-        )
-        self.assertIn(
-            self.att_reason_out.id, res["action"]["attendance"]["attendance_reason_ids"]
-        )
+        )._attendance_action_change({})
+        self.assertIn(self.att_reason_in, attendance.attendance_reason_ids)
+        self.assertIn(self.att_reason_out, attendance.attendance_reason_ids)
 
     @users("test-user")
     def test_user_attendance_manual(self):
         # check in
-        res = self.env.user.employee_id.with_context(
+        attendance = self.env.user.employee_id.with_context(
             attendance_reason_id=self.att_reason_in.id
-        ).attendance_manual({})
-        self.assertIn(
-            self.att_reason_in.id, res["action"]["attendance"]["attendance_reason_ids"]
-        )
+        )._attendance_action_change({})
+        self.assertIn(self.att_reason_in, attendance.attendance_reason_ids)
         # check out
-        res = self.env.user.employee_id.with_context(
+        attendance = self.env.user.employee_id.with_context(
             attendance_reason_id=self.att_reason_out.id
-        ).attendance_manual({})
-        self.assertIn(
-            self.att_reason_out.id, res["action"]["attendance"]["attendance_reason_ids"]
-        )
+        )._attendance_action_change({})
+        self.assertIn(self.att_reason_out, attendance.attendance_reason_ids)

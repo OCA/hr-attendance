@@ -12,7 +12,7 @@
                         <field name="action_type" />
                         <field
                             name="show_on_attendance_screen"
-                            attrs="{'invisible': [('action_type', '==', False)]}"
+                            invisible="not action_type"
                         />
                         <field name="company_id" groups="base.group_multi_company" />
                     </group>
