@@ -4,7 +4,7 @@
 
 {
     "name": "HR Attendance Reason",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo S.A., Tecnativa, Odoo Community Association (OCA)",
@@ -21,10 +21,10 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "hr_attendance_reason/static/src/js/my_attendances.esm.js",
-            "hr_attendance_reason/static/src/js/kiosk_confirm.esm.js",
-            "hr_attendance_reason/static/src/scss/hr_attendance_reason.scss",
-            "hr_attendance_reason/static/src/xml/**/*",
+            "hr_attendance_reason/static/src/**/*",
+        ],
+        "hr_attendance.assets_public_attendance": [
+            "hr_attendance_reason/static/src/**/*",
         ],
     },
 }
