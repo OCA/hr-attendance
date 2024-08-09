@@ -6,4 +6,5 @@
 - Juany Davila \<<juany.davila@forgeflow.com>\>
 - [Tecnativa](https://www.tecnativa.com):
   - Víctor Martínez
+  - Carlos Lopez
 - Dhara Solanki \<<dhara.solanki@initos.com>\>
