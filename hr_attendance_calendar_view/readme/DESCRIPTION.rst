@@ -1,1 +1,0 @@
-Calendar view for attendances.
