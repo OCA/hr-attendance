@@ -48,6 +48,13 @@ Do not contact contributors directly about support or help with technical issues
 Credits
 =======
 
+Contributors
+------------
+
+-  `APSL-Nagarro <https://apsl.tech>`__:
+
+   -  Lansana Barry <lbarry@apsl.net>
+
 Maintainers
 -----------
 
