@@ -17,15 +17,6 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: hr_attendance_hour_type_report
-#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
-
-#. module: hr_attendance_hour_type_report
 #: model:ir.model,name:hr_attendance_hour_type_report.model_hr_attendance
 msgid "Attendance"
 msgstr "Asistencias"
@@ -38,6 +29,7 @@ msgstr "Asistencias para el cálculo de la Nómina"
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__hr_night_work_hour_start
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_start
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.res_config_settings_view_form
 msgid "Beginning of night work time"
 msgstr "Comienzo del trabajo nocturno"
 
@@ -58,13 +50,9 @@ msgstr "Fecha"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__date_type
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
 msgid "Date Type"
 msgstr "Fecha Tipo"
-
-#. module: hr_attendance_hour_type_report
-#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
-msgid "Date type"
-msgstr "Fecha tipo"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__worked_hours_daytime
@@ -72,33 +60,14 @@ msgid "Day hours"
 msgstr "Horario diurno"
 
 #. module: hr_attendance_hour_type_report
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__display_name
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__display_name
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__display_name
-msgid "Display Name"
-msgstr "Mostrar Nombre"
-
-#. module: hr_attendance_hour_type_report
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__hr_night_work_hour_end
 #: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_end
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.res_config_settings_view_form
 msgid "End of night work time"
 msgstr "Fin del horario de trabajo nocturno"
 
 #. module: hr_attendance_hour_type_report
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance__id
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company__id
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings__id
-msgid "ID"
-msgstr "ID (identificación)"
-
-#. module: hr_attendance_hour_type_report
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_hr_attendance____last_update
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_company____last_update
-#: model:ir.model.fields,field_description:hr_attendance_hour_type_report.field_res_config_settings____last_update
-msgid "Last Modified on"
-msgstr "Última Modificación el"
-
-#. module: hr_attendance_hour_type_report
+#. odoo-python
 #: code:addons/hr_attendance_hour_type_report/models/hr_attendance.py:0
 #, python-format
 msgid "More than 24h of work in 1 shift is forbidden"
@@ -127,6 +96,7 @@ msgstr "Fecha de la nómina"
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__holiday
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
 msgid "Public Holiday"
 msgstr "Vacaciones Públicas"
 
@@ -142,6 +112,7 @@ msgstr ""
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__sunday
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
 msgid "Sunday"
 msgstr "Domingo"
 
@@ -152,6 +123,7 @@ msgstr "Aquí se mostrarán los registros de asistencia de sus empleados."
 
 #. module: hr_attendance_hour_type_report
 #: model:ir.model.fields.selection,name:hr_attendance_hour_type_report.selection__hr_attendance__date_type__normal
+#: model_terms:ir.ui.view,arch_db:hr_attendance_hour_type_report.hr_attendance_search_view
 msgid "Weekday"
 msgstr "Día de la semana"
 
@@ -167,3 +139,22 @@ msgstr "fecha de la asistencia, desde el punto de vista de la nómina"
 #: model:ir.model.fields,help:hr_attendance_hour_type_report.field_res_config_settings__hr_night_work_hour_start
 msgid "expressed in company timezone"
 msgstr "expresado en la zona horaria de la empresa"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"
+
+#~ msgid "Date type"
+#~ msgstr "Fecha tipo"
+
+#~ msgid "Display Name"
+#~ msgstr "Mostrar Nombre"
+
+#~ msgid "ID"
+#~ msgstr "ID (identificación)"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificación el"

@@ -21,16 +21,53 @@
     <field name="arch" type="xml">
       <xpath expr="//filter[@name='nocheckout']" position="after">
         <separator />
+        <filter
+                    name="normal"
+                    string="Weekday"
+                    domain="[('date_type', '=', 'normal')]"
+                />
+        <filter name="sunday" string="Sunday" domain="[('date_type', '=', 'sunday')]" />
+        <filter
+                    name="holiday"
+                    string="Public Holiday"
+                    domain="[('date_type', '=', 'holiday')]"
+                />
+        <separator />
         <filter name="pay_date" string="Payroll date" date="date" />
       </xpath>
       <xpath expr="//group/filter[@name='employee']" position="after">
         <filter
                     name="date_type"
-                    string="Date type"
+                    string="Date Type"
                     context="{'group_by':'date_type'}"
                 />
         <filter name="date" string="Payroll date" context="{'group_by':'date'}" />
       </xpath>
+    </field>
+  </record>
+
+  <record id="view_attendance_tree" model="ir.ui.view">
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+    <field name="arch" type="xml">
+       <field name="check_out" position="after">
+         <field name="date_type" />
+       </field>
+       <field name="overtime_hours" position="after">
+         <field name="worked_hours_daytime" optional="show" widget="float_time" />
+         <field name="worked_hours_nighttime" optional="show" widget="float_time" />
+       </field>
+    </field>
+  </record>
+
+  <record id="hr_attendance_view_form" model="ir.ui.view">
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+    <field name="arch" type="xml">
+      <field name="overtime_hours" position="after">
+         <field name="worked_hours_daytime" optional="show" widget="float_time" />
+         <field name="worked_hours_nighttime" optional="show" widget="float_time" />
+      </field>
     </field>
   </record>
 
