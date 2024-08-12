@@ -1,0 +1,19 @@
+<odoo>
+    <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,calendar,form</field>
+    </record>
+    <record id="view_attendance_calendar" model="ir.ui.view">
+        <field name="name">hr.attendance.calendar</field>
+        <field name="model">hr.attendance</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Employee attendances"
+                date_start="check_in"
+                date_stop="check_out"
+                color="employee_id"
+            >
+                <field name="employee_id" />
+            </calendar>
+        </field>
+    </record>
+</odoo>
