@@ -2,9 +2,12 @@
 # Copyright 2024 Camptocamp
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
-    "name": "HR Attendance Overtime Negative Hours",
+    "name": "HR Leave Dashboard Extra Time",
     "summary": """
-        Show negative hours in leave overview.
+        Display an additional card at the top of the Time Off Dashboard:
+        Extra Hours, informing the employee about the number of extra hours
+        he has been working and thus the number of hours available
+        for him to take as a compensation leave
     """,
     "author": "Mint System GmbH, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",

@@ -93,9 +93,9 @@ class HrLeaveType(models.Model):
         allocations_now = self.env["hr.leave.allocation"]
         allocations_date = self.env["hr.leave.allocation"]
         allocations_with_remaining_leaves = self.env["hr.leave.allocation"]
+        today = fields.Date.today()
         for allocation, data in allocations_leaves_consumed[employee][self].items():
             if allocation:
-                today = fields.Date.today()
                 if allocation.date_from <= today and (
                     not allocation.date_to or allocation.date_to >= today
                 ):
