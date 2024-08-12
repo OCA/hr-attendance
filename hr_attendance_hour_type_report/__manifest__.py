@@ -3,14 +3,14 @@
 
 {
     "name": "HR Attendance hours report",
-    "version": "14.0.1.0.0",
+    "version": "17.0.1.0.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": [
         "hr_attendance",
-        "hr_holidays_public",
+        "hr_holidays",
     ],
     "data": [
         "views/res_config_settings.xml",

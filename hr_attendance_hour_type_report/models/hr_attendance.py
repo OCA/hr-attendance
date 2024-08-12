@@ -23,7 +23,6 @@ class HrAttendance(models.Model):
         readonly=True,
     )
     date = fields.Date(
-        string="Date",
         help="date of the attendance, from the payroll point of view",
         compute="_compute_date",
         store=True,
@@ -39,9 +38,7 @@ class HrAttendance(models.Model):
         for rec in self:
             if rec.date.weekday() == 6:
                 rec.date_type = "sunday"
-            elif self.env["hr.holidays.public"].is_public_holiday(
-                rec.date, rec.employee_id.id
-            ):
+            elif rec.employee_id._get_public_holidays(rec.date, rec.date):
                 rec.date_type = "holiday"
             else:
                 rec.date_type = "normal"
@@ -59,7 +56,7 @@ class HrAttendance(models.Model):
 
     @api.depends("check_in", "check_out")
     def _compute_worked_hours(self):
-        super()._compute_worked_hours()
+        res = super()._compute_worked_hours()
         UTC = pytz.timezone("utc")
         for rec in self:
             rec.worked_hours_nighttime = 0
@@ -113,5 +110,6 @@ class HrAttendance(models.Model):
                 max(check_out, next_day_night_start) - next_day_night_start
             ).total_seconds() / 3600.0
             if check_out > next_day_night_start:
-                _logger.warning("very long_shift for employee %s" % rec.employee_id.id)
+                _logger.warning("very long_shift for employee %s", rec.employee_id.id)
             rec.worked_hours_daytime = rec.worked_hours - rec.worked_hours_nighttime
+        return res

@@ -3,10 +3,11 @@
 import datetime as dt
 
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestAttendance(SavepointCase):
+class TestAttendance(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -16,21 +17,13 @@ class TestAttendance(SavepointCase):
                 "tz": "Europe/Paris",
             }
         )
-        # we use the default start and end limits for night work for the company: 22h to 6h
-        cls.env["hr.holidays.public"].create(
+        # we use the default start and end limits for night work
+        # for the company: 22h to 6h
+        cls.env["resource.calendar.leaves"].create(
             {
-                "year": 2021,
-                "line_ids": [
-                    (
-                        0,
-                        0,
-                        {
-                            "name": "Toussaint",
-                            "date": "2021-11-01",
-                            "variable_date": False,
-                        },
-                    )
-                ],
+                "name": "Toussaint",
+                "date_from": dt.datetime(2021, 11, 1),
+                "date_to": dt.datetime(2021, 11, 1, 23, 59, 59),
             }
         )
 
@@ -85,14 +78,14 @@ class TestAttendance(SavepointCase):
             "2021-12-02 06:00:00", "2021-12-02 15:00:00"
         )
         self.assertEqual(attendance.worked_hours_nighttime, 0.0)
-        self.assertEqual(attendance.worked_hours_daytime, 9.0)
+        self.assertEqual(attendance.worked_hours_daytime, 8.0)
 
     def test_attendance_worktime_start_early(self):
         attendance = self._create_attendance(
             "2021-12-02 03:00:00", "2021-12-02 12:00:00"
         )
         self.assertEqual(attendance.worked_hours_nighttime, 2.0)
-        self.assertEqual(attendance.worked_hours_daytime, 7.0)
+        self.assertEqual(attendance.worked_hours_daytime, 6.0)
 
     def test_attendance_worktime_end_late(self):
         attendance = self._create_attendance(
@@ -110,10 +103,8 @@ class TestAttendance(SavepointCase):
 
     def test_attendance_worktime_too_long(self):
         with self.assertRaises(exceptions.UserError):
-            attendance = self._create_attendance(
-                "2021-12-02 20:00:00", "2021-12-03 21:00:00"
-            )
+            self._create_attendance("2021-12-02 20:00:00", "2021-12-03 22:00:00")
             # the exception happens when we flush to disk or when we read the
             # worked_hours_nighttime/daytime fields, because it is raised by
             # the computation of some fields
-            attendance.flush()
+            self.cr.flush()
