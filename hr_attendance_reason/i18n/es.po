@@ -23,6 +23,14 @@ msgid "Action Type"
 msgstr "Tipo de acción"
 
 #. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
+#, python-format
+msgid "An attendance reason is required!"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model,name:hr_attendance_reason.model_hr_attendance
 msgid "Attendance"
 msgstr "Asistencia"
@@ -37,11 +45,6 @@ msgstr "Motivo de alerta de asistencia"
 #: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
 msgid "Attendance Reasons"
 msgstr "Motivos de alerta de asistencia"
-
-#. module: hr_attendance_reason
-#: model:ir.model,name:hr_attendance_reason.model_hr_employee_base
-msgid "Basic Employee"
-msgstr "Empleado Básico"
 
 #. module: hr_attendance_reason
 #: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
@@ -69,6 +72,13 @@ msgid "Configuration"
 msgstr "Configuración"
 
 #. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "Continue"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -94,14 +104,16 @@ msgid "Employee"
 msgstr "Empleado"
 
 #. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "Go back"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__id
 msgid "ID"
 msgstr "ID"
-
-#. module: hr_attendance_reason
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason____last_update
-msgid "Last Modified on"
-msgstr "Última modificación en"
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__write_uid
@@ -119,16 +131,23 @@ msgid "Leave empty if it is independent"
 msgstr "Dejar vacío si es independiente"
 
 #. module: hr_attendance_reason
-#. openerp-web
-#: code:addons/hr_attendance_reason/static/src/js/kiosk_confirm.esm.js:0
-#: code:addons/hr_attendance_reason/static/src/js/my_attendances.esm.js:0
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 #, python-format
-msgid "Please, select a reason"
-msgstr "Por favor, selecciona un motivo"
+msgid "Please select a reason to"
+msgstr ""
 
 #. module: hr_attendance_reason
-#. openerp-web
-#: code:addons/hr_attendance_reason/static/src/xml/attendance.xml:0
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
+#, python-format
+msgid "Please, select a reason!"
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.xml:0
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
 #, python-format
 msgid "Reason"
@@ -145,12 +164,8 @@ msgid "Reasons"
 msgstr "Motivos"
 
 #. module: hr_attendance_reason
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__required_reason_on_attendance_screen
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_base__required_reason_on_attendance_screen
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_public__required_reason_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__required_reason_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__required_reason_on_attendance_screen
-#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
 msgid "Required reason on attendance screen"
 msgstr "¿Motivo obligatorio en pantalla de asistencia?"
 
@@ -165,12 +180,8 @@ msgid "Show on attendance screen?"
 msgstr "¿Mostrar en pantalla de asistencia?"
 
 #. module: hr_attendance_reason
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__show_reason_on_attendance_screen
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_base__show_reason_on_attendance_screen
-#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee_public__show_reason_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__show_reason_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__show_reason_on_attendance_screen
-#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
 msgid "Show reasons on attendance screen"
 msgstr "¿Mostrar motivos en pantalla de asistencia?"
 
@@ -195,3 +206,41 @@ msgstr "Especifica la razón de entrada/salida inusual."
 #: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__name
 msgid "Specifies the reason leaving soon or arriving late"
 msgstr "Especifica la razón por salir antes o llegar tarde"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "Want to check out?"
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "Welcome!"
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "check in"
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#, python-format
+msgid "check out"
+msgstr ""
+
+#~ msgid "Basic Employee"
+#~ msgstr "Empleado Básico"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última modificación en"
+
+#, python-format
+#~ msgid "Please, select a reason"
+#~ msgstr "Por favor, selecciona un motivo"
