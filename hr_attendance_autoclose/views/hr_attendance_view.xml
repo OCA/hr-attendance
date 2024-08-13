@@ -21,7 +21,7 @@
                 <field name="open_worked_hours" widget="float_time" />
             </field>
             <field name="worked_hours" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="column_invisible">1</attribute>
             </field>
         </field>
     </record>
