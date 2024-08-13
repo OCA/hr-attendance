@@ -5,7 +5,8 @@ from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 from pytz import timezone, utc
 
-from odoo import SUPERUSER_ID, api, fields, models
+from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.osv import expression
 
 
@@ -17,6 +18,8 @@ class HrEmployeeBase(models.AbstractModel):
         """Method used by my attendance/kiosk view in order
         to display employee planning and working times"""
         employee = self.search(empl_domain)
+        if not employee:
+            raise UserError(_("Employee not found or not created for current user"))
         employee.ensure_one()
         now = fields.Datetime.now()
         tz = timezone(employee.tz)
