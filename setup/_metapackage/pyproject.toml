@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-hr-attendance"
-version = "17.0.20240812.0"
+version = "17.0.20240813.0"
 dependencies = [
     "odoo-addon-hr_attendance_calendar_view>=17.0dev,<17.1dev",
+    "odoo-addon-hr_attendance_reason>=17.0dev,<17.1dev",
 ]
 classifiers=[
     "Programming Language :: Python",
