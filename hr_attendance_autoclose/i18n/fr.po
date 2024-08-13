@@ -41,7 +41,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "Attendance lines longer than this value will\n"
-"                                    be automatically closed."
+"                                be automatically closed."
 msgstr ""
 
 #. module: hr_attendance_autoclose
@@ -51,7 +51,6 @@ msgstr ""
 
 #. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
-#: model:ir.cron,cron_name:hr_attendance_autoclose.check_attendance_cron
 msgid "Check Attendance"
 msgstr ""
 
@@ -90,7 +89,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "This reason will be added to an attendance\n"
-"                                    when it's autoclosed."
+"                                when it's autoclosed."
 msgstr ""
 
 #. module: hr_attendance_autoclose
