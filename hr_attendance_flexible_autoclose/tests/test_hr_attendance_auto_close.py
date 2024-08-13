@@ -6,16 +6,19 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo.tests import common, new_test_user, users
+from odoo.tests import new_test_user, users
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
+from odoo.addons.base.tests.common import BaseCommon
 
-class TestHrAttendanceReason(common.TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.hr_attendance = self.env["hr.attendance"]
-        self.employee = self.env["hr.employee"].create({"name": "Employee"})
-        new_test_user(self.env, login="test-user")
+
+class TestHrAttendanceReason(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.hr_attendance = cls.env["hr.attendance"]
+        cls.employee = cls.env["hr.employee"].create({"name": "Employee"})
+        new_test_user(cls.env, login="test-user")
 
     def test_employee_edit(self):
         dti = datetime.now()
@@ -35,7 +38,9 @@ class TestHrAttendanceReason(common.TransactionCase):
             {"employee_id": self.employee.id, "check_in": dt.strftime(DF)}
         )
         self.hr_attendance.check_for_incomplete_attendances()
-        self.assertEqual(att.worked_hours, 11.0, "Attendance not closed")
+        # worked_hours are now 10 hours, because Odoo adds 1 hour to lunch, see:
+        # https://github.com/odoo/odoo/commit/2eda54348de1bd42fc2a1bed94cd8b7a3ebf405d
+        self.assertEqual(att.worked_hours, 10.0, "Attendance not closed")
         reason = self.env.company.hr_attendance_autoclose_reason
         reason.unlink()
         dti += relativedelta(hours=10)
