@@ -45,10 +45,8 @@ msgstr "Horas máximas de asistencia por día"
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "Attendance lines longer than this value will\n"
-"                                    be automatically closed."
+"                                be automatically closed."
 msgstr ""
-"Las líneas de asistencia que superen este valor\n"
-"                                    se cerrarán automáticamente."
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -57,7 +55,6 @@ msgstr "Motivo de Cierre Automático"
 
 #. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
-#: model:ir.cron,cron_name:hr_attendance_autoclose.check_attendance_cron
 msgid "Check Attendance"
 msgstr "Comprobar asistencia"
 
@@ -96,12 +93,24 @@ msgstr "Horas Máximas por Día"
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "This reason will be added to an attendance\n"
-"                                    when it's autoclosed."
+"                                when it's autoclosed."
 msgstr ""
-"Este motivo se agregará a una asistencia.\n"
-"                                    cuando sea cerrada automáticamente."
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Horas trabajadas"
+
+#~ msgid ""
+#~ "Attendance lines longer than this value will\n"
+#~ "                                    be automatically closed."
+#~ msgstr ""
+#~ "Las líneas de asistencia que superen este valor\n"
+#~ "                                    se cerrarán automáticamente."
+
+#~ msgid ""
+#~ "This reason will be added to an attendance\n"
+#~ "                                    when it's autoclosed."
+#~ msgstr ""
+#~ "Este motivo se agregará a una asistencia.\n"
+#~ "                                    cuando sea cerrada automáticamente."
