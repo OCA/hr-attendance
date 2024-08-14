@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='hr_attendance']" position="inside">
+                <block
+                    title="Attendance Autoclosing"
+                    name="attendance_autoclose_settings_container"
+                >
+                    <setting>
+                        <label
+                            string="Max Hours Per Day"
+                            for="attendance_maximum_hours_per_day"
+                        />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                        />
+                        <div class="row">
+                            <div class="text-muted col-lg-8">
+                                Attendance lines longer than this value will
+                                be automatically closed.
+                            </div>
+                        </div>
+                        <div class="content-group mt16">
+                            <field
+                                name="attendance_maximum_hours_per_day"
+                                widget="float_time"
+                            />
+                        </div>
+                    </setting>
+                    <setting>
+                        <label
+                            string="Autoclose Reason"
+                            for="hr_attendance_autoclose_reason"
+                        />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                        />
+                        <div class="row">
+                            <div class="text-muted col-lg-8">
+                                This reason will be added to an attendance
+                                when it's autoclosed.
+                            </div>
+                        </div>
+                        <div class="content-group mt16">
+                            <field
+                                name="hr_attendance_autoclose_reason"
+                                can_create="true"
+                                can_write="true"
+                            />
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
