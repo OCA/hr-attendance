@@ -1,0 +1,41 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_birthday_welcome_message
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_birthday_welcome_message
+#: model:ir.model,name:hr_birthday_welcome_message.model_hr_employee_base
+msgid "Basic Employee"
+msgstr ""
+
+#. module: hr_birthday_welcome_message
+#: model:ir.model.fields,field_description:hr_birthday_welcome_message.field_hr_employee_base__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_birthday_welcome_message
+#. openerp-web
+#: code:addons/hr_birthday_welcome_message/static/src/js/greeting_message.js:0
+#, python-format
+msgid "Happy Birthday! <i class='fa fa-birthday-cake' /> <br/> Enjoy your day"
+msgstr ""
+
+#. module: hr_birthday_welcome_message
+#: model:ir.model.fields,field_description:hr_birthday_welcome_message.field_hr_employee_base__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_birthday_welcome_message
+#: model:ir.model.fields,field_description:hr_birthday_welcome_message.field_hr_employee_base____last_update
+msgid "Last Modified on"
+msgstr ""
