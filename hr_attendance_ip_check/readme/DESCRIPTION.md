@@ -1,0 +1,1 @@
+Allow attendance check in from specified ip networks only.
