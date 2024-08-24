@@ -1,0 +1,9 @@
+- [Tecnativa](https://www.tecnativa.com):
+  - Pedro M. Baeza.
+  - David Vidal
+  - Víctor Martínez
+  - Juan José Seguí
+- Pedro Gonzalez \<<pedro.gonzalez@pesol.es>\>
+- Aritz Olea \<<ao@landoo.es>\>
+- [Trobz](https://trobz.com):
+  - Dzung Tran \<<dungtd@trobz.com>\>
