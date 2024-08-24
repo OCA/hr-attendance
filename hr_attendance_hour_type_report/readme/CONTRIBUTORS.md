@@ -1,0 +1,2 @@
+- Alexandre Fayolle \<<alexandre.fayolle@camptocamp.com>\>
+- Cédric Pigeon \<<cedric.pigeon@optitoo.lu>\>
