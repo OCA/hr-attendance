@@ -1,0 +1,1 @@
+Display an additional card at the top of the Time Off Dashboard: Extra Hours, informing the employee about the number of extra hours he has been working and thus the number of hours available for him to take as a compensation leave.
