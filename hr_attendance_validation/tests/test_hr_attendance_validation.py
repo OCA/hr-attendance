@@ -67,8 +67,19 @@ class TestHrAttendanceValidation(TransactionCase):
                 "number_of_days": 6,
             }
         )
+        self.empl_leave_hour = self.env["hr.leave"].create(
+            {
+                "employee_id": self.employee.id,
+                "holiday_status_id": self.leave_cl.id,
+                "request_date_from": "2021-12-11",
+                "request_hour_from": "8",
+                "request_hour_to": "10",
+                "request_unit_hours": True,
+                "number_of_days": 0.25,
+            }
+        )
         self.empl_leave.action_validate()
-
+        self.empl_leave_hour.action_validate()
         self.env["hr.leave.allocation"].create(
             {
                 "employee_id": self.employee.id,
@@ -84,9 +95,9 @@ class TestHrAttendanceValidation(TransactionCase):
                 "holiday_status_id": self.leave_comp.id,
                 "request_date_from": "2021-12-10",
                 "request_hour_from": "8",
-                "request_hour_to": "12",
+                "request_hour_to": "10",
                 "request_unit_hours": True,
-                "number_of_days": 0.5,
+                "number_of_days": 0.25,
             }
         )
         self.empl_leave_comp.action_validate()
@@ -171,7 +182,9 @@ class TestHrAttendanceValidation(TransactionCase):
         self.HrAttendance = self.env["hr.attendance"]
         self.HrAttendanceValidation = self.env["hr.attendance.validation.sheet"]
         self.leave_cl = self.env.ref("hr_holidays.holiday_status_cl")
+        self.leave_cl.is_compensatory = False
         self.leave_comp = self.env.ref("hr_holidays.holiday_status_comp")
+        self.leave_comp.is_compensatory = True
         self.leave_remote = self.env["hr.leave.type"].create(
             {
                 "name": "Remote test",
@@ -255,7 +268,7 @@ class TestHrAttendanceValidation(TransactionCase):
         validation.date_from = "2021-12-06"
         validation.date_to = "2021-12-12"
         validation.action_retrieve_attendance_and_leaves()
-        self.assertEqual(len(validation.leave_ids), 2)
+        self.assertEqual(len(validation.leave_ids), 3)
         self.assertEqual(validation.leave_hours, 28)
         self.assertEqual(len(validation.attendance_ids), 5)
 
@@ -287,7 +300,8 @@ class TestHrAttendanceValidation(TransactionCase):
         self.assertEqual(validation.overtime_due_hours, 1.5)
         self.assertEqual(validation.attendance_total_hours, 12.5)
         self.assertEqual(validation.overtime_not_due_hours, 0.5)
-        self.assertEqual(validation.leave_hours, 3 * 8 + 0.5 * 8)
+        self.assertEqual(validation.leave_hours, 3 * 8 + 0.25 * 8 + 0.25 * 8)
+        self.assertEqual(validation.compensatory_leave_hours, 0.25 * 8)
         self.assertEqual(validation.compensatory_hour, 0.5)
         self.assertEqual(validation.regularization_compensatory_hour_taken, 0)
 

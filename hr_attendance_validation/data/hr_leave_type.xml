@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="hr_holidays.holiday_status_comp" model="hr.leave.type">
+        <field name="is_compensatory">True</field>
+    </record>
+</odoo>
