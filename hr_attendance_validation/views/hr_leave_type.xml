@@ -13,6 +13,7 @@
         <field name="arch" type="xml">
             <field name="code" position="after">
                 <field name="ignored_in_attendance_validation" />
+                <field name="is_compensatory" />
             </field>
         </field>
     </record>
