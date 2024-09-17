@@ -297,6 +297,7 @@
                     widget="float_time"
                     optional="show"
                 />
+                <field name="theoretical_hours" widget="float_time" optional="hide" />
                 <field
                     name="leave_hours"
                     type="measure"
@@ -327,6 +328,7 @@
                  <field name="employee_id" type="row" />
                  <field name="date_from" type="col" interval="year" />
                  <field name="attendance_hours" type="measure" widget="float_time" />
+                <field name="theoretical_hours" widget="float_time" optional="hide" />
                  <field name="overtime_due_hours" type="measure" widget="float_time" />
                  <field
                     name="attendance_total_hours"
