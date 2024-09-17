@@ -9,6 +9,7 @@
   "Ignored in attendance validation" on holidays `hr.leave.type``
   (for instance it can be useful if you manage employee remote days using hr.leave
   in such case you want to ignore those lines)
+* configure public holidays to take care of it while computing the theoretical week time
 * once all leaves and attendances has been recorded you can generate leave reviews
   by setting up a cron job running every monday morning to generate the previous week
   with the following code on `hr.attendance.validation.sheet` model::

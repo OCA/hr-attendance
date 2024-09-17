@@ -1,6 +1,6 @@
 # Copyright 2021 Pierre Verkest
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from odoo import SUPERUSER_ID, _, api, fields, models
 from odoo.osv import expression
@@ -69,8 +69,9 @@ class HrAttendanceValidationSheet(models.Model):
     )
     theoretical_hours = fields.Float(
         string="Theoretical (hours)",
-        related="calendar_id.total_hours",
-        help="Theoretical calendar hours to spend by week.",
+        compute="_compute_theoretical_hours",
+        store=True,
+        help="heoretical calendar hours to spend by week.",
     )
     attendance_ids = fields.One2many(
         "hr.attendance", inverse_name="validation_sheet_id", string="Attendances"
@@ -149,6 +150,20 @@ class HrAttendanceValidationSheet(models.Model):
     def _onchange_recompute_lines(self):
         self.ensure_one()
         self.require_regeneration = True
+
+    @api.depends("calendar_id", "date_from", "date_to")
+    def _compute_theoretical_hours(self):
+        for record in self:
+            if record.calendar_id.exists():
+                record.theoretical_hours = record.with_context(
+                    employee_id=record.employee_id.id, exclude_public_holidays=True
+                ).calendar_id.get_work_hours_count(
+                    datetime.combine(record.date_from, datetime.min.time()),
+                    datetime.combine(record.date_to, datetime.max.time()),
+                    compute_leaves=False,
+                )
+            else:
+                record.theoretical_hours = 0
 
     def _compute_leaves_fields(self):
         self.ensure_one()
