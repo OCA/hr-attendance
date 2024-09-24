@@ -9,6 +9,7 @@ class ResConfigSettings(models.TransientModel):
         "Overtime compensatory leave type",
         config_parameter="hr_attendance_validation.leave_type_id",
         required=True,
+        domain=[("is_compensatory", "=", "True")],
         default=lambda self: self.env.ref("hr_holidays.holiday_status_comp"),
         help="Compensatory leave type used while validate weekly attendance sheet.",
     )

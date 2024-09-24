@@ -1,0 +1,1 @@
+odoo14-addon-hr-holidays-public @ git+https://github.com/OCA/hr-holidays.git@refs/pull/142/head#subdirectory=setup/hr_holidays_public

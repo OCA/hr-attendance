@@ -126,6 +126,11 @@ msgid ""
 msgstr ""
 
 #. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_leave_hours
+msgid "Compensatory Leaves (hours)"
+msgstr ""
+
+#. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_hour
 msgid "Compensatory hour"
 msgstr ""
@@ -173,6 +178,11 @@ msgstr ""
 #. module: hr_attendance_validation
 #: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__attendance_hours
 msgid "Compute number of attendance lines not marked as overtime"
+msgstr ""
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_attendance_validation_sheet__compensatory_leave_hours
+msgid "Compute number of compensatory leaves taken (in hours)"
 msgstr ""
 
 #. module: hr_attendance_validation
@@ -267,8 +277,20 @@ msgid "ID"
 msgstr ""
 
 #. module: hr_attendance_validation
+#: model:ir.model.fields,help:hr_attendance_validation.field_hr_leave_type__is_compensatory
+msgid ""
+"If check, taken leaves are displayed in hr attendance validation analysis "
+"report."
+msgstr ""
+
+#. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__ignored_in_attendance_validation
 msgid "Ignored In Attendance Validation"
+msgstr ""
+
+#. module: hr_attendance_validation
+#: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__is_compensatory
+msgid "Is Compensatory"
 msgstr ""
 
 #. module: hr_attendance_validation

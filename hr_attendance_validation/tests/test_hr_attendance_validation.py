@@ -67,8 +67,19 @@ class TestHrAttendanceValidation(TransactionCase):
                 "number_of_days": 6,
             }
         )
+        self.empl_leave_hour = self.env["hr.leave"].create(
+            {
+                "employee_id": self.employee.id,
+                "holiday_status_id": self.leave_cl.id,
+                "request_date_from": "2021-12-11",
+                "request_hour_from": "8",
+                "request_hour_to": "10",
+                "request_unit_hours": True,
+                "number_of_days": 0.25,
+            }
+        )
         self.empl_leave.action_validate()
-
+        self.empl_leave_hour.action_validate()
         self.env["hr.leave.allocation"].create(
             {
                 "employee_id": self.employee.id,
@@ -84,9 +95,9 @@ class TestHrAttendanceValidation(TransactionCase):
                 "holiday_status_id": self.leave_comp.id,
                 "request_date_from": "2021-12-10",
                 "request_hour_from": "8",
-                "request_hour_to": "12",
+                "request_hour_to": "10",
                 "request_unit_hours": True,
-                "number_of_days": 0.5,
+                "number_of_days": 0.25,
             }
         )
         self.empl_leave_comp.action_validate()
@@ -171,7 +182,9 @@ class TestHrAttendanceValidation(TransactionCase):
         self.HrAttendance = self.env["hr.attendance"]
         self.HrAttendanceValidation = self.env["hr.attendance.validation.sheet"]
         self.leave_cl = self.env.ref("hr_holidays.holiday_status_cl")
+        self.leave_cl.is_compensatory = False
         self.leave_comp = self.env.ref("hr_holidays.holiday_status_comp")
+        self.leave_comp.is_compensatory = True
         self.leave_remote = self.env["hr.leave.type"].create(
             {
                 "name": "Remote test",
@@ -185,10 +198,29 @@ class TestHrAttendanceValidation(TransactionCase):
             }
         )
         self.setup_employee()
+        public_holidays_2021 = self.env["hr.holidays.public"].create(
+            {
+                "year": 2021,
+                "country_id": self.employee.address_id.country_id.id,
+            }
+        )
+        self.env["hr.holidays.public.line"].create(
+            {
+                "name": "Fête nationale",
+                "date": "2021-07-14",
+                "year_id": public_holidays_2021.id,
+            }
+        )
         self.setup_employee_allocation()
         self.setup_employee_holidays()
         self.setup_employee_remote_days()
         self.setup_employee_attendances()
+
+    def test_new_without_calendar(self):
+        validation = self.HrAttendanceValidation.new({})
+
+        self.assertFalse(validation.calendar_id)
+        self.assertEqual(validation.theoretical_hours, 0)
 
     def test_name_get_missing_employee(self):
         with freeze_time("2021-12-12 20:45", tz_offset=0):
@@ -255,7 +287,7 @@ class TestHrAttendanceValidation(TransactionCase):
         validation.date_from = "2021-12-06"
         validation.date_to = "2021-12-12"
         validation.action_retrieve_attendance_and_leaves()
-        self.assertEqual(len(validation.leave_ids), 2)
+        self.assertEqual(len(validation.leave_ids), 3)
         self.assertEqual(validation.leave_hours, 28)
         self.assertEqual(len(validation.attendance_ids), 5)
 
@@ -287,7 +319,8 @@ class TestHrAttendanceValidation(TransactionCase):
         self.assertEqual(validation.overtime_due_hours, 1.5)
         self.assertEqual(validation.attendance_total_hours, 12.5)
         self.assertEqual(validation.overtime_not_due_hours, 0.5)
-        self.assertEqual(validation.leave_hours, 3 * 8 + 0.5 * 8)
+        self.assertEqual(validation.leave_hours, 3 * 8 + 0.25 * 8 + 0.25 * 8)
+        self.assertEqual(validation.compensatory_leave_hours, 0.25 * 8)
         self.assertEqual(validation.compensatory_hour, 0.5)
         self.assertEqual(validation.regularization_compensatory_hour_taken, 0)
 
@@ -544,3 +577,14 @@ class TestHrAttendanceValidation(TransactionCase):
             self.assertEqual(self.employee.hours_current_week, 0)
             self.assertEqual(self.employee.hours_last_month, 13.5)
             self.assertEqual(self.employee.hours_today, 0)
+
+    def test_hr_holidays_public(self):
+        validation = self.HrAttendanceValidation.create(
+            {
+                "employee_id": self.employee.id,
+                "date_from": "2021-07-12",
+                "date_to": "2021-07-18",
+            }
+        )
+
+        self.assertEqual(validation.theoretical_hours, 40 - 8)

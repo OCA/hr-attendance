@@ -1,6 +1,6 @@
 # Copyright 2021 Pierre Verkest
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from odoo import SUPERUSER_ID, _, api, fields, models
 from odoo.osv import expression
@@ -69,8 +69,9 @@ class HrAttendanceValidationSheet(models.Model):
     )
     theoretical_hours = fields.Float(
         string="Theoretical (hours)",
-        related="calendar_id.total_hours",
-        help="Theoretical calendar hours to spend by week.",
+        compute="_compute_theoretical_hours",
+        store=True,
+        help="heoretical calendar hours to spend by week.",
     )
     attendance_ids = fields.One2many(
         "hr.attendance", inverse_name="validation_sheet_id", string="Attendances"
@@ -96,26 +97,38 @@ class HrAttendanceValidationSheet(models.Model):
     leave_hours = fields.Float(
         "Leaves (hours)",
         compute="_compute_leaves",
+        store=True,
         help="Compute number of leaves in hours",
     )
+    compensatory_leave_hours = fields.Float(
+        "Compensatory Leaves (hours)",
+        compute="_compute_leaves",
+        store=True,
+        help="Compute number of compensatory leaves taken (in hours)",
+    )
+
     attendance_hours = fields.Float(
         "Attendance (hours)",
         compute="_compute_attendances_hours",
+        store=True,
         help="Compute number of attendance lines not marked as overtime",
     )
     attendance_total_hours = fields.Float(
         "Total Attendance (hours)",
         compute="_compute_attendances_hours",
+        store=True,
         help="Validated attendances. Sum attendance and due overtime lines.",
     )
     overtime_due_hours = fields.Float(
         "Overtime due (hours)",
         compute="_compute_attendances_hours",
+        store=True,
         help="Compute number of attendance lines marked as overtime which are marked as due",
     )
     overtime_not_due_hours = fields.Float(
         "Overtime not due (hours)",
         compute="_compute_attendances_hours",
+        store=True,
         help="Compute number of attendance lines marked as overtime which are not due",
     )
     compensatory_hour = fields.Float(
@@ -138,33 +151,65 @@ class HrAttendanceValidationSheet(models.Model):
         self.ensure_one()
         self.require_regeneration = True
 
-    @api.depends("leave_ids")
+    @api.depends("calendar_id", "date_from", "date_to")
+    def _compute_theoretical_hours(self):
+        for record in self:
+            if record.calendar_id.exists():
+                record.theoretical_hours = record.with_context(
+                    employee_id=record.employee_id.id, exclude_public_holidays=True
+                ).calendar_id.get_work_hours_count(
+                    datetime.combine(record.date_from, datetime.min.time()),
+                    datetime.combine(record.date_to, datetime.max.time()),
+                    compute_leaves=False,
+                )
+            else:
+                record.theoretical_hours = 0
+
+    def _compute_leaves_fields(self):
+        self.ensure_one()
+
+        leave_hours = 0
+        compensatory_leave_hours = 0
+        for leave in self.leave_ids:
+            if leave.request_unit_half or leave.request_unit_hours:
+                # we assume time off is recorded by hours
+                leave_hours += leave.number_of_hours_display
+                if leave.holiday_status_id.is_compensatory:
+                    compensatory_leave_hours += leave.number_of_hours_display
+            else:
+                # As far leaves can be record on multiple weeks
+                # intersect calendar attendance and leaves date
+                # to compute theoretical leave time
+                current_date = max(leave.request_date_from, self.date_from)
+                date_to = min(
+                    leave.request_date_to or leave.request_date_from, self.date_to
+                )
+                while current_date <= date_to:
+                    current_date_leave_hours = sum(
+                        self.calendar_id.attendance_ids.filtered(
+                            lambda att: int(att.dayofweek) == current_date.weekday()
+                        ).mapped(lambda att: att.hour_to - att.hour_from)
+                    )
+                    leave_hours += current_date_leave_hours
+                    if leave.holiday_status_id.is_compensatory:
+                        compensatory_leave_hours += current_date_leave_hours
+                    current_date += timedelta(days=1)
+        return leave_hours, compensatory_leave_hours
+
+    @api.depends("leave_ids", "leave_ids.holiday_status_id.is_compensatory")
     def _compute_leaves(self):
         for record in self:
-            leave_hours = 0
-            for leave in record.leave_ids:
-                if leave.request_unit_half or leave.request_unit_hours:
-                    # we assume time off is recorded by hours
-                    leave_hours += leave.number_of_hours_display
-                else:
-                    # As far leaves can be record on multiple weeks
-                    # intersect calendar attendance and leaves date
-                    # to compute theoretical leave time
-                    current_date = max(leave.request_date_from, record.date_from)
-                    date_to = min(
-                        leave.request_date_to or leave.request_date_from, record.date_to
-                    )
-                    while current_date <= date_to:
-                        leave_hours += sum(
-                            record.calendar_id.attendance_ids.filtered(
-                                lambda att: int(att.dayofweek) == current_date.weekday()
-                            ).mapped(lambda att: att.hour_to - att.hour_from)
-                        )
-                        current_date += timedelta(days=1)
+            (
+                record.leave_hours,
+                record.compensatory_leave_hours,
+            ) = record._compute_leaves_fields()
 
-            record.leave_hours = leave_hours
-
-    @api.depends("attendance_ids", "attendance_ids.is_overtime")
+    @api.depends(
+        "attendance_ids",
+        "attendance_ids.is_overtime",
+        "attendance_ids.is_overtime_due",
+        "attendance_due_ids",
+    )
     def _compute_attendances_hours(self):
         for record in self:
             record.attendance_hours = sum(
@@ -186,6 +231,9 @@ class HrAttendanceValidationSheet(models.Model):
                 record.attendance_due_ids.mapped("worked_hours")
             )
 
+    @api.depends(
+        "attendance_ids", "attendance_ids.is_overtime", "attendance_ids.is_overtime_due"
+    )
     def _compute_attendance_due_ids(self):
         for record in self:
             record.attendance_due_ids = record.attendance_ids.filtered(
