@@ -1,4 +1,5 @@
 # Copyright 2017-2019 Tecnativa - Pedro M. Baeza
+# Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from datetime import datetime, time
@@ -6,8 +7,8 @@ from datetime import datetime, time
 from odoo import api, fields, models
 
 
-class HrHolidaysPublicLine(models.Model):
-    _inherit = "hr.holidays.public.line"
+class CalendarHolidaysPublicLine(models.Model):
+    _inherit = "calendar.public.holiday.line"
 
     @api.model
     def _check_theoretical_hours(self, date):

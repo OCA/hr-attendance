@@ -322,10 +322,3 @@ msgstr "Durée théorique / Durée réelle"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Travaillé"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Dernière modification le"
-
-#, fuzzy
-#~ msgid "All Employees"
-#~ msgstr "Employé(e)"
