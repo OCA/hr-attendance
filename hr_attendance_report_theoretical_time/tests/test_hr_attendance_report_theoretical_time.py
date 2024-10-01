@@ -1,8 +1,12 @@
 # Copyright 2017-2019 Tecnativa - Pedro M. Baeza
 # Copyright 2021 Landoo Sistemas de Informacion SL
+# Copyright 2025 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import datetime
+
+from odoo import Command
+from odoo.tools import SQL, mute_logger
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -12,16 +16,14 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.HrLeave = cls.env["hr.leave"]
-        cls.HrHolidaysPublic = cls.env["hr.holidays.public"]
+        cls.CalendarHolidaysPublic = cls.env["calendar.public.holiday"]
         cls.HrLeaveType = cls.env["hr.leave.type"]
         cls.calendar = cls.env["resource.calendar"].create(
             {"name": "Test Calendar", "attendance_ids": False, "tz": "UTC"}
         )
         for day in range(5):  # From monday to friday
             cls.calendar.attendance_ids = [
-                (
-                    0,
-                    0,
+                Command.create(
                     {
                         "name": "Attendance",
                         "dayofweek": str(day),
@@ -29,9 +31,7 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
                         "hour_to": "12",
                     },
                 ),
-                (
-                    0,
-                    0,
+                Command.create(
                     {
                         "name": "Attendance",
                         "dayofweek": str(day),
@@ -66,25 +66,25 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
             }
         )
         # Use a very old year for avoiding to collapse with current data
-        cls.public_holiday_global = cls.HrHolidaysPublic.create(
+        cls.public_holiday_global = cls.CalendarHolidaysPublic.create(
             {
                 "year": 1946,
-                "line_ids": [(0, 0, {"name": "Christmas", "date": "1946-12-25"})],
+                "line_ids": [
+                    Command.create({"name": "Christmas", "date": "1946-12-25"})
+                ],
             }
         )
-        cls.public_holiday_country = cls.HrHolidaysPublic.create(
+        cls.public_holiday_country = cls.CalendarHolidaysPublic.create(
             {
                 "year": 1946,
                 "country_id": cls.address_2.country_id.id,
                 "line_ids": [
-                    (0, 0, {"name": "Before Christmas", "date": "1946-12-24"}),
-                    (
-                        0,
-                        0,
+                    Command.create({"name": "Before Christmas", "date": "1946-12-24"}),
+                    Command.create(
                         {
                             "name": "Even More Before Christmas",
                             "date": "1946-12-23",
-                            "state_ids": [(6, 0, cls.address_2.state_id.ids)],
+                            "state_ids": [Command.set(cls.address_2.state_id.ids)],
                         },
                     ),
                 ],
@@ -99,11 +99,17 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
         )
         # Force employee create_date for having auto-generated report entries
         cls.env.cr.execute(
-            "UPDATE hr_employee SET create_date = %s " "WHERE id in %s",
-            ("1946-12-23 12:00:00", (cls.employee_1.id, cls.employee_2.id)),
+            SQL(
+                "UPDATE hr_employee SET create_date = %s WHERE id IN (%s, %s)",
+                "1946-12-23 12:00:00",
+                cls.employee_1.id,
+                cls.employee_2.id,
+            )
         )
         # Leave for employee 1
-        cls.leave = cls.HrLeave.create(
+        cls.leave = cls.HrLeave.with_context(
+            partner=cls.employee_1.address_id.id
+        ).create(
             {
                 "date_from": "1946-12-26 00:00:00",
                 "date_to": "1946-12-26 23:59:59",
@@ -122,8 +128,8 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
                     cls.env["hr.attendance"].create(
                         {
                             "employee_id": employee.id,
-                            "check_in": "1946-12-%s 08:00:00" % day,
-                            "check_out": "1946-12-%s 12:00:00" % day,
+                            "check_in": f"1946-12-{day} 08:00:00",
+                            "check_out": f"1946-12-{day} 12:00:00",
                         }
                     )
                 )
@@ -131,8 +137,8 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
                     cls.env["hr.attendance"].create(
                         {
                             "employee_id": employee.id,
-                            "check_in": "1946-12-%s 14:00:00" % day,
-                            "check_out": "1946-12-%s 18:00:00" % day,
+                            "check_in": f"1946-12-{day} 14:00:00",
+                            "check_out": f"1946-12-{day} 18:00:00",
                         }
                     )
                 )
@@ -167,6 +173,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(self.attendances[14].theoretical_hours, 8)
         self.assertEqual(self.attendances[15].theoretical_hours, 8)
 
+    @mute_logger("odoo.models.unlink")
     def test_theoretical_hours_recompute(self):
         """Change calendar, and then recompute with the wizard"""
         # Get rid of 4 hours per day so the theoretical should be 4.
@@ -179,7 +186,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         # Then we run the wizard just for day 23
         wizard = self.env["recompute.theoretical.attendance"].create(
             {
-                "employee_ids": [(4, self.employee_1.id)],
+                "employee_ids": [Command.link(self.employee_1.id)],
                 "date_from": "1946-12-23 00:00:00",
                 "date_to": "1946-12-23 23:59:59",
             }
@@ -243,6 +250,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(self.attendances[4].theoretical_hours, 8)
         self.assertEqual(self.attendances[12].theoretical_hours, 8)
 
+    @mute_logger("odoo.models.unlink")
     def test_change_hr_holidays(self):
         self.leave.action_refuse()
         # 1946-12-26 - Employee 2
@@ -259,10 +267,10 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         department = self.env["hr.department"].create({"name": "Department"})
         tag = self.env["hr.employee.category"].create({"name": "Tag"})
         self.employee_1.write(
-            {"department_id": department.id, "category_ids": [(4, tag.id)]}
+            {"department_id": department.id, "category_ids": [Command.link(tag.id)]}
         )
         wizard = self.env["wizard.theoretical.time"].create(
-            {"department_id": department.id, "category_ids": [(4, tag.id)]}
+            {"department_id": department.id, "category_ids": [Command.link(tag.id)]}
         )
         wizard.populate()
         report = wizard.view_report()
@@ -282,11 +290,9 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                 "tz": tz,
                 "two_weeks_calendar": True,
                 "attendance_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
-                            "name": "%s_%d" % (name, index),
+                            "name": f"{name}_{index}",
                             "hour_from": att[0],
                             "hour_to": att[1],
                             "dayofweek": str(att[2]),
@@ -303,7 +309,6 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-
         cls.calendar_jules = cls._define_calendar_2_weeks(
             "Week 1: 30 Hours - Week 2: 16 Hours",
             [
@@ -328,9 +333,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
         cls.employee.resource_calendar_id.write(
             {
                 "attendance_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (morning)",
                             "day_period": "morning",
@@ -342,9 +345,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_to": "2022-01-16",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (morning)",
                             "day_period": "morning",
@@ -355,9 +356,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_from": "2022-01-17",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (afternoon)",
                             "day_period": "afternoon",
@@ -368,9 +367,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_from": "2022-01-17",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (morning)",
                             "day_period": "morning",
@@ -382,9 +379,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_to": "2022-01-16",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (afternoon)",
                             "day_period": "afternoon",
@@ -396,9 +391,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_to": "2022-01-16",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (morning)",
                             "day_period": "morning",
@@ -409,9 +402,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                             "date_from": "2022-01-17",
                         },
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Monday (afternoon)",
                             "day_period": "afternoon",

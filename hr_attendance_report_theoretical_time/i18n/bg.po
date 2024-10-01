@@ -311,9 +311,3 @@ msgstr "Помощник за теоретично време"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Отработено"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Последно модифицирано на"
-
-#~ msgid "All Employees"
-#~ msgstr "Всички служители"
