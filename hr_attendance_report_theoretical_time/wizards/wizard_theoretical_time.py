@@ -2,7 +2,7 @@
 # Copyright 2021 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class WizardTheoreticalTime(models.TransientModel):
@@ -38,7 +38,7 @@ class WizardTheoreticalTime(models.TransientModel):
         domain = self._prepare_employee_domain()
         self.employee_ids = self.env["hr.employee"].search(domain)
         action = {
-            "name": _("Select Employees to Analyze Theoretical Time"),
+            "name": self.env._("Select Employees to Analyze Theoretical Time"),
             "type": "ir.actions.act_window",
             "res_model": "wizard.theoretical.time",
             "view_mode": "form",
@@ -56,7 +56,8 @@ class WizardTheoreticalTime(models.TransientModel):
         action["domain"] = [
             ("employee_id", "in", self.with_context(active_test=False).employee_ids.ids)
         ]
-        action[
-            "context"
-        ] = "{'search_default_previous_month': 1, 'search_default_current_month': 1}"
+        action["context"] = {
+            "search_default_previous_month": 1,
+            "search_default_current_month": 1,
+        }
         return action

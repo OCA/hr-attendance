@@ -7,3 +7,4 @@
 - Aritz Olea \<<ao@landoo.es>\>
 - [Trobz](https://trobz.com):
   - Dzung Tran \<<dungtd@trobz.com>\>
+  - Do Anh Duy \<<duyda@trobz.com>\>

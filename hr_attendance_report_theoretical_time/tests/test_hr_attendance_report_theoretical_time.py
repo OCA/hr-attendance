@@ -4,6 +4,8 @@
 
 import datetime
 
+from odoo.tools import SQL
+
 from odoo.addons.base.tests.common import BaseCommon
 
 
@@ -99,11 +101,17 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
         )
         # Force employee create_date for having auto-generated report entries
         cls.env.cr.execute(
-            "UPDATE hr_employee SET create_date = %s " "WHERE id in %s",
-            ("1946-12-23 12:00:00", (cls.employee_1.id, cls.employee_2.id)),
+            SQL(
+                "UPDATE hr_employee SET create_date = %s WHERE id IN (%s, %s)",
+                "1946-12-23 12:00:00",
+                cls.employee_1.id,
+                cls.employee_2.id,
+            )
         )
         # Leave for employee 1
-        cls.leave = cls.HrLeave.create(
+        cls.leave = cls.HrLeave.with_context(
+            partner=cls.employee_1.address_id.id
+        ).create(
             {
                 "date_from": "1946-12-26 00:00:00",
                 "date_to": "1946-12-26 23:59:59",
@@ -122,8 +130,8 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
                     cls.env["hr.attendance"].create(
                         {
                             "employee_id": employee.id,
-                            "check_in": "1946-12-%s 08:00:00" % day,
-                            "check_out": "1946-12-%s 12:00:00" % day,
+                            "check_in": f"1946-12-{day} 08:00:00",
+                            "check_out": f"1946-12-{day} 12:00:00",
                         }
                     )
                 )
@@ -131,8 +139,8 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
                     cls.env["hr.attendance"].create(
                         {
                             "employee_id": employee.id,
-                            "check_in": "1946-12-%s 14:00:00" % day,
-                            "check_out": "1946-12-%s 18:00:00" % day,
+                            "check_in": f"1946-12-{day} 14:00:00",
+                            "check_out": f"1946-12-{day} 18:00:00",
                         }
                     )
                 )
@@ -286,7 +294,7 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
                         0,
                         0,
                         {
-                            "name": "%s_%d" % (name, index),
+                            "name": f"{name}_{index}",
                             "hour_from": att[0],
                             "hour_to": att[1],
                             "dayofweek": str(att[2]),
