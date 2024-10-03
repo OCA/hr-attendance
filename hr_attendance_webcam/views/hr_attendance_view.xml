@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_view_form_webcam" model="ir.ui.view">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <notebook>
+                    <page name="img_check_out_in" string="Images">
+                        <p>Check In:</p>
+                        <field
+                            name="image_check_in"
+                            widget="image"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <p>Check Out:</p>
+                        <field
+                            name="image_check_out"
+                            widget="image"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

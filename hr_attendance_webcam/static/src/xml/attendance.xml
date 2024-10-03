@@ -1,0 +1,51 @@
+<templates>
+    <t t-inherit="hr_attendance.HrAttendanceMyMainMenu" t-inherit-mode="extension">
+        <xpath expr="." position="inside">
+            <t t-call="HrAttendanceDialog" />
+        </xpath>
+    </t>
+    <t t-inherit="hr_attendance.HrAttendanceKioskConfirm" t-inherit-mode="extension">
+        <xpath expr="." position="inside">
+            <t t-call="HrAttendanceDialog" />
+        </xpath>
+    </t>
+    <t t-name="HrAttendanceDialog">
+        <div
+            class="modal o_modal_camera_attendance"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            role="dialog"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Camera Preview</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <div class="container">
+                                <div class="col-md-12">
+                                    <div class="o_hr_attendance_webcam" />
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-primary o_hr_confirm_dialog_button"
+                            disabled="disabled"
+                        >
+                        Confirm</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary o_hr_cancel_dialog_button"
+                            data-dismiss="modal"
+                        >Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
