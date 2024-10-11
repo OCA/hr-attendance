@@ -4,8 +4,7 @@
 
 from datetime import timedelta
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 
 class HrAttendance(models.Model):
@@ -24,12 +23,11 @@ class HrAttendance(models.Model):
         "be applied.",
     )
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
-        employee = self.env["hr.employee"].browse(vals.get("employee_id"))
-        if not employee.attendance_ids:
+        for vals in vals_list:
             for check in ["check_in", "check_out"]:
                 if (
                     vals.get(check, False)
@@ -38,14 +36,7 @@ class HrAttendance(models.Model):
                 ):
                     vals.update({"time_changed_manually": True})
                     break
-            return super().create(vals)
-        else:
-            raise UserError(
-                _(
-                    "It is not possible to register a new entry because there is "
-                    "already an existing one."
-                )
-            )
+        return super().create(vals_list)
 
     def write(self, vals):
         tolerance = timedelta(seconds=60)
