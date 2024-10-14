@@ -23,18 +23,20 @@ class HrAttendance(models.Model):
         "be applied.",
     )
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
-        for check in ["check_in", "check_out"]:
-            if (
-                vals.get(check, False)
-                and abs(fields.Datetime.from_string(vals.get(check)) - now) > tolerance
-            ):
-                vals.update({"time_changed_manually": True})
-                break
-        return super().create(vals)
+        for vals in vals_list:
+            for check in ["check_in", "check_out"]:
+                if (
+                    vals.get(check, False)
+                    and abs(fields.Datetime.from_string(vals.get(check)) - now)
+                    > tolerance
+                ):
+                    vals.update({"time_changed_manually": True})
+                    break
+        return super().create(vals_list)
 
     def write(self, vals):
         tolerance = timedelta(seconds=60)
