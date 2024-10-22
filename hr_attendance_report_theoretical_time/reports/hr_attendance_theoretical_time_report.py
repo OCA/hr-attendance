@@ -20,6 +20,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
     employee_id = fields.Many2one(
         comodel_name="hr.employee", string="Employee", readonly=True
     )
+    company_id = fields.Many2one(related="employee_id.company_id")
     department_id = fields.Many2one(
         comodel_name="hr.department",
         string="Department",
