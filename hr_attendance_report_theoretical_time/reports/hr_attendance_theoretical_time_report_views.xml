@@ -33,6 +33,12 @@
                     string="My Attendances"
                     domain="[('employee_id.user_id.id', '=', uid)]"
                 />
+                <separator />
+                <filter
+                    name="active_employees"
+                    string="Active employees"
+                    domain="[('employee_id.active', '=', True)]"
+                />
             </search>
         </field>
     </record>
