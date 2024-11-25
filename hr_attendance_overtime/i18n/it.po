@@ -148,6 +148,12 @@ msgid "Display Name"
 msgstr "Nome visualizzato"
 
 #. module: hr_attendance_overtime
+#: code:addons/hr_attendance_overtime/models/hr_employee.py:0
+#, python-format
+msgid "Employee not found or not created for current user"
+msgstr ""
+
+#. module: hr_attendance_overtime
 #: model:hr.attendance.reason,description:hr_attendance_overtime.hr_attendance_reason_check_out_late
 msgid "Have a good break, thaks for your time"
 msgstr "Buona pausa, grazie per il tuo tempo"
