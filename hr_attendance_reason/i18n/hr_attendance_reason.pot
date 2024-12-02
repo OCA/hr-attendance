@@ -4,8 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-25 08:06+0000\n"
+"PO-Revision-Date: 2024-11-25 08:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +24,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
-#, python-format
 msgid "An attendance reason is required!"
 msgstr ""
 
@@ -39,6 +40,7 @@ msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
 msgid "Attendance Reasons"
 msgstr ""
 
@@ -70,7 +72,6 @@ msgstr ""
 #. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
 msgid "Continue"
 msgstr ""
 
@@ -82,6 +83,28 @@ msgstr ""
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_on_attendance_screen_default_sign_in
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_on_attendance_screen_default_sign_in
+msgid "Default sign-in reason for attendance screen"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_on_attendance_screen_default_sign_out
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_on_attendance_screen_default_sign_out
+msgid "Default sign-out reason for attendance screen"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Default value for sign-in"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Default value for sign-out"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -102,9 +125,12 @@ msgstr ""
 #. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Error: could not find corresponding employee."
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
 msgid "Go back"
 msgstr ""
 
@@ -131,7 +157,12 @@ msgstr ""
 #. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
+msgid "Please return to the main menu."
+msgstr ""
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 msgid "Please select a reason to"
 msgstr ""
 
@@ -139,7 +170,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
-#, python-format
 msgid "Please, select a reason!"
 msgstr ""
 
@@ -147,13 +177,17 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.xml:0
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
-#, python-format
 msgid "Reason"
 msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__code
 msgid "Reason Code"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Reason is required"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -180,6 +214,7 @@ msgstr ""
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__show_reason_on_attendance_screen
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__show_reason_on_attendance_screen
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
 msgid "Show reasons on attendance screen"
 msgstr ""
 
@@ -189,6 +224,8 @@ msgid "Sign in"
 msgstr ""
 
 #. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 #: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_out
 msgid "Sign out"
 msgstr ""
@@ -207,28 +244,18 @@ msgstr ""
 
 #. module: hr_attendance_reason
 #. odoo-javascript
-#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
-msgid "Want to check out?"
+#: code:addons/hr_attendance_reason/static/src/components/public_kiosk/public_kiosk_app.esm.js:0
+msgid "Wrong Pin"
 msgstr ""
 
 #. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
-msgid "Welcome!"
-msgstr ""
-
-#. module: hr_attendance_reason
-#. odoo-javascript
-#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
 msgid "check in"
 msgstr ""
 
 #. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
-#, python-format
 msgid "check out"
 msgstr ""

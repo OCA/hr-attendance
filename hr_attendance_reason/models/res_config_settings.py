@@ -13,3 +13,10 @@ class ResConfigSettings(models.TransientModel):
     required_reason_on_attendance_screen = fields.Boolean(
         related="company_id.required_reason_on_attendance_screen", readonly=False
     )
+    reason_on_attendance_screen_default_sign_in = fields.Many2one(
+        related="company_id.reason_on_attendance_screen_default_sign_in", readonly=False
+    )
+    reason_on_attendance_screen_default_sign_out = fields.Many2one(
+        related="company_id.reason_on_attendance_screen_default_sign_out",
+        readonly=False,
+    )
