@@ -1,8 +1,6 @@
-/** @odoo-module **/
-
 import {Component, useRef} from "@odoo/owl";
-import {_lt} from "@web/core/l10n/translation";
 import {useService} from "@web/core/utils/hooks";
+import {_t} from "@web/core/l10n/translation";
 
 export class KioskReason extends Component {
     setup() {
@@ -17,15 +15,16 @@ export class KioskReason extends Component {
             this.props.employeeData.required_reason_on_attendance_screen &&
             attendance_reason_id === "0"
         ) {
-            this.notification.add(_lt("An attendance reason is required!"), {
-                title: _lt("Please, select a reason!"),
+            this.notification.add(_t("An attendance reason is required!"), {
+                title: _t("Please, select a reason!"),
                 type: "danger",
             });
             return false;
         }
         await this.props.onReasonConfirm(
             this.props.employeeData.id,
-            this.props.pin_code
+            this.props.pin_code,
+            attendance_reason_id
         );
     }
 }
