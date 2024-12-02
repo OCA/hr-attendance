@@ -13,3 +13,21 @@ class ResCompany(models.Model):
     required_reason_on_attendance_screen = fields.Boolean(
         string="Required reason on attendance screen"
     )
+    reason_on_attendance_screen_default_sign_in = fields.Many2one(
+        "hr.attendance.reason",
+        string="Default sign-in reason for attendance screen",
+        domain=[
+            ("action_type", "=", "sign_in"),
+            ("show_on_attendance_screen", "=", True),
+        ],
+        check_company=True,
+    )
+    reason_on_attendance_screen_default_sign_out = fields.Many2one(
+        "hr.attendance.reason",
+        string="Default sign-out reason for attendance screen",
+        domain=[
+            ("action_type", "=", "sign_out"),
+            ("show_on_attendance_screen", "=", True),
+        ],
+        check_company=True,
+    )

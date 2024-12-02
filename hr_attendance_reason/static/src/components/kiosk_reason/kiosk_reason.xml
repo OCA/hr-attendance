@@ -1,66 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-
-<t t-name="hr_attendance_reason.KioskReason">
-        <button
-            t-on-click="() => this.props.onClickBack()"
-            class="o_hr_attendance_back_button btn btn-block btn-secondary btn-lg d-block d-md-none py-5"
-        >
-            <i class="oi oi-chevron-left me-2" /> Go back
-        </button>
-        <t t-call="hr_attendance.EmployeeBadge">
-            <t
-                t-set="employeeAvatar"
-                t-value="this.props.employeeData.employee_avatar"
-            />
-        </t>
-        <button
-            t-on-click="() => this.props.onClickBack()"
-            class="o_hr_attendance_back_button o_hr_attendance_back_button_md btn btn-secondary d-none d-md-inline-flex align-items-center position-absolute top-0 start-0 rounded-circle"
-        >
-            <i
-                class="oi fa-2x fa-fw oi-chevron-left me-1"
-                role="img"
-                aria-label="Go back"
-                title="Go back"
-            />
-        </button>
-
-        <div t-if="this.props.employeeData" class="flex-grow-1">
-            <h1 class="mt-5 mb8" t-esc="this.props.employeeData.employee_name" />
-            <h3 class="mt8 mb24"><t t-if="!checkedIn">Welcome!</t><t
-                    t-else=""
-                >Want to check out?</t></h3>
-            <h3 class="mt-4 mb0 text-muted">Please select a reason to <b
-                    t-if="checkedIn"
-                >check out</b><b t-else="">check in</b></h3>
-            <div class="mt-2 reasons_lists" t-if="this.props.reasons">
-                    <select
-                    id="attendance_reason"
-                    t-ref="attendance_reason"
-                    t-attf-class="o_hr_attendance_reason {{ this.props.employeeData.required_reason_on_attendance_screen ? 'o_attendance_reason_required' : '' }}"
-                >
-                    <option value="0" />
-                    <t
-                        t-foreach="this.props.reasons"
-                        t-as="reason"
-                        t-key="reason_index"
-                    >
-                        <option t-att-value="reason.id" t-esc="reason.name" />
-                    </t>
-                </select>
-            </div>
+    <t t-name="hr_attendance_reason.KioskReason">
+        <t t-if="this.props.employeeData">
             <div
-                class="mt-4 flex-grow-1 d-flex align-items-center justify-content-center"
+                class="o_hr_kiosk_mode_main d-flex flex-grow-1 justify-content-center align-items-center"
             >
+                <div class="card rounded-3">
+                    <div class="card-body rounded-3 text-center">
+                        <t t-call="hr_attendance.EmployeeBadge">
+                            <t
+                                t-set="employeeAvatar"
+                                t-value="this.props.employeeData.employee_avatar"
+                            />
+                            <t t-set="employeeAvatarHeight" t-value="'60'" />
+                        </t>
+                        <h3 class="mt-2 mb-1">
+                            <t t-esc="this.props.employeeData.employee_name" />
+                        </h3>
+                        <h5 class="text-muted my-0">
+                            Please select a reason to
+                            <t t-if="checkedIn">check out</t>
+                            <t t-else="">check in</t>
+                        </h5>
+                        <div class="mt-3 reasons_lists" t-if="this.props.reasons">
+                            <select
+                                id="attendance_reason"
+                                t-ref="attendance_reason"
+                                t-attf-class="o_hr_attendance_reason {{ this.props.employeeData.required_reason_on_attendance_screen ? 'o_attendance_reason_required' : '' }}"
+                            >
+                                <option value="0" />
+                                <t
+                                    t-foreach="this.props.reasons"
+                                    t-as="reason"
+                                    t-key="reason_index"
+                                >
+                                    <option
+                                        t-att-value="reason.id"
+                                        t-esc="reason.name"
+                                        t-att-selected="reason.id === (reason.action_type === 'sign_in' ?
+                                        this.props.employeeData.default_sign_in_reason_id : this.props.employeeData.default_sign_out_reason_id)"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div
+                            class="mt-4 flex-grow-1 d-flex align-items-center justify-content-center"
+                        >
+                            <button
+                                t-on-click="() => this.onClickSelectReason()"
+                                t-attf-class="btn btn-primary btn-block btn-lg"
+                            >
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="o_hr_kiosk_mode_bottom my-4 mx-auto">
                 <button
-                    t-on-click="() => this.onClickSelectReason()"
-                    t-attf-class="btn btn-primary btn-block btn-lg"
+                    class="btn btn-light btn-lg rounded-pill px-5"
+                    t-on-click="() => this.props.onClickBack()"
                 >
-                    Continue
+                    <i class="oi oi-chevron-left me-2" />
+                    <span>Go back</span>
                 </button>
             </div>
-        </div>
-</t>
-
+        </t>
+        <t t-else="">
+            <div class="alert alert-danger mx-3" role="alert">
+                <h4
+                    class="alert-heading"
+                >Error: could not find corresponding employee.</h4>
+                <p>Please return to the main menu.</p>
+            </div>
+            <a
+                role="button"
+                class="oe_attendance_sign_in_out"
+                aria-label="Sign out"
+                title="Sign out"
+            />
+        </t>
+    </t>
 </templates>

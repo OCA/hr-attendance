@@ -8,3 +8,5 @@
   - Víctor Martínez
   - Carlos Lopez
 - Dhara Solanki \<<dhara.solanki@initos.com>\>
+- [manaTec](https://www.manatec.de/):
+  - Tom Tietze
