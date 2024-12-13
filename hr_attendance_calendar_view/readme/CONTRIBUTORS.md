@@ -1,2 +1,3 @@
 -  `APSL-Nagarro <https://apsl.tech>`__:
    -  Lansana Barry <lbarry@apsl.net>
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`_

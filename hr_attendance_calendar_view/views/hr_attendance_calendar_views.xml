@@ -1,6 +1,6 @@
 <odoo>
     <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
-        <field name="view_mode">tree,kanban,calendar,form</field>
+        <field name="view_mode">list,kanban,calendar,form</field>
     </record>
     <record id="view_attendance_calendar" model="ir.ui.view">
         <field name="name">hr.attendance.calendar</field>
