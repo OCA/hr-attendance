@@ -13,7 +13,7 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
 
 class TestHrAttendanceTracking(TransactionCase):
     def setUp(self):
-        super(TestHrAttendanceTracking, self).setUp()
+        super().setUp()
         self.hr_attendance = self.env["hr.attendance"]
         self.employee_01 = self.env["hr.employee"].create({"name": "Employee01"})
         self.employee_02 = self.env["hr.employee"].create({"name": "Employee02"})
