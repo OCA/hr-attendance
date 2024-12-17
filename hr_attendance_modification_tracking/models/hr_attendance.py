@@ -8,8 +8,7 @@ from odoo import api, fields, models
 
 
 class HrAttendance(models.Model):
-    _name = "hr.attendance"
-    _inherit = ["hr.attendance", "mail.thread"]
+    _inherit = "hr.attendance"
 
     employee_id = fields.Many2one(tracking=True)
     check_in = fields.Datetime(tracking=True)
