@@ -17,29 +17,35 @@ HR Attendance Modification Tracking.
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
-    :target: https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_modification_tracking
+    :target: https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_modification_tracking
     :alt: OCA/hr-attendance
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/hr-attendance-16-0/hr-attendance-16-0-hr_attendance_modification_tracking
+    :target: https://translation.odoo-community.org/projects/hr-attendance-18-0/hr-attendance-18-0-hr_attendance_modification_tracking
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-Attendance changes will now be registered in the chatter.
-This will help prevent cheating in check-in or check-out time.
-List and form views also include this change information.
+Attendance changes will now be registered in the chatter. This will help
+prevent cheating in check-in or check-out time. List and form views also
+include this change information.
 
 Use cases:
 
-- Attendances created from kiosk or check-in/check-out screens, are created as automatic. If their check-in or check-out dates are modified by any user, attendances are checked as 'Manually changed'.
-- Attendances created from form view will apply a 60 seconds tolerance between entered and real times. If this tolerance is surpassed, attendances are checked as 'Manually changed'.
+- Attendances created from kiosk or check-in/check-out screens, are
+  created as automatic. If their check-in or check-out dates are
+  modified by any user, attendances are checked as 'Manually changed'.
+- Attendances created from form view will apply a 60 seconds tolerance
+  between entered and real times. If this tolerance is surpassed,
+  attendances are checked as 'Manually changed'.
 
 Note:
 
-- Attendances already created won't be checked automatically on installation since it could take a large amount of time. If this is wanted it will be necessary to do it manually later.
+- Attendances already created won't be checked automatically on
+  installation since it could take a large amount of time. If this is
+  wanted it will be necessary to do it manually later.
 
 **Table of contents**
 
@@ -52,7 +58,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/hr-attendance/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_modification_tracking%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_modification_tracking%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -60,23 +66,23 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Creu Blanca
 * Landoo
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Jaime Arroyo <jaime.arroyo@creublanca.es>
-* Enric Tobella <etobella@creublanca.es>
-* Saran Lim. <saranl@ecosoft.co.th>
-* Nagore Salaberria <ns@landoo.es>
-* Josean Soroa <js@landoo.es>
-* Aritz Olea <ao@landoo.es>
+- Jaime Arroyo <jaime.arroyo@creublanca.es>
+- Enric Tobella <etobella@creublanca.es>
+- Saran Lim. <saranl@ecosoft.co.th>
+- Nagore Salaberria <ns@landoo.es>
+- Josean Soroa <js@landoo.es>
+- Aritz Olea <ao@landoo.es>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -88,6 +94,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/16.0/hr_attendance_modification_tracking>`_ project on GitHub.
+This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_modification_tracking>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
