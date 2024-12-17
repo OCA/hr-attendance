@@ -23,32 +23,35 @@ class HrAttendance(models.Model):
         "be applied.",
     )
 
+    def _check_manual_time_change(self, check, val, current_value=None, now=None):
+        if not val:
+            return False
+        if current_value:
+            return True
+        if not now:
+            now = fields.Datetime.now()
+        tolerance = timedelta(seconds=60)
+        val_dt = fields.Datetime.to_datetime(val)
+        return abs(val_dt - now) > tolerance
+
     @api.model_create_multi
     def create(self, vals_list):
-        tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
         for vals in vals_list:
             for check in ["check_in", "check_out"]:
-                if (
-                    vals.get(check, False)
-                    and abs(fields.Datetime.from_string(vals.get(check)) - now)
-                    > tolerance
-                ):
-                    vals.update({"time_changed_manually": True})
+                if self._check_manual_time_change(check, vals.get(check), now=now):
+                    vals["time_changed_manually"] = True
                     break
         return super().create(vals_list)
 
     def write(self, vals):
-        tolerance = timedelta(seconds=60)
         now = fields.Datetime.now()
         for record in self:
             for check in ["check_in", "check_out"]:
-                if vals.get(check, False):
-                    if getattr(record, check, False):
+                if check in vals:
+                    current_value = getattr(record, check)
+                    if record._check_manual_time_change(
+                        check, vals.get(check), current_value=current_value, now=now
+                    ):
                         record.time_changed_manually = True
-                    else:
-                        check_str = vals.get(check)
-                        diff = abs(fields.Datetime.from_string(check_str) - now)
-                        if diff > tolerance:
-                            record.time_changed_manually = True
         return super().write(vals)

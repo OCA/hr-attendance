@@ -80,6 +80,7 @@ Contributors
 - Nagore Salaberria <ns@landoo.es>
 - Josean Soroa <js@landoo.es>
 - Aritz Olea <ao@landoo.es>
+- ``Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>``\ \_
 
 Maintainers
 -----------
