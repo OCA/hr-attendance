@@ -1,1 +1,0 @@
-* initOS GmbH (initOS.com)
