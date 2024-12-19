@@ -50,12 +50,22 @@ class Employee(models.Model):
         if not date_to:
             date_to = date.today()
 
-        # Determine the start and end of the day and convert to UTC
-        dt_from = datetime.combine(date_from, time.min)
-        dt_to = datetime.combine(date_to, time.max)
+        # Ensure date_from and date_to are datetime objects, not just date objects
+        if isinstance(
+            date_from, date
+        ):  # If date_from is a date object, convert it to datetime
+            date_from = datetime.combine(date_from, time.min)
+        if isinstance(
+            date_to, date
+        ):  # If date_to is a date object, convert it to datetime
+            date_to = datetime.combine(date_to, time.max)
 
         tz = pytz.timezone(self.tz or "UTC")
-        dt_from, dt_to = map(tz.localize, (dt_from, dt_to))
+
+        # Now they are datetime objects, we can safely localize them
+        dt_from, dt_to = map(tz.localize, (date_from, date_to))
+
+        # Ensure the time zone is set to UTC
         dt_from, dt_to = ensure_tz(dt_from, pytz.utc), ensure_tz(dt_to, pytz.utc)
 
         # Skip the active day
@@ -77,11 +87,14 @@ class Employee(models.Model):
             ("check_in", "<=", dt_to.replace(tzinfo=None)),
         ]
         attendance_records = self.attendance_ids.filtered_domain(domain)
-        attendances = {
-            ensure_tz(attendance_date, tz).date()
-            for attendance_date in attendance_records.mapped("check_in")
-            + attendance_records.mapped("check_out")
-        }
+
+        attendances = set()
+        for attendance_date in attendance_records.mapped("check_in"):
+            if attendance_date:
+                attendances.add(ensure_tz(attendance_date, tz).date())
+        for attendance_date in attendance_records.mapped("check_out"):
+            if attendance_date:  # Handle empty check_out field
+                attendances.add(ensure_tz(attendance_date, tz).date())
 
         vals = []
         for missing in set(work_dates) - attendances:
