@@ -5,16 +5,21 @@ from datetime import datetime, timedelta
 
 from freezegun import freeze_time
 
-from odoo import fields
-from odoo.tests.common import TransactionCase
+from odoo import Command, fields
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
+from odoo.addons.base.tests.common import BaseCommon
 
-@freeze_time("2024-01-19")
-class HRContractUpdateOvertime(TransactionCase):
+
+class HRContractUpdateOvertime(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        with freeze_time("2025-01-13"):
+            cls._setUpClass_frozen()
+
+    @classmethod
+    def _setUpClass_frozen(cls):
         tz = "UTC"
         cls.env.user.tz = tz
         cls.employee = cls.env["hr.employee"].create(
@@ -29,7 +34,7 @@ class HRContractUpdateOvertime(TransactionCase):
 
         def make_dtt(days_before, h=0, m=0, to_date=False):
             dat = datetime.combine(
-                today - timedelta(days=days_before), datetime.min.time()
+                today - timedelta(days=days_before + 1), datetime.min.time()
             ).replace(hour=h, minute=m)
             if to_date:
                 return dat.date().strftime(DEFAULT_SERVER_DATE_FORMAT)
@@ -71,11 +76,9 @@ class HRContractUpdateOvertime(TransactionCase):
                     "company_id": company.id,
                     "tz": tz,
                     "two_weeks_calendar": False,
-                    "attendance_ids": [(5, 0, 0)]
+                    "attendance_ids": [Command.clear()]
                     + [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Attendance",
                                 "dayofweek": dayofweek,
@@ -102,11 +105,9 @@ class HRContractUpdateOvertime(TransactionCase):
                     "company_id": company.id,
                     "tz": tz,
                     "two_weeks_calendar": False,
-                    "attendance_ids": [(5, 0, 0)]
+                    "attendance_ids": [Command.clear()]
                     + [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Attendance",
                                 "dayofweek": dayofweek,
@@ -133,11 +134,9 @@ class HRContractUpdateOvertime(TransactionCase):
                     "company_id": company.id,
                     "tz": tz,
                     "two_weeks_calendar": False,
-                    "attendance_ids": [(5, 0, 0)]
+                    "attendance_ids": [Command.clear()]
                     + [
-                        (
-                            0,
-                            0,
+                        Command.create(
                             {
                                 "name": "Attendance",
                                 "dayofweek": dayofweek,
@@ -197,33 +196,37 @@ class HRContractUpdateOvertime(TransactionCase):
             ]
         )
         # Create all leaves on last contract
-        leaves = cls.env["resource.calendar.leaves"].create(
-            [
-                {
-                    "name": "Test Leave 2h",
-                    "date_from": make_dtt(4, h=8, m=0),
-                    "date_to": make_dtt(4, h=8, m=30),
-                    "resource_id": cls.employee.resource_id.id,
-                    "calendar_id": rc_8h_day.id,
-                    "company_id": company.id,
-                },
-                {
-                    "name": "Test Leave 4h",
-                    "date_from": make_dtt(3, h=8, m=0),
-                    "date_to": make_dtt(3, h=8, m=30),
-                    "resource_id": cls.employee.resource_id.id,
-                    "calendar_id": rc_8h_day.id,
-                    "company_id": company.id,
-                },
-                {
-                    "name": "Test Leave 8h",
-                    "date_from": make_dtt(2, h=8, m=0),
-                    "date_to": make_dtt(2, h=8, m=30),
-                    "resource_id": cls.employee.resource_id.id,
-                    "calendar_id": rc_8h_day.id,
-                    "company_id": company.id,
-                },
-            ]
+        leaves = (
+            cls.env["resource.calendar.leaves"]
+            .with_context(leave_skip_date_check=True)
+            .create(
+                [
+                    {
+                        "name": "Test Leave 2h",
+                        "date_from": make_dtt(4, h=8, m=0),
+                        "date_to": make_dtt(4, h=10, m=0),
+                        "resource_id": cls.employee.resource_id.id,
+                        "calendar_id": rc_8h_day.id,
+                        "company_id": company.id,
+                    },
+                    {
+                        "name": "Test Leave 4h",
+                        "date_from": make_dtt(3, h=10, m=30),
+                        "date_to": make_dtt(3, h=13, m=30),
+                        "resource_id": cls.employee.resource_id.id,
+                        "calendar_id": rc_8h_day.id,
+                        "company_id": company.id,
+                    },
+                    {
+                        "name": "Test Leave 8h",
+                        "date_from": make_dtt(2, h=14, m=0),
+                        "date_to": make_dtt(2, h=22, m=0),
+                        "resource_id": cls.employee.resource_id.id,
+                        "calendar_id": rc_8h_day.id,
+                        "company_id": company.id,
+                    },
+                ]
+            )
         )
         # `hr_holidays_attendance` adds extra constrains when considering one
         # leave valid for an employee. It wouldn't be a problem, but it's
@@ -233,12 +236,22 @@ class HRContractUpdateOvertime(TransactionCase):
         # if it's installed, even when we don't need that dependency normally.
         if "holiday_id" in leaves._fields:
             leave_type = cls.env["hr.leave.type"].create(
-                {"name": "Beach 🏖️", "time_type": "leave"}
+                {
+                    "name": "Beach 🏖️",
+                    "time_type": "leave",
+                    "requires_allocation": "no",
+                    "request_unit": "hour",
+                    "leave_validation_type": "no_validation",
+                }
             )
             for res_leave in leaves:
                 res_leave.holiday_id = (
                     cls.env["hr.leave"]
-                    .with_context(leave_skip_state_check=True)
+                    .with_context(
+                        leave_skip_state_check=True,
+                        leave_skip_date_check=True,
+                        leave_fast_create=True,
+                    )
                     .create(
                         {
                             "state": "validate",
@@ -250,6 +263,7 @@ class HRContractUpdateOvertime(TransactionCase):
                     )
                 )
 
+    @freeze_time("2025-01-13")
     def test_overtime(self):
         self.assertEqual(self.contract_history.contract_count, 3)
         self.contract_history.action_update_overtime()
@@ -263,7 +277,16 @@ class HRContractUpdateOvertime(TransactionCase):
             .mapped("duration")
         )
         # Check Overtime
-        self.assertEqual(sum(total_overtime), -1.5)
+        self.assertEqual(sum(total_overtime), 2.5)
         # Check Leaves has been moved correctly
         for contract in self.contract_history.contract_ids:
-            self.assertEqual(len(contract.resource_calendar_id.leave_ids), 1)
+            # We filter by name to avoid counting leaves automatically created by
+            # hr_holidays when the calendar is changed in action_update_overtime()
+            self.assertEqual(
+                len(
+                    contract.resource_calendar_id.leave_ids.filtered(
+                        lambda leave: leave.name.startswith("Test Leave")
+                    )
+                ),
+                1,
+            )

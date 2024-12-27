@@ -4,7 +4,7 @@
 {
     "name": "Update Overtime from HR Contract",
     "summary": "Update Overtime from HR Contract",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Alpha",
     "category": "Human Resources/Contracts",
     "website": "https://github.com/OCA/hr-attendance",

@@ -11,7 +11,7 @@
                     name="action_update_overtime"
                     string="Update Overtime"
                     type="object"
-                    groups="hr_attendance.group_hr_attendance_user"
+                    groups="hr_attendance.group_hr_attendance_officer"
                     help="Update Overtime on Running and Expired contracts"
                     confirm="This action will also reorganize all the Employee's leaves by distributing them across their contract calendars. If you do not want this to happen, you can Update Overtime from a specific contract."
                 />

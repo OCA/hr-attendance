@@ -24,7 +24,21 @@ class HrContract(models.Model):
             if record.state not in {"open", "close"}:
                 continue
             attendances = record._get_attendances()
-            attendances._update_overtime()
+            if (
+                record.resource_calendar_id
+                and record.employee_id.resource_calendar_id
+                != record.resource_calendar_id
+            ):
+                current_calendar = record.employee_id.resource_calendar_id
+                try:
+                    record.employee_id.resource_calendar_id = (
+                        record.resource_calendar_id
+                    )
+                    attendances._update_overtime()
+                finally:
+                    record.employee_id.resource_calendar_id = current_calendar
+            else:
+                attendances._update_overtime()
             record.message_post(
                 body=_("Overtime updated"),
                 subtype_xmlid="mail.mt_note",

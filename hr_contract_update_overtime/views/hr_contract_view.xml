@@ -11,8 +11,8 @@
                     name="action_update_overtime"
                     string="Update Overtime"
                     type="object"
-                    groups="hr_attendance.group_hr_attendance_user"
-                    attrs="{'invisible': [('state', 'not in', ['open', 'close'])]}"
+                    groups="hr_attendance.group_hr_attendance_officer"
+                    invisible="state not in ('open', 'close')"
                 />
             </xpath>
         </field>
