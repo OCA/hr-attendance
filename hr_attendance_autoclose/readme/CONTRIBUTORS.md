@@ -7,3 +7,4 @@
   > - Víctor Martínez
 
 - Foram Shah \<<foram.shah@initos.com>\>
+- `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`_
