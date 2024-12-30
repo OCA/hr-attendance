@@ -4,6 +4,9 @@ Go to Attendances -> Attendances for Payroll, you will see a list view or a pivo
 * date type (normal, sunday or holiday)
 * daytime work duration
 * nighttime work duration
+* overtime work duration
+* weighting nighttime work duration
+* weighting overtime work duration
 * total work duration
 
 The list view and pivot view can be exported to a spreadsheet for further processing.

@@ -5,16 +5,33 @@
         <field name="priority">30</field>
         <field name="arch" type="xml">
             <tree export_xlsx="1">
+                <field name="hr_attendance_overtime" invisible="1" />
+                <field name="allow_weighting_overtime_hours" invisible="1" />
+                <field name="allow_weighting_nighttime_hours" invisible="1" />
                 <field name="employee_id" />
                 <field name="date" interval="week" />
                 <field name="date_type" />
                 <field name="worked_hours" widget="float_time" />
                 <field name="worked_hours_nighttime" widget="float_time" />
                 <field name="worked_hours_daytime" widget="float_time" />
+                <field
+                    name="worked_hours_overtime"
+                    widget="float_time"
+                    attrs="{'invisible' : [('hr_attendance_overtime', '=', False)]}"
+                />
+                <field
+                    name="weighting_worked_nighttime_hours"
+                    widget="float_time"
+                    attrs="{'invisible' : [('allow_weighting_nighttime_hours', '=', False)]}"
+                />
+                <field
+                    name="weighting_worked_overtime_hours"
+                    attrs="{'invisible' : ['|', ('hr_attendance_overtime', '=', False), ('allow_weighting_overtime_hours', '=', False)]}"
+                    widget="float_time"
+                />
             </tree>
         </field>
     </record>
-
     <record id="hr_attendance_search_view" model="ir.ui.view">
         <field name="model">hr.attendance</field>
         <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
@@ -37,11 +54,13 @@
             </xpath>
         </field>
     </record>
-
     <record id="hr_attendance_pivot_view" model="ir.ui.view">
         <field name="model">hr.attendance</field>
         <field name="arch" type="xml">
             <pivot>
+                <field name="hr_attendance_overtime" invisible="1" />
+                <field name="allow_weighting_overtime_hours" invisible="1" />
+                <field name="allow_weighting_nighttime_hours" invisible="1" />
                 <field name="employee_id" type="row" />
                 <field name="date" type="col" interval="week" />
                 <field name="date_type" type="col" />
@@ -52,6 +71,24 @@
                     widget="float_time"
                 />
                 <field name="worked_hours_daytime" type="measure" widget="float_time" />
+                <field
+                    name="worked_hours_overtime"
+                    type="measure"
+                    widget="float_time"
+                    attrs="{'invisible' : [('hr_attendance_overtime', '=', False)]}"
+                />
+                <field
+                    name="weighting_worked_nighttime_hours"
+                    type="measure"
+                    widget="float_time"
+                    attrs="{'invisible' : [('allow_weighting_nighttime_hours', '=', False)]}"
+                />
+                <field
+                    name="weighting_worked_overtime_hours"
+                    type="measure"
+                    attrs="{'invisible' : ['|', ('hr_attendance_overtime', '=', False), ('allow_weighting_overtime_hours', '=', False)]}"
+                    widget="float_time"
+                />
             </pivot>
         </field>
     </record>
@@ -59,12 +96,13 @@
         <field name="name">Attendances for Payroll</field>
         <field name="res_model">hr.attendance</field>
         <field name="view_mode">pivot,tree</field>
-        <!--field name="context">{"search_default_employee":1}</field-->
         <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="view_ids" />
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
                 No attendance records found
-            </p><p>
+            </p>
+            <p>
                 The attendance records of your employees will be displayed here.
             </p>
         </field>
@@ -95,5 +133,4 @@
         groups="hr_attendance.group_hr_attendance_user"
         action="hr_attendance_report_action"
     />
-
 </odoo>
