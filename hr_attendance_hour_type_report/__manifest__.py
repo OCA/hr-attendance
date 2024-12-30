@@ -3,7 +3,7 @@
 
 {
     "name": "HR Attendance hours report",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Camptocamp, Odoo Community Association (OCA)",

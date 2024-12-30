@@ -3,3 +3,5 @@ hour at which the night worktime starts and ends. The default is from 10pm to
 6am.
 
 These hours are expressed in the employee's time zone.
+
+In the attendance settings, there are two options to enable weighting.

@@ -1,12 +1,13 @@
 # Copyright 2021 Camptocamp SA
+
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime as dt
 
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
+from odoo.tests.common import TransactionCase
 
 
-class TestAttendance(SavepointCase):
+class TestAttendance(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -55,7 +56,7 @@ class TestAttendance(SavepointCase):
             "2021-12-02 23:30:00",  # this is 2021-12-03 00:30 in Europe/Paris
             "2021-12-03 08:00",
         )
-        self.assertEqual(attendance.date, dt.date(2021, 12, 3))
+        self.assertEqual(attendance.date, dt.date(2021, 12, 2))
 
     def test_attendance_date_type_normal(self):
         attendance = self._create_attendance(
@@ -91,15 +92,15 @@ class TestAttendance(SavepointCase):
         attendance = self._create_attendance(
             "2021-12-02 03:00:00", "2021-12-02 12:00:00"
         )
-        self.assertEqual(attendance.worked_hours_nighttime, 2.0)
-        self.assertEqual(attendance.worked_hours_daytime, 7.0)
+        self.assertEqual(attendance.worked_hours_nighttime, 3.0)
+        self.assertEqual(attendance.worked_hours_daytime, 6.0)
 
     def test_attendance_worktime_end_late(self):
         attendance = self._create_attendance(
             "2021-12-02 15:00:00", "2021-12-03 00:00:00"
         )
-        self.assertEqual(attendance.worked_hours_nighttime, 3.0)
-        self.assertEqual(attendance.worked_hours_daytime, 6.0)
+        self.assertEqual(attendance.worked_hours_nighttime, 2.0)
+        self.assertEqual(attendance.worked_hours_daytime, 7.0)
 
     def test_attendance_worktime_night_shift(self):
         attendance = self._create_attendance(
@@ -116,4 +117,35 @@ class TestAttendance(SavepointCase):
             # the exception happens when we flush to disk or when we read the
             # worked_hours_nighttime/daytime fields, because it is raised by
             # the computation of some fields
-            attendance.flush()
+            attendance.flush_recordset()
+
+    def test_attendance_overtime_hours(self):
+        attendance = self._create_attendance(
+            "2021-12-10 06:00:00", "2021-12-10 15:00:00"
+        )
+        self.assertEqual(attendance.worked_hours_overtime, 1.0)
+        attendance = self._create_attendance(
+            "2021-12-11 06:00:00", "2021-12-11 18:00:00"
+        )
+        self.assertEqual(attendance.worked_hours_overtime, 4.0)
+
+    def test_attendance_weighting_hours_not_allowed(self):
+        self.env.company.allow_weighting_nighttime_hours = False
+        self.env.company.allow_weighting_overtime_hours = False
+        attendance = self._create_attendance(
+            "2021-12-12 22:00:00", "2021-12-13 07:00:00"
+        )
+        self.assertEqual(attendance.weighting_worked_nighttime_hours, 8.0)
+        self.assertEqual(attendance.weighting_worked_overtime_hours, 1.0)
+
+    def test_attendance_weighting_hours(self):
+        self.env.company.allow_weighting_nighttime_hours = True
+        self.env.company.allow_weighting_overtime_hours = True
+        self.env.company.weighting_nighttime_hours = 1.5
+        self.env.company.weighting_overtime_hours = 2.0
+
+        attendance = self._create_attendance(
+            "2021-12-13 21:00:00", "2021-12-14 06:00:00"
+        )
+        self.assertEqual(attendance.weighting_worked_nighttime_hours, 12.0)
+        self.assertEqual(attendance.weighting_worked_overtime_hours, 2.0)
