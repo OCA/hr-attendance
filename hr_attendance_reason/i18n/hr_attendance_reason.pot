@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-25 08:06+0000\n"
-"PO-Revision-Date: 2024-11-25 08:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,6 +40,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
 #: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
 msgid "Attendance Reasons"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
+msgid "Bad Weather"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -129,6 +132,11 @@ msgid "Error: could not find corresponding employee."
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_2
+msgid "Felt Sick"
+msgstr ""
+
+#. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 msgid "Go back"
@@ -155,6 +163,11 @@ msgid "Leave empty if it is independent"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_1
+msgid "Manager Manual Amend"
+msgstr ""
+
+#. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 msgid "Please return to the main menu."
@@ -171,6 +184,11 @@ msgstr ""
 #: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
 msgid "Please, select a reason!"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_5
+msgid "Public Transport Strike"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -243,8 +261,13 @@ msgid "Specifies the reason leaving soon or arriving late"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_3
+msgid "Visit Customer"
+msgstr ""
+
+#. module: hr_attendance_reason
 #. odoo-javascript
-#: code:addons/hr_attendance_reason/static/src/components/public_kiosk/public_kiosk_app.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/public_kiosk/public_kiosk_app.esm.js:0
 msgid "Wrong Pin"
 msgstr ""
 
