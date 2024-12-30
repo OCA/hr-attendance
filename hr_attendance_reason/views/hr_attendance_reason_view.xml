@@ -58,4 +58,10 @@
         sequence="110"
         groups="hr_attendance.group_hr_attendance_manager"
     />
+    <record id="hr_attendance.menu_hr_attendance_settings" model="ir.ui.menu">
+        <!-- We need to leave the action empty for consistency because we are going
+            to set different submenus, otherwise the configuration menu would not be
+            displayed to a basic user. !-->
+        <field name="action" eval="False" />
+    </record>
 </odoo>
