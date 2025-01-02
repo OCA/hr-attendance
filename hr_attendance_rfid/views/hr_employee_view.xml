@@ -11,7 +11,7 @@
             <field name="pin" position="after">
                 <field
                     name="rfid_card_code"
-                    groups="hr_attendance.group_hr_attendance_user"
+                    groups="hr_attendance.group_hr_attendance_officer"
                 />
             </field>
         </field>
