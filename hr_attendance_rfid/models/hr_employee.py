@@ -11,7 +11,6 @@ _logger = logging.getLogger(__name__)
 
 
 class HrEmployeeBase(models.AbstractModel):
-
     _inherit = "hr.employee.base"
     _sql_constraints = [
         (
