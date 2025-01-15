@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-02-14 16:41+0000\n"
+"PO-Revision-Date: 2025-01-15 11:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #. module: hr_attendance_validation
 #: model_terms:ir.ui.view,arch_db:hr_attendance_validation.res_config_settings_view_form
@@ -290,7 +290,7 @@ msgstr "ID"
 #. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_leave_type__ignored_in_attendance_validation
 msgid "Ignored In Attendance Validation"
-msgstr ""
+msgstr "Ignorato nella validazione presenza"
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields,field_description:hr_attendance_validation.field_hr_attendance__is_overtime_due
@@ -450,7 +450,7 @@ msgstr "Ferie"
 #. module: hr_attendance_validation
 #: model:ir.model,name:hr_attendance_validation.model_hr_leave_type
 msgid "Time Off Type"
-msgstr ""
+msgstr "Tipo di ferie"
 
 #. module: hr_attendance_validation
 #: model:ir.model.fields.selection,name:hr_attendance_validation.selection__hr_attendance_validation_sheet__state__draft
