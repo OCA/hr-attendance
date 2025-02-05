@@ -29,7 +29,7 @@ class HrAttendance(models.Model):
         m = int((dd - d) * 60)
         s = (dd - d - m / 60) * 3600.00
         z = round(s, 2)
-        return "%sº %s' %s'" % (abs(d), abs(m), abs(z))
+        return "%sº %s' %s\"" % (abs(d), abs(m), abs(z))
 
     def _get_latitude_raw_value(self, dd):
         return "%s %s" % (
