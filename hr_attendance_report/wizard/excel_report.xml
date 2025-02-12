@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<record id="view_employee_attendance_report_wizard_form_redirect" model="ir.ui.view">
+		<field name="name">Excel Report</field>
+		<field name="model">custom.excel.class</field>
+		<field name="arch" type="xml">
+			<form>
+			<group>
+				<group>
+					<field name="file_name" readonly="1" filename="datas_fname" />
+				</group>
+				<group>
+					<field name="datas_fname" invisible="1" />
+				</group>
+			</group>
+				<footer>
+					<button
+                        special="cancel"
+                        data-hotkey="z"
+                        type="object"
+                        string="Cancel"
+                        class="btn-secondary"
+                    />
+				</footer>
+			</form>
+		</field>
+	</record>
+</odoo>

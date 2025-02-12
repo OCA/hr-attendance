@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        name="Attendance Report"
+        id="attendance_report_menu"
+        parent="hr.hr_menu_hr_reports"
+        action="action_employee_attendance_report_wizard"
+    />
+</odoo>
