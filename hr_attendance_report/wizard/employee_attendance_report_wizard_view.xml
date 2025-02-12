@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_employee_attendance_report_wizard_form" model="ir.ui.view">
+        <field name="name">employee.attendance.report.wizard.form</field>
+        <field name="model">employee.attendance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Report">
+                <group>
+                    <group>
+                        <field name="select_month" />
+                    </group>
+                    <group>
+                        <field name="select_year" />
+                    </group>
+                    <group>
+                        <field name="hr_employee_ids" widget="many2many_tags" />
+                        <field name="select_all_employee" />
+                        <field name="hr_department_ids" widget="many2many_tags" />
+                        <field name="select_all_department" />
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="generate_employee_pdf_report"
+                        type="object"
+                        string="PDF Report"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
+                    <button
+                        name="generate_employee_excel_report"
+                        type="object"
+                        string="Excel Report"
+                        class="btn-primary"
+                        data-hotkey="w"
+                    />
+                    <button
+                        special="cancel"
+                        string="Cancel"
+                        class="btn-secondary"
+                        data-hotkey="z"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
