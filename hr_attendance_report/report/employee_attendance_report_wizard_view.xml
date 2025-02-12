@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_one_set">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="employees_data" t-as="employee">
+                    <div class="page">
+                        <div class="oe_structure" id="oe_structure_attendance_report">
+                            <h1 class="text-center">Attendance Report</h1>
+                        </div>
+
+                        <!-- Report Header -->
+                        <table class="table text-center table-sm table-striped mt-4">
+                            <tr>
+                                <td class="align-middle"><strong>Month</strong></td>
+                                <td class="align-middle"><t t-out="month_name" /></td>
+                                <td class="align-middle"><strong>Year</strong></td>
+                                <td class="align-middle"><t t-out="year" /></td>
+                            </tr>
+                        </table>
+
+                        <!-- Employee Information -->
+                        <table class="table text-center table-bordered mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Employee Name</th>
+                                    <th>Identification No</th>
+                                    <th>Manager</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><t t-out="employee['emp_name']" /></td>
+                                    <td><t
+                                            t-out="employee['emp_identification']"
+                                        /></td>
+                                    <td><t t-out="employee['manager']" /></td>
+                                    <td><t t-out="employee['department']" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Company Information -->
+                        <table class="table text-center table-bordered mt-2">
+                            <tr>
+                                <td class="align-middle"><strong>Company:</strong></td>
+                                <td class="align-middle"><t
+                                        t-out="employee['company_name']"
+                                    /></td>
+                                <td class="align-middle"><strong>CIF:</strong></td>
+                                <td class="align-middle"><t
+                                        t-out="employee['company_vat']"
+                                    /></td>
+                            </tr>
+                        </table>
+
+                        <!-- Summary Statistics -->
+                        <table class="table text-center table-sm mt-4">
+                            <tr>
+                                <td class="align-middle"><strong
+                                    >Total Days Worked:</strong></td>
+                                <td class="align-middle"><t
+                                        t-out="employee['total_days']"
+                                    /></td>
+                                <td class="align-middle"><strong
+                                    >Total Hours:</strong></td>
+                                <td class="align-middle">
+                                    <t t-out="employee['total_hours']" /> hrs
+                                </td>
+                                <td class="align-middle"><strong
+                                    >Average Hours/Day:</strong></td>
+                                <td class="align-middle">
+                                    <t t-out="employee['avg_hours_per_day']" /> hrs
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Attendance Records -->
+                        <table class="table text-center table-bordered mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Check In</th>
+                                    <th>Check Out</th>
+                                    <th>Working Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="employee['attendances']">
+                                    <!-- Attendance records -->
+                                    <t
+                                        t-foreach="employee['attendances']"
+                                        t-as="attendance"
+                                    >
+                                        <tr>
+                                            <td>
+                                                <t t-if="attendance['check_in']">
+                                                    <span
+                                                        t-out="attendance['check_in']"
+                                                        t-options="{'widget': 'datetime'}"
+                                                    />
+                                                </t>
+                                                <t t-else="">N/A</t>
+                                            </td>
+                                            <td>
+                                                <t t-if="attendance['check_out']">
+                                                    <span
+                                                        t-out="attendance['check_out']"
+                                                        t-options="{'widget': 'datetime'}"
+                                                    />
+                                                </t>
+                                                <t t-else="">Still Working</t>
+                                            </td>
+                                            <td>
+                                                <t
+                                                    t-out="attendance['worked_hours']"
+                                                /> hrs
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <!-- Total row after last attendance record -->
+                                    <tr class="table-info">
+                                        <td colspan="2"><strong>Total:</strong></td>
+                                        <td>
+                                            <strong><t
+                                                    t-out="employee['total_hours']"
+                                                /> hrs</strong>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr>
+                                        <td colspan="3" class="text-muted">
+                                            No attendance records found for this period
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Page break for multiple employees -->
+                        <div style="page-break-after: always;" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
