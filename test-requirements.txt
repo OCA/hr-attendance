@@ -1,0 +1,1 @@
+odoo-addon-hr_attendance_reason @ git+https://github.com/OCA/hr-attendance.git@refs/pull/193/head#subdirectory=hr_attendance_reason
