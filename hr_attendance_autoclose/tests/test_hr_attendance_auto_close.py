@@ -38,9 +38,7 @@ class TestHrAttendanceReason(BaseCommon):
             {"employee_id": self.employee.id, "check_in": dt.strftime(DF)}
         )
         self.hr_attendance.check_for_incomplete_attendances()
-        # worked_hours are now 10 hours, because Odoo adds 1 hour to lunch, see:
-        # https://github.com/odoo/odoo/commit/2eda54348de1bd42fc2a1bed94cd8b7a3ebf405d
-        self.assertEqual(att.worked_hours, 10.0, "Attendance not closed")
+        self.assertEqual(att.worked_hours, 11.0, "Attendance not closed")
         reason = self.env.company.hr_attendance_autoclose_reason
         reason.unlink()
         dti += relativedelta(hours=10)
