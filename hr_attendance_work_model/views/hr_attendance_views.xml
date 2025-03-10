@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form - hr_attendance_work_model</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <field name="in_browser" position="after">
+                <field name="work_model_type" invisible="out_ip_address" />
+            </field>
+            <field name="out_browser" position="after">
+                <field name="work_model_type" invisible="not out_ip_address" />
+            </field>
+        </field>
+    </record>
+</odoo>
