@@ -22,7 +22,6 @@ class HrAttendance(HrAttendance):
             )
         return super().systray_attendance(latitude=latitude, longitude=longitude)
 
-    @route("/hr_attendance/manual_selection", type="json", auth="public")
     def manual_selection(self, token, employee_id, pin_code):
         if request.params.get("attendance_reason_id"):
             request.update_context(
