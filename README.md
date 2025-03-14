@@ -24,7 +24,7 @@ addon | version | maintainers | summary
 [hr_attendance_autoclose](hr_attendance_autoclose/) | 15.0.1.0.0 |  | Close stale Attendances
 [hr_attendance_calendar_view](hr_attendance_calendar_view/) | 15.0.1.0.0 |  | This module adds the calendar view as an option to display attendance
 [hr_attendance_contract_missing_days](hr_attendance_contract_missing_days/) | 15.0.1.0.0 |  | This modules combines the generation of attendances for working days without attendance with HR contracts
-[hr_attendance_geolocation](hr_attendance_geolocation/) | 15.0.1.0.3 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
+[hr_attendance_geolocation](hr_attendance_geolocation/) | 15.0.1.0.4 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 [hr_attendance_missing_days](hr_attendance_missing_days/) | 15.0.1.0.0 |  | This modules generates attendances for working days without attendance
 [hr_attendance_modification_tracking](hr_attendance_modification_tracking/) | 15.0.1.0.0 |  | Attendance changes will now be registered in the chatter.
 [hr_attendance_overtime_manual](hr_attendance_overtime_manual/) | 15.0.1.0.0 |  | Allows adding manual overtime records
