@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [hr_attendance_reason](hr_attendance_reason/) | 16.0.1.1.0 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 16.0.1.2.0 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 16.0.1.0.1 |  | HR Attendance RFID
+[hr_birthday_welcome_message](hr_birthday_welcome_message/) | 16.0.1.0.0 |  | This addon adds a birthday message as welcome message when it is the employee's birthday
 [hr_contract_update_overtime](hr_contract_update_overtime/) | 16.0.1.0.0 | [![Shide](https://github.com/Shide.png?size=30px)](https://github.com/Shide) [![rafaelbn](https://github.com/rafaelbn.png?size=30px)](https://github.com/rafaelbn) | Update Overtime from HR Contract
 
 [//]: # (end addons)
