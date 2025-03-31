@@ -1,0 +1,47 @@
+<odoo>
+    <record id="hr_attendance_gantt_view" model="ir.ui.view">
+        <field name="name">hr.attendance.gantt.view</field>
+        <field name="model">hr.attendance</field>
+        <field name="arch" type="xml">
+            <gantt
+                date_start="check_in"
+                date_stop="check_out"
+                default_group_by="employee_id"
+                default_scale="month"
+                color="employee_id"
+                display_unavailability="true"
+            >
+                <field name="worked_hours" />
+                <templates>
+                    <div t-name="gantt-popover">
+                        <div>
+                            <strong>Employee: </strong> <t t-out="employee_id[1]" />
+                        </div>
+                        <div>
+                            <strong>Check In: </strong> <t
+                                t-out="userTimezoneStartDate.format('l LT')"
+                            />
+                        </div>
+                        <div>
+                            <strong>Check Out: </strong> <t
+                                t-out="userTimezoneStopDate.format(' l LT')"
+                            />
+                        </div>
+                        <div>
+                            <strong>Worked Hours: </strong>
+                            <t t-set="hours" t-value="Math.floor(worked_hours)" />
+                            <t
+                                t-set="minutes"
+                                t-value="Math.round((worked_hours - hours) * 60)"
+                            />
+                            <t t-esc="hours" /> hours and <t t-esc="minutes" /> minutes
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+    <record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,gantt</field>
+    </record>
+</odoo>
