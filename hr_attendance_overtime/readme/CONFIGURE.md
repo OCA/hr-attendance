@@ -1,4 +1,4 @@
-This modules depend on different configurations:
+This module depends on different configurations:
 
 To setup ranges hours on employee work time weeks:
 
@@ -21,7 +21,7 @@ used by other modules like *hr_holidays* with compensatoires leaves. To
 be able to define a bigger range that overlap that time.
 
 You can personalize 4 kinds of reason label that are selected by code
-which must remains the same and uniq:
+which must remains the same and unique:
 
 1.  Go to *Attendances \> configuration \> Reason*
 2.  personalize name for following code:

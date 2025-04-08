@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="attendance_menu"
+        t-inherit="hr_attendance.attendance_menu"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('o_att_menu_container')]" position="inside">
+            <div
+                class="d-flex"
+                t-att-class="this.state.checkedIn ? 'align-items-center justify-content-between' : 'flex-column'"
+            >
+                <div class="planning" style="min-width: 400px;">
+                    <div class="progress bg-light" style="height: 3em;">
+                        <t
+                            t-foreach="this.overtimeInfo.theoretical_work_times"
+                            t-as="wt"
+                            t-key="wt.start"
+                        >
+                            <div
+                                t-att-title="this.progressBarWorkedTimeTitle(wt)"
+                                t-att-class="this.progressBarTheoreticalClass(wt)"
+                                role="progressbar"
+                                t-att-style="this.progressBarStyle(wt.hours)"
+                                t-att-aria-valuenow="wt.hours"
+                                aria-valuemin="0"
+                                aria-valuemax="24"
+                            >
+                                    <t
+                                    t-if="wt.is_worktime and wt.hours > 3"
+                                    t-esc="this.progressBarWorkedTimeTitle(wt)"
+                                />
+                            </div>
+                        </t>
+                    </div>
+                    <div class="progress bg-light" style="height: 3em;">
+                        <t
+                            t-foreach="this.overtimeInfo.done_attendances"
+                            t-as="wt"
+                            t-key="wt.start"
+                        >
+
+                            <span t-esc="wt.content" />
+                            <div
+                                t-att-title="this.progressBarWorkedTimeTitle(wt)"
+                                t-att-class="this.progressBarWorkedTimeClass(wt)"
+                                role="progressbar"
+                                t-att-style="this.progressBarStyle(wt.hours)"
+                                t-att-aria-valuenow="wt.hours"
+                                aria-valuemin="0"
+                                aria-valuemax="24"
+                            >
+                                    <t t-if="wt.is_worktime" t-esc="wt.content" />
+                                </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>

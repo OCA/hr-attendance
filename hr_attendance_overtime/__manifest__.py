@@ -5,7 +5,7 @@
     "name": "Hr Attendance Overtime",
     "summary": "Mark Attendances as overtime.",
     "category": "Human Resources",
-    "version": "14.0.1.0.1",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "author": "Pierre Verkest, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
@@ -20,11 +20,15 @@
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
         "views/resource_view.xml",
-        "views/assets.xml",
     ],
-    "qweb": [
-        "static/src/xml/attendance.xml",
-    ],
+    "assets": {
+        "web.assets_backend": [
+            "hr_attendance_overtime/static/src/**/*",
+        ],
+        "web.qunit_suite_tests": [
+            "hr_attendance_overtime/static/tests/**/*.js",
+        ],
+    },
     "maintainers": ["petrus-v"],
     "post_init_hook": "set_week_checkin_checkout_hours_ranges",
 }

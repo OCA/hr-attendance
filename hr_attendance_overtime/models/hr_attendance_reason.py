@@ -7,7 +7,6 @@ class HrAttendanceReason(models.Model):
     _inherit = "hr.attendance.reason"
 
     description = fields.Char(
-        string="Description",
         translate=True,
         help="Description displayed on kiosk while Check-in/Check-out."
         "Leave empty if you wish to display nothing.",

@@ -5,22 +5,23 @@ from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
 from pytz import timezone, utc
 
-from odoo import SUPERUSER_ID, _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import SUPERUSER_ID, fields, models
 from odoo.osv import expression
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployeeBase(models.Model):
+    _inherit = "hr.employee"
 
-    @api.model
-    def todays_working_times(self, empl_domain):
+    def todays_working_times(self):
         """Method used by my attendance/kiosk view in order
-        to display employee planning and working times"""
-        employee = self.search(empl_domain)
-        if not employee:
-            raise UserError(_("Employee not found or not created for current user"))
-        employee.ensure_one()
+        to display employee planning and working times.
+
+        :return: A dictionary containing the current state code, state message,
+            theoretical work times for the day, and done attendances.
+        :rtype: dict
+        """
+        self.ensure_one()
+        employee = self
         now = fields.Datetime.now()
         tz = timezone(employee.tz)
         now_utc = utc.localize(now)
@@ -40,7 +41,9 @@ class HrEmployeeBase(models.AbstractModel):
         else:
             state, __unused = employee._get_check_in_reason_code(now)
 
-        reason = self.env["hr.attendance.reason"].search([("code", "=", state)])
+        reason = self.env["hr.attendance.reason"].search(
+            [("code", "=", state)], limit=1
+        )
         message = reason and reason.description or ""
 
         theoretical_work_times = []
@@ -118,10 +121,22 @@ class HrEmployeeBase(models.AbstractModel):
         }
 
     def _get_worktimes(self, dt_utc_without_tz):
+        """Retrieve the previous, current, and next theoretical work intervals
+        for the employee based on their resource calendar for a given datetime.
+
+        :param dt_utc_without_tz: The datetime to evaluate work schedules against
+            (naive UTC).
+        :type dt_utc_without_tz: datetime.datetime
+        :return: A dictionary with keys 'previous', 'current', and 'next', each
+            containing a recordset of `resource.calendar.attendance`.
+        :rtype: dict
+        """
+        self.ensure_one()
         dt_utc = dt_utc_without_tz.replace(tzinfo=utc)
         tz = timezone(self.resource_calendar_id.tz)
         dt_calendar_tz = dt_utc.astimezone(tz)
         domain = [
+            ("day_period", "!=", "lunch"),
             ("calendar_id", "=", self.resource_calendar_id.id),
             ("dayofweek", "=", str(dt_calendar_tz.weekday())),
             "|",
@@ -187,6 +202,15 @@ class HrEmployeeBase(models.AbstractModel):
         }
 
     def _get_check_in_reason_code(self, dt_utc_without_tz):
+        """Determine the check-in reason code based on the expected work times
+        for the given datetime.
+
+        :param dt_utc_without_tz: The check-in datetime (naive UTC).
+        :type dt_utc_without_tz: datetime.datetime
+        :return: A tuple containing the check-in reason code (str) and the
+            matched theoretical `resource.calendar.attendance` recordset.
+        :rtype: tuple(str, recordset)
+        """
         worktimes = self._get_worktimes(dt_utc_without_tz)
         current_or_next = worktimes["current"] | worktimes["next"]
 
@@ -207,6 +231,15 @@ class HrEmployeeBase(models.AbstractModel):
             return "CHECK-IN-NO-NEXT", self.env["resource.calendar.attendance"]
 
     def _get_check_out_reason_code(self, dt_utc_without_tz):
+        """Determine the check-out reason code based on the expected work times
+        for the given datetime.
+
+        :param dt_utc_without_tz: The check-out datetime (naive UTC).
+        :type dt_utc_without_tz: datetime.datetime
+        :return: A tuple containing the check-out reason code (str) and the
+            matched theoretical `resource.calendar.attendance` recordset.
+        :rtype: tuple(str, recordset)
+        """
         worktimes = self._get_worktimes(dt_utc_without_tz)
         current_or_previous = worktimes["current"] | worktimes["previous"]
 
@@ -227,6 +260,17 @@ class HrEmployeeBase(models.AbstractModel):
             return "CHECK-OUT-NO-PREVIOUS", self.env["resource.calendar.attendance"]
 
     def _post_checkout_process_attendance(self, attendances, attendance):
+        """Process a completed attendance record after check-out to calculate
+        overtime by potentially splitting the attendance into separate regular
+        and overtime records based on theoretical work schedules.
+
+        :param attendances: The accumulated recordset of processed attendances.
+        :type attendances: hr.attendance
+        :param attendance: The attendance record just checked out.
+        :type attendance: hr.attendance
+        :return: The updated recordset including newly created or modified attendances.
+        :rtype: hr.attendance
+        """
         HrAttendance = self.env["hr.attendance"]
         attendances += attendance
         check_in_code, worktime = self._get_check_in_reason_code(attendance.check_in)
@@ -279,11 +323,17 @@ class HrEmployeeBase(models.AbstractModel):
             attendance.is_overtime = True
         return attendances
 
-    def _attendance_action_change(self):
-        """Improve hr_attendance Check In/Check Out action"""
-        HrAttendance = self.env["hr.attendance"]
-        attendance = super()._attendance_action_change()
-        attendances = HrAttendance
+    def _attendance_action_change(self, geo_information=None):
+        """Improve hr_attendance Check In/Check Out action by handling overtime
+        processing upon check-out.
+
+        :param geo_information: Optional geographic coordinates of the check-in/out.
+        :type geo_information: dict
+        :return: A recordset of the modified or created `hr.attendance` records.
+        :rtype: hr.attendance
+        """
+        attendance = super()._attendance_action_change(geo_information=geo_information)
+        attendances = self.env["hr.attendance"].browse()
         if attendance.check_out:
             attendances = self._post_checkout_process_attendance(
                 attendances, attendance

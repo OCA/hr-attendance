@@ -32,7 +32,7 @@
         <field name="name">Check-out late</field>
         <field name="code">CHECK-OUT-LATE</field>
         <field name="action_type">sign_out</field>
-        <field name="description">Have a good break, thaks for your time</field>
+        <field name="description">Have a good break, thanks for your time</field>
     </record>
     <record
         id="hr_attendance_reason_check_out_no_previous"
