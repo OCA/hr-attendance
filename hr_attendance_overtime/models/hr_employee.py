@@ -10,8 +10,8 @@ from odoo.exceptions import UserError
 from odoo.osv import expression
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployeeBase(models.Model):
+    _inherit = "hr.employee"
 
     @api.model
     def todays_working_times(self, empl_domain):
@@ -122,6 +122,7 @@ class HrEmployeeBase(models.AbstractModel):
         tz = timezone(self.resource_calendar_id.tz)
         dt_calendar_tz = dt_utc.astimezone(tz)
         domain = [
+            ("day_period", "!=", "lunch"),
             ("calendar_id", "=", self.resource_calendar_id.id),
             ("dayofweek", "=", str(dt_calendar_tz.weekday())),
             "|",
@@ -279,11 +280,10 @@ class HrEmployeeBase(models.AbstractModel):
             attendance.is_overtime = True
         return attendances
 
-    def _attendance_action_change(self):
+    def _attendance_action_change(self, geo_information=None):
         """Improve hr_attendance Check In/Check Out action"""
-        HrAttendance = self.env["hr.attendance"]
-        attendance = super()._attendance_action_change()
-        attendances = HrAttendance
+        attendance = super()._attendance_action_change(geo_information=geo_information)
+        attendances = self.env["hr.attendance"].browse()
         if attendance.check_out:
             attendances = self._post_checkout_process_attendance(
                 attendances, attendance

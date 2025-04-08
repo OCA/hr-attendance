@@ -22,7 +22,7 @@ class HrAttendance(models.Model):
         return worktimes["current"] | worktimes["next"]
 
     def needs_autoclose(self):
-        """Overwrite methode from hr_attendance_autoclose to determine if
+        """Overwrite method from hr_attendance_autoclose to determine if
         line should be closed according the end line work time"""
         self.ensure_one()
         worktime = self._get_worktimes()
@@ -32,7 +32,7 @@ class HrAttendance(models.Model):
             return not self.employee_id.no_autoclose
         # following case use hr_attendance_autoclose rules:
         # * task running on sunday
-        # * no worktime found at the begining of the current attendance
+        # * no worktime found at the beginning of the current attendance
         #   (starts working at the end of the day)
         return super().needs_autoclose()
 

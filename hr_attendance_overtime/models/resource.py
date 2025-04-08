@@ -6,22 +6,7 @@ from pytz import timezone, utc
 
 from odoo import api, fields, models
 
-from odoo.addons.resource.models.resource import float_to_time
-
-
-class ResourceCalendar(models.Model):
-    _inherit = "resource.calendar"
-
-    @api.model
-    def default_get(self, fields):
-        res = super().default_get(fields)
-        if "attendance_ids" in res:
-            for _, _, attendance in res["attendance_ids"]:
-                attendance["hour_check_in_from"] = attendance["hour_from"]
-                attendance["hour_check_in_to"] = attendance["hour_from"]
-                attendance["hour_check_out_from"] = attendance["hour_to"]
-                attendance["hour_check_out_to"] = attendance["hour_to"]
-        return res
+from odoo.addons.resource.models.utils import float_to_time
 
 
 class ResourceCalendarAttendance(models.Model):
@@ -103,17 +88,17 @@ class ResourceCalendarAttendance(models.Model):
         # avoid wrong order
         self.hour_check_out_to = max(self.hour_check_out_to, self.hour_check_out_from)
 
-    def _copy_attendance_vals(self):
-        res = super()._copy_attendance_vals()
-        res.update(
-            {
-                "hour_check_in_from": self.hour_check_in_from,
-                "hour_check_in_to": self.hour_check_in_to,
-                "hour_check_out_from": self.hour_check_out_from,
-                "hour_check_out_to": self.hour_check_out_to,
-            }
-        )
-        return res
+    # def _copy_attendance_vals(self):
+    #     res = super()._copy_attendance_vals()
+    #     res.update(
+    #         {
+    #             "hour_check_in_from": self.hour_check_in_from,
+    #             "hour_check_in_to": self.hour_check_in_to,
+    #             "hour_check_out_from": self.hour_check_out_from,
+    #             "hour_check_out_to": self.hour_check_out_to,
+    #         }
+    #     )
+    #     return res
 
     def _get_datetime_from_field(self, dt_naive_utc, field_name):
         """return hour field in naïve utc datetime for the given day"""
