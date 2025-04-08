@@ -14,7 +14,7 @@ class ResourceCalendar(models.Model):
 
     @api.model
     def default_get(self, fields):
-        res = super(ResourceCalendar, self).default_get(fields)
+        res = super().default_get(fields)
         if "attendance_ids" in res:
             for _, _, attendance in res["attendance_ids"]:
                 attendance["hour_check_in_from"] = attendance["hour_from"]
