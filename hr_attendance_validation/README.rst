@@ -17,43 +17,43 @@ Hr Attendance Validation
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
-    :target: https://github.com/OCA/hr-attendance/tree/14.0/hr_attendance_validation
+    :target: https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_validation
     :alt: OCA/hr-attendance
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/hr-attendance-14-0/hr-attendance-14-0-hr_attendance_validation
+    :target: https://translation.odoo-community.org/projects/hr-attendance-17-0/hr-attendance-17-0-hr_attendance_validation
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=14.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This add a validation mechanism to review employee attendance
-and generate compensatory hours (allocated leaves) that can
-be used later as day off or to regulate credits leaves as
-this module is compatible with `hr_holidays_credit` module.
+This add a validation mechanism to review employee attendance and
+generate compensatory hours (allocated leaves) that can be used later as
+day off or to regulate credits leaves as this module is compatible with
+hr_holidays_credit module.
 
-This is based on the `hr_attendance_overtime` module which
-mark rows as "overtime" those rows are not due by default
-as it could came from possible mist check-out. So manager can
-decide to add or not those overtime attendance lines or not and
-compute or adjust compensatory/leaves hours to generate.
+This is based on the hr_attendance_overtime module which mark rows as
+"overtime" those rows are not due by default as it could came from
+possible mist check-out. So manager can decide to add or not those
+overtime attendance lines or not and compute or adjust
+compensatory/leaves hours to generate.
 
-..note::
+..note:
 
-  If you are allowing flexible hours - check-in/check-out range
-  are bigger than average hours per day - So you can generate
-  compensatory hours from lines that are not marked as overtime.
+::
+
+   If you are allowing flexible hours - check-in/check-out range
+   are bigger than average hours per day - So you can generate
+   compensatory hours from lines that are not marked as overtime.
 
 Once review is validated attendance lines are locked on that period.
 
-At the end managers can check holidays allocation per year and
-by employee to make sure allowed employee compensatory hours are
-not over.
+At the end managers can check holidays allocation per year and by
+employee to make sure allowed employee compensatory hours are not over.
 
-Employees can:
-- access to validated sheets to review hours taken account
-- see current week hours on check-in view
+Employees can: - access to validated sheets to review hours taken
+account - see current week hours on check-in view
 
 **Table of contents**
 
@@ -63,39 +63,49 @@ Employees can:
 Configuration
 =============
 
-* Ensure employee weeks are properly set
-* Set `is_compensatory` on leave types to:
-  * reduce domain to select leave type in hr configuration
-  * to dispatch taken leaves on validation sheet
-* Set the leave type to use by generating compensatory
-  hours from attendance review (to be done in hr attendance configuration).
-  We use to create a new type `hr.leave.type` manually each years.
-* You can ignore some leaves in validation sheet by ticking the
-  "Ignored in attendance validation" on holidays `hr.leave.type``
-  (for instance it can be useful if you manage employee remote days using hr.leave
-  in such case you want to ignore those lines)
-* configure public holidays to take care of it while computing the theoretical week time
-* once all leaves and attendances has been recorded you can generate leave reviews
-  by setting up a cron job running every monday morning to generate the previous week
-  with the following code on `hr.attendance.validation.sheet` model::
+- Ensure employee weeks are properly set
 
-    model.generate_reviews()
+- Set is_compensatory on leave types to:
+
+  - reduce domain to select leave type in hr configuration
+  - to dispatch taken leaves on validation sheet
+
+- Set the leave type to use by generating compensatory hours from
+  attendance review (to be done in hr attendance configuration). We use
+  to create a new type hr.leave.type manually each years.
+
+- You can ignore some leaves in validation sheet by ticking the "Ignored
+  in attendance validation" on holidays hr.leave.type\` (for instance it
+  can be useful if you manage employee remote days using hr.leave in
+  such case you want to ignore those lines)
+
+- configure public holidays to take care of it while computing the
+  theoretical week time
+
+- once all leaves and attendances has been recorded you can generate
+  leave reviews by setting up a cron job running every monday morning to
+  generate the previous week with the following code on
+  hr.attendance.validation.sheet model:
+
+  ::
+
+     model.generate_reviews()
 
 Usage
 =====
 
-* Once review has been generate by ir cron manager are able to
-  open each one on Attenances > Manager > Attendance validation
-* On each form decide if recorded overtime are due or not
-* change the amount of allocated compensatory hours to generate
-* validate the review to generate the allocation
+- Once review has been generate by ir cron manager are able to open each
+  one on Attenances > Manager > Attendance validation
+- On each form decide if recorded overtime are due or not
+- change the amount of allocated compensatory hours to generate
+- validate the review to generate the allocation
 
 Known issues / Roadmap
 ======================
 
-* Improve validation sheet to choose any frame validation/reviews
-  date to date/daily/2 weeks/monthly... it has been developed with
-  the weekly reviews in mind.
+- Improve validation sheet to choose any frame validation/reviews date
+  to date/daily/2 weeks/monthly... it has been developed with the weekly
+  reviews in mind.
 
 Bug Tracker
 ===========
@@ -103,7 +113,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/hr-attendance/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_validation%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_validation%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -111,17 +121,17 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Pierre Verkest
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Pierre Verkest <pierreverkest84@gmail.com>
+- Pierre Verkest <pierreverkest84@gmail.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -141,6 +151,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-petrus-v| 
 
-This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/14.0/hr_attendance_validation>`_ project on GitHub.
+This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_validation>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
