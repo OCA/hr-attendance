@@ -56,7 +56,7 @@ class WizardTheoreticalTime(models.TransientModel):
         action["domain"] = [
             ("employee_id", "in", self.with_context(active_test=False).employee_ids.ids)
         ]
-        action[
-            "context"
-        ] = "{'search_default_previous_month': 1, 'search_default_current_month': 1}"
+        action["context"] = (
+            "{'search_default_previous_month': 1, 'search_default_current_month': 1}"
+        )
         return action
