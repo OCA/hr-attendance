@@ -35,7 +35,7 @@ class HrAttendance(HrAttendance):
     def systray_attendance(self, latitude=False, longitude=False):
         if request.params.get("attendance_reason_id"):
             request.update_context(
-                attendance_reason_id=request.params.get("attendance_reason_id")
+                attendance_reason_id=int(request.params.get("attendance_reason_id"))
             )
         return super().systray_attendance(latitude=latitude, longitude=longitude)
 
@@ -45,7 +45,7 @@ class HrAttendance(HrAttendance):
     ):
         if request.params.get("attendance_reason_id"):
             request.update_context(
-                attendance_reason_id=request.params.get("attendance_reason_id")
+                attendance_reason_id=int(request.params.get("attendance_reason_id"))
             )
         return super().manual_selection_with_geolocation(
             token, employee_id, pin_code, latitude, longitude
