@@ -25,12 +25,12 @@ addon | version | maintainers | summary
 [hr_attendance_geolocation](hr_attendance_geolocation/) | 14.0.2.0.0 |  | With this module the geolocation of the user is tracked at the check-in/check-out step
 [hr_attendance_hour_type_report](hr_attendance_hour_type_report/) | 14.0.1.0.0 |  | HR Attendance hours report
 [hr_attendance_modification_tracking](hr_attendance_modification_tracking/) | 14.0.1.0.5 |  | Attendance changes will now be registered in the chatter.
-[hr_attendance_overtime](hr_attendance_overtime/) | 14.0.1.0.1 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Mark Attendances as overtime.
+[hr_attendance_overtime](hr_attendance_overtime/) | 14.0.1.0.1 | <a href='https://github.com/petrus-v'><img src='https://github.com/petrus-v.png' width='32' height='32' style='border-radius:50%;' alt='petrus-v'/></a> | Mark Attendances as overtime.
 [hr_attendance_reason](hr_attendance_reason/) | 14.0.1.1.4 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 14.0.1.0.5 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 14.0.1.1.3 |  | HR Attendance RFID
-[hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.4 | [![patrickrwilson](https://github.com/patrickrwilson.png?size=30px)](https://github.com/patrickrwilson) [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Group attendances into attendance sheets.
-[hr_attendance_validation](hr_attendance_validation/) | 14.0.1.1.0 | [![petrus-v](https://github.com/petrus-v.png?size=30px)](https://github.com/petrus-v) | Employee attendance validation.
+[hr_attendance_sheet](hr_attendance_sheet/) | 14.0.1.0.4 | <a href='https://github.com/patrickrwilson'><img src='https://github.com/patrickrwilson.png' width='32' height='32' style='border-radius:50%;' alt='patrickrwilson'/></a> <a href='https://github.com/max3903'><img src='https://github.com/max3903.png' width='32' height='32' style='border-radius:50%;' alt='max3903'/></a> | Group attendances into attendance sheets.
+[hr_attendance_validation](hr_attendance_validation/) | 14.0.1.1.0 | <a href='https://github.com/petrus-v'><img src='https://github.com/petrus-v.png' width='32' height='32' style='border-radius:50%;' alt='petrus-v'/></a> | Employee attendance validation.
 [hr_birthday_welcome_message](hr_birthday_welcome_message/) | 14.0.1.0.0 |  | This addon adds a birthday message as welcome message when it is the employee's birthday
 
 [//]: # (end addons)
