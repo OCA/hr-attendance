@@ -21,7 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[hr_attendance_reason](hr_attendance_reason/) | 18.0.1.0.0 |  | HR Attendance Reason
+[hr_attendance_reason](hr_attendance_reason/) | 18.0.1.0.1 |  | HR Attendance Reason
 
 [//]: # (end addons)
 
