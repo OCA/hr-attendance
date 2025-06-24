@@ -100,17 +100,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Horas trabajadas"
-
-#~ msgid ""
-#~ "Attendance lines longer than this value will\n"
-#~ "                                    be automatically closed."
-#~ msgstr ""
-#~ "Las líneas de asistencia que superen este valor\n"
-#~ "                                    se cerrarán automáticamente."
-
-#~ msgid ""
-#~ "This reason will be added to an attendance\n"
-#~ "                                    when it's autoclosed."
-#~ msgstr ""
-#~ "Este motivo se agregará a una asistencia.\n"
-#~ "                                    cuando sea cerrada automáticamente."

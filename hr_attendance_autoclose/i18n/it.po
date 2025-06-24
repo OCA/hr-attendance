@@ -104,29 +104,3 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
 msgstr "Ore lavorate"
-
-#~ msgid ""
-#~ "Attendance lines longer than this value will\n"
-#~ "                                    be automatically closed."
-#~ msgstr ""
-#~ "Le presenze più lunghe di questo \n"
-#~ "                                    valore saranno chiuse automaticamente."
-
-#~ msgid ""
-#~ "This reason will be added to an attendance\n"
-#~ "                                    when it's autoclosed."
-#~ msgstr ""
-#~ "Questa motivazione sarà aggiunta ad una  presenza\n"
-#~ "                                    quando viene chiusa automaticamente."
-
-#~ msgid "Display Name"
-#~ msgstr "Nome visualizzato"
-
-#~ msgid "ID"
-#~ msgstr "ID"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Ultima modifica il"
-
-#~ msgid "System automatic check out due to inactivity"
-#~ msgstr "Presenza chiusa automaticamente dal sistema causa inattività"

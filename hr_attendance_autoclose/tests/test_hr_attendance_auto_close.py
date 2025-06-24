@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo.tests import new_test_user, users
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DF
+from odoo.tools import mute_logger
 
 from odoo.addons.base.tests.common import BaseCommon
 
@@ -20,6 +21,7 @@ class TestHrAttendanceReason(BaseCommon):
         cls.employee = cls.env["hr.employee"].create({"name": "Employee"})
         new_test_user(cls.env, login="test-user")
 
+    @mute_logger("odoo.models.unlink")
     def test_employee_edit(self):
         dti = datetime.now()
         dto = datetime.now() + relativedelta(hours=7)

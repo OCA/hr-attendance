@@ -3,7 +3,7 @@
 
 from datetime import datetime, timedelta
 
-from odoo import api, fields, models
+from odoo import Command, api, fields, models
 
 
 class HrAttendance(models.Model):
@@ -27,7 +27,7 @@ class HrAttendance(models.Model):
         leave_time = self.check_in + timedelta(hours=max_hours)
         vals = {"check_out": leave_time}
         if reason:
-            vals["attendance_reason_ids"] = [(4, reason.id)]
+            vals["attendance_reason_ids"] = [Command.link(reason.id)]
         self.write(vals)
 
     def needs_autoclose(self):
