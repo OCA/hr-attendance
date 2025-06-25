@@ -21,7 +21,7 @@ class HrAttendance(HrAttendance):
                 attendance_reason_id=request.params.get("attendance_reason_id")
             )
         return super().systray_attendance(latitude=latitude, longitude=longitude)
- eba852c (Update main.py)
+
     def manual_selection(self, token, employee_id, pin_code):
         if request.params.get("attendance_reason_id"):
             request.update_context(
