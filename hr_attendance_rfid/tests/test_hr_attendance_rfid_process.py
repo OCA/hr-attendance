@@ -6,17 +6,16 @@ from unittest.mock import patch
 
 from odoo import fields
 from odoo.tests import new_test_user
-from odoo.tests.common import TransactionCase, users
+from odoo.tests.common import users
 from odoo.tools.misc import mute_logger
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestHrAttendance(TransactionCase):
+class TestHrAttendance(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
         user = new_test_user(
             cls.env,
             login="hr_attendance_rfid-user",
@@ -62,6 +61,7 @@ class TestHrAttendance(TransactionCase):
         self.assertNotEqual(res["error_message"], "")
 
     @users("hr_attendance_rfid-user")
+    @mute_logger("odoo.addons.hr_attendance_rfid.models.hr_employee")
     def test_invalid_code(self):
         """Invalid employee"""
         self.employee_model = self.employee_model.with_user(self.env.user)

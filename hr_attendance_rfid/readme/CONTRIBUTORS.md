@@ -9,5 +9,7 @@
 - [Tecnativa](https://www.tecnativa.com):
 
   > - Víctor Martínez
+  > - David Bañón Gil
+
 
 - Juany Davila \<<juany.davila@forgeflow.com>\>
