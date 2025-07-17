@@ -1,0 +1,313 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_report_theoretical_time
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2021-11-20 11:36+0000\n"
+"Last-Translator: Lubomir Georgiev <lgeorgiev@securitybulgaria.com>\n"
+"Language-Team: none\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "Active employees"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report
+msgid "Analysis"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance
+msgid "Attendance"
+msgstr "Присъствие"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_report
+msgid "Attendances Analysis"
+msgstr "Анализи на присъствия"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.recompute_theoretical_attendance_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "Cancel"
+msgstr "Отказ"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__company_id
+msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__create_uid
+msgid "Created by"
+msgstr "Създадено от"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__create_date
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__create_date
+msgid "Created on"
+msgstr "Създадено на"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "Current Month"
+msgstr "Текущ месец"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "Current Year"
+msgstr "Текуща година"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__date
+msgid "Date"
+msgstr "Дата"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__department_id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__department_id
+msgid "Department"
+msgstr "Отдел"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__difference
+msgid "Difference"
+msgstr "Разлика"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_employee
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__employee_id
+msgid "Employee"
+msgstr "Служител"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__employee_ids
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__employee_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "Employees"
+msgstr "Служители"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_employee__theoretical_hours_start_date
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_employee_public__theoretical_hours_start_date
+msgid ""
+"Fill this field for setting a manual start date for computing the "
+"theoretical hours independently from the attendances. If not filled, "
+"employee creation date or the calendar start date will be used (the greatest "
+"of both)."
+msgstr ""
+"Попълнете това поле, за да зададете ръчна начална дата за изчисляване на "
+"теоретичните часове независимо от присъствията. Ако не е попълнено, ще се "
+"използва датата на създаване на служителя или календарната начална дата (най-"
+"голямата от двете)."
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_wizard_theoretical_time
+msgid "Filtered Theoretical Time"
+msgstr "Филтрирано теоретично време"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "Filters"
+msgstr "Филтри"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_from
+msgid "From"
+msgstr "От"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__id
+msgid "ID"
+msgstr "ИН"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
+msgid ""
+"If you check this mark, leaves in this category won't reduce the number of "
+"theoretical hours in the attendance report."
+msgstr ""
+"Ако поставите тази отметка, отпуските в тази категория няма да намалят броя "
+"на теоретичните часове в отчета за присъствие."
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
+msgid "Include in theoretical hours"
+msgstr "Включи в теоретичните часове"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__write_uid
+msgid "Last Updated by"
+msgstr "Последно обновено от"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__write_date
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализирано на"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "My Attendances"
+msgstr "Мой присъствия"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "Populate"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "Previous Month"
+msgstr "Предишен Месец"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_employee_public
+msgid "Public Employee"
+msgstr "Публични служители"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_holidays_public_line
+msgid "Public Holidays Lines"
+msgstr "Национални празници редове"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.recompute_theoretical_attendance_form
+msgid "Recompute"
+msgstr "Преизчисли"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_recompute_theoretical_attendance
+msgid "Recompute Employees Attendances"
+msgstr "Преизчисли Присъствията на Служителите"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.recompute_employee_theoretical_attendance
+msgid "Recompute Theoretical Attendance"
+msgstr "Преизчисли Теоретичните присъствия"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.act_wizard_recompute_theoretical_attendance
+#: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_recompute_theoretical_attendance
+msgid "Recompute Theoretical Attendances"
+msgstr "Преизчисли Теоретичните Присъствия"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_from
+msgid "Recompute attendances from this date"
+msgstr "Преизчисли присъствията от тази дата"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_to
+msgid "Recompute attendances up to this date"
+msgstr "Преизчисли присъствията до тази дата"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__employee_ids
+msgid "Recompute these employees attendances"
+msgstr "Преизчисли присъствието на тези служители"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_attendance_theoretical_time_report
+msgid "Report of theoretical time vs attendance time"
+msgstr "Отчет на теоретично срещу реално присъствие"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report_select
+msgid "Select Employees"
+msgstr "Избери Служители"
+
+#. module: hr_attendance_report_theoretical_time
+#. odoo-python
+#: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
+#: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
+#, python-format
+msgid "Select Employees to Analyze Theoretical Time"
+msgstr "Избери служители за Анализ на теоретичното време"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__category_ids
+msgid "Tag"
+msgstr "Маркер"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__theoretical_hours
+msgid "Theoretical Hours"
+msgstr "Теоретични часове"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__theoretical_hours_start_date
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__theoretical_hours_start_date
+msgid "Theoretical Hours Start Date"
+msgstr "Начална дата на Теоретични часове"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_root
+msgid "Theoretical vs Attended Time"
+msgstr "Теоретично срещу Присъствено Време"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.hr_attendance_theoretical_action
+msgid "Theoretical vs Attended Time Analysis"
+msgstr "Теоретичен срещу Присъствен Анализ"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__theoretical_hours
+msgid "Theoric"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave
+msgid "Time Off"
+msgstr "Отпуски"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_leave_type
+msgid "Time Off Type"
+msgstr "Типове отпуски"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__date_to
+msgid "To"
+msgstr "До"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
+msgid "Today"
+msgstr "Днес"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "View Report"
+msgstr "Виж Отчет"
+
+#. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
+msgid "Wizard Theoretical Time"
+msgstr "Помощник за теоретично време"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
+msgid "Worked"
+msgstr "Отработено"
