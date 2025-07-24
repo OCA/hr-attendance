@@ -1,57 +1,87 @@
 # Copyright 2018 ForgeFlow, S.L.
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from datetime import datetime, timedelta
+from collections import defaultdict
 
-from odoo import api, fields, models
+import pytz
+from dateutil.relativedelta import relativedelta
+
+from odoo import fields, models
 
 
 class HrAttendance(models.Model):
     _inherit = "hr.attendance"
 
-    open_worked_hours = fields.Float(
-        string="Worked hours",
-        compute="_compute_open_worked_hours",
-    )
+    def _cron_auto_check_out(self):
+        super()._cron_auto_check_out()
 
-    @api.depends("check_out", "check_in")
-    def _compute_open_worked_hours(self):
-        for item in self:
-            item_from = item.check_out if item.check_out else datetime.now()
-            delta = item_from - item.check_in
-            item.open_worked_hours = delta.total_seconds() / 3600.0
+        def check_in_tz(attendance):
+            return attendance.check_in.astimezone(
+                pytz.timezone(attendance.employee_id.resource_calendar_id.tz or "UTC")
+            )
 
-    def autoclose_attendance(self, reason):
-        self.ensure_one()
-        max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
-        leave_time = self.check_in + timedelta(hours=max_hours)
-        vals = {"check_out": leave_time}
-        if reason:
-            vals["attendance_reason_ids"] = [(4, reason.id)]
-        self.write(vals)
+        to_verify = self.env["hr.attendance"].search(
+            [
+                ("check_out", "=", False),
+                ("employee_id.company_id.auto_check_out", "=", True),
+                ("employee_id.resource_calendar_id.flexible_hours", "=", True),
+            ]
+        )
 
-    def needs_autoclose(self):
-        self.ensure_one()
-        max_hours = self.employee_id.company_id.attendance_maximum_hours_per_day
-        close = not self.employee_id.no_autoclose
-        return close and max_hours and self.open_worked_hours > max_hours
+        if not to_verify:
+            return
 
-    @api.model
-    def check_for_incomplete_attendances(self):
-        stale_attendances = self.search([("check_out", "=", False)])
-        reason = self.env.company.hr_attendance_autoclose_reason
-        for att in stale_attendances.filtered(lambda a: a.needs_autoclose()):
-            att.autoclose_attendance(reason)
+        previous_attendances = self.env["hr.attendance"].search(
+            [
+                ("employee_id", "in", to_verify.mapped("employee_id").ids),
+                (
+                    "check_in",
+                    ">",
+                    (fields.Datetime.now() - relativedelta(days=1)).replace(
+                        hour=0, minute=0, second=0
+                    ),
+                ),
+                ("check_out", "!=", False),
+            ]
+        )
 
-    @api.constrains("check_in", "check_out", "employee_id")
-    def _check_validity(self):
-        """If this is an automatic checkout the constraint is invalid
-        as there may be old attendances not closed
-        """
-        reason = self.env.company.hr_attendance_autoclose_reason
-        if reason and self.filtered(
-            lambda att: att.attendance_reason_ids
-            and reason in att.attendance_reason_ids
-        ):
-            return True
-        return super()._check_validity()
+        mapped_previous_duration = defaultdict(lambda: defaultdict(float))
+        for previous in previous_attendances:
+            tz_date = check_in_tz(previous).date()
+            mapped_previous_duration[previous.employee_id][tz_date] += (
+                previous.worked_hours
+            )
+
+        body = self.env._(
+            "This attendance was automatically checked out because the employee "
+            "exceeded the allowed time for their scheduled work hours."
+        )
+
+        for att in to_verify:
+            calendar = att.employee_id.resource_calendar_id
+            company = att.employee_id.company_id
+
+            tz_check_in_date = check_in_tz(att).date()
+            previous_hours = mapped_previous_duration[att.employee_id][tz_check_in_date]
+
+            hours_per_day = calendar.hours_per_day
+            tolerance = company.auto_check_out_tolerance
+            allowed_hours = hours_per_day + tolerance
+
+            open_hours = (fields.Datetime.now() - att.check_in).total_seconds() / 3600.0
+            total_today_hours = previous_hours + open_hours
+
+            if total_today_hours > allowed_hours:
+                excess_hours = total_today_hours - allowed_hours
+                new_check_out = max(
+                    fields.Datetime.now() - relativedelta(hours=excess_hours),
+                    att.check_in + relativedelta(seconds=1),
+                )
+
+                att.write(
+                    {
+                        "check_out": new_check_out,
+                        "out_mode": "auto_check_out",
+                    }
+                )
+                att.message_post(body=body)

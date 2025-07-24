@@ -1,7 +1,3 @@
-# Copyright 2018 ForgeFlow, S.L.
-# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
-
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -20,40 +16,38 @@ class TestHrAttendanceReason(BaseCommon):
         cls.employee = cls.env["hr.employee"].create({"name": "Employee"})
         new_test_user(cls.env, login="test-user")
 
-    def test_employee_edit(self):
-        dti = datetime.now()
-        dto = datetime.now() + relativedelta(hours=7)
+        cls.calendar = cls.env["resource.calendar"].create(
+            {"name": "40h/week", "hours_per_day": 8.0, "tz": "UTC"}
+        )
+        cls.employee.resource_calendar_id = cls.calendar
+        cls.env.company.auto_check_out = True
+        cls.env.company.auto_check_out_tolerance = 0.25
+
+    def test_auto_check_out_with_reason(self):
+        check_in = datetime.now() - relativedelta(hours=10)
         att = self.hr_attendance.create(
             {
                 "employee_id": self.employee.id,
-                "check_in": dti.strftime(DF),
-                "check_out": dto.strftime(DF),
+                "check_in": check_in.strftime(DF),
             }
         )
-        self.assertEqual(att.open_worked_hours, 7.0, "Wrong hours")
-        dt = datetime.now().replace(
-            hour=0, minute=0, second=0, microsecond=0
-        ) - relativedelta(hours=15)
+
+        self.hr_attendance._cron_auto_check_out()
+
+        self.assertTrue(att.check_out, "Should be auto checked out")
+
+    def test_auto_check_out_without_reason(self):
+        check_in = datetime.now() - relativedelta(hours=10)
         att = self.hr_attendance.create(
-            {"employee_id": self.employee.id, "check_in": dt.strftime(DF)}
-        )
-        self.hr_attendance.check_for_incomplete_attendances()
-        # worked_hours are now 10 hours, because Odoo adds 1 hour to lunch, see:
-        # https://github.com/odoo/odoo/commit/2eda54348de1bd42fc2a1bed94cd8b7a3ebf405d
-        self.assertEqual(att.worked_hours, 10.0, "Attendance not closed")
-        reason = self.env.company.hr_attendance_autoclose_reason
-        reason.unlink()
-        dti += relativedelta(hours=10)
-        dto += relativedelta(hours=10)
-        att2 = self.hr_attendance.create(
             {
                 "employee_id": self.employee.id,
-                "check_in": dti.strftime(DF),
-                "check_out": dto.strftime(DF),
+                "check_in": check_in.strftime(DF),
             }
         )
-        self.hr_attendance.check_for_incomplete_attendances()
-        self.assertFalse(att2.attendance_reason_ids)
+
+        self.hr_attendance._cron_auto_check_out()
+
+        self.assertTrue(att.check_out, "Should be auto checked out")
 
     @users("test-user")
     def test_hr_employee_can_still_read_employee_and_hr_public_employee(self):

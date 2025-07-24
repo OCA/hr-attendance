@@ -28,12 +28,8 @@ HR Attendance Auto Close
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module close stale attendances automatically. Without this module,
-when an employee forgets to check out at the end on the day and the next
-day the employee does not realize of that, then the error is propagated
-and all the attendances are wrong. With this module only the attendance
-with the issue is wrong, and the manager knows the system closes the
-attendance, not the employee
+This module extends the feature from Odoo base module, to handle the
+case of Flexible Hours working schedule.
 
 **Table of contents**
 
@@ -43,11 +39,13 @@ attendance, not the employee
 Usage
 =====
 
-1. Go to *Attendances > Configuration > Configuration*.
-2. Set the maximum number of hours allowed for an attendance.
-3. Go to *Attendances > Manage Attendances > Attendances*.
-4. Attendance are automatically closed if they have remained open for
-   longer than specified in the setting.
+1. Go to *Attendances ▸ Configuration ▸ Settings*.
+2. Enable **Automatically Check-Out Employees** and set a **tolerance**
+   in hours.
+3. Go to *Attendances ▸ Manage Attendances ▸ Attendances*.
+4. The system will automatically check out any open attendance if the
+   total hours worked in the day (including past check-ins) exceeds the
+   defined hours per day plus the tolerance.
 
 Bug Tracker
 ===========
@@ -76,6 +74,10 @@ Contributors
 - Foram Shah <foram.shah@initos.com>
 
 - ``Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>``\ \_
+
+- [Trobz] (https://trobz.com/):
+
+  - Khoi (Kien Kim) khoikk@trobz.com
 
 Maintainers
 -----------

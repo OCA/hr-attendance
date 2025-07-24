@@ -8,3 +8,7 @@
 
 - Foram Shah \<<foram.shah@initos.com>\>
 - `Heliconia Solutions Pvt. Ltd. <https://www.heliconia.io>`_
+
+-  [Trobz] (https://trobz.com/):
+
+   -  Khoi (Kien Kim) <khoikk@trobz.com>
