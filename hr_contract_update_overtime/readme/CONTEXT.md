@@ -1,4 +1,5 @@
-This module was developed because in certain cases, you want to
-Update Overtime of your Employees.
-
-It will be useful for you if you activate contracts module after attendance.
+Under some circumstances, Odoo fails to calculate employee overtime correctly.
+Examples:
+- When you enable HR contracts in your database after using attendances for some time.
+- When some change in a contract's working schedule should affect the result of overtime in past attendances.
+This module was developed to fix that problem.

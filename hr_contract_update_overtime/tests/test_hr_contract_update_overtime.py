@@ -37,8 +37,7 @@ class HRContractUpdateOvertime(TransactionCase):
 
         # Configure overtime
         company = cls.employee.company_id
-        company.hr_attendance_overtime = True
-        company.overtime_start_date = make_dtt(7, 0, 0, to_date=True)
+
         company.overtime_company_threshold = 0.0
         company.overtime_employee_threshold = 0.0
         company.resource_calendar_id.tz = tz
@@ -191,12 +190,8 @@ class HRContractUpdateOvertime(TransactionCase):
                 },
             ]
         )
-        cls.contract_history = cls.env["hr.contract.history"].search(
-            [
-                ("employee_id", "=", cls.employee.id),
-            ]
-        )
-        # Create all leaves on last contract
+
+        # Create all leaves on their respective contracts
         leaves = cls.env["resource.calendar.leaves"].create(
             [
                 {
@@ -204,7 +199,7 @@ class HRContractUpdateOvertime(TransactionCase):
                     "date_from": make_dtt(4, h=8, m=0),
                     "date_to": make_dtt(4, h=8, m=30),
                     "resource_id": cls.employee.resource_id.id,
-                    "calendar_id": rc_8h_day.id,
+                    "calendar_id": rc_2h_day.id,
                     "company_id": company.id,
                 },
                 {
@@ -212,7 +207,7 @@ class HRContractUpdateOvertime(TransactionCase):
                     "date_from": make_dtt(3, h=8, m=0),
                     "date_to": make_dtt(3, h=8, m=30),
                     "resource_id": cls.employee.resource_id.id,
-                    "calendar_id": rc_8h_day.id,
+                    "calendar_id": rc_4h_day.id,
                     "company_id": company.id,
                 },
                 {
@@ -225,6 +220,7 @@ class HRContractUpdateOvertime(TransactionCase):
                 },
             ]
         )
+
         # `hr_holidays_attendance` adds extra constrains when considering one
         # leave valid for an employee. It wouldn't be a problem, but it's
         # auto-installable. Thus, if you run this test at install time where
@@ -235,10 +231,21 @@ class HRContractUpdateOvertime(TransactionCase):
             leave_type = cls.env["hr.leave.type"].create(
                 {"name": "Beach 🏖️", "time_type": "leave"}
             )
+            allocation = cls.env["hr.leave.allocation"].create(
+                {
+                    "name": "Test Allocation",
+                    "employee_id": cls.employee.id,
+                    "holiday_status_id": leave_type.id,
+                    "number_of_days": 10,
+                }
+            )
+            allocation.action_validate()
             for res_leave in leaves:
                 res_leave.holiday_id = (
                     cls.env["hr.leave"]
-                    .with_context(leave_skip_state_check=True)
+                    .with_context(
+                        leave_skip_state_check=True, leave_skip_date_check=True
+                    )
                     .create(
                         {
                             "state": "validate",
@@ -251,8 +258,13 @@ class HRContractUpdateOvertime(TransactionCase):
                 )
 
     def test_overtime(self):
-        self.assertEqual(self.contract_history.contract_count, 3)
-        self.contract_history.action_update_overtime()
+        # Check if the employee has 3 contracts
+        self.assertEqual(len(self.employee.contract_ids), 3)
+
+        # Execute the action to update overtime over the contracts
+        self.employee.contract_ids.action_update_overtime()
+
+        # Check Overtime
         total_overtime = (
             self.env["hr.attendance.overtime"]
             .search(
@@ -262,8 +274,8 @@ class HRContractUpdateOvertime(TransactionCase):
             )
             .mapped("duration")
         )
-        # Check Overtime
         self.assertEqual(sum(total_overtime), -1.5)
+
         # Check Leaves has been moved correctly
-        for contract in self.contract_history.contract_ids:
+        for contract in self.employee.contract_ids:
             self.assertEqual(len(contract.resource_calendar_id.leave_ids), 1)
