@@ -1,9 +1,10 @@
 [project]
 name = "odoo-addons-oca-hr-attendance"
-version = "18.0.20250717.0"
+version = "18.0.20250729.0"
 dependencies = [
     "odoo-addon-hr_attendance_reason==18.0.*",
     "odoo-addon-hr_attendance_report_theoretical_time==18.0.*",
+    "odoo-addon-hr_attendance_rfid==18.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
