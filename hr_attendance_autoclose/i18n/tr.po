@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-07-30 13:29+0000\n"
+"Last-Translator: Metin GÜLSOY <metin.gulsoy@kitayazilim.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -20,22 +22,25 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
 "specific.\" groups=\"base.group_multi_company\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title="
+"\"Buraya girilen değer şirkete özeldir.\" groups=\"base.group_multi_company\""
+"/>"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_attendance
 msgid "Attendance"
-msgstr ""
+msgstr "Katılımcılar"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Attendance Autoclosing"
-msgstr ""
+msgstr "Otomatik PDKS Kapatma"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__attendance_maximum_hours_per_day
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__attendance_maximum_hours_per_day
 msgid "Attendance Maximum Hours Per Day"
-msgstr ""
+msgstr "Günlük Maksimum Çalışma Saat"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -43,47 +48,49 @@ msgid ""
 "Attendance lines longer than this value will\n"
 "                                be automatically closed."
 msgstr ""
+"Bu değerden daha uzun olan yoklama kayıtları\n"
+"                                otomatik olarak kapatılacaktır."
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Autoclose Reason"
-msgstr ""
+msgstr "Otomatik Kapanış Nedeni"
 
 #. module: hr_attendance_autoclose
 #: model:ir.actions.server,name:hr_attendance_autoclose.check_attendance_cron_ir_actions_server
 msgid "Check Attendance"
-msgstr ""
+msgstr "Kontrol Et"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "şirketler"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Sistem Ayarları"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_employee__no_autoclose
 msgid "Don't Autoclose Attendances"
-msgstr ""
+msgstr "İşlemi Otomatik Kapatma"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_employee
 msgid "Employee"
-msgstr ""
+msgstr "Çalışan"
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_company__hr_attendance_autoclose_reason
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_res_config_settings__hr_attendance_autoclose_reason
 msgid "Hr Attendance Autoclose Reason"
-msgstr ""
+msgstr "İK PDKS Otomatik Kapanış Nedeni"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid "Max Hours Per Day"
-msgstr ""
+msgstr "Günlük Maksimum Saat"
 
 #. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
@@ -91,8 +98,11 @@ msgid ""
 "This reason will be added to an attendance\n"
 "                                when it's autoclosed."
 msgstr ""
+"Neden,\n"
+"                                değer otomatik olarak kapatıldığında kayda "
+"eklenecektir."
 
 #. module: hr_attendance_autoclose
 #: model:ir.model.fields,field_description:hr_attendance_autoclose.field_hr_attendance__open_worked_hours
 msgid "Worked hours"
-msgstr ""
+msgstr "Çalışılan Saatler"
