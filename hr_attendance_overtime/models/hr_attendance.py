@@ -22,7 +22,7 @@ class HrAttendance(models.Model):
         return worktimes["current"] | worktimes["next"]
 
     def needs_autoclose(self):
-        """Overwrite methode from hr_attendance_autoclose to determine if
+        """Overwrite method from hr_attendance_autoclose to determine if
         line should be closed according the end line work time"""
         self.ensure_one()
         worktime = self._get_worktimes()

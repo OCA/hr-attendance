@@ -57,9 +57,14 @@ class TestHrAttendanceOverTime(TransactionCase):
         )
 
         self.calendar = self.employee.resource_calendar_id
-        # ensure monday morning configuration
         self.calendar.tz = "UTC"
-        self.monday_morning = self.calendar.attendance_ids[0]
+        # ensure monday morning configuration
+        calendar_attendances = self.calendar.attendance_ids.filtered(
+            lambda calendar_att: not calendar_att.display_type
+            and calendar_att.day_period != "lunch"
+        )
+        self.monday_morning = calendar_attendances[0]
+        monday_afternoon = calendar_attendances[1]
         monday_afternoon = self.calendar.attendance_ids[1]
         self.monday_morning.hour_check_in_from = 8 - 15 / 60
         self.monday_morning.hour_from = 8
@@ -84,7 +89,6 @@ class TestHrAttendanceOverTime(TransactionCase):
         monday_afternoon.hour_check_out_from = 17 - 5 / 60
         monday_afternoon.hour_to = 17
         monday_afternoon.hour_check_out_to = 17 + 5 / 60
-        self.employee = self.employee.with_user(self.user_employee)
 
     def test_todays_working_times(self):
         self.maxDiff = None
@@ -197,7 +201,7 @@ class TestHrAttendanceOverTime(TransactionCase):
         with self.assertRaisesRegex(
             IntegrityError, ".*c-in_from_is_lower_than_c-in_to"
         ):
-            self.monday_morning.flush()
+            self.monday_morning.flush_recordset()
 
     @mute_logger("odoo.sql_db")
     def test_check_out_from_is_lower_than_check_out_to(self):
@@ -205,7 +209,7 @@ class TestHrAttendanceOverTime(TransactionCase):
         with self.assertRaisesRegex(
             IntegrityError, ".*c-out_from_is_lower_than_c-out_to"
         ):
-            self.monday_morning.flush()
+            self.monday_morning.flush_recordset()
 
     @mute_logger("odoo.sql_db")
     def test_check_in_to_is_lower_than_check_out_from(self):
@@ -213,7 +217,7 @@ class TestHrAttendanceOverTime(TransactionCase):
         with self.assertRaisesRegex(
             IntegrityError, ".*c-in_to_is_lower_than_c-out_from"
         ):
-            self.monday_morning.flush()
+            self.monday_morning.flush_recordset()
 
     def test_onchange_monday_morning_line(self):
         parameterized = [
@@ -549,8 +553,12 @@ class TestHrAttendanceOverTimeEuropeParis(TransactionCase):
         self.calendar = self.employee.resource_calendar_id
         # ensure monday morning configuration
         self.calendar.tz = "Europe/Paris"
-        self.monday_morning = self.calendar.attendance_ids[0]
-        monday_afternoon = self.calendar.attendance_ids[1]
+        calendar_attendances = self.calendar.attendance_ids.filtered(
+            lambda calendar_att: not calendar_att.display_type
+            and calendar_att.day_period != "lunch"
+        )
+        self.monday_morning = calendar_attendances[0]
+        monday_afternoon = calendar_attendances[1]
         self.monday_morning.hour_check_in_from = 8 - 15 / 60
         self.monday_morning.hour_from = 8
         self.monday_morning.hour_check_in_to = 8 + 5 / 60
@@ -574,7 +582,6 @@ class TestHrAttendanceOverTimeEuropeParis(TransactionCase):
         monday_afternoon.hour_check_out_from = 17 - 5 / 60
         monday_afternoon.hour_to = 17
         monday_afternoon.hour_check_out_to = 17 + 5 / 60
-        self.employee = self.employee.with_user(self.user_employee)
 
     def test_checkin_before_create_overtime(self):
         with freeze_time("2021-12-13 06:44", tz_offset=0):

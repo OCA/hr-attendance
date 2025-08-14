@@ -10,8 +10,8 @@ from odoo.exceptions import UserError
 from odoo.osv import expression
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployeeBase(models.Model):
+    _inherit = "hr.employee"
 
     @api.model
     def todays_working_times(self, empl_domain):
@@ -122,6 +122,7 @@ class HrEmployeeBase(models.AbstractModel):
         tz = timezone(self.resource_calendar_id.tz)
         dt_calendar_tz = dt_utc.astimezone(tz)
         domain = [
+            ("day_period", "!=", "lunch"),
             ("calendar_id", "=", self.resource_calendar_id.id),
             ("dayofweek", "=", str(dt_calendar_tz.weekday())),
             "|",
