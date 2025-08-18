@@ -10,8 +10,9 @@
     "author": "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
-    "depends": ["hr_attendance"],
+    "depends": ["hr_attendance_reason"],
     "data": [
         "views/res_config_settings_view.xml",
+        "data/hr_attendance_reason.xml",
     ],
 }

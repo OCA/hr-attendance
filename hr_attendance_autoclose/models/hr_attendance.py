@@ -6,7 +6,7 @@ from collections import defaultdict
 import pytz
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models
+from odoo import Command, fields, models
 
 
 class HrAttendance(models.Model):
@@ -57,6 +57,8 @@ class HrAttendance(models.Model):
             "exceeded the allowed time for their scheduled work hours."
         )
 
+        reason = self.env.company.hr_attendance_autoclose_reason
+
         for att in to_verify:
             calendar = att.employee_id.resource_calendar_id
             company = att.employee_id.company_id
@@ -78,10 +80,11 @@ class HrAttendance(models.Model):
                     att.check_in + relativedelta(seconds=1),
                 )
 
-                att.write(
-                    {
-                        "check_out": new_check_out,
-                        "out_mode": "auto_check_out",
-                    }
-                )
+                vals = {
+                    "check_out": new_check_out,
+                    "out_mode": "auto_check_out",
+                }
+                if reason:
+                    vals["attendance_reason_ids"] = [Command.link(reason.id)]
+                att.write(vals)
                 att.message_post(body=body)

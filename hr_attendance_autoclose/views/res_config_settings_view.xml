@@ -10,6 +10,32 @@
                     Automatically Check-Out Employees based on their working schedule with an additional tolerance.
                 </attribute>
             </xpath>
+            <xpath expr="//setting[@string='Automatic Check-Out']" position="after">
+                <setting>
+                    <label
+                        string="Autoclose Reason"
+                        for="hr_attendance_autoclose_reason"
+                    />
+                    <span
+                        class="fa fa-lg fa-building-o"
+                        title="Values set here are company-specific."
+                        groups="base.group_multi_company"
+                    />
+                    <div class="row">
+                        <div class="text-muted col-lg-8">
+                            This reason will be added to an attendance
+                            when it's autoclosed.
+                        </div>
+                    </div>
+                    <div class="content-group mt16">
+                        <field
+                            name="hr_attendance_autoclose_reason"
+                            can_create="true"
+                            can_write="true"
+                        />
+                    </div>
+                </setting>
+            </xpath>
         </field>
     </record>
 </odoo>
