@@ -2,16 +2,17 @@
 # Copyright 2023 Tecnativa - Víctor Martínez
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestHrAttendanceGeolocation(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.hr_attendance_model = self.env["hr.attendance"]
-        self.hr_employee_model = self.env["hr.employee"]
-        self.employee = self.hr_employee_model.create({"name": "Employee A"})
-        self.location = ["41.3910970", "2.1548569"]
+class TestHrAttendanceGeolocation(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.hr_attendance_model = cls.env["hr.attendance"]
+        cls.hr_employee_model = cls.env["hr.employee"]
+        cls.employee = cls.hr_employee_model.create({"name": "Employee A"})
+        cls.location = ["41.3910970", "2.1548569"]
 
     def test_attendance_geolocation(self):
         # Called from js

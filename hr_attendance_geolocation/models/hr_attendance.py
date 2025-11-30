@@ -29,16 +29,16 @@ class HrAttendance(models.Model):
         m = int((dd - d) * 60)
         s = (dd - d - m / 60) * 3600.00
         z = round(s, 2)
-        return "%sº %s' %s\"" % (abs(d), abs(m), abs(z))
+        return f"{abs(d)}º {abs(m)}' {abs(z)}\""
 
     def _get_latitude_raw_value(self, dd):
-        return "%s %s" % (
+        return "{} {}".format(
             "N" if int(dd) >= 0 else "S",
             self._get_raw_value_from_geolocation(dd),
         )
 
     def _get_longitude_raw_value(self, dd):
-        return "%s %s" % (
+        return "{} {}".format(
             "E" if int(dd) >= 0 else "W",
             self._get_raw_value_from_geolocation(dd),
         )
