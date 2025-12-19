@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="before">
+            <div class="oe_button_box" name="button_box">
+                <button
+                        name="action_view_rest_times"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-coffee"
+                    >
+                    <field name="rest_time_count" widget="statinfo" string="Breaks" />
+                </button>
+            </div>
+        </xpath>
+            <sheet position="inside">
+                <group name="breaks">
+                    <group>
+                        <field
+                            name="rest_time_ids"
+                            invisible="1"
+                            widget="many2many_tags"
+                        />
+                    </group>
+                </group>
+            </sheet>
+        </field>
+    </record>
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="rest_time_count" invisible="1" />
+                <field name="rest_hours" widget="float_time" />
+                <button
+                    name="action_view_rest_times"
+                    type="object"
+                    icon="fa-clock-o"
+                    attrs="{'invisible': [('rest_time_count', '=', 0)]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

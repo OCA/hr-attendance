@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="hr_attendance_report_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.report.view.pivot</field>
+        <field name="model">hr.attendance.report</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_report_view_pivot" />
+        <field name="arch" type="xml">
+            <xpath expr="//pivot" position="inside">
+                <field name="rest_hours" widget="float_time" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_report_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.report.view.graph</field>
+        <field name="model">hr.attendance.report</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_report_view_graph" />
+        <field name="arch" type="xml">
+            <xpath expr="//graph" position="inside">
+                <field name="rest_hours" type="measure" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
