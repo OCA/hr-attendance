@@ -31,7 +31,7 @@ class HrAttendance(models.Model):
             "name": "Break Times",
             "type": "ir.actions.act_window",
             "res_model": "hr.attendance.rest_time",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("id", "in", self.rest_time_ids.ids)],
             "context": {"default_attendance_id": self.id},
         }

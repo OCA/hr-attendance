@@ -1,15 +1,16 @@
 # Copyright 2025 Tecnativa - Eduardo Ezerouali
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo.tests import common, tagged
+from odoo.tests import tagged
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
 @tagged("post_install", "-at_install")
-class TestHrAttendanceRestTime(common.TransactionCase):
+class TestHrAttendanceRestTime(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.employee = cls.env["hr.employee"].create(
             {
                 "name": "Test Employee",

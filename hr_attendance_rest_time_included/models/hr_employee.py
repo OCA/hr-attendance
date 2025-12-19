@@ -6,7 +6,7 @@ from odoo import fields, models
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    def _attendance_action_change(self):
+    def _attendance_action_change(self, geo_information=None):
         self.ensure_one()
         RestTime = self.env["hr.attendance.rest_time"].sudo()
         # Close any open break for this employee
@@ -20,7 +20,7 @@ class HrEmployee(models.Model):
             if last_attendance and last_attendance.check_out:
                 last_attendance.write({"check_out": False})
             return last_attendance
-        res = super()._attendance_action_change()
+        res = super()._attendance_action_change(geo_information=geo_information)
         reason_id = self.env["hr.attendance.reason"].browse(
             self.env.context.get("attendance_reason_id")
         )
