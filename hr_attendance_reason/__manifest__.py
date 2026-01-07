@@ -4,7 +4,7 @@
 
 {
     "name": "HR Attendance Reason",
-    "version": "15.0.1.3.0",
+    "version": "15.0.1.3.1",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo S.A., Tecnativa, Odoo Community Association (OCA)",

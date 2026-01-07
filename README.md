@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [hr_attendance_missing_days](hr_attendance_missing_days/) | 15.0.1.0.0 |  | This modules generates attendances for working days without attendance
 [hr_attendance_modification_tracking](hr_attendance_modification_tracking/) | 15.0.1.0.0 |  | Attendance changes will now be registered in the chatter.
 [hr_attendance_overtime_manual](hr_attendance_overtime_manual/) | 15.0.1.0.0 |  | Allows adding manual overtime records
-[hr_attendance_reason](hr_attendance_reason/) | 15.0.1.3.0 |  | HR Attendance Reason
+[hr_attendance_reason](hr_attendance_reason/) | 15.0.1.3.1 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 15.0.1.3.0 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 15.0.1.0.3 |  | HR Attendance RFID
 
