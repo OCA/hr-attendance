@@ -20,9 +20,9 @@ KioskConfirm.include({
         await this._super();
         await this._rpc({
             model: "hr.employee",
-            method: "search_read",
+            method: "read",
             args: [
-                [["user_id", "=", this.getSession().uid]],
+                this.employee_id,
                 [
                     "show_reason_on_attendance_screen",
                     "required_reason_on_attendance_screen",
