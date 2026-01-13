@@ -6,21 +6,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-03 14:32+0000\n"
-"PO-Revision-Date: 2025-06-05 10:22+0200\n"
+"POT-Creation-Date: 2026-01-12 13:37+0000\n"
+"PO-Revision-Date: 2026-01-12 13:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: hr_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
 msgid "<strong>Average Hours/Day:</strong>"
 msgstr "<strong>Media Horas/Turno:</strong>"
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>CIF:</strong>"
+msgstr "<strong>CIF:</strong>"
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Company:</strong>"
+msgstr "<strong>Empresa:</strong>"
 
 #. module: hr_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
@@ -59,7 +67,6 @@ msgstr "Informe Asistencias PDF"
 
 #. module: hr_attendance_report
 #: model:ir.actions.act_window,name:hr_attendance_report.action_employee_attendance_report_wizard
-#: model:ir.ui.menu,name:hr_attendance_report.menu_hr_attendance_reporting_attendance_report
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form
 msgid "Attendance Report"
@@ -97,6 +104,11 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__create_date
 msgid "Created on"
 msgstr "Creado en"
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "Identification No"
+msgstr "Nº Identificación"
 
 #. module: hr_attendance_report
 #: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__12
@@ -255,7 +267,22 @@ msgid "Month and year are required."
 msgstr "Mes y Año requerido."
 
 #. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
 msgid "N/A"
 msgstr "N/A"
 
@@ -263,13 +290,6 @@ msgstr "N/A"
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
 msgid "No attendance records found for this period"
 msgstr "No se encontraron asistencias para este periodo"
-
-#. module: hr_attendance_report
-#. odoo-python
-#: code:addons/hr_attendance_report/report/hr_report.py:0
-#, python-format
-msgid "No employees selected for report."
-msgstr "Informe seleccionado sin empleados."
 
 #. module: hr_attendance_report
 #: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__11
@@ -298,21 +318,26 @@ msgstr "Por favor introduzca 4-dígitos para año validos"
 #: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
 #, python-format
 msgid "Please select a valid month and year."
-msgstr "Pro favor, seleccione un mes o año válido."
+msgstr "Por favor, seleccione un mes o año válido."
 
 #. module: hr_attendance_report
 #. odoo-python
 #: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
 #, python-format
 msgid "Please select at least one employee or department."
-msgstr "Pro favor, seleccione al menos un empleado o departamento."
+msgstr "Por favor, seleccione al menos un empleado o departamento."
 
 #. module: hr_attendance_report
 #. odoo-python
 #: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
 #, python-format
 msgid "Please select both a month and a year."
-msgstr "Pro favor, seleccione ambos, un mes y un año."
+msgstr "Por favor, seleccione ambos, un mes y un año."
+
+#. module: hr_attendance_report
+#: model:ir.ui.menu,name:hr_attendance_report.menu_hr_attendance_reporting_attendance_report
+msgid "Report"
+msgstr "Informe Asistencias"
 
 #. module: hr_attendance_report
 #: model:ir.model.fields,field_description:hr_attendance_report.field_custom_excel_class__file_name
@@ -353,15 +378,5 @@ msgstr "Año"
 #. odoo-python
 #: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
 #, python-format
-msgid "Year must be between 2000 and %s"
-msgstr "Año debe de estar entre 2000 y %s"
-
-#. module: hr_attendance_report
-#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
-msgid "hours"
-msgstr "horas"
-
-#. module: hr_attendance_report
-#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
-msgid "hrs"
-msgstr "hrs"
+msgid "{hours:02d}:{minutes:02d} hrs"
+msgstr "{hours:02d}:{minutes:02d} hrs"

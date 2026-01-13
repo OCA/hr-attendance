@@ -12,10 +12,10 @@
                         <!-- Report Header -->
                         <table class="table text-center table-sm table-striped mt-4">
                             <tr>
-                                <td><strong>Month</strong></td>
-                                <td><t t-esc="month_name" /></td>
-                                <td><strong>Year</strong></td>
-                                <td><t t-esc="year" /></td>
+                                <td class="align-middle"><strong>Month</strong></td>
+                                <td class="align-middle"><t t-esc="month_name" /></td>
+                                <td class="align-middle"><strong>Year</strong></td>
+                                <td class="align-middle"><t t-esc="year" /></td>
                             </tr>
                         </table>
 
@@ -24,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>Employee Name</th>
+                                    <th>Identification No</th>
                                     <th>Manager</th>
                                     <th>Department</th>
                                 </tr>
@@ -31,23 +32,47 @@
                             <tbody>
                                 <tr>
                                     <td><t t-esc="employee['emp_name']" /></td>
+                                    <td><t
+                                            t-esc="employee['emp_identification']"
+                                        /></td>
                                     <td><t t-esc="employee['manager']" /></td>
                                     <td><t t-esc="employee['department']" /></td>
                                 </tr>
                             </tbody>
                         </table>
 
+                        <!-- Company Information -->
+                        <table class="table text-center table-bordered mt-2">
+                            <tr>
+                                <td class="align-middle"><strong>Company:</strong></td>
+                                <td class="align-middle"><t
+                                        t-esc="employee['company_name']"
+                                    /></td>
+                                <td class="align-middle"><strong>CIF:</strong></td>
+                                <td class="align-middle"><t
+                                        t-esc="employee['company_vat']"
+                                    /></td>
+                            </tr>
+                        </table>
+
                         <!-- Summary Statistics -->
                         <table class="table text-center table-sm mt-4">
                             <tr>
-                                <td><strong>Total Days Worked:</strong></td>
-                                <td><t t-esc="employee['total_days']" /></td>
-                                <td><strong>Total Hours:</strong></td>
-                                <td><t t-esc="employee['total_hours']" /> hours</td>
-                                <td><strong>Average Hours/Day:</strong></td>
-                                <td><t
-                                        t-esc="employee['avg_hours_per_day']"
-                                    /> hours</td>
+                                <td class="align-middle"><strong
+                                    >Total Days Worked:</strong></td>
+                                <td class="align-middle"><t
+                                        t-esc="employee['total_days']"
+                                    /></td>
+                                <td class="align-middle"><strong
+                                    >Total Hours:</strong></td>
+                                <td class="align-middle"><t
+                                        t-esc="str(employee['total_hours']) + ' hours'"
+                                    /></td>
+                                <td class="align-middle"><strong
+                                    >Average Hours/Day:</strong></td>
+                                <td class="align-middle"><t
+                                        t-esc="str(employee['avg_hours_per_day']) + ' hours'"
+                                    /></td>
                             </tr>
                         </table>
 
@@ -87,9 +112,9 @@
                                                 <t t-else="">Still Working</t>
                                             </td>
                                             <td>
-                                                <span
-                                                    t-esc="attendance['worked_hours']"
-                                                /> hrs
+                                                <t
+                                                    t-esc="str(attendance['worked_hours']) + ' hrs'"
+                                                />
                                             </td>
                                         </tr>
                                     </t>
@@ -98,8 +123,8 @@
                                         <td colspan="2"><strong>Total:</strong></td>
                                         <td>
                                             <strong><t
-                                                    t-esc="employee['total_hours']"
-                                                /> hrs</strong>
+                                                    t-esc="str(employee['total_hours']) + ' hrs'"
+                                                /></strong>
                                         </td>
                                     </tr>
                                 </t>

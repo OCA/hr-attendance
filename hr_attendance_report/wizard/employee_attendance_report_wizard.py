@@ -58,6 +58,28 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         string="Year", required=True, default=str(datetime.date.today().year), size=4
     )
 
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        # If not attendance manager, set current user's employee by default
+        if not self.env.user.has_group("hr_attendance.group_hr_attendance_manager"):
+            employee = self.env["hr.employee"].search(
+                [("user_id", "=", self.env.uid)], limit=1
+            )
+            if employee:
+                res["hr_employee_ids"] = [(6, 0, [employee.id])]
+        return res
+
+    @api.model
+    def _get_view(self, view_id=None, view_type="form", **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+        # Make employee field readonly for non-managers
+        if not self.env.user.has_group("hr_attendance.group_hr_attendance_manager"):
+            if view_type == "form":
+                for node in arch.xpath("//field[@name='hr_employee_ids']"):
+                    node.set("readonly", "1")
+        return arch, view
+
     @api.constrains("select_year")
     def _check_year_format(self):
         for record in self:
@@ -169,7 +191,7 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         )
 
         # Set column widths
-        for col in range(3):
+        for col in range(4):
             sheet.col(col).width = 7000
 
         # Set row heights
@@ -177,7 +199,7 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         sheet.row(1).height = 250
 
         # Write title
-        sheet.write_merge(0, 1, 0, 2, "Employee Attendance Report", title_style)
+        sheet.write_merge(0, 1, 0, 3, "Employee Attendance Report", title_style)
 
         # Write date range
         sheet.write(2, 0, "From", header_style)
@@ -187,20 +209,30 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
 
         # Write employee info
         sheet.write(5, 0, "Employee Name", header_style)
-        sheet.write(5, 1, "Manager Name", header_style)
-        sheet.write(5, 2, "Department", header_style)
+        sheet.write(5, 1, "Identification No", header_style)
+        sheet.write(5, 2, "Manager Name", header_style)
+        sheet.write(5, 3, "Department", header_style)
 
+        # Use sudo() to access restricted fields like identification_id
+        employee_sudo = employee.sudo()
         sheet.write(6, 0, employee.name or "", center_style)
-        sheet.write(6, 1, employee.parent_id.name or _("N/A"), center_style)
-        sheet.write(6, 2, employee.department_id.name or _("N/A"), center_style)
+        sheet.write(6, 1, employee_sudo.identification_id or _("N/A"), center_style)
+        sheet.write(6, 2, employee.parent_id.name or _("N/A"), center_style)
+        sheet.write(6, 3, employee.department_id.name or _("N/A"), center_style)
+
+        # Write company info
+        sheet.write(7, 0, "Company", header_style)
+        sheet.write(7, 1, "CIF", header_style)
+        sheet.write(8, 0, employee.company_id.name or _("N/A"), center_style)
+        sheet.write(8, 1, employee.company_id.vat or _("N/A"), center_style)
 
         # Write attendance headers
-        sheet.write(7, 0, "Check In", header_style)
-        sheet.write(7, 1, "Check Out", header_style)
-        sheet.write(7, 2, "Working Hours", header_style)
+        sheet.write(10, 0, "Check In", header_style)
+        sheet.write(10, 1, "Check Out", header_style)
+        sheet.write(10, 2, "Working Hours", header_style)
 
         # Write attendance data
-        row = 8
+        row = 11
         total_hours = 0
         for att in attendances:
             sheet.write(row, 0, att.check_in or "", date_format)

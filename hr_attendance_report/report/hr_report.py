@@ -119,10 +119,15 @@ class HrReport(models.AbstractModel):
             employee_info = {
                 "emp_id": emp.id,
                 "emp_name": emp.name or _("N/A"),
-                "emp_code": emp.identification_id or emp.barcode or str(emp.id),
+                "emp_code": (
+                    emp.sudo().identification_id or emp.sudo().barcode or str(emp.id)
+                ),
+                "emp_identification": emp.sudo().identification_id or _("N/A"),
+                "company_vat": emp.company_id.vat or _("N/A"),
+                "company_name": emp.company_id.name or _("N/A"),
                 "manager": emp.parent_id.name if emp.parent_id else _("N/A"),
                 "department": emp.department_id.name if emp.department_id else _("N/A"),
-                "job_title": emp.job_id.name if emp.job_id else _("N/A"),
+                "job_title": emp.sudo().job_id.name if emp.job_id else _("N/A"),
                 "attendances": attendance_data,
                 "total_hours": round(total_hours, 2),
                 "total_days": len(dates_worked),

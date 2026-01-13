@@ -13,10 +13,24 @@
                         <field name="select_year" />
                     </group>
                     <group>
-                        <field name="hr_employee_ids" widget="many2many_tags" />
-                        <field name="select_all_employee" />
-                        <field name="hr_department_ids" widget="many2many_tags" />
-                        <field name="select_all_department" />
+                        <field
+                            name="hr_employee_ids"
+                            widget="many2many_tags"
+                            readonly="context.get('default_readonly_employees', False)"
+                        />
+                        <field
+                            name="select_all_employee"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <field
+                            name="hr_department_ids"
+                            widget="many2many_tags"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
+                        <field
+                            name="select_all_department"
+                            groups="hr_attendance.group_hr_attendance_manager"
+                        />
                     </group>
                 </group>
                 <footer>

@@ -1,2 +1,3 @@
 - [Grupo Isonor](https://www.grupoisonor.es):
   - Álvaro Alonso Bada
+  - David Palanca Martínez

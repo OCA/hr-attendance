@@ -89,6 +89,7 @@ Contributors
 - `Grupo Isonor <https://www.grupoisonor.es>`__:
 
   - Álvaro Alonso Bada
+  - David Palanca Martínez
 
 Maintainers
 -----------

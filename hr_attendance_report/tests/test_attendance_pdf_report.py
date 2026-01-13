@@ -367,9 +367,12 @@ class TestAttendancePdfReport(TransactionCase):
         emp_data = employee_data[0]
         self.assertEqual(emp_data["emp_name"], "Test Employee 1")
         self.assertEqual(emp_data["emp_code"], "EMP001")
+        self.assertEqual(emp_data["emp_identification"], "EMP001")
         self.assertEqual(emp_data["manager"], "Test Manager")
         self.assertEqual(emp_data["department"], "Test Department")
         self.assertEqual(emp_data["job_title"], "Test Job Position")
+        self.assertIn("company_vat", emp_data)
+        self.assertIn("company_name", emp_data)
 
         # Should have 2 attendance records
         self.assertEqual(len(emp_data["attendances"]), 2)
@@ -390,6 +393,8 @@ class TestAttendancePdfReport(TransactionCase):
         emp_data = employee_data[0]
         # Should use barcode as emp_code since no identification_id
         self.assertEqual(emp_data["emp_code"], "EMP002")
+        # emp_identification should be N/A since no identification_id
+        self.assertEqual(emp_data["emp_identification"], "N/A")
 
     def test_generate_employee_data_employee_no_code(self):
         # Create employee without identification_id or barcode
@@ -413,6 +418,8 @@ class TestAttendancePdfReport(TransactionCase):
         emp_data = employee_data[0]
         # Should use database ID as fallback
         self.assertEqual(emp_data["emp_code"], str(employee_no_code.id))
+        # emp_identification should be N/A since no identification_id
+        self.assertEqual(emp_data["emp_identification"], "N/A")
 
     def test_generate_employee_data_no_attendances(self):
         # Create employee with no attendance
@@ -523,3 +530,191 @@ class TestAttendancePdfReport(TransactionCase):
         self.assertEqual(
             emp_data["avg_hours_per_day"], round(emp_data["avg_hours_per_day"], 2)
         )
+
+    def test_generate_employee_data_multiple_employees(self):
+        """Test _generate_employee_data with multiple employees"""
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        # Pass multiple employees
+        employees = self.employee1 | self.employee2
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        # Should return data for both employees
+        self.assertEqual(len(employee_data), 2)
+
+        # Verify both employees are in the data
+        emp_names = [emp["emp_name"] for emp in employee_data]
+        self.assertIn("Test Employee 1", emp_names)
+        self.assertIn("Test Employee 2", emp_names)
+
+    def test_attendance_with_no_check_out(self):
+        """Test attendance record without check_out"""
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        employees = self.employee2  # This employee has attendance4 with no check_out
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        emp_data = employee_data[0]
+
+        # Should include attendances (employee2 has attendance3 and attendance4)
+        # attendance4 has no check_out but it's from test_date2 which should be in range
+        self.assertGreaterEqual(len(emp_data["attendances"]), 1)
+
+    def test_employee_without_manager(self):
+        """Test employee without manager (parent_id)"""
+        # Create employee without manager
+        employee_no_manager = self.env["hr.employee"].create(
+            {
+                "name": "Employee Without Manager",
+                "department_id": self.department.id,
+            }
+        )
+
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        employees = employee_no_manager
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        emp_data = employee_data[0]
+        # Should show N/A for manager
+        self.assertEqual(emp_data["manager"], "N/A")
+
+    def test_employee_without_department(self):
+        """Test employee without department"""
+        # Create employee without department
+        employee_no_dept = self.env["hr.employee"].create(
+            {
+                "name": "Employee Without Department",
+            }
+        )
+
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        employees = employee_no_dept
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        emp_data = employee_data[0]
+        # Should show N/A for department
+        self.assertEqual(emp_data["department"], "N/A")
+
+    def test_employee_without_job(self):
+        """Test employee without job position"""
+        # Create employee without job
+        employee_no_job = self.env["hr.employee"].create(
+            {
+                "name": "Employee Without Job",
+                "department_id": self.department.id,
+            }
+        )
+
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        employees = employee_no_job
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        emp_data = employee_data[0]
+        # Should show N/A for job_title
+        self.assertEqual(emp_data["job_title"], "N/A")
+
+    def test_company_without_vat(self):
+        """Test employee with company that has no VAT"""
+        # Create employee (company should already exist from setup)
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "Test Employee",
+                "department_id": self.department.id,
+            }
+        )
+
+        # Clear company VAT
+        employee.company_id.vat = False
+
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        employees = employee
+        employee_data = report_model._generate_employee_data(
+            employees, start_date, end_date
+        )
+
+        emp_data = employee_data[0]
+        # Should show N/A for company_vat
+        self.assertEqual(emp_data["company_vat"], "N/A")
+
+    def test_get_report_values_february_leap_year(self):
+        """Test report generation for February in a leap year"""
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        form_data = {
+            "select_month": "2",
+            "select_year": "2024",  # Leap year
+            "hr_employee_ids": [self.employee1.id],
+            "hr_department_ids": [],
+        }
+
+        data = {"form_data": form_data}
+        result = report_model._get_report_values([], data)
+
+        # February 2024 should have 29 days
+        self.assertEqual(result["end_date"], datetime.date(2024, 2, 29))
+
+    def test_get_report_values_february_non_leap_year(self):
+        """Test report generation for February in a non-leap year"""
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        form_data = {
+            "select_month": "2",
+            "select_year": "2023",  # Non-leap year
+            "hr_employee_ids": [self.employee1.id],
+            "hr_department_ids": [],
+        }
+
+        data = {"form_data": form_data}
+        result = report_model._get_report_values([], data)
+
+        # February 2023 should have 28 days
+        self.assertEqual(result["end_date"], datetime.date(2023, 2, 28))
+
+    def test_total_employees_count(self):
+        """Test that total_employees is correctly counted"""
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        form_data = {
+            "select_month": "1",
+            "select_year": "2025",
+            "hr_employee_ids": [self.employee1.id, self.employee2.id],
+            "hr_department_ids": [],
+        }
+
+        data = {"form_data": form_data}
+        result = report_model._get_report_values([], data)
+
+        # Should count both selected employees
+        self.assertEqual(result["total_employees"], 2)

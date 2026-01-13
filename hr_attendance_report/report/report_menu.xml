@@ -8,12 +8,8 @@
         <field name="view_id" ref="view_employee_attendance_report_wizard_form" />
     </record>
 
-    <menuitem
-        id="menu_hr_attendance_reporting_attendance_report"
-        name="Report"
-        parent="hr_attendance.menu_hr_attendance_reporting"
-        action="action_employee_attendance_report_wizard"
-        sequence="15"
-    />
+    <record id="hr_attendance.menu_hr_attendance_reporting" model="ir.ui.menu">
+        <field name="action" ref="action_employee_attendance_report_wizard" />
+    </record>
 
 </odoo>

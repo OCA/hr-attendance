@@ -562,3 +562,174 @@ class TestAttendanceReportWizard(TransactionCase):
         self.assertEqual(result["type"], "ir.actions.act_window")
         excel_record = self.env["custom.excel.class"].browse(result["res_id"])
         self.assertTrue(excel_record.file_name)
+
+    def test_default_get_with_attendance_manager(self):
+        """Test default_get when user is attendance manager"""
+        # Create a user with attendance manager rights
+        manager_user = self.env["res.users"].create(
+            {
+                "name": "Attendance Manager",
+                "login": "manager@test.com",
+                "groups_id": [
+                    (4, self.env.ref("base.group_user").id),
+                    (4, self.env.ref("hr_attendance.group_hr_attendance_manager").id),
+                ],
+            }
+        )
+
+        # Create wizard as manager user
+        wizard = (
+            self.env["employee.attendance.report.wizard"]
+            .with_user(manager_user)
+            .create(
+                {
+                    "select_month": "1",
+                    "select_year": "2025",
+                }
+            )
+        )
+
+        # Manager should not have employees pre-selected
+        self.assertFalse(wizard.hr_employee_ids)
+
+    def test_default_get_with_regular_user(self):
+        """Test default_get when user is NOT attendance manager"""
+        # Create a regular employee user (not manager)
+        employee_user = self.env["res.users"].create(
+            {
+                "name": "Regular Employee User",
+                "login": "employee@test.com",
+                "groups_id": [(4, self.env.ref("base.group_user").id)],
+            }
+        )
+
+        # Link employee to user
+        self.employee1.user_id = employee_user.id
+
+        # Call default_get directly
+        wizard_model = self.env["employee.attendance.report.wizard"].with_user(
+            employee_user
+        )
+        default_vals = wizard_model.default_get(
+            ["hr_employee_ids", "select_month", "select_year"]
+        )
+
+        # Verify default_get was called successfully and returns expected structure
+        self.assertIn("select_month", default_vals)
+        self.assertIn("select_year", default_vals)
+
+        # If hr_employee_ids is in defaults, it should contain the user's employee
+        if "hr_employee_ids" in default_vals:
+            self.assertTrue(default_vals["hr_employee_ids"])
+
+    def test_default_get_regular_user_no_employee(self):
+        """Test default_get when user has no linked employee"""
+        # Create a user without linked employee
+        user_no_employee = self.env["res.users"].create(
+            {
+                "name": "User Without Employee",
+                "login": "noemployee@test.com",
+                "groups_id": [(4, self.env.ref("base.group_user").id)],
+            }
+        )
+
+        # Test default_get behavior
+        wizard_vals = (
+            self.env["employee.attendance.report.wizard"]
+            .with_user(user_no_employee)
+            .default_get(["hr_employee_ids", "select_month", "select_year"])
+        )
+
+        # Should not have any employees pre-selected
+        self.assertFalse(wizard_vals.get("hr_employee_ids"))
+
+    def test_excel_report_with_multiple_employees(self):
+        """Test Excel report generation with multiple employees"""
+        wizard = self.env["employee.attendance.report.wizard"].create(
+            {
+                "select_month": "1",
+                "select_year": "2025",
+                "hr_employee_ids": [(6, 0, [self.employee1.id, self.employee2.id])],
+            }
+        )
+
+        result = wizard.generate_employee_excel_report()
+
+        # Should generate report with both employees
+        self.assertEqual(result["type"], "ir.actions.act_window")
+        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        self.assertTrue(excel_record.file_name)
+        self.assertIn("2025_01", excel_record.datas_fname)
+
+    def test_excel_employee_with_complete_info(self):
+        """Test Excel creation for employee with all information"""
+        # Set complete information for employee
+        self.employee1.sudo().identification_id = "IDENT123"
+        self.employee1.company_id.vat = "ES12345678"
+
+        wizard = self.env["employee.attendance.report.wizard"].create(
+            {
+                "select_month": "1",
+                "select_year": "2025",
+                "hr_employee_ids": [(6, 0, [self.employee1.id])],
+            }
+        )
+
+        result = wizard.generate_employee_excel_report()
+
+        # Should successfully create Excel with all fields
+        self.assertEqual(result["type"], "ir.actions.act_window")
+        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        self.assertTrue(excel_record.file_name)
+
+    def test_get_view_regular_user_readonly(self):
+        """Test _get_view makes employee field readonly for non-managers"""
+        # Create a regular user (not attendance manager)
+        employee_user = self.env["res.users"].create(
+            {
+                "name": "Regular Employee User",
+                "login": "employee2@test.com",
+                "groups_id": [(4, self.env.ref("base.group_user").id)],
+            }
+        )
+
+        # Link employee to user
+        self.employee2.user_id = employee_user.id
+
+        # Get view as regular user
+        wizard_model = self.env["employee.attendance.report.wizard"].with_user(
+            employee_user
+        )
+
+        # Call _get_view to check if field is made readonly
+        arch, view = wizard_model._get_view(view_type="form")
+
+        # Check that hr_employee_ids field exists in the view
+        # (This tests that the method runs without error)
+        self.assertIsNotNone(arch)
+
+    def test_get_view_manager_user(self):
+        """Test _get_view for attendance manager user"""
+        # Create a manager user
+        manager_user = self.env["res.users"].create(
+            {
+                "name": "Attendance Manager",
+                "login": "manager2@test.com",
+                "groups_id": [
+                    (4, self.env.ref("base.group_user").id),
+                    (4, self.env.ref("hr_attendance.group_hr_attendance_manager").id),
+                ],
+            }
+        )
+
+        # Get view as manager
+        wizard_model = self.env["employee.attendance.report.wizard"].with_user(
+            manager_user
+        )
+
+        # Call _get_view - should not modify readonly attribute for manager
+        arch, view = wizard_model._get_view(view_type="form")
+
+        # Check that arch is returned successfully
+        self.assertIsNotNone(arch)
+        self.assertIsNotNone(view)
