@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-<record id="view_attendance_rest_time_tree" model="ir.ui.view">
+    <record id="view_attendance_rest_time_tree" model="ir.ui.view">
         <field name="name">hr.attendance.rest_time.tree</field>
         <field name="model">hr.attendance.rest_time</field>
         <field name="arch" type="xml">
@@ -32,19 +32,19 @@
                                     class="oe_kanban_avatar o_image_24_cover mr4"
                                 />
                                 <span class="o_kanban_record_title">
-                                    <strong><t
-                                            t-esc="record.employee_id.value"
-                                        /></strong>
+                                    <strong>
+                                        <t t-esc="record.employee_id.value" />
+                                    </strong>
                                 </span>
                             </div>
                             <hr class="mt4 mb8" />
                             <div class="o_kanban_record_subtitle">
                                 <i
-                                    class="fa fa-calendar"
-                                    aria-label="Period"
-                                    role="img"
-                                    title="Period"
-                                />
+                                class="fa fa-calendar"
+                                aria-label="Period"
+                                role="img"
+                                title="Period"
+                            />
                                 <t t-esc="record.check_in.value" />
                                 - <t t-esc="record.check_out.value" />
                             </div>

@@ -7,17 +7,21 @@
         <field name="priority">500</field>
         <field name="arch" type="xml">
             <xpath expr="//sheet/group" position="before">
-            <div class="oe_button_box" name="button_box">
-                <button
+                <div class="oe_button_box" name="button_box">
+                    <button
                         name="action_view_rest_times"
                         type="object"
                         class="oe_stat_button"
                         icon="fa-coffee"
                     >
-                    <field name="rest_time_count" widget="statinfo" string="Breaks" />
-                </button>
-            </div>
-        </xpath>
+                        <field
+                            name="rest_time_count"
+                            widget="statinfo"
+                            string="Breaks"
+                        />
+                    </button>
+                </div>
+            </xpath>
             <sheet position="inside">
                 <group name="breaks">
                     <group>
