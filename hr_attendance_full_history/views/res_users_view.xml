@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Moduon Team S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<data>
+    <record id="hr_attendance_management_view_filter" model="ir.ui.view">
+        <field name="name">Make last month a removable filter</field>
+        <field name="model">hr.attendance</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance.hr_attendance_management_view_filter"
+        />
+        <field name="arch" type="xml">
+            <search position="inside">
+                <filter
+                    string="This month"
+                    name="filter_this_month"
+                    domain="[('check_in', '>=', context_today() - relativedelta(day=1, hour=0, minute=0))]"
+                />
+            </search>
+        </field>
+    </record>
+</data>
