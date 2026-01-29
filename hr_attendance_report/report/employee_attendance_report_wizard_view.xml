@@ -12,10 +12,18 @@
                         <!-- Report Header -->
                         <table class="table text-center table-sm table-striped mt-4">
                             <tr>
-                                <td class="align-middle"><strong>Month</strong></td>
-                                <td class="align-middle"><t t-esc="month_name" /></td>
-                                <td class="align-middle"><strong>Year</strong></td>
-                                <td class="align-middle"><t t-esc="year" /></td>
+                                <td class="align-middle">
+                                    <strong>Month</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="month_name" />
+                                </td>
+                                <td class="align-middle">
+                                    <strong>Year</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="year" />
+                                </td>
                             </tr>
                         </table>
 
@@ -23,20 +31,28 @@
                         <table class="table text-center table-bordered mt-4">
                             <thead>
                                 <tr>
-                                    <th>Employee Name</th>
-                                    <th>Identification No</th>
-                                    <th>Manager</th>
-                                    <th>Department</th>
+                                    <th class="text-center fw-bold">Employee Name</th>
+                                    <th
+                                        class="text-center fw-bold"
+                                    >Identification No</th>
+                                    <th class="text-center fw-bold">Manager</th>
+                                    <th class="text-center fw-bold">Department</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><t t-esc="employee['emp_name']" /></td>
-                                    <td><t
-                                            t-esc="employee['emp_identification']"
-                                        /></td>
-                                    <td><t t-esc="employee['manager']" /></td>
-                                    <td><t t-esc="employee['department']" /></td>
+                                    <td>
+                                        <t t-out="employee['emp_name']" />
+                                    </td>
+                                    <td>
+                                        <t t-out="employee['emp_identification']" />
+                                    </td>
+                                    <td>
+                                        <t t-out="employee['manager']" />
+                                    </td>
+                                    <td>
+                                        <t t-out="employee['department']" />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -44,35 +60,42 @@
                         <!-- Company Information -->
                         <table class="table text-center table-bordered mt-2">
                             <tr>
-                                <td class="align-middle"><strong>Company:</strong></td>
-                                <td class="align-middle"><t
-                                        t-esc="employee['company_name']"
-                                    /></td>
-                                <td class="align-middle"><strong>CIF:</strong></td>
-                                <td class="align-middle"><t
-                                        t-esc="employee['company_vat']"
-                                    /></td>
+                                <td class="align-middle">
+                                    <strong>Company:</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="employee['company_name']" />
+                                </td>
+                                <td class="align-middle">
+                                    <strong>CIF:</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="employee['company_vat']" />
+                                </td>
                             </tr>
                         </table>
 
                         <!-- Summary Statistics -->
                         <table class="table text-center table-sm mt-4">
                             <tr>
-                                <td class="align-middle"><strong
-                                    >Total Days Worked:</strong></td>
-                                <td class="align-middle"><t
-                                        t-esc="employee['total_days']"
-                                    /></td>
-                                <td class="align-middle"><strong
-                                    >Total Hours:</strong></td>
-                                <td class="align-middle"><t
-                                        t-esc="str(employee['total_hours']) + ' hours'"
-                                    /></td>
-                                <td class="align-middle"><strong
-                                    >Average Hours/Day:</strong></td>
-                                <td class="align-middle"><t
-                                        t-esc="str(employee['avg_hours_per_day']) + ' hours'"
-                                    /></td>
+                                <td class="align-middle">
+                                    <strong>Total Days Worked:</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="employee['total_days']" />
+                                </td>
+                                <td class="align-middle">
+                                    <strong>Total Hours:</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="employee['total_hours']" /> hours
+                                </td>
+                                <td class="align-middle">
+                                    <strong>Average Hours/Day:</strong>
+                                </td>
+                                <td class="align-middle">
+                                    <t t-out="employee['avg_hours_per_day']" /> hours
+                                </td>
                             </tr>
                         </table>
 
@@ -80,9 +103,9 @@
                         <table class="table text-center table-bordered mt-4">
                             <thead>
                                 <tr>
-                                    <th>Check In</th>
-                                    <th>Check Out</th>
-                                    <th>Working Hours</th>
+                                    <th class="text-center fw-bold">Check In</th>
+                                    <th class="text-center fw-bold">Check Out</th>
+                                    <th class="text-center fw-bold">Working Hours</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +119,7 @@
                                             <td>
                                                 <t t-if="attendance['check_in']">
                                                     <span
-                                                        t-esc="attendance['check_in']"
+                                                        t-out="attendance['check_in']"
                                                         t-options="{'widget': 'datetime'}"
                                                     />
                                                 </t>
@@ -105,26 +128,28 @@
                                             <td>
                                                 <t t-if="attendance['check_out']">
                                                     <span
-                                                        t-esc="attendance['check_out']"
+                                                        t-out="attendance['check_out']"
                                                         t-options="{'widget': 'datetime'}"
                                                     />
                                                 </t>
                                                 <t t-else="">Still Working</t>
                                             </td>
-                                            <td>
+                                            <td class="table-secondary">
                                                 <t
-                                                    t-esc="str(attendance['worked_hours']) + ' hrs'"
-                                                />
+                                                t-out="attendance['worked_hours']"
+                                            /> hrs
                                             </td>
                                         </tr>
                                     </t>
                                     <!-- Total row after last attendance record -->
                                     <tr class="table-info">
-                                        <td colspan="2"><strong>Total:</strong></td>
-                                        <td>
+                                        <td colspan="2">
+                                            <strong>Total:</strong>
+                                        </td>
+                                        <td class="table-secondary">
                                             <strong><t
-                                                    t-esc="str(employee['total_hours']) + ' hrs'"
-                                                /></strong>
+                                                t-out="employee['total_hours']"
+                                            /> hrs</strong>
                                         </td>
                                     </tr>
                                 </t>

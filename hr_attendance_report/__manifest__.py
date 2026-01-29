@@ -1,9 +1,9 @@
 # Copyright 2025 Álvaro Alonso Bada - Grupo Isonor
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
     "name": "Hr Attendance Report",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Attendance",
     "summary": "Wizard to generate attendance reports in PDF and Excel.",
     "license": "AGPL-3",
@@ -20,9 +20,10 @@
         "wizard/employee_attendance_report_wizard_view.xml",
         "wizard/excel_report.xml",
         "report/report_menu.xml",
+        "views/hr_employee_view.xml",
     ],
     "demo": [],
     "auto_install": False,
-    "application": True,
+    "application": False,
     "installable": True,
 }

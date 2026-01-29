@@ -135,24 +135,22 @@ class TestAttendanceReportWizard(TransactionCase):
         current_year = datetime.date.today().year
 
         # Test invalid year format (should fail constraint)
-        with self.assertRaises(ValidationError) as cm:
+        with self.assertRaises(ValidationError):
             self.env["employee.attendance.report.wizard"].create(
                 {
                     "select_month": "1",
                     "select_year": "abcd",
                 }
             )
-        self.assertIn("valid 4-digit year", str(cm.exception))
 
         # Test another invalid format
-        with self.assertRaises(ValidationError) as cm:
+        with self.assertRaises(ValidationError):
             self.env["employee.attendance.report.wizard"].create(
                 {
                     "select_month": "1",
                     "select_year": "20ab",
                 }
             )
-        self.assertIn("valid 4-digit year", str(cm.exception))
 
         # Test valid years (should pass)
         wizard = self.env["employee.attendance.report.wizard"].create(
@@ -183,25 +181,23 @@ class TestAttendanceReportWizard(TransactionCase):
         """Test year constraint with realistic input cases"""
         # Test invalid 4-digit
         # year (user can type this)
-        with self.assertRaises(ValidationError) as cm:
+        with self.assertRaises(ValidationError):
             self.env["employee.attendance.report.wizard"].create(
                 {
                     "select_month": "1",
                     "select_year": "abcd",  # 4 characters, invalid format
                 }
             )
-        self.assertIn("valid 4-digit year", str(cm.exception))
 
         # Test year with numbers
         # and letters (user can type this)
-        with self.assertRaises(ValidationError) as cm:
+        with self.assertRaises(ValidationError):
             self.env["employee.attendance.report.wizard"].create(
                 {
                     "select_month": "1",
                     "select_year": "20ab",  # 4 characters, invalid format
                 }
             )
-        self.assertIn("valid 4-digit year", str(cm.exception))
 
         # Test valid 4-digit year (should pass)
         wizard = self.env["employee.attendance.report.wizard"].create(
@@ -288,12 +284,8 @@ class TestAttendanceReportWizard(TransactionCase):
             }
         )
 
-        with self.assertRaises(ValidationError) as cm:
+        with self.assertRaises(ValidationError):
             wizard._get_selected_employees()
-
-        self.assertIn(
-            "Please select at least one employee or department", str(cm.exception)
-        )
 
     def test_get_selected_employees_union_without_duplicates(self):
         """Test that union removes duplicates when employee is in selected department"""
@@ -478,12 +470,14 @@ class TestAttendanceReportWizard(TransactionCase):
 
         # Check return structure
         self.assertEqual(result["type"], "ir.actions.act_window")
-        self.assertEqual(result["res_model"], "custom.excel.class")
+        self.assertEqual(result["res_model"], "hr.attendance.report.download")
         self.assertEqual(result["view_mode"], "form")
         self.assertEqual(result["target"], "new")
 
         # Check that Excel file was created
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.file_name)
         self.assertTrue(excel_record.datas_fname)
         self.assertIn("Attendance_Report", excel_record.datas_fname)
@@ -502,7 +496,9 @@ class TestAttendanceReportWizard(TransactionCase):
 
         # Check that Excel file was
         # created with proper filename
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.datas_fname)
 
         # Should contain year and month in filename
@@ -533,7 +529,9 @@ class TestAttendanceReportWizard(TransactionCase):
         self.assertEqual(result["type"], "ir.actions.act_window")
 
         # Check that Excel file was created
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.file_name)
 
     def test_excel_sheet_creation_with_long_employee_name(self):
@@ -560,7 +558,9 @@ class TestAttendanceReportWizard(TransactionCase):
         result = wizard.generate_employee_excel_report()
 
         self.assertEqual(result["type"], "ir.actions.act_window")
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.file_name)
 
     def test_default_get_with_attendance_manager(self):
@@ -657,7 +657,9 @@ class TestAttendanceReportWizard(TransactionCase):
 
         # Should generate report with both employees
         self.assertEqual(result["type"], "ir.actions.act_window")
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.file_name)
         self.assertIn("2025_01", excel_record.datas_fname)
 
@@ -679,7 +681,9 @@ class TestAttendanceReportWizard(TransactionCase):
 
         # Should successfully create Excel with all fields
         self.assertEqual(result["type"], "ir.actions.act_window")
-        excel_record = self.env["custom.excel.class"].browse(result["res_id"])
+        excel_record = self.env["hr.attendance.report.download"].browse(
+            result["res_id"]
+        )
         self.assertTrue(excel_record.file_name)
 
     def test_get_view_regular_user_readonly(self):

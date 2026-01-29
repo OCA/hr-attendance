@@ -10,12 +10,14 @@ from odoo.exceptions import ValidationError
 
 
 class HrReport(models.AbstractModel):
+    """Abstract model for generating attendance PDF reports."""
+
     _name = "report.hr_attendance_report.report_one_set"
     _description = "Attendance PDF Report"
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        # Generate report values for PDF attendance report
+        """Generate report values for PDF attendance report."""
         if not data or not data.get("form_data"):
             raise ValidationError(_("Missing report data."))
 
@@ -32,7 +34,7 @@ class HrReport(models.AbstractModel):
             end_date = datetime.date(year, month, monthrange(year, month)[1])
         except (ValueError, TypeError) as e:
             raise ValidationError(
-                _("Invalid month or year format: {}").format(str(e))
+                _("Invalid month or year format: %(error)s") % {"error": str(e)}
             ) from e
 
         # Get employees from form data
@@ -56,7 +58,7 @@ class HrReport(models.AbstractModel):
         }
 
     def _get_selected_employees(self, form):
-        # Get selected employees from form data
+        """Get selected employees from form data."""
         employee_ids = form.get("hr_employee_ids") or []
         department_ids = form.get("hr_department_ids") or []
 
@@ -79,26 +81,34 @@ class HrReport(models.AbstractModel):
         return employees
 
     def _generate_employee_data(self, employees, start_date, end_date):
-        # Generate attendance data for each employee
+        """Generate attendance data for each employee."""
         employee_info_list = []
 
+        # Single search for all employees' attendances (performance optimization)
+        all_attendances = self.env["hr.attendance"].search(
+            [
+                ("employee_id", "in", employees.ids),
+                ("check_in", ">=", start_date),
+                ("check_in", "<=", end_date),
+            ],
+            order="employee_id, check_in",
+        )
+
+        # Group attendances by employee_id
+        attendances_by_employee = {}
+        for att in all_attendances:
+            attendances_by_employee.setdefault(att.employee_id.id, []).append(att)
+
         for emp in employees:
-            # Get attendance records for the employee in the date range
-            attendances = self.env["hr.attendance"].search(
-                [
-                    ("employee_id", "=", emp.id),
-                    ("check_in", ">=", start_date),
-                    ("check_in", "<=", end_date),
-                ],
-                order="check_in",
-            )
+            emp_attendances = attendances_by_employee.get(emp.id, [])
+            emp_sudo = emp.sudo()
 
             # Process attendance records
             attendance_data = []
             total_hours = 0
             dates_worked = set()  # Use set to count unique dates
 
-            for att in attendances:
+            for att in emp_attendances:
                 worked_hours = round(att.worked_hours or 0, 2)
                 total_hours += worked_hours
 
@@ -115,19 +125,19 @@ class HrReport(models.AbstractModel):
                     }
                 )
 
-            # Compile employee information
+            # Compile employee information (use sudo consistently for restricted fields)
             employee_info = {
                 "emp_id": emp.id,
-                "emp_name": emp.name or _("N/A"),
+                "emp_name": emp.name or "N/A",
                 "emp_code": (
-                    emp.sudo().identification_id or emp.sudo().barcode or str(emp.id)
+                    emp_sudo.identification_id or emp_sudo.barcode or str(emp.id)
                 ),
-                "emp_identification": emp.sudo().identification_id or _("N/A"),
-                "company_vat": emp.company_id.vat or _("N/A"),
-                "company_name": emp.company_id.name or _("N/A"),
-                "manager": emp.parent_id.name if emp.parent_id else _("N/A"),
-                "department": emp.department_id.name if emp.department_id else _("N/A"),
-                "job_title": emp.sudo().job_id.name if emp.job_id else _("N/A"),
+                "emp_identification": emp_sudo.identification_id or "N/A",
+                "company_vat": emp.company_id.vat or "N/A",
+                "company_name": emp.company_id.name or "N/A",
+                "manager": emp.parent_id.name if emp.parent_id else "N/A",
+                "department": emp.department_id.name if emp.department_id else "N/A",
+                "job_title": emp_sudo.job_id.name if emp_sudo.job_id else "N/A",
                 "attendances": attendance_data,
                 "total_hours": round(total_hours, 2),
                 "total_days": len(dates_worked),
