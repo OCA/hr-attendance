@@ -25,7 +25,9 @@ class HrAttendance(models.Model):
                 record.employee_id, record.check_in
             )
 
-    def action_create_empty_attendance(self, limit_date_from=False):
+    def action_create_empty_attendance(
+        self, limit_date_from=False, limit_date_to=False
+    ):
         """Method for creating inactive attendance records with a
         duration of 0.
         The goal is to prevent the report from having to calculate data
@@ -35,12 +37,17 @@ class HrAttendance(models.Model):
         yesterday = today - relativedelta(days=1)
         today_previous_year = today - relativedelta(months=1)
         limit_date_from = limit_date_from or today_previous_year
-        day_to = datetime.combine(yesterday, time.max)
-        for employee in self.env["hr.employee"].sudo().search([]):
+        day_to = datetime.combine(limit_date_to or yesterday, time.max)
+        attendances = self.env["hr.attendance"]
+        for employee in (
+            self.env["hr.employee"]
+            .sudo()
+            .search([("resource_calendar_id", "!=", False)])
+        ):
             date_from = (
                 employee.theoretical_hours_start_date or employee.create_date.date()
             )
-            date_from = max(date_from, today_previous_year)
+            date_from = max(date_from, limit_date_from)
             sql = """
             SELECT DISTINCT(check_in)::date
             FROM hr_attendance
@@ -61,11 +68,11 @@ class HrAttendance(models.Model):
             to_datetime = utc.localize(day_to).astimezone(
                 timezone(employee.tz or "UTC")
             )
-            dates_to_create = []
+            dates_to_create = {}
             expected_attendances = employee.resource_calendar_id._work_intervals_batch(
                 from_datetime,
                 to_datetime,
-                resources=[employee.resource_id],
+                resources=employee.resource_id,
                 compute_leaves=False,
             )[employee.resource_id.id]
             for expected_attendance in expected_attendances:
@@ -74,15 +81,21 @@ class HrAttendance(models.Model):
                     expected_attendance_date not in attendance_dates
                     and expected_attendance_date not in dates_to_create
                 ):
-                    dates_to_create.append(expected_attendance_date)
+                    dates_to_create[expected_attendance_date] = expected_attendance
             attendance_vals = []
             for date_to_create in dates_to_create:
                 attendance_vals.append(
                     {
                         "employee_id": employee.id,
                         "active": False,
-                        "check_in": datetime.combine(date_to_create, time.min),
-                        "check_out": datetime.combine(date_to_create, time.max),
+                        "check_in": dates_to_create[date_to_create][0]
+                        .astimezone(utc)
+                        .replace(tzinfo=None),
+                        "check_out": dates_to_create[date_to_create][0]
+                        .astimezone(utc)
+                        .replace(tzinfo=None)
+                        + relativedelta(minutes=1),
                     }
                 )
-            self.env["hr.attendance"].create(attendance_vals)
+            attendances |= self.env["hr.attendance"].create(attendance_vals)
+        return attendances

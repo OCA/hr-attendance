@@ -150,6 +150,9 @@ Contributors
 * `Trobz <https://trobz.com>`__:
 
   * Dzung Tran <dungtd@trobz.com>
+* `Dixmit <https://www.dixmit.com>`__:
+
+  * Enric Tobella
 
 Other credits
 ~~~~~~~~~~~~~
