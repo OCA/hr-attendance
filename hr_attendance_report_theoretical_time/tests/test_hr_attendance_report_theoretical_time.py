@@ -202,6 +202,10 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
     def test_hr_attendance_read_group(self):
         # TODO: Test when having theoretical_hours_start_date set
         # Group by employee
+        self.env["hr.attendance"].action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1947, 1, 1),
+        ).flush_recordset()
         res = self.env["hr.attendance.theoretical.time.report"].read_group(
             [
                 ("date", ">=", "1946-12-23"),
