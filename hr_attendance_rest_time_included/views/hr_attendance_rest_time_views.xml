@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<record id="view_attendance_rest_time_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.rest_time.tree</field>
+        <field name="model">hr.attendance.rest_time</field>
+        <field name="arch" type="xml">
+            <tree edit="0" sample="1">
+                <field name="employee_id" />
+                <field name="check_in" />
+                <field name="check_out" />
+                <field name="worked_hours" string="Rest Hours" widget="float_time" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_attendance_rest_time_kanban" model="ir.ui.view">
+        <field name="name">hr.attendance.kanban</field>
+        <field name="model">hr.attendance.rest_time</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="employee_id" />
+                <field name="check_in" />
+                <field name="check_out" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div>
+                                <img
+                                    t-att-src="kanban_image('hr.employee', 'avatar_128', record.employee_id.raw_value)"
+                                    t-att-title="record.employee_id.value"
+                                    t-att-alt="record.employee_id.value"
+                                    class="oe_kanban_avatar o_image_24_cover mr4"
+                                />
+                                <span class="o_kanban_record_title">
+                                    <strong><t
+                                            t-esc="record.employee_id.value"
+                                        /></strong>
+                                </span>
+                            </div>
+                            <hr class="mt4 mb8" />
+                            <div class="o_kanban_record_subtitle">
+                                <i
+                                    class="fa fa-calendar"
+                                    aria-label="Period"
+                                    role="img"
+                                    title="Period"
+                                />
+                                <t t-esc="record.check_in.value" />
+                                - <t t-esc="record.check_out.value" />
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="hr_attendance_rest_time_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.rest_time.form</field>
+        <field name="model">hr.attendance.rest_time</field>
+        <field name="arch" type="xml">
+            <form string="Employee rest time" edit="0">
+                <sheet>
+                    <group>
+                        <field name="employee_id" />
+                        <field name="check_in" />
+                        <field name="check_out" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
