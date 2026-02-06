@@ -5,47 +5,37 @@ from datetime import date
 
 import freezegun
 
-from odoo.tests import TransactionCase
+from odoo.tests import new_test_user, users
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestHRBirthdayWelcomeMessage(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.user = (
-            self.env["res.users"]
-            .sudo()
-            .create(
-                {
-                    "name": "Test User",
-                    "login": "user@test.com",
-                    "email": "user@test.com",
-                    "groups_id": [(4, self.env.ref("base.group_user").id)],
-                }
-            )
+class TestHRBirthdayWelcomeMessage(BaseCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.user = new_test_user(
+            cls.env,
+            login="test-user",
+            groups="base.group_user,hr_attendance.group_hr_attendance_own_reader",
         )
-
-        self.Employee = self.env["hr.employee"]
-        self.EmployeePublic = self.env["hr.employee.public"]
-        self.SudoEmployee = self.Employee.sudo()
-        self.employee = self.SudoEmployee.create(
+        cls.employee = cls.env["hr.employee"].create(
             {
-                "name": "Employee Test",
-                "user_id": self.user.id,
+                "name": cls.user.login,
+                "user_id": cls.user.id,
                 "birthday": date(2002, 1, 12),
             }
         )
 
+    @users("test-user")
     def test_attendance_action_is_birthday(self):
         with freezegun.freeze_time("2020-01-12"):
-            result = self.employee.with_user(self.user).attendance_manual(
-                {}, entered_pin=None
-            )
+            result = self.env.user.employee_id._attendance_action_change({})
             self.assertTrue("is_birthday" in result["action"])
             self.assertTrue(result["action"]["is_birthday"])
 
+    @users("test-user")
     def test_attendance_action_is_not_birthday(self):
         with freezegun.freeze_time("2020-01-14"):
-            result = self.employee.with_user(self.user).attendance_manual(
-                {}, entered_pin=None
-            )
+            result = self.env.user.employee_id._attendance_action_change({})
             self.assertFalse("is_birthday" in result["action"])
