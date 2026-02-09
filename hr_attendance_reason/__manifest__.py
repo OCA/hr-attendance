@@ -10,7 +10,7 @@
     "author": "Odoo S.A., Tecnativa, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "installable": True,
-    "depends": ["hr_attendance"],
+    "depends": ["hr_attendance", "mail"],
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
