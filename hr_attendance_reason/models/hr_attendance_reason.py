@@ -10,7 +10,10 @@ class HrAttendanceReason(models.Model):
     _description = "Attendance Reason"
     _order = "sequence,id"
 
-    _sql_constraints = [("unique_code", "UNIQUE(code)", "Code must be unique")]
+    _code_unique = models.Constraint(
+        "unique (code)",
+        "Code must be unique",
+    )
 
     sequence = fields.Integer()
     company_id = fields.Many2one(
