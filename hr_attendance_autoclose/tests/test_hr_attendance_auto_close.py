@@ -21,35 +21,51 @@ class TestHrAttendanceReason(BaseCommon):
         new_test_user(cls.env, login="test-user")
 
     def test_employee_edit(self):
-        dti = datetime.now()
-        dto = datetime.now() + relativedelta(hours=7)
+        """Test that incomplete attendances are auto-closed
+        after the configured duration."""
+        check_in_time = datetime.now()
+        check_out_time = datetime.now() + relativedelta(hours=7)
         att = self.hr_attendance.create(
             {
                 "employee_id": self.employee.id,
-                "check_in": dti.strftime(DF),
-                "check_out": dto.strftime(DF),
+                "check_in": check_in_time.strftime(DF),
+                "check_out": check_out_time.strftime(DF),
             }
         )
         self.assertEqual(att.open_worked_hours, 7.0, "Wrong hours")
-        dt = datetime.now().replace(
+        past_check_in_time = datetime.now().replace(
             hour=0, minute=0, second=0, microsecond=0
         ) - relativedelta(hours=15)
         att = self.hr_attendance.create(
-            {"employee_id": self.employee.id, "check_in": dt.strftime(DF)}
+            {
+                "employee_id": self.employee.id,
+                "check_in": past_check_in_time.strftime(DF),
+            }
         )
         self.hr_attendance.check_for_incomplete_attendances()
-        # worked_hours are now 10 hours, because Odoo adds 1 hour to lunch, see:
-        # https://github.com/odoo/odoo/commit/2eda54348de1bd42fc2a1bed94cd8b7a3ebf405d
-        self.assertEqual(att.worked_hours, 10.0, "Attendance not closed")
+        # The auto-close mechanism sets check_out = check_in + max_hours
+        # (default 11.0 on the company).
+        # So worked_hours equals attendance_maximum_hours_per_day minus the
+        # lunch break duration.
+        # It should be 10.0 as we should have a lunch break of 1 hour in demo data.
+        launch_break = sum(
+            self.employee.resource_calendar_id.attendance_ids.filtered(
+                lambda resource_attendance: resource_attendance.day_period == "lunch"
+            ).mapped("duration_hours")
+        )
+        expected_hours = (
+            self.employee.company_id.attendance_maximum_hours_per_day - launch_break
+        )
+        self.assertEqual(att.worked_hours, expected_hours, "Attendance not closed")
         reason = self.env.company.hr_attendance_autoclose_reason
         reason.unlink()
-        dti += relativedelta(hours=10)
-        dto += relativedelta(hours=10)
+        check_in_time += relativedelta(hours=10)
+        check_out_time += relativedelta(hours=10)
         att2 = self.hr_attendance.create(
             {
                 "employee_id": self.employee.id,
-                "check_in": dti.strftime(DF),
-                "check_out": dto.strftime(DF),
+                "check_in": check_in_time.strftime(DF),
+                "check_out": check_out_time.strftime(DF),
             }
         )
         self.hr_attendance.check_for_incomplete_attendances()
