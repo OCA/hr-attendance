@@ -12,10 +12,10 @@ class TestWizard(TransactionCase):
             context=dict(cls.env.context, tracking_disable=True)
         )  # TODO: Is this correct?
         employee = cls.env.ref("hr.employee_admin")
-        before = cls.env["hr.attendance.overtime"].search(
+        before = cls.env["hr.attendance.overtime.line"].search(
             [("employee_id", "=", employee.id)]
         )
-        wizard = cls.env["hr.attendance.overtime.wizard"].create(
+        wizard = cls.env["hr.attendance.overtime.line.wizard"].create(
             {
                 "date": date(2023, 1, 1),
                 "duration": 4.2,
@@ -24,7 +24,7 @@ class TestWizard(TransactionCase):
         )
 
         wizard.with_context(id=employee.id).action_create()  # TODO: Is this correct?
-        after = cls.env["hr.attendance.overtime"].search(
+        after = cls.env["hr.attendance.overtime.line"].search(
             [("employee_id", "=", employee.id)]
         )
         overtime = after - before

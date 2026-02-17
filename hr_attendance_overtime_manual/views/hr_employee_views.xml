@@ -2,7 +2,7 @@
 <odoo>
     <record id="open_hr_attendance_overtime_wizard" model="ir.actions.act_window">
         <field name="name">Add Attendance Overtime</field>
-        <field name="res_model">hr.attendance.overtime.wizard</field>
+        <field name="res_model">hr.attendance.overtime.line.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
