@@ -7,12 +7,15 @@ from odoo.tests import TransactionCase
 
 
 class TestWizard(TransactionCase):
-    def test_wizard(self):
-        employee = self.env.ref("hr.employee_admin")
-        before = self.env["hr.attendance.overtime"].search(
+    def test_wizard(cls):
+        cls.env = cls.env(
+            context=dict(cls.env.context, tracking_disable=True)
+        )  # TODO: Is this correct?
+        employee = cls.env.ref("hr.employee_admin")
+        before = cls.env["hr.attendance.overtime"].search(
             [("employee_id", "=", employee.id)]
         )
-        wizard = self.env["hr.attendance.overtime.wizard"].create(
+        wizard = cls.env["hr.attendance.overtime.wizard"].create(
             {
                 "date": date(2023, 1, 1),
                 "duration": 4.2,
@@ -21,11 +24,11 @@ class TestWizard(TransactionCase):
         )
 
         wizard.with_context(id=employee.id).action_create()  # TODO: Is this correct?
-        after = self.env["hr.attendance.overtime"].search(
+        after = cls.env["hr.attendance.overtime"].search(
             [("employee_id", "=", employee.id)]
         )
         overtime = after - before
-        self.assertEqual(len(overtime), 1)
+        cls.assertEqual(len(overtime), 1)
 
-        self.assertEqual(overtime.duration, 4.2)
-        self.assertEqual(overtime.note, "Manually created")
+        cls.assertEqual(overtime.duration, 4.2)
+        cls.assertEqual(overtime.note, "Manually created")
