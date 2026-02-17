@@ -17,7 +17,7 @@ class TimesheetWizard(models.TransientModel):
     def action_create(self):
         self.env["hr.attendance.overtime"].create(
             {
-                "employee_id": self.env.context.get("active_id"),
+                "employee_id": self.env.context.get("id"),  # TODO: Is this correct?
                 "date": self.date,
                 "duration": self.duration,
                 "note": self.note,

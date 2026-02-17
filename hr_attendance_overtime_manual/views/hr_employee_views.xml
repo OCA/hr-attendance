@@ -33,7 +33,7 @@
                 expr="//button[.//field[@name='total_overtime']]"
                 position="attributes"
             >
-                <attribute name="attrs">{'invisible': False}</attribute>
+                <attribute name="invisible">False</attribute>
             </xpath>
         </field>
     </record>

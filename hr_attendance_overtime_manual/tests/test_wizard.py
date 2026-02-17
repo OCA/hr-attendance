@@ -20,7 +20,7 @@ class TestWizard(TransactionCase):
             }
         )
 
-        wizard.with_context(active_id=employee.id).action_create()
+        wizard.with_context(id=employee.id).action_create()  # TODO: Is this correct?
         after = self.env["hr.attendance.overtime"].search(
             [("employee_id", "=", employee.id)]
         )
