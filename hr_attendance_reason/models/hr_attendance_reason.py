@@ -24,7 +24,6 @@ class HrAttendanceReason(models.Model):
         string="Reason",
         help="Specifies the reason leaving soon or arriving late",
         required=True,
-        index=True,
         translate=True,
     )
     code = fields.Char("Reason Code")

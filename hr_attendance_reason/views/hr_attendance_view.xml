@@ -17,9 +17,7 @@
                     </group>
                 </group>
             </sheet>
-            <div class="oe_chatter" position="inside">
-                <chatter />
-            </div>
+            <chatter />
         </field>
     </record>
     <record id="hr_attendance_view_tree" model="ir.ui.view">
