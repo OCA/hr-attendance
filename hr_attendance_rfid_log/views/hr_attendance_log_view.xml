@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="att_rfid_log_tree_view" model="ir.ui.view">
+        <field name="name">hr.attendance.rfid.log.tree</field>
+        <field name="model">hr.attendance.rfid.log</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="state == 'failed'">
+                <field name="state" />
+                <field name="retry_counter" />
+                <field name="timestamp" />
+                <field name="employee_id" />
+                <field name="rfid_card_code" />
+                <field name="action"  attrs="{'invisible': [('state', '=', 'retry')]}"/>
+                <field name="error_message" attrs="{'invisible': [('state', '!=', 'failed')]}"/>
+                <field name="create_date" />
+                    <button
+                        name="retry_now"
+                        class="oe_highlight"
+                        string="Retry Now"
+                        type="object"
+                        attrs="{'invisible': [('state', '!=', 'retry')]}"
+                    />
+            </tree>
+        </field>
+    </record>
+    <record id="att_rfid_log_form_view" model="ir.ui.view">
+        <field name="name">hr.attendance.rfid.log.form</field>
+        <field name="model">hr.attendance.rfid.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" invisible="1"/>
+                    <button
+                        name="action_open_wizard_assign_employee"
+                        class="oe_highlight"
+                        string="Assign Employee"
+                        attrs="{'invisible': [('employee_id', '!=', False)]}"
+                        type="object"
+                    />
+                    <button
+                        name="set_to_retry_state"
+                        class="oe_highlight"
+                        string="Retry"
+                        attrs="{'invisible': ['|',('state', '=', 'success'), ('state', '=', 'retry'), ('employee_id', '!=', False)]}"
+                        type="object"
+                    />
+                    <button
+                        name="set_to_ignore_state"
+                        class="btn-danger"
+                        string="Ignore"
+                        attrs="{'invisible': [('state', '=', 'success'),('employee_id', '!=', False)]}"
+                        type="object"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" attrs="{'invisible': [('employee_id', '=', False)]}"/>
+                            <field name="rfid_card_code" />
+                            <field name="timestamp" />
+                        </group>
+                    </group>
+                    <group
+                        string="Result"
+                        name="result"
+                        attrs="{'invisible': [('state', '!=', 'success')]}"
+                    >
+                        <group>
+                            <field name="action" />
+                        </group>
+                    </group>
+                    <group
+                        string="Error"
+                        name="error"
+                        attrs="{'invisible': [('state', '!=', 'failed')]}"
+                    >
+                        <group>
+                            <field
+                                name="error_message"
+                                nolabel="1"
+                                widget="ace"
+                                options="{'mode': 'python'}"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_rfid_attendance_log" model="ir.actions.act_window">
+        <field name="name">RFID Attendance Logs</field>
+        <field name="res_model">hr.attendance.rfid.log</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="att_rfid_log_tree_view" />
+    </record>
+    <menuitem
+        name="Logs"
+        sequence="80"
+        id="menu_rfid_log"
+        action="action_rfid_attendance_log"
+        parent="hr_attendance.menu_hr_attendance_report"
+    />
+</odoo>

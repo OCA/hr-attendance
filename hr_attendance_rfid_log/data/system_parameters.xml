@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 thingsintouch.com
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo noupdate="1">
+    <record model="ir.config_parameter" id="ir_config_param_purge_period_success">
+        <field name="key">hr_attendance_rfid_log.purge_period_success</field>
+        <field name="value">5</field>
+    </record>
+    <record model="ir.config_parameter" id="ir_config_param_purge_period_general">
+        <field name="key">hr_attendance_rfid_log.purge_period_general</field>
+        <field name="value">40</field>
+    </record>
+</odoo>
