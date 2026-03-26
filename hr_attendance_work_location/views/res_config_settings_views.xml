@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='hr_attendance']" position="inside">
+                <block
+                    title="Work Location Tracking"
+                    name="work_location_tracking_settings_container"
+                >
+                    <setting>
+                        <label
+                            string="GPS Tolerance (meters)"
+                            for="geo_tolerance_meters"
+                        />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                        />
+                        <div class="row">
+                            <div class="text-muted col-lg-8">
+                                Proximity tolerance in meters for
+                                auto-assigning work locations at check-in/out.
+                                Default is 111 meters. Set to 0 to disable.
+                            </div>
+                        </div>
+                        <div class="content-group mt16">
+                            <field name="geo_tolerance_meters" />
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
