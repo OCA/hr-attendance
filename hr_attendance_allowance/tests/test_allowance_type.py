@@ -21,7 +21,7 @@ class TestAllowanceType(TestHrAttendanceAllowanceCommon):
                 self.env["hr.attendance.allowance.type"].create,
                 {
                     "name": "Duplicate",
-                    "code": "TRAVEL",
+                    "code": "travel",
                     "company_id": self.company.id,
                 },
             )
@@ -32,7 +32,7 @@ class TestAllowanceType(TestHrAttendanceAllowanceCommon):
         rec = self.env["hr.attendance.allowance.type"].create(
             {
                 "name": "Travel Other",
-                "code": "TRAVEL",
+                "code": "travel",
                 "company_id": company_2.id,
             }
         )

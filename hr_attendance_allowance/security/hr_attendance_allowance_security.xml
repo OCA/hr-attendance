@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="rule_multi_company_allowance_type" model="ir.rule">
-        <field name="name">Allowance Type multi-company</field>
-        <field name="model_id" ref="model_hr_attendance_allowance_type" />
-        <field name="global" eval="True" />
-        <field
-            name="domain_force"
-        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
-    </record>
-    <record id="rule_multi_company_allowance" model="ir.rule">
+    <record id="hr_attendance_allowance_rule_company" model="ir.rule">
         <field name="name">Allowance multi-company</field>
         <field name="model_id" ref="model_hr_attendance_allowance" />
         <field name="global" eval="True" />
@@ -16,16 +8,8 @@
             name="domain_force"
         >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
     </record>
-    <record id="rule_multi_company_allowance_rule" model="ir.rule">
-        <field name="name">Allowance Rule multi-company</field>
-        <field name="model_id" ref="model_hr_attendance_allowance_rule" />
-        <field name="global" eval="True" />
-        <field
-            name="domain_force"
-        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
-    </record>
     <data noupdate="1">
-        <record id="rule_allowance_manager_full" model="ir.rule">
+        <record id="hr_attendance_allowance_rule_manager" model="ir.rule">
             <field name="name">Allowance Manager: Full access</field>
             <field name="model_id" ref="model_hr_attendance_allowance" />
             <field name="domain_force">[(1,'=',1)]</field>
@@ -34,7 +18,7 @@
                 eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
             />
         </record>
-        <record id="rule_allowance_officer_restrict" model="ir.rule">
+        <record id="hr_attendance_allowance_rule_officer" model="ir.rule">
             <field name="name">Allowance Officer: Restrict to managed employees</field>
             <field name="model_id" ref="model_hr_attendance_allowance" />
             <field name="domain_force">
@@ -53,7 +37,7 @@
                 eval="[(4, ref('hr_attendance.group_hr_attendance_officer'))]"
             />
         </record>
-        <record id="rule_allowance_own_reader" model="ir.rule">
+        <record id="hr_attendance_allowance_rule_own_reader" model="ir.rule">
             <field name="name">Allowance: Read own allowances</field>
             <field name="model_id" ref="model_hr_attendance_allowance" />
             <field

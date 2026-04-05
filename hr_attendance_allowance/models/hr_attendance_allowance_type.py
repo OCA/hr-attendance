@@ -13,10 +13,16 @@ class HrAttendanceAllowanceType(models.Model):
         help="Human-readable label for this allowance type, "
         "e.g. 'Travel Time', 'Dressing Time', 'Paid Break'.",
     )
-    code = fields.Char(
+    code = fields.Selection(
+        [
+            ("travel", "Travel Time"),
+            ("dressing", "Dressing / Changing Time"),
+            ("break", "Paid Break"),
+            ("setup", "Setup / Preparation Time"),
+            ("shower", "Shower / Wash Time"),
+        ],
         required=True,
-        help="Technical identifier used to reference this allowance type"
-        " in rules or reports. Must be unique per company.",
+        help="Category of attendance-linked time credit. Must be unique per company.",
     )
     active = fields.Boolean(
         default=True,

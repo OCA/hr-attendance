@@ -11,7 +11,9 @@
     "depends": ["hr_attendance"],
     "data": [
         "security/ir.model.access.csv",
-        "security/security.xml",
+        "security/hr_attendance_allowance_type_security.xml",
+        "security/hr_attendance_allowance_rule_security.xml",
+        "security/hr_attendance_allowance_security.xml",
         "data/ir_cron_data.xml",
         "views/hr_attendance_allowance_type_views.xml",
         "views/hr_attendance_allowance_rule_views.xml",

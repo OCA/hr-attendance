@@ -270,7 +270,10 @@ Credits
 Contributors
 ------------
 
--  Odoo Community Association (OCA)
+`Binhex <https://binhex.cloud>`__:
+
+   -  Rolando Pérez Rebollo
+   -  Ariel Torres Gálvez
 
 Maintainers
 -----------

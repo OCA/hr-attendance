@@ -19,14 +19,14 @@ class TestHrAttendanceAllowanceCommon(BaseCommon):
         cls.allowance_type = cls.env["hr.attendance.allowance.type"].create(
             {
                 "name": "Travel Time",
-                "code": "TRAVEL",
+                "code": "travel",
                 "company_id": cls.company.id,
             }
         )
         cls.allowance_type_2 = cls.env["hr.attendance.allowance.type"].create(
             {
-                "name": "Weekend Credit",
-                "code": "WEEKEND",
+                "name": "Dressing Time",
+                "code": "dressing",
                 "company_id": cls.company.id,
             }
         )

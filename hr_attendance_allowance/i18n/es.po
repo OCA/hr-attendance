@@ -132,6 +132,31 @@ msgid "Code"
 msgstr "Código"
 
 #. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__break
+msgid "Paid Break"
+msgstr "Pausa retribuida"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__dressing
+msgid "Dressing / Changing Time"
+msgstr "Tiempo de vestuario"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__setup
+msgid "Setup / Preparation Time"
+msgstr "Tiempo de preparación"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__shower
+msgid "Shower / Wash Time"
+msgstr "Tiempo de aseo"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__travel
+msgid "Travel Time"
+msgstr "Tiempo de desplazamiento"
+
+#. module: hr_attendance_allowance
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__company_id
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__company_id
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__company_id
@@ -482,12 +507,10 @@ msgstr "Omitido"
 
 #. module: hr_attendance_allowance
 #: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__code
-msgid ""
-"Technical identifier used to reference this allowance type in rules or "
-"reports. Must be unique per company."
+msgid "Category of attendance-linked time credit. Must be unique per company."
 msgstr ""
-"Identificador técnico utilizado para referenciar este tipo de complemento en "
-"reglas o informes. Debe ser único por compañía."
+"Categoría de crédito de tiempo vinculado a la asistencia. Debe ser único "
+"por compañía."
 
 #. module: hr_attendance_allowance
 #: model:ir.model.constraint,message:hr_attendance_allowance.constraint_hr_attendance_allowance_type_code_company_uniq

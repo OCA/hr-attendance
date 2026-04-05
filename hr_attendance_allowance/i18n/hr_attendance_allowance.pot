@@ -128,6 +128,31 @@ msgid "Code"
 msgstr ""
 
 #. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__break
+msgid "Paid Break"
+msgstr ""
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__dressing
+msgid "Dressing / Changing Time"
+msgstr ""
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__setup
+msgid "Setup / Preparation Time"
+msgstr ""
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__shower
+msgid "Shower / Wash Time"
+msgstr ""
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_type__code__travel
+msgid "Travel Time"
+msgstr ""
+
+#. module: hr_attendance_allowance
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__company_id
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__company_id
 #: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__company_id
@@ -446,9 +471,7 @@ msgstr ""
 
 #. module: hr_attendance_allowance
 #: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__code
-msgid ""
-"Technical identifier used to reference this allowance type in rules or "
-"reports. Must be unique per company."
+msgid "Category of attendance-linked time credit. Must be unique per company."
 msgstr ""
 
 #. module: hr_attendance_allowance
