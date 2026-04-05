@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Search view for allowance lines -->
+    <record id="hr_attendance_allowance_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.allowance.search</field>
+        <field name="model">hr.attendance.allowance</field>
+        <field name="arch" type="xml">
+            <search string="Allowances">
+                <field name="type_id" />
+                <field name="employee_id" />
+                <separator />
+                <filter
+                    string="Automatic"
+                    name="automatic"
+                    domain="[('origin', '=', 'automatic')]"
+                />
+                <filter
+                    string="Manual"
+                    name="manual"
+                    domain="[('origin', '=', 'manual')]"
+                />
+                <separator />
+                <filter string="Check In" name="check_in_filter" date="check_in" />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Type"
+                        name="groupby_type"
+                        context="{'group_by': 'type_id'}"
+                    />
+                    <filter
+                        string="Employee"
+                        name="groupby_employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                    <filter
+                        string="Origin"
+                        name="groupby_origin"
+                        context="{'group_by': 'origin'}"
+                    />
+                    <filter
+                        string="Month"
+                        name="groupby_check_in_month"
+                        context="{'group_by': 'check_in:month'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- List view for allowance lines -->
+    <record id="hr_attendance_allowance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.allowance.tree</field>
+        <field name="model">hr.attendance.allowance</field>
+        <field name="arch" type="xml">
+            <tree default_order="check_in desc">
+                <field name="employee_id" widget="many2one_avatar_user" />
+                <field name="check_in" />
+                <field name="type_id" />
+                <field name="minutes" />
+                <field name="origin" />
+                <field name="note" optional="hide" />
+                <field
+                    name="company_id"
+                    optional="hide"
+                    groups="base.group_multi_company"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Pivot view for allowance lines -->
+    <record id="hr_attendance_allowance_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.allowance.pivot</field>
+        <field name="model">hr.attendance.allowance</field>
+        <field name="arch" type="xml">
+            <pivot string="Allowances">
+                <field name="employee_id" type="row" />
+                <field name="type_id" type="row" />
+                <field name="check_in" type="col" interval="month" />
+                <field name="minutes" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Window action: browse allowance lines -->
+    <record id="hr_attendance_allowance_action" model="ir.actions.act_window">
+        <field name="name">Allowances</field>
+        <field name="res_model">hr.attendance.allowance</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="search_view_id" ref="hr_attendance_allowance_view_search" />
+        <field name="context">
+            {
+                "search_default_groupby_type": 1
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No allowance lines found</p>
+            <p>
+                Allowance lines are created automatically by the rule engine
+                whenever a matching attendance is saved.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item under Reporting -->
+    <menuitem
+        id="hr_attendance_allowance_menu"
+        name="Allowances"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        action="hr_attendance_allowance_action"
+        sequence="10"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+</odoo>

@@ -1,0 +1,563 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_allowance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__active
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance__allowance_ids
+msgid "Allowance"
+msgstr "Complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance__allowance_locked
+msgid "Allowance Locked"
+msgstr "Complemento bloqueado"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_rule_view_form
+msgid "Allowance Rule"
+msgstr "Regla de complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.actions.act_window,name:hr_attendance_allowance.hr_attendance_allowance_rule_action
+#: model:ir.ui.menu,name:hr_attendance_allowance.hr_attendance_allowance_rule_menu
+msgid "Allowance Rules"
+msgstr "Reglas de complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__allowance_type_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_type_view_form
+msgid "Allowance Type"
+msgstr "Tipo de complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.actions.act_window,name:hr_attendance_allowance.hr_attendance_allowance_type_action
+#: model:ir.ui.menu,name:hr_attendance_allowance.hr_attendance_allowance_type_menu
+msgid "Allowance Types"
+msgstr "Tipos de complemento"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.actions.act_window,help:hr_attendance_allowance.hr_attendance_allowance_action
+msgid ""
+"Allowance lines are created automatically by the rule engine\n"
+"                whenever a matching attendance is saved."
+msgstr ""
+"Las líneas de complemento se crean automáticamente por el motor de reglas\n"
+"                siempre que se guarda una asistencia coincidente."
+
+#. module: hr_attendance_allowance
+#: model:ir.actions.act_window,name:hr_attendance_allowance.hr_attendance_allowance_action
+#: model:ir.ui.menu,name:hr_attendance_allowance.hr_attendance_allowance_menu
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_pivot
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_view_form
+msgid "Allowances"
+msgstr "Complementos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model,name:hr_attendance_allowance.model_hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__attendance_id
+msgid "Attendance"
+msgstr "Asistencia"
+
+#. module: hr_attendance_allowance
+#: model:ir.model,name:hr_attendance_allowance.model_hr_attendance_allowance
+msgid "Attendance Allowance"
+msgstr "Complemento de asistencia"
+
+#. module: hr_attendance_allowance
+#: model:ir.model,name:hr_attendance_allowance.model_hr_attendance_allowance_rule
+msgid "Attendance Allowance Rule"
+msgstr "Regla de complemento de asistencia"
+
+#. module: hr_attendance_allowance
+#: model:ir.model,name:hr_attendance_allowance.model_hr_attendance_allowance_type
+msgid "Attendance Allowance Type"
+msgstr "Tipo de complemento de asistencia"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__attendance_id
+msgid "Attendance record this allowance line belongs to."
+msgstr "Registro de asistencia al que pertenece esta línea de complemento."
+
+#. module: hr_attendance_allowance
+#: model:ir.actions.server,name:hr_attendance_allowance.ir_cron_process_attendance_allowances_ir_actions_server
+msgid "Attendance: Process Allowance Rules"
+msgstr "Asistencia: Procesar reglas de complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance__origin__automatic
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Automatic"
+msgstr "Automático"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__type_id
+msgid ""
+"Category of allowance granted, e.g. travel time, dressing time, paid break."
+msgstr ""
+"Categoría de complemento concedido, p. ej. tiempo de desplazamiento, tiempo de vestuario, pausa retribuida."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__check_in
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Check In"
+msgstr "Entrada"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__check_in
+msgid "Check-in time derived from the linked attendance record."
+msgstr "Hora de entrada derivada del registro de asistencia vinculado."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__code
+msgid "Code"
+msgstr "Código"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__company_id
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__company_id
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__company_id
+msgid "Company derived from the employee linked to the attendance record."
+msgstr "Compañía derivada del empleado vinculado al registro de asistencia."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__company_id
+msgid "Company that owns this allowance type."
+msgstr "Compañía propietaria de este tipo de complemento."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__condition_action_id
+msgid "Condition Server Action"
+msgstr "Acción de servidor de condición"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__condition_type
+msgid "Condition Type"
+msgstr "Tipo de condición"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__create_date
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__create_date
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_view_tree
+msgid "Credited Hours"
+msgstr "Horas acreditadas"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__name
+msgid ""
+"Descriptive name that identifies the purpose of this rule, e.g. 'Travel "
+"Time', 'Dressing Time', 'Paid Break'."
+msgstr ""
+"Nombre descriptivo que identifica el propósito de esta regla, "
+"p. ej. 'Tiempo de desplazamiento', 'Tiempo de vestuario', 'Pausa retribuida'."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__display_name
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__domain
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_rule__condition_type__domain
+msgid "Domain"
+msgstr "Dominio"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__condition_type
+msgid ""
+"Domain: Odoo domain filter on the attendance record. Server Action: "
+"delegates condition evaluation to an ir.actions.server of type 'code'. The "
+"action must set `action = True` to trigger the rule."
+msgstr ""
+"Dominio: filtro de dominio de Odoo sobre el registro de asistencia. Acción "
+"de servidor: delega la evaluación de la condición a una ir.actions.server de "
+"tipo 'code'. La acción debe establecer `action = True` para activar la regla."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__minutes
+msgid "Duration of the allowance expressed in minutes."
+msgstr "Duración del complemento expresada en minutos."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Employee"
+msgstr "Empleado/a"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__employee_id
+msgid "Employee derived from the linked attendance record."
+msgstr "Empleado/a derivado del registro de asistencia vinculado."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__sequence
+msgid "Evaluation order; rules with a lower sequence number are applied first."
+msgstr ""
+"Orden de evaluación; las reglas con un número de secuencia menor se aplican "
+"primero."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_rule__minutes_type__fixed
+msgid "Fixed"
+msgstr "Fijo"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_fixed
+msgid "Fixed number of minutes granted when the rule condition is satisfied."
+msgstr ""
+"Número fijo de minutos otorgados cuando se cumple la condición de la regla."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_type
+msgid ""
+"Fixed: a constant number of minutes. Server Action: computes minutes "
+"dynamically via an ir.actions.server of type 'code'. The action must set "
+"`action = <integer>` with the number of minutes."
+msgstr ""
+"Fijo: un número constante de minutos. Acción de servidor: calcula los "
+"minutos de forma dinámica mediante una ir.actions.server de tipo 'code'. La "
+"acción debe establecer `action = <entero>` con el número de minutos."
+
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_view_filter
+msgid "Has Allowances"
+msgstr "Tiene complementos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__name
+msgid ""
+"Human-readable label for this allowance type, e.g. 'Travel Time', 'Dressing "
+"Time', 'Paid Break'."
+msgstr ""
+"Etiqueta legible para este tipo de complemento, "
+"p. ej. 'Tiempo de desplazamiento', 'Tiempo de vestuario', 'Pausa retribuida'."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__id
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__id
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__active
+msgid ""
+"If unchecked, this allowance type will be hidden and unavailable for new "
+"rules."
+msgstr ""
+"Si se desmarca, este tipo de complemento se ocultará y no estará disponible "
+"para nuevas reglas."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__active
+msgid "If unchecked, this rule is skipped during allowance processing."
+msgstr ""
+"Si se desmarca, esta regla se omitirá durante el procesamiento de "
+"complementos."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__origin
+msgid ""
+"Indicates whether this allowance was computed automatically by the rule "
+"engine or added manually by a user."
+msgstr ""
+"Indica si este complemento fue calculado automáticamente por el motor de "
+"reglas o añadido manualmente por un usuario."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__write_date
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__write_date
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_view_filter
+msgid "Locked"
+msgstr "Bloqueado"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance__origin__manual
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Manual"
+msgstr "Manual"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_cap
+msgid ""
+"Maximum minutes this rule can grant per attendance (0 = no cap). Applied "
+"after the rate multiplier."
+msgstr ""
+"Máximo de minutos que esta regla puede otorgar por asistencia (0 = sin límite). "
+"Se aplica después del factor multiplicador."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__minutes
+msgid "Minutes"
+msgstr "Minutos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_cap
+msgid "Minutes Cap"
+msgstr "Límite de minutos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_fixed
+msgid "Minutes Fixed"
+msgstr "Minutos fijos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_action_id
+msgid "Minutes Server Action"
+msgstr "Acción de servidor de minutos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_type
+msgid "Minutes Type"
+msgstr "Tipo de minutos"
+
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Month"
+msgstr "Mes"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__rate
+msgid ""
+"Multiplier applied to the computed minutes before rounding. Use 0.5 to grant "
+"half the computed time, 1.5 for time and a half, etc."
+msgstr ""
+"Factor multiplicador aplicado a los minutos calculados antes del redondeo. "
+"Use 0,5 para conceder la mitad del tiempo calculado, 1,5 para tiempo y medio, etc."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__name
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_type__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.actions.act_window,help:hr_attendance_allowance.hr_attendance_allowance_action
+msgid "No allowance lines found"
+msgstr "No se encontraron líneas de complemento"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__domain
+msgid ""
+"Odoo domain filter evaluated against the attendance record. The rule applies "
+"only when the attendance matches this domain."
+msgstr ""
+"Filtro de dominio de Odoo evaluado contra el registro de asistencia. La "
+"regla se aplica solo cuando la asistencia coincide con este dominio."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance__note
+msgid "Optional description or justification for this allowance line."
+msgstr "Descripción opcional o justificación para esta línea de complemento."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__origin
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Origin"
+msgstr "Origen"
+
+#. module: hr_attendance_allowance
+#: model:ir.actions.server,name:hr_attendance_allowance.hr_attendance_action_process
+msgid "Process Allowances"
+msgstr "Procesar complementos"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__rate
+msgid "Rate"
+msgstr "Factor"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__company_id
+msgid ""
+"Restrict this rule to attendances belonging to employees of this company."
+msgstr "Restringir esta regla a asistencias de empleados de esta compañía."
+
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance_rule__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_rule__condition_type__server_action
+#: model:ir.model.fields.selection,name:hr_attendance_allowance.selection__hr_attendance_allowance_rule__minutes_type__server_action
+msgid "Server Action"
+msgstr "Acción de servidor"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__condition_action_id
+msgid ""
+"Server action evaluated to determine if the rule applies. The action code "
+"must set `action = True` for the rule to trigger. Available context: record "
+"(the attendance), env, model, datetime, dateutil, time, timezone."
+msgstr ""
+"Acción de servidor evaluada para determinar si la regla se aplica. El código "
+"de la acción debe establecer `action = True` para activar la regla. Contexto "
+"disponible: record (la asistencia), env, model, datetime, dateutil, time, "
+"timezone."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__minutes_action_id
+msgid ""
+"Server action that computes the allowance minutes. The action code must set "
+"`action = <integer>` with the minutes value. Available context: record (the "
+"attendance), env, model, datetime, dateutil, time, timezone."
+msgstr ""
+"Acción de servidor que calcula los minutos de complemento. El código de la "
+"acción debe establecer `action = <entero>` con el valor de minutos. Contexto "
+"disponible: record (la asistencia), env, model, datetime, dateutil, time, "
+"timezone."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance__skip_allowance
+msgid "Skip Allowance"
+msgstr "Omitir complemento"
+
+#. module: hr_attendance_allowance
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_view_filter
+msgid "Skipped"
+msgstr "Omitido"
+
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_type__code
+msgid ""
+"Technical identifier used to reference this allowance type in rules or "
+"reports. Must be unique per company."
+msgstr ""
+"Identificador técnico utilizado para referenciar este tipo de complemento en "
+"reglas o informes. Debe ser único por compañía."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.constraint,message:hr_attendance_allowance.constraint_hr_attendance_allowance_type_code_company_uniq
+msgid "The code must be unique per company."
+msgstr "El código debe ser único por compañía."
+
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance__allowance_ids
+msgid ""
+"Time allowances applied to this attendance record, either automatically by "
+"the rule engine or added manually by a manager."
+msgstr ""
+"Complementos de tiempo aplicados a este registro de asistencia, ya sea "
+"automáticamente por el motor de reglas o añadidos manualmente por un "
+"responsable."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance__total_credited_hours
+msgid "Total Credited Hours"
+msgstr "Total horas acreditadas"
+
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,field_description:hr_attendance_allowance.field_hr_attendance_allowance__type_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_allowance.hr_attendance_allowance_view_search
+msgid "Type"
+msgstr "Tipo"
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance_allowance_rule__allowance_type_id
+msgid ""
+"Type of allowance that will be created when this rule's condition is met."
+msgstr ""
+"Tipo de complemento que se creará cuando se cumpla la condición de esta "
+"regla."
+
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance__allowance_locked
+msgid ""
+"When enabled, allowance lines on this record are frozen: automatic "
+"recomputation, rule-change cascades, cron sweeps and manual force reprocess "
+"are all skipped. Unlock the record before making changes."
+msgstr ""
+"Cuando se activa, las líneas de complemento de este registro quedan congeladas: "
+"se omiten el recálculo automático, las actualizaciones en cascada por cambio de reglas, "
+"los barridos del cron y el reprocesamiento manual forzado. "
+"Desbloquee el registro antes de realizar cambios."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance__skip_allowance
+msgid ""
+"When enabled, the allowance rule engine will ignore this attendance record "
+"entirely. Restricted to attendance managers to prevent employees from "
+"excluding themselves from allowance computation."
+msgstr ""
+"Cuando se activa, el motor de reglas de complementos ignorará este registro "
+"de asistencia completamente. Restringido a responsables de asistencia para "
+"evitar que los empleados se excluyan del cálculo de complementos."
+
+#. module: hr_attendance_allowance
+#: model:ir.model.fields,help:hr_attendance_allowance.field_hr_attendance__total_credited_hours
+msgid ""
+"Worked hours plus all credited allowance minutes converted to hours. "
+"Allowances represent supplementary credits (travel time, dressing time, paid "
+"breaks, etc.) that are distinct from worked time; this field combines both "
+"for reporting and payroll reference."
+msgstr ""
+"Horas trabajadas más todos los minutos de complemento acreditados convertidos a horas. "
+"Los complementos representan créditos suplementarios (tiempo de desplazamiento, "
+"tiempo de vestuario, pausas retribuidas, etc.) distintos del tiempo trabajado; "
+"este campo combina ambos para informes y referencia de nómina."

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Search view: filters and group-by for allowance fields -->
+    <record id="hr_attendance_view_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.search.allowance</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="arch" type="xml">
+            <filter name="check_in_filter" position="before">
+                <separator />
+                <filter
+                    string="Has Allowances"
+                    name="has_allowances"
+                    domain="[('allowance_ids', '!=', False)]"
+                />
+                <filter
+                    string="Locked"
+                    name="locked"
+                    domain="[('allowance_locked', '=', True)]"
+                />
+                <filter
+                    string="Skipped"
+                    name="skipped"
+                    domain="[('skip_allowance', '=', True)]"
+                />
+                <separator />
+            </filter>
+
+        </field>
+    </record>
+
+    <!-- List view: add total_credited_hours as optional column -->
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.allowance</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <field name="overtime_hours" position="after">
+                <field
+                    name="total_credited_hours"
+                    string="Credited Hours"
+                    widget="float_time"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- Graph view: add total_credited_hours measure -->
+    <record id="hr_attendance_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.graph.allowance</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_graph" />
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Pivot view: add total_credited_hours measure -->
+    <record id="hr_attendance_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.pivot.allowance</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot" />
+        <field name="arch" type="xml">
+            <field name="overtime_hours" position="after">
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Form view: allowance section -->
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form.allowance</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <group name="allowance_options">
+                    <group>
+                        <field name="skip_allowance" />
+                        <field name="allowance_locked" />
+                        <field name="total_credited_hours" />
+                    </group>
+                </group>
+                <group name="allowance_lines" string="Allowances">
+                    <field name="allowance_ids" nolabel="1" readonly="allowance_locked">
+                        <tree editable="bottom">
+                            <field name="type_id" />
+                            <field name="minutes" />
+                            <field name="origin" />
+                            <field name="note" />
+                            <field name="company_id" column_invisible="1" />
+                        </tree>
+                    </field>
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+    <!-- Server action: force reprocess from list view -->
+    <record id="hr_attendance_action_process" model="ir.actions.server">
+        <field name="name">Process Allowances</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance" />
+        <field name="binding_model_id" ref="hr_attendance.model_hr_attendance" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_process_allowances()</field>
+    </record>
+</odoo>

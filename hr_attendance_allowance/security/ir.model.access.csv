@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_attendance_allowance_type_manager,hr.attendance.allowance.type.manager,model_hr_attendance_allowance_type,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_attendance_allowance_type_user,hr.attendance.allowance.type.user,model_hr_attendance_allowance_type,base.group_user,1,0,0,0
+access_hr_attendance_allowance_manager,hr.attendance.allowance.manager,model_hr_attendance_allowance,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_attendance_allowance_officer,hr.attendance.allowance.officer,model_hr_attendance_allowance,hr_attendance.group_hr_attendance_officer,1,1,1,1
+access_hr_attendance_allowance_user,hr.attendance.allowance.user,model_hr_attendance_allowance,hr_attendance.group_hr_attendance_own_reader,1,0,0,0
+access_hr_attendance_allowance_rule_manager,hr.attendance.allowance.rule.manager,model_hr_attendance_allowance_rule,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_hr_attendance_allowance_rule_user,hr.attendance.allowance.rule.user,model_hr_attendance_allowance_rule,base.group_user,1,0,0,0
