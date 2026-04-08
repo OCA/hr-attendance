@@ -27,12 +27,16 @@ class RecomputeTheoreticalAttendance(models.TransientModel):
 
     def action_recompute(self):
         self.ensure_one()
-        attendances = self.env["hr.attendance"].search(
-            [
-                ("employee_id", "in", self.employee_ids.ids),
-                ("check_in", ">=", self.date_from),
-                ("check_out", "<=", self.date_to),
-            ]
+        attendances = (
+            self.env["hr.attendance"]
+            .with_context(active_test=False)
+            .search(
+                [
+                    ("employee_id", "in", self.employee_ids.ids),
+                    ("check_in", ">=", self.date_from),
+                    ("check_out", "<=", self.date_to),
+                ]
+            )
         )
         self._action_recompute(attendances)
         return {"type": "ir.actions.act_window_close"}
