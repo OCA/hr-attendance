@@ -32,21 +32,25 @@ class HrAttendance(HrAttendance):
         return response
 
     @route("/hr_attendance/systray_check_in_out", type="json", auth="user")
-    def systray_attendance(self, latitude=False, longitude=False):
-        if request.params.get("attendance_reason_id"):
-            request.update_context(
-                attendance_reason_id=int(request.params.get("attendance_reason_id"))
-            )
+    def systray_attendance(
+        self, latitude=False, longitude=False, attendance_reason_id=False
+    ):
+        if attendance_reason_id:
+            request.update_context(attendance_reason_id=int(attendance_reason_id))
         return super().systray_attendance(latitude=latitude, longitude=longitude)
 
     @http.route("/hr_attendance/manual_selection", type="json", auth="public")
     def manual_selection_with_geolocation(
-        self, token, employee_id, pin_code, latitude=False, longitude=False
+        self,
+        token,
+        employee_id,
+        pin_code,
+        latitude=False,
+        longitude=False,
+        attendance_reason_id=False,
     ):
-        if request.params.get("attendance_reason_id"):
-            request.update_context(
-                attendance_reason_id=int(request.params.get("attendance_reason_id"))
-            )
+        if attendance_reason_id:
+            request.update_context(attendance_reason_id=int(attendance_reason_id))
         return super().manual_selection_with_geolocation(
             token, employee_id, pin_code, latitude, longitude
         )
