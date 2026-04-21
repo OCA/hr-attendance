@@ -26,6 +26,7 @@ addon | version | maintainers | summary
 [hr_attendance_reason](hr_attendance_reason/) | 17.0.1.1.1 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 17.0.1.1.0 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rfid](hr_attendance_rfid/) | 17.0.1.0.0 |  | HR Attendance RFID
+[hr_contract_update_overtime](hr_contract_update_overtime/) | 17.0.1.0.0 | <a href='https://github.com/Shide'><img src='https://github.com/Shide.png' width='32' height='32' style='border-radius:50%;' alt='Shide'/></a> <a href='https://github.com/rafaelbn'><img src='https://github.com/rafaelbn.png' width='32' height='32' style='border-radius:50%;' alt='rafaelbn'/></a> | Update Overtime from HR Contract
 
 [//]: # (end addons)
 
