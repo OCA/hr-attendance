@@ -15,13 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 
 #. module: hr_attendance_autoclose
-#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
-"specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-
-#. module: hr_attendance_autoclose
 #: model:ir.model,name:hr_attendance_autoclose.model_hr_attendance
 msgid "Attendance"
 msgstr ""
@@ -90,6 +83,11 @@ msgstr ""
 msgid ""
 "This reason will be added to an attendance\n"
 "                                when it's autoclosed."
+msgstr ""
+
+#. module: hr_attendance_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
+msgid "Values set here are company-specific."
 msgstr ""
 
 #. module: hr_attendance_autoclose
