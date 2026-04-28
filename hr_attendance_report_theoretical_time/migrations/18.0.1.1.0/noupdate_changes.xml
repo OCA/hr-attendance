@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="rule_theoretical_vs_worked_report_all" model="ir.rule">
+        <field
+            name="groups"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
+        />
+    </record>
+</odoo>
