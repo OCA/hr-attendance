@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button
+                        name="action_view_rest_times"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-coffee"
+                    >
+                        <field
+                            name="rest_time_count"
+                            widget="statinfo"
+                            string="Breaks"
+                        />
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="rest_hours" widget="float_time" />
+                <button
+                    name="action_view_rest_times"
+                    title="Rest time"
+                    type="object"
+                    class="fa fa-clock-o"
+                    invisible="rest_time_count == 0"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.pivot.imherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot" />
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="rest_hours" widget="float_time" />
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.graph.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_graph" />
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="rest_hours" widget="float_time" />
+            </field>
+        </field>
+    </record>
+</odoo>
