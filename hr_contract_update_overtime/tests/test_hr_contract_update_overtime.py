@@ -233,11 +233,7 @@ class HRContractUpdateOvertime(TransactionCase):
         # if it's installed, even when we don't need that dependency normally.
         if "holiday_id" in leaves._fields:
             leave_type = cls.env["hr.leave.type"].create(
-                {
-                    "name": "Beach 🏖️",
-                    "time_type": "leave",
-                    "requires_allocation": "no",
-                }
+                {"name": "Beach 🏖️", "time_type": "leave", "requires_allocation": "no"}
             )
             for res_leave in leaves:
                 res_leave.holiday_id = (
