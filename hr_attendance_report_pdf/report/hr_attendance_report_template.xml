@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_report_attendance" model="ir.actions.report">
+        <field name="name">Attendance Report</field>
+        <field name="model">hr.attendance.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >hr_attendance_report_pdf.report_attendance_template</field>
+        <field
+            name="report_file"
+        >hr_attendance_report_pdf.report_attendance_template</field>
+        <field
+            name="print_report_name"
+        >'Attendance - ' + object.employee_id.name + ' - ' + str(object.date_from) + ' to ' + str(object.date_to)</field>
+        <field
+            name="binding_model_id"
+            ref="hr_attendance_report_pdf.model_hr_attendance_report_wizard"
+        />
+    </record>
+
+    <template id="report_attendance_header">
+        <div class="o_attendance_header" style="margin-bottom: 16px;">
+            <table
+                style="width:100%; border-bottom: 2px solid #1a4f8a; padding-bottom: 8px;"
+            >
+                <tr>
+                    <td style="width:100%;">
+                        <h2 style="color:#1a4f8a; margin:0;">
+                            <t t-if="report_type == 'individual'">
+                                Attendance Report — <t t-out="employee.name" />
+                            </t>
+                            <t t-if="report_type == 'department'">
+                                Attendance Report by Department
+                            </t>
+                        </h2>
+                        <p style="margin:4px 0 0 0; font-size:11px; color:#555;">
+                            Department: <strong><t
+                                    t-out="department.name or '—'"
+                                /></strong>
+                            &amp;nbsp;&amp;nbsp;|&amp;nbsp;&amp;nbsp;
+                            Company: <strong><t t-out="company.name" /></strong>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100%; margin-top:8px;">
+                <tr>
+                    <td style="font-size:11px; color:#555;">
+                        Period:
+                        <strong>
+                            <t t-out="date_from" t-options='{"widget": "date"}' />
+                        </strong>
+                        —
+                        <strong>
+                            <t t-out="date_to" t-options='{"widget": "date"}' />
+                        </strong>
+                    </td>
+                    <td style="font-size:11px; color:#555; text-align:right;">
+                        Created on:
+                        <strong>
+                            <t
+                                t-out="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"
+                            />
+                        </strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <template id="report_attendance_totals">
+        <div style="margin-top:16px; border-top:1px solid #ccc; padding-top:10px;">
+            <table style="width:100%;">
+                <tr t-if="datas['report_type'] == 'individual'">
+                    <td style="font-size:11px;">
+                        <strong>Total worked hours:</strong>
+                        <span
+                            style="color:#1a4f8a; font-size:13px; font-weight:bold; margin-left:6px;"
+                        >
+                            <t t-if="datas['time_format']=='hhmm'">
+                                <t
+                                    t-out="totals[employee]['total_worked_hours']"
+                                    t-options="{'widget': 'float_time'}"
+                                />
+                            </t>
+                            <t t-else="">
+                                <span t-out="totals[employee]['total_worked_hours']" />
+                            </t>
+                        </span>
+                    </td>
+                    <td style="font-size:11px; text-align:center;">
+                        <strong>Worked Days:</strong>
+                        <span style="margin-left:6px;"><t
+                                t-out="totals[employee]['total_days']"
+                            /></span>
+                    </td>
+                    <td style="font-size:11px; text-align:right;">
+                        <strong>Nº Attendances:</strong>
+                        <span style="margin-left:6px;"><t
+                                t-out="totals[employee]['total_attendances']"
+                            /></span>
+                    </td>
+                </tr>
+                <tr t-if="datas['report_type'] == 'department'">
+                    <td style="font-size:11px;">
+                        <strong>Total workcenter hours:</strong>
+                        <span
+                            style="color:#1a4f8a; font-size:13px; font-weight:bold; margin-left:6px;"
+                        >
+                            <t t-if="datas['time_format']=='hhmm'">
+                                <t
+                                    t-out="totals[department]['total_workcenter_hours']"
+                                    t-options="{'widget': 'float_time'}"
+                                />
+                            </t>
+                            <t t-else="">
+                                <span
+                                    t-out="totals[department]['total_workcenter_hours']"
+                                />
+                            </t>
+                        </span>
+                    </td>
+                    <td style="font-size:11px; text-align:center;">
+                        <strong>Employees:</strong>
+                        <span style="margin-left:6px;"><t
+                                t-out="totals[department]['total_employees']"
+                            /></span>
+                    </td>
+                    <td style="font-size:11px; text-align:right;">
+                        <strong>Nº Attendances:</strong>
+                        <span style="margin-left:6px;"><t
+                                t-out="totals[department]['total_attendances']"
+                            /></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <template id="report_attendance_footer">
+        <div
+            style="margin-top:24px; border-top:1px solid #eee; padding-top:6px;
+                    font-size:9px; color:#aaa; text-align:center;"
+        >
+            Documento generado automáticamente por el sistema.
+            No requiere firma para su validez interna.
+        </div>
+    </template>
+
+    <template id="report_attendance_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <t t-set="report_type" t-value="datas['report_type']" />
+                    <!-- <t t-set="employee" t-value="datas['employee_id']" />
+                    <t t-set="department" t-value="datas['department_id']" /> -->
+                    <t t-set="company" t-value="datas['company_id']" />
+                    <t t-set="date_from" t-value="datas['date_from']" />
+                    <t t-set="date_to" t-value="datas['date_to']" />
+                    <t t-set="detailed" t-value="datas['detailed']" />
+
+                    <t
+                        t-foreach="lines"
+                        t-as="employee"
+                        t-if="datas['report_type'] == 'individual'"
+                    >
+                        <t
+                            t-call="hr_attendance_report_pdf.report_attendance_header"
+                            t-lang="lang"
+                        >
+                            <t t-set="employee" t-value="employee" />
+                            <t t-set="department" t-value="employee.department_id" />
+                        </t>
+                        <table class="table table-sm" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th t-if="detailed">Check-In</th>
+                                    <th t-if="detailed">Check-Out</th>
+                                    <th>Hours</th>
+                                    <th>State</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="lines[employee]" t-as="line">
+                                    <tr>
+                                        <td class="text-center">
+                                            <span t-out="line['date']" />
+                                        </td>
+                                        <td class="text-center" t-if="detailed">
+                                            <t t-if="line['check_in']">
+                                                <span
+                                                    t-out="context_timestamp(line['check_in']).strftime('%H:%M')"
+                                                />
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                        <td class="text-center" t-if="detailed">
+                                            <t t-if="line['check_out']">
+                                                <span
+                                                    t-out="context_timestamp(line['check_out']).strftime('%H:%M')"
+                                                />
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-if="time_format=='hhmm'">
+                                                <span
+                                                    t-out="line['worked_hours']"
+                                                    t-options="{'widget': 'float_time'}"
+                                                />
+                                            </t>
+                                            <t t-else="">
+                                                <span t-out="line['worked_hours']" />
+                                            </t>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-out="line['state']" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <t t-call="hr_attendance_report_pdf.report_attendance_totals">
+                            <t t-set="employee" t-value="employee" />
+                        </t>
+                        <t t-call="hr_attendance_report_pdf.report_attendance_footer" />
+                        <div
+                            t-if="employee != list(lines.keys())[-1]"
+                            style="page-break-after: always;"
+                        />
+                    </t>
+
+                    <t
+                        t-foreach="lines"
+                        t-as="department"
+                        t-if="datas['report_type'] == 'department'"
+                    >
+                        <t
+                            t-call="hr_attendance_report_pdf.report_attendance_header"
+                            t-lang="lang"
+                        >
+                            <t t-set="department" t-value="department" />
+                        </t>
+
+                        <table class="table table-sm" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Employee
+                                        </th>
+                                        <th>
+                                            Worked Days
+                                        </th>
+                                        <th>
+                                            Nº Attendances
+                                        </th>
+                                        <th>
+                                            Total hours
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="lines[department]" t-as="line">
+                                        <td>
+                                            <t t-out="line['employee_name']" />
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="line['worked_days']" />
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-out="line['total_records']" />
+                                        </td>
+                                        <td class="text-center">
+                                            <t
+                                            t-if="time_format=='hhmm' and line['total_worked_hours']"
+                                        >
+                                                <t
+                                                t-out="line['total_worked_hours']"
+                                                t-options="{'widget': 'float_time'}"
+                                            />
+                                            </t>
+                                            <t t-elif="line['total_worked_hours']">
+                                                <span
+                                                t-out="line['total_worked_hours']"
+                                            />
+                                            </t>
+                                            <t t-else="">—</t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </table>
+
+                        <t t-call="hr_attendance_report_pdf.report_attendance_totals">
+                            <t t-set="department" t-value="department" />
+                        </t>
+                        <div
+                            t-if="department != list(lines.keys())[-1]"
+                            style="page-break-after: always;"
+                        />
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
