@@ -6,30 +6,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-05-23 16:10+0000\n"
+"Last-Translator: Pablo Castelo <pablocv@gmx.es>\n"
 "Language-Team: none\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: hr_contract_update_overtime
 #: model:ir.model,name:hr_contract_update_overtime.model_hr_contract
 msgid "Contract"
-msgstr ""
+msgstr "Contrato"
 
 #. module: hr_contract_update_overtime
 #: model:ir.model,name:hr_contract_update_overtime.model_hr_contract_history
 msgid "Contract history"
-msgstr ""
+msgstr "Histórico de contratación"
 
 #. module: hr_contract_update_overtime
 #. odoo-python
 #: code:addons/hr_contract_update_overtime/models/hr_contract.py:0
 #, python-format
 msgid "Overtime updated"
-msgstr ""
+msgstr "Horas Extra actualizadas"
 
 #. module: hr_contract_update_overtime
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
@@ -38,15 +40,18 @@ msgid ""
 "them across their contract calendars. If you do not want this to happen, you"
 " can Update Overtime from a specific contract."
 msgstr ""
+"Esta acción tamén reorganizará todas as ausencias do Empregado "
+"distribuíndoas nos calendarios dos seus contratos. Se non queres que isto "
+"pase, podes actualizar as Horas Extra desde un contrato específico."
 
 #. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_history_update_overtime_all_action
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_view_form
 msgid "Update Overtime"
-msgstr ""
+msgstr "Actualizar Horas Extra"
 
 #. module: hr_contract_update_overtime
 #: model_terms:ir.ui.view,arch_db:hr_contract_update_overtime.hr_contract_history_view_form
 msgid "Update Overtime on Running and Expired contracts"
-msgstr ""
+msgstr "Actualiza as Horas Extra nos contratos en Curso ou Expirados"
