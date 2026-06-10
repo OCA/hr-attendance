@@ -117,11 +117,6 @@ msgid "Employee rest time"
 msgstr "Orario pausa dipendente"
 
 #. module: hr_attendance_rest_time_included
-#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
-msgid "Expected Hours"
-msgstr "Ore attese"
-
-#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__validated_overtime_hours
 msgid "Extra Hours"
 msgstr "Ore extra"
@@ -277,6 +272,11 @@ msgid "Overtime Status"
 msgstr "Stato straordinario"
 
 #. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
+msgid "Regular Hours"
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance__rest_hours
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__rest_hours
 #: model_terms:ir.ui.view,arch_db:hr_attendance_rest_time_included.view_attendance_rest_time_tree
@@ -325,3 +325,6 @@ msgstr "Cronologia comunicazioni sito web"
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__worked_hours
 msgid "Worked Hours"
 msgstr "Ore lavorate"
+
+#~ msgid "Expected Hours"
+#~ msgstr "Ore attese"
