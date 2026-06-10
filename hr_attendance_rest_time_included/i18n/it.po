@@ -6,320 +6,322 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-06-10 18:46+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Azione richiesta"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Conteggio allegati"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model,name:hr_attendance_rest_time_included.model_hr_attendance
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__attendance_id
 msgid "Attendance"
-msgstr ""
+msgstr "Presenza"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model,name:hr_attendance_rest_time_included.model_hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__attendance_reason_ids
 msgid "Attendance Reason"
-msgstr ""
+msgstr "Motivo presenza"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_country_name
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_country_name
 msgid "Based on IP Address"
-msgstr ""
+msgstr "In base all'indirizzo IP"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance__rest_time_count
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__rest_time_count
 msgid "Break Count"
-msgstr ""
+msgstr "Conteggio pause"
 
 #. module: hr_attendance_rest_time_included
 #: model_terms:ir.ui.view,arch_db:hr_attendance_rest_time_included.hr_attendance_view_form
 msgid "Breaks"
-msgstr ""
+msgstr "Pause"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_browser
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__check_in
 msgid "Check In"
-msgstr ""
+msgstr "Check-in"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__check_out
 msgid "Check Out"
-msgstr ""
+msgstr "Check-out"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_city
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__color
 msgid "Color"
-msgstr ""
+msgstr "Colore"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_country_name
 msgid "Country"
-msgstr ""
+msgstr "Nazione"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__department_id
 msgid "Department"
-msgstr ""
+msgstr "Reparto"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model,name:hr_attendance_rest_time_included.model_hr_employee
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__employee_id
 msgid "Employee"
-msgstr ""
+msgstr "Dipendente"
 
 #. module: hr_attendance_rest_time_included
 #: model_terms:ir.ui.view,arch_db:hr_attendance_rest_time_included.hr_attendance_rest_time_view_form
 msgid "Employee rest time"
-msgstr ""
+msgstr "Orario pausa dipendente"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
 msgid "Expected Hours"
-msgstr ""
+msgstr "Ore attese"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__validated_overtime_hours
 msgid "Extra Hours"
-msgstr ""
+msgstr "Ore extra"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Seguito da"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Seguito da (partner)"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Ha un messaggio"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model,name:hr_attendance_rest_time_included.model_hr_attendance_rest_time
 msgid "Hr attendance break"
-msgstr ""
+msgstr "Pausa presenza RU"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_ip_address
 msgid "IP Address"
-msgstr ""
+msgstr "Indirizzo IP"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Segue"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento di"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_latitude
 msgid "Latitude"
-msgstr ""
+msgstr "Latitudine"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_longitude
 msgid "Longitude"
-msgstr ""
+msgstr "Longitudine"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Errore di consegna messaggio"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Messaggi"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_mode
 msgid "Mode"
-msgstr ""
+msgstr "Modo"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__no_validated_overtime_hours
 msgid "No Validated Overtime Hours"
-msgstr ""
+msgstr "Ore straordinario non validate"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Numero di azioni"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Numero di errori"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Numero di messaggi che richiedono un'azione"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Numero di messaggi con errore di consegna"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_browser
 msgid "Out Browser"
-msgstr ""
+msgstr "Browser esterno"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_city
 msgid "Out City"
-msgstr ""
+msgstr "Città esterna"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_country_name
 msgid "Out Country Name"
-msgstr ""
+msgstr "Nome nazione esterna"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_ip_address
 msgid "Out Ip Address"
-msgstr ""
+msgstr "Indirizzo IP esterno"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_latitude
 msgid "Out Latitude"
-msgstr ""
+msgstr "Latitudine esterna"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_longitude
 msgid "Out Longitude"
-msgstr ""
+msgstr "Longitudine esterna"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__out_mode
 msgid "Out Mode"
-msgstr ""
+msgstr "Modo esterno"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__overtime_hours
 msgid "Over Time"
-msgstr ""
+msgstr "Straordinario"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__overtime_status
 msgid "Overtime Status"
-msgstr ""
+msgstr "Stato straordinario"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance__rest_hours
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__rest_hours
 #: model_terms:ir.ui.view,arch_db:hr_attendance_rest_time_included.view_attendance_rest_time_tree
 msgid "Rest Hours"
-msgstr ""
+msgstr "Ore riposo"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance__rest_time_ids
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__rest_time_ids
 msgid "Rest Time"
-msgstr ""
+msgstr "Orario riposo"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_reason__rest_time_included
 msgid "Rest Time Included"
-msgstr ""
+msgstr "Orario riposo incluso"
 
 #. module: hr_attendance_rest_time_included
 #: model_terms:ir.ui.view,arch_db:hr_attendance_rest_time_included.hr_attendance_view_tree
 msgid "Rest time"
-msgstr ""
+msgstr "Orario riposo"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__attendance_reason_ids
 msgid ""
 "Specifies the reason for signing In/signing Out in case of less or extra "
 "hours."
-msgstr ""
+msgstr "Specifica il motivo di entrata/uscita in caso di ore in più o in meno."
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__theoretical_hours
 msgid "Theoretical Hours"
-msgstr ""
+msgstr "Ore teoriche"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Messaggi sito web"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Cronologia comunicazioni sito web"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__worked_hours
 msgid "Worked Hours"
-msgstr ""
+msgstr "Ore lavorate"
