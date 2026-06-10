@@ -114,11 +114,6 @@ msgid "Employee rest time"
 msgstr ""
 
 #. module: hr_attendance_rest_time_included
-#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
-msgid "Expected Hours"
-msgstr ""
-
-#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__validated_overtime_hours
 msgid "Extra Hours"
 msgstr ""
@@ -271,6 +266,11 @@ msgstr ""
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__overtime_status
 msgid "Overtime Status"
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
+msgid "Regular Hours"
 msgstr ""
 
 #. module: hr_attendance_rest_time_included
