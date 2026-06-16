@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-06-10 18:46+0000\n"
+"PO-Revision-Date: 2026-06-16 19:46+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -274,7 +274,7 @@ msgstr "Stato straordinario"
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__expected_hours
 msgid "Regular Hours"
-msgstr ""
+msgstr "Ore regolari"
 
 #. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance__rest_hours
