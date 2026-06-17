@@ -1,0 +1,278 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_reverse_geocoding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-17 12:30+0000\n"
+"PO-Revision-Date: 2026-06-17 12:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.res_config_settings_view_form_geocoding
+msgid "<span class=\"o_form_label\">Geocode Provider</span>"
+msgstr "<span class=\"o_form_label\">Proveedor de geocodificacion</span>"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,help:hr_attendance_reverse_geocoding.field_res_config_settings__attendance_geocode_api_key
+msgid "API key of the selected geocoding provider"
+msgstr "Clave API del proveedor de geocodificacion seleccionado"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__address
+msgid "Address"
+msgstr "Direccion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.res_config_settings_view_form_geocoding
+msgid ""
+"An external service that converts GPS coordinates into readable addresses."
+msgstr ""
+"Un servicio externo que convierte coordenadas GPS en direcciones legibles."
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model,name:hr_attendance_reverse_geocoding.model_hr_attendance
+msgid "Attendance"
+msgstr "Asistencias"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.actions.act_window,help:hr_attendance_reverse_geocoding.action_hr_attendance_geocode_cache
+msgid "Cache is empty"
+msgstr "La cache esta vacia"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_view_form_geocoding
+msgid "Check-In"
+msgstr "Entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_in_geocode_error
+msgid "Check-in Geocoding Error"
+msgstr "Error de geocodificacion de entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_in_map_url
+msgid "Check-in Map URL"
+msgstr "URL del mapa de entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_in_geocode_provider
+msgid "Check-in Provider"
+msgstr "Proveedor de entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_view_form_geocoding
+msgid "Check-out"
+msgstr "Salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_out_geocode_error
+msgid "Check-out Geocoding Error"
+msgstr "Error de geocodificacion de salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_out_map_url
+msgid "Check-out Map URL"
+msgstr "URL del mapa de salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_out_geocode_provider
+msgid "Check-out Provider"
+msgstr "Proveedor de salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model,name:hr_attendance_reverse_geocoding.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_geocode_cache_view_form
+msgid "Coordinates"
+msgstr "Coordenadas"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_in_geocode_status__done
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_out_geocode_status__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_in_geocode_status__error
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_out_geocode_status__error
+msgid "Error"
+msgstr "Error"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,help:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__map_url
+msgid "External link to view the location on a map"
+msgstr "Enlace externo para ver la ubicacion en un mapa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,help:hr_attendance_reverse_geocoding.field_res_config_settings__attendance_geocode_provider
+msgid "External provider used for reverse geocoding"
+msgstr "Proveedor externo usado para geocodificacion inversa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_view_form_geocoding
+msgid "Geocode"
+msgstr "Geocodificacion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.ui.menu,name:hr_attendance_reverse_geocoding.menu_hr_attendance_geocode_cache
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_geocode_cache_view_list
+msgid "Geocode Cache"
+msgstr "Cache de geocodificacion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.actions.act_window,name:hr_attendance_reverse_geocoding.action_hr_attendance_geocode_cache
+msgid "Geocoding Cache"
+msgstr "Cache de geocodificacion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_in_geocode_status
+msgid "Geocoding Status Check-in"
+msgstr "Estado de geocodificacion de entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_out_geocode_status
+msgid "Geocoding Status Check-out"
+msgstr "Estado de geocodificacion de salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_res_config_settings__geolocation_rounding_precision
+msgid "Geolocation Rounding Precision"
+msgstr "Precision de redondeo de geolocalizacion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model,name:hr_attendance_reverse_geocoding.model_hr_attendance_geocode_cache
+msgid "HR Attendance Geocode Cache"
+msgstr "Cache de geocodificacion de asistencia RR. HH."
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache____last_update
+msgid "Last Modified on"
+msgstr "Ultima modificacion el"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualizacion por"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualizacion el"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__latitude_normalize
+msgid "Latitude"
+msgstr "Latitud"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__longtide_normalize
+msgid "Longitude"
+msgstr "Longitud"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__map_url
+msgid "Map URL"
+msgstr "URL del mapa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__res_config_settings__attendance_geocode_provider__mapbox
+msgid "Mapbox"
+msgstr "Mapbox"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_in_geocode_status__pending
+#: model:ir.model.fields.selection,name:hr_attendance_reverse_geocoding.selection__hr_attendance__check_out_geocode_status__pending
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance_geocode_cache__provider
+msgid "Provider"
+msgstr "Proveedor"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.actions.act_window,help:hr_attendance_reverse_geocoding.action_hr_attendance_geocode_cache
+msgid ""
+"Records are created automatically when\n"
+"                the reverse geocoding for a check-in is resolved."
+msgstr ""
+"Los registros se crean automaticamente cuando\n"
+"                se resuelve la geocodificacion inversa de una entrada."
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_geocode_cache_view_form
+msgid "Response"
+msgstr "Respuesta"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.hr_attendance_view_form_geocoding
+msgid "Retry Geocoding"
+msgstr "Reintentar geocodificacion"
+
+#. module: hr_attendance_reverse_geocoding
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reverse_geocoding.res_config_settings_view_form_geocoding
+msgid "Reverse Geocode"
+msgstr "Geocodificacion inversa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_res_config_settings__attendance_geocode_api_key
+msgid "Reverse Geocoding API Key"
+msgstr "Clave API de geocodificacion inversa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_in_address
+msgid "Reverse Geocoding Check-in"
+msgstr "Geocodificacion inversa de entrada"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_hr_attendance__check_out_address
+msgid "Reverse Geocoding Check-out"
+msgstr "Geocodificacion inversa de salida"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_res_config_settings__attendance_geocode_endpoint
+msgid "Reverse Geocoding Endpoint"
+msgstr "Endpoint de geocodificacion inversa"
+
+#. module: hr_attendance_reverse_geocoding
+#: model:ir.model.fields,field_description:hr_attendance_reverse_geocoding.field_res_config_settings__attendance_geocode_provider
+msgid "Reverse Geocoding Provider"
+msgstr "Proveedor de geocodificacion inversa"
+
+#. module: hr_attendance_reverse_geocoding
+#. odoo-python
+#: code:addons/hr_attendance_reverse_geocoding/models/hr_attendance.py:0
+#, python-format
+msgid "Reverse geocoding %s: Attendance %s"
+msgstr "Geocodificacion inversa %s: Asistencia %s"
