@@ -44,7 +44,7 @@ class WizardTheoreticalTime(models.TransientModel):
             "view_mode": "form",
             "target": "new",
             "res_id": self.id,
-            "context": self._context,
+            "context": self.env.context,
         }
         return action
 

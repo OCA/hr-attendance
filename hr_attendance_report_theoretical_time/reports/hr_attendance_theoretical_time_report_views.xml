@@ -80,7 +80,7 @@
     </record>
     <record id="hr_attendance.menu_hr_attendance_reporting" model="ir.ui.menu">
         <field
-            name="groups_id"
+            name="group_ids"
             eval="[(4, ref('hr_attendance.group_hr_attendance_officer'))]"
         />
         <!-- We need to leave the action empty for consistency because we are going

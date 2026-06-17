@@ -44,7 +44,7 @@ class HrAttendance(models.Model):
         when they should have clocked in."""
         today = fields.Date.today()
         yesterday = today - relativedelta(days=1)
-        today_previous_year = today - relativedelta(months=1)
+        today_previous_year = today - relativedelta(years=1)
         limit_date_from = limit_date_from or today_previous_year
         day_to = datetime.combine(limit_date_to or yesterday, time.max)
         attendances = self.env["hr.attendance"]

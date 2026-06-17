@@ -325,6 +325,3 @@ msgstr "Procedura guidata ore teoriche"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Lavorate"
-
-#~ msgid "Public Holidays Lines"
-#~ msgstr "Righe giorni festivi"

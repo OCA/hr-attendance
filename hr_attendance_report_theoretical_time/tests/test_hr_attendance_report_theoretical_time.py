@@ -94,7 +94,7 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
             {
                 "name": "Leave Type Test",
                 "exclude_public_holidays": True,
-                "requires_allocation": "no",
+                "requires_allocation": False,
             }
         )
         # Force employee create_date for having auto-generated report entries
@@ -111,37 +111,31 @@ class TestHrAttendanceReportTheoreticalTimeBase(BaseCommon):
             partner=cls.employee_1.address_id.id
         ).create(
             {
-                "date_from": "1946-12-26 00:00:00",
-                "date_to": "1946-12-26 23:59:59",
                 "request_date_from": "1946-12-26",
                 "request_date_to": "1946-12-26",
                 "employee_id": cls.employee_1.id,
                 "holiday_status_id": cls.leave_type.id,
             }
         )
-        cls.leave._compute_date_from_to()
-        cls.leave.action_validate()
-        cls.attendances = []
+        cls.leave.action_approve()
+        attendances_vals = []
         for employee in (cls.employee_1, cls.employee_2):
             for day in range(23, 27):
-                cls.attendances.append(
-                    cls.env["hr.attendance"].create(
-                        {
-                            "employee_id": employee.id,
-                            "check_in": f"1946-12-{day} 08:00:00",
-                            "check_out": f"1946-12-{day} 12:00:00",
-                        }
-                    )
+                attendances_vals.append(
+                    {
+                        "employee_id": employee.id,
+                        "check_in": f"1946-12-{day} 08:00:00",
+                        "check_out": f"1946-12-{day} 12:00:00",
+                    }
                 )
-                cls.attendances.append(
-                    cls.env["hr.attendance"].create(
-                        {
-                            "employee_id": employee.id,
-                            "check_in": f"1946-12-{day} 14:00:00",
-                            "check_out": f"1946-12-{day} 18:00:00",
-                        }
-                    )
+                attendances_vals.append(
+                    {
+                        "employee_id": employee.id,
+                        "check_in": f"1946-12-{day} 14:00:00",
+                        "check_out": f"1946-12-{day} 18:00:00",
+                    }
                 )
+        cls.attendances = cls.env["hr.attendance"].create(attendances_vals)
 
 
 class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTimeBase):
@@ -206,44 +200,54 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
             limit_date_from=datetime.date(1946, 12, 23),
             limit_date_to=datetime.date(1947, 1, 1),
         ).flush_recordset()
-        res = self.env["hr.attendance.theoretical.time.report"].read_group(
+        aggregates = ["worked_hours:sum", "theoretical_hours:sum", "difference:sum"]
+        res = self.env[
+            "hr.attendance.theoretical.time.report"
+        ].formatted_read_grouping_sets(
             [
                 ("date", ">=", "1946-12-23"),
                 ("date", "<", "1946-12-31"),
                 ("employee_id", "in", (self.employee_1.id, self.employee_2.id)),
             ],
-            [
-                "employee_id",
-                "theoretical_hours:sum",
-                "worked_hours:sum",
-                "difference:sum",
-            ],
-            ["employee_id"],
-        )
+            # It's important to add "date:day" so that it filters correctly
+            [["employee_id", "date:day"]],
+            aggregates,
+        )[0]
         # It should include 4 working days (25 is holiday and 26 is leave)
-        self.assertEqual(res[0]["theoretical_hours"], 32)
-        self.assertEqual(res[0]["worked_hours"], 32)
-        self.assertEqual(res[0]["difference"], 0)
+        employee_data = {}
+        for item in res:
+            employee_id = item["employee_id"][0]
+            if employee_id not in employee_data:
+                employee_data[employee_id] = {f_name: 0 for f_name in aggregates}
+            for f_name in aggregates:
+                employee_data[employee_id][f_name] += item[f_name]
+        employee_data_1 = employee_data[self.employee_1.id]
+        self.assertEqual(employee_data_1["theoretical_hours:sum"], 32)
+        self.assertEqual(employee_data_1["worked_hours:sum"], 32)
+        self.assertEqual(employee_data_1["difference:sum"], 0)
         # It should include 5 working days (25 is holiday)
-        self.assertEqual(res[1]["theoretical_hours"], 24)
-        self.assertEqual(res[1]["worked_hours"], 32)
-        self.assertEqual(res[1]["difference"], 8)
+        employee_data_2 = employee_data[self.employee_2.id]
+        self.assertEqual(employee_data_2["theoretical_hours:sum"], 24)
+        self.assertEqual(employee_data_2["worked_hours:sum"], 32)
+        self.assertEqual(employee_data_2["difference:sum"], 8)
         # Group by day
-        res = self.env["hr.attendance.theoretical.time.report"].read_group(
+        res = self.env[
+            "hr.attendance.theoretical.time.report"
+        ].formatted_read_grouping_sets(
             [
                 ("date", ">=", "1946-12-23"),
                 ("date", "<", "1946-12-31"),
                 ("employee_id", "=", self.employee_1.id),
             ],
-            ["employee_id", "theoretical_hours:sum", "date"],
-            ["date:day"],
-        )
-        self.assertEqual(res[0]["theoretical_hours"], 8)  # 1946-12-23
-        self.assertEqual(res[1]["theoretical_hours"], 8)  # 1946-12-24
-        self.assertEqual(res[2]["theoretical_hours"], 0)  # 1946-12-25
-        self.assertEqual(res[3]["theoretical_hours"], 0)  # 1946-12-26
-        self.assertEqual(res[4]["theoretical_hours"], 8)  # 1946-12-27(virtual)
-        self.assertEqual(res[5]["theoretical_hours"], 8)  # 1946-12-30(virtual)
+            [["employee_id", "date:day"]],
+            ["theoretical_hours:sum"],
+        )[0]
+        self.assertEqual(res[0]["theoretical_hours:sum"], 8)  # 1946-12-23
+        self.assertEqual(res[1]["theoretical_hours:sum"], 8)  # 1946-12-24
+        self.assertEqual(res[2]["theoretical_hours:sum"], 0)  # 1946-12-25
+        self.assertEqual(res[3]["theoretical_hours:sum"], 0)  # 1946-12-26
+        self.assertEqual(res[4]["theoretical_hours:sum"], 8)  # 1946-12-27(virtual)
+        self.assertEqual(res[5]["theoretical_hours:sum"], 8)  # 1946-12-30(virtual)
 
     def test_change_hr_holidays_public(self):
         self.public_holiday_global.line_ids[0].write({"date": "1946-12-23"})
@@ -284,6 +288,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
             report["domain"], [("employee_id", "in", [self.employee_1.id])]
         )
 
+    @mute_logger("odoo.models.unlink")
     def test_theoretical_recompute_on_unactive(self):
         self.assertEqual(self.attendances[0].theoretical_hours, 8)
         self.attendances[0].active = False
@@ -297,7 +302,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
                 "holiday_status_id": self.leave_type.id,
             }
         )
-        leave.action_validate()
+        leave.action_approve()
         self.assertEqual(self.attendances[0].theoretical_hours, 0)
         self.leave_type.include_in_theoretical = True
         self.env["recompute.theoretical.attendance"].create(
@@ -339,111 +344,19 @@ class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
     def setUpClass(cls):
         super().setUpClass()
         cls.calendar_jules = cls._define_calendar_2_weeks(
-            "Week 1: 30 Hours - Week 2: 16 Hours",
+            "Week 1: Monday 8 Hours - Week 2: Monday 4 Hours",
             [
                 (0, 0, 0, "0", "line_section", 0),
-                (8, 16, 0, "0", False, 1),
-                (9, 17, 1, "0", False, 2),
+                (8, 12, 0, "0", False, 1),
                 (0, 0, 0, "1", "line_section", 10),
-                (8, 16, 0, "1", False, 11),
-                (7, 15, 2, "1", False, 12),
-                (8, 16, 3, "1", False, 13),
-                (10, 16, 4, "1", False, 14),
+                (8, 12, 0, "1", False, 11),
+                (16, 20, 0, "1", False, 12),
             ],
             "Europe/Brussels",
         )
-
         cls.env.company.resource_calendar_id = cls.calendar_jules
         cls.employee = cls.env["hr.employee"].create(
             [{"name": "Employee", "resource_calendar_id": cls.calendar_jules.id}]
-        )
-        # 2 weeks calendar with date_from and date_to to check work_hours
-        cls.employee.resource_calendar_id.attendance_ids.unlink()
-        cls.employee.resource_calendar_id.write(
-            {
-                "attendance_ids": [
-                    Command.create(
-                        {
-                            "name": "Monday (morning)",
-                            "day_period": "morning",
-                            "dayofweek": "0",
-                            "week_type": "0",
-                            "hour_from": 8.0,
-                            "hour_to": 12.0,
-                            "date_from": "2022-01-01",
-                            "date_to": "2022-01-16",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (morning)",
-                            "day_period": "morning",
-                            "dayofweek": "0",
-                            "week_type": "0",
-                            "hour_from": 8.0,
-                            "hour_to": 12.0,
-                            "date_from": "2022-01-17",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (afternoon)",
-                            "day_period": "afternoon",
-                            "dayofweek": "0",
-                            "week_type": "0",
-                            "hour_from": 16.0,
-                            "hour_to": 20.0,
-                            "date_from": "2022-01-17",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (morning)",
-                            "day_period": "morning",
-                            "dayofweek": "0",
-                            "week_type": "1",
-                            "hour_from": 8.0,
-                            "hour_to": 12.0,
-                            "date_from": "2022-01-01",
-                            "date_to": "2022-01-16",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (afternoon)",
-                            "day_period": "afternoon",
-                            "dayofweek": "0",
-                            "week_type": "1",
-                            "hour_from": 16.0,
-                            "hour_to": 20.0,
-                            "date_from": "2022-01-01",
-                            "date_to": "2022-01-16",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (morning)",
-                            "day_period": "morning",
-                            "dayofweek": "0",
-                            "week_type": "1",
-                            "hour_from": 8.0,
-                            "hour_to": 12.0,
-                            "date_from": "2022-01-17",
-                        },
-                    ),
-                    Command.create(
-                        {
-                            "name": "Monday (afternoon)",
-                            "day_period": "afternoon",
-                            "dayofweek": "0",
-                            "week_type": "1",
-                            "hour_from": 16.0,
-                            "hour_to": 20.0,
-                            "date_from": "2022-01-17",
-                        },
-                    ),
-                ],
-            }
         )
 
     def test_theoretical_time_report_two_weeks(self):

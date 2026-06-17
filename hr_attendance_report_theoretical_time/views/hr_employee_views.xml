@@ -13,7 +13,7 @@
         >{'default_employee_ids': active_ids, 'employee_ids': active_ids, }</field>
         <field name="target">new</field>
         <field
-            name="groups_id"
+            name="group_ids"
             eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
         />
     </record>

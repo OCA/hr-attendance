@@ -16,13 +16,13 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
     _auto = False
     _rec_name = "date"
     _order = "date,employee_id,theoretical_hours desc"
-
     employee_id = fields.Many2one(
         comodel_name="hr.employee", string="Employee", readonly=True
     )
     company_id = fields.Many2one(related="employee_id.company_id")
     department_id = fields.Many2one(
         comodel_name="hr.department",
+        related="employee_id.department_id",
         string="Department",
         readonly=True,
     )
@@ -38,7 +38,6 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
         return """
             min(id) AS id,
             employee_id,
-            department_id,
             date,
             sum(worked_hours) AS worked_hours,
             max(theoretical_hours) AS theoretical_hours,
@@ -52,7 +51,6 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
         return """
             ha.id AS id,
             ha.employee_id AS employee_id,
-            hahe.department_id AS department_id,
             ha.check_in::date AS date,
             CASE WHEN ha.active THEN ha.worked_hours ELSE 0 END AS worked_hours,
             ha.theoretical_hours AS theoretical_hours
@@ -70,7 +68,6 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
     def _group_by(self):
         return """
             employee_id,
-            department_id,
             date
             """
 
