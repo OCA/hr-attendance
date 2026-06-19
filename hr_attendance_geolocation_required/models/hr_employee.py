@@ -8,12 +8,12 @@ from odoo.exceptions import ValidationError
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    def _attendance_action_change(self, geo_information=None):
+    def _attendance_action_change(self):
         self.ensure_one()
+        latitude = self.env.context.get("latitude", None)
+        longitude = self.env.context.get("longitude", None)
         if self.company_id.attendance_geolocation_required and (
-            not geo_information
-            or not geo_information.get("latitude")
-            or not geo_information.get("longitude")
+            not latitude or not longitude
         ):
             raise ValidationError(_("You must activate location and GPS to clock in."))
-        return super()._attendance_action_change(geo_information)
+        return super()._attendance_action_change()

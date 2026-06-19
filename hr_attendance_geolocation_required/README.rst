@@ -83,6 +83,10 @@ Contributors
   - Álvaro Alonso Bada
   - David Palanca Martínez
 
+- [Binhex](https://www.binhex.cloud):
+
+  - Abraham J. Febres
+
 Maintainers
 -----------
 

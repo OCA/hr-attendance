@@ -3,6 +3,7 @@
 
 import json
 
+from odoo import _
 from odoo.exceptions import ValidationError
 from odoo.tests import HttpCase, TransactionCase
 
@@ -18,11 +19,9 @@ class TestGeolocationRequired(HttpCase):
         cls.company.write(
             {
                 "attendance_kiosk_mode": "barcode_manual",
-                "attendance_kiosk_use_pin": True,
                 "attendance_geolocation_required": True,
             }
         )
-        cls.token = cls.company.attendance_kiosk_key
 
         # Create an employee with a PIN
         cls.employee = cls.env["hr.employee"].create(
@@ -42,7 +41,6 @@ class TestGeolocationRequired(HttpCase):
                     "jsonrpc": "2.0",
                     "method": "call",
                     "params": {
-                        "token": self.token,
                         "employee_id": self.employee.id,
                         "pin_code": "1234",
                         "latitude": latitude,
@@ -62,7 +60,7 @@ class TestGeolocationRequired(HttpCase):
         self.assertIn("error", result)
         self.assertEqual(
             result["error"],
-            "You must activate location and GPS to clock in.",
+            _("You must activate location and GPS to clock in."),
         )
         # Verify no attendance was created
         self.assertEqual(len(self.employee.attendance_ids), 0)
@@ -144,13 +142,14 @@ class TestGeolocationRequiredModel(TransactionCase):
         """Calling _attendance_action_change with False coords raises."""
         with self.assertRaises(ValidationError):
             self.employee._attendance_action_change(
-                {"latitude": False, "longitude": False}
+                # {"latitude": False, "longitude": False}
             )
 
     def test_action_change_with_valid_geo_succeeds(self):
         """Calling _attendance_action_change with valid geo succeeds."""
-        geo = {"latitude": 41.3851, "longitude": 2.1734}
-        attendance = self.employee._attendance_action_change(geo)
+        attendance = self.employee.with_context(
+            **{"latitude": 41.3851, "longitude": 2.1734}
+        )._attendance_action_change()
         self.assertTrue(attendance.check_in)
 
     def test_action_change_not_required_without_geo_succeeds(self):
