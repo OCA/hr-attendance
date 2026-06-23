@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [hr_attendance_calendar_view](hr_attendance_calendar_view/) | 18.0.1.0.0 |  | This module adds the calendar view as an option to display attendance
+[hr_attendance_full_history](hr_attendance_full_history/) | 18.0.1.0.0 | <a href='https://github.com/rblasco'><img src='https://github.com/rblasco.png' width='32' height='32' style='border-radius:50%;' alt='rblasco'/></a> <a href='https://github.com/yajo'><img src='https://github.com/yajo.png' width='32' height='32' style='border-radius:50%;' alt='yajo'/></a> | Let employees read their full attendance history
 [hr_attendance_reason](hr_attendance_reason/) | 18.0.1.0.1 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 18.0.1.2.0 |  | Theoretical vs Attended Time Analysis
 [hr_attendance_rest_time_included](hr_attendance_rest_time_included/) | 18.0.1.0.0 |  | Rest time of employee's is included during their working hours
