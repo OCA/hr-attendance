@@ -1,0 +1,1 @@
+- Remove in Odoo 19. Employees can see all their attendances through their employee form.
