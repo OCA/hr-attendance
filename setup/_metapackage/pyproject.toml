@@ -1,9 +1,10 @@
 [project]
 name = "odoo-addons-oca-hr-attendance"
-version = "17.0.20260421.0"
+version = "17.0.20260626.0"
 dependencies = [
     "odoo-addon-hr_attendance_autoclose>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_calendar_view>=17.0dev,<17.1dev",
+    "odoo-addon-hr_attendance_modification_tracking>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_reason>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_report_theoretical_time>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_rfid>=17.0dev,<17.1dev",
