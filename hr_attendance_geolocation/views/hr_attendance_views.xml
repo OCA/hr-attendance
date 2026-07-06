@@ -13,15 +13,15 @@
                     <label for="check_in_latitude_text" string="Check-in Location" />
                     <span class="oe_inline">
                         Latitude: <field name="check_in_latitude_text" nolabel="1" /><br
-                        />
+                    />
                         Longitude: <field name="check_in_longitude_text" nolabel="1" />
                     </span>
                     <label for="check_out_latitude_text" string="Check-out Location" />
                     <span class="oe_inline">
                         Latitude: <field
-                            name="check_out_latitude_text"
-                            nolabel="1"
-                        /><br />
+                        name="check_out_latitude_text"
+                        nolabel="1"
+                    /><br />
                         Longitude: <field name="check_out_longitude_text" nolabel="1" />
                     </span>
                 </group>
