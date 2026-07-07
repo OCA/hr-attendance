@@ -64,7 +64,8 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_empty_folder">
                 No attendance records found
-            </p><p>
+            </p>
+            <p>
                 The attendance records of your employees will be displayed here.
             </p>
         </field>
@@ -95,5 +96,4 @@
         groups="hr_attendance.group_hr_attendance_user"
         action="hr_attendance_report_action"
     />
-
 </odoo>
