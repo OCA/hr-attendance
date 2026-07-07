@@ -29,18 +29,18 @@ class HrAttendance(models.Model):
         m = int((dd - d) * 60)
         s = (dd - d - m / 60) * 3600.00
         z = round(s, 2)
-        return "%sº %s' %s\"" % (abs(d), abs(m), abs(z))
+        return f"{abs(d)}º {abs(m)}' {abs(z)}\""
 
     def _get_latitude_raw_value(self, dd):
-        return "%s %s" % (
-            "N" if int(dd) >= 0 else "S",
-            self._get_raw_value_from_geolocation(dd),
+        return (
+            f"{'N' if int(dd) >= 0 else 'S'} "
+            f"{self._get_raw_value_from_geolocation(dd)}"
         )
 
     def _get_longitude_raw_value(self, dd):
-        return "%s %s" % (
-            "E" if int(dd) >= 0 else "W",
-            self._get_raw_value_from_geolocation(dd),
+        return (
+            f"{'E' if int(dd) >= 0 else 'W'} "
+            f"{self._get_raw_value_from_geolocation(dd)}"
         )
 
     @api.depends("check_in_latitude")
@@ -48,7 +48,8 @@ class HrAttendance(models.Model):
         for item in self:
             item.check_in_latitude_text = (
                 self._get_latitude_raw_value(item.check_in_latitude)
-                if item.check_in_latitude
+                if item.check_in_latitude is not False
+                and item.check_in_latitude is not None
                 else False
             )
 
@@ -57,7 +58,8 @@ class HrAttendance(models.Model):
         for item in self:
             item.check_in_longitude_text = (
                 self._get_longitude_raw_value(item.check_in_longitude)
-                if item.check_in_longitude
+                if item.check_in_longitude is not False
+                and item.check_in_longitude is not None
                 else False
             )
 
@@ -66,7 +68,8 @@ class HrAttendance(models.Model):
         for item in self:
             item.check_out_latitude_text = (
                 self._get_latitude_raw_value(item.check_out_latitude)
-                if item.check_out_latitude
+                if item.check_out_latitude is not False
+                and item.check_out_latitude is not None
                 else False
             )
 
@@ -75,6 +78,7 @@ class HrAttendance(models.Model):
         for item in self:
             item.check_out_longitude_text = (
                 self._get_longitude_raw_value(item.check_out_longitude)
-                if item.check_out_longitude
+                if item.check_out_longitude is not False
+                and item.check_out_longitude is not None
                 else False
             )
