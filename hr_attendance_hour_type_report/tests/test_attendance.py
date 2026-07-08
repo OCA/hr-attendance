@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import datetime as dt
 
-from odoo import exceptions
-from odoo.tests.common import SavepointCase
+from odoo import Command, exceptions
+from odoo.tests.common import TransactionCase
 
 
-class TestAttendance(SavepointCase):
+class TestAttendance(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -14,21 +14,20 @@ class TestAttendance(SavepointCase):
             {
                 "name": "TestEmployee",
                 "tz": "Europe/Paris",
+                "resource_calendar_id": False,  # Flexible hours (no lunch intervals)
             }
         )
-        # we use the default start and end limits for night work for the company: 22h to 6h
-        cls.env["hr.holidays.public"].create(
+        # we use the default start and end limits for night work for the company:
+        # 22h to 6h
+        cls.env["calendar.public.holiday"].create(
             {
                 "year": 2021,
                 "line_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "name": "Toussaint",
                             "date": "2021-11-01",
-                            "variable_date": False,
-                        },
+                        }
                     )
                 ],
             }
@@ -116,4 +115,4 @@ class TestAttendance(SavepointCase):
             # the exception happens when we flush to disk or when we read the
             # worked_hours_nighttime/daytime fields, because it is raised by
             # the computation of some fields
-            attendance.flush()
+            attendance.flush_recordset()
