@@ -1,0 +1,429 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 08:31+0000\n"
+"PO-Revision-Date: 2026-04-08 08:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Average Hours/Day:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>CIF:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Company:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Month</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Total Days Worked:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Total Hours:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Total:</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "<strong>Year</strong>"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__4
+msgid "April"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model,name:hr_attendance_report.model_report_hr_attendance_report_report_one_set
+msgid "Attendance PDF Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.actions.act_window,name:hr_attendance_report.action_employee_attendance_report_wizard
+#: model:ir.ui.menu,name:hr_attendance_report.attendance_report_menu
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form
+msgid "Attendance Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__8
+msgid "August"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "CIF"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form_redirect
+msgid "Cancel"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Check In"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Check Out"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__create_date
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__12
+msgid "December"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Department"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__hr_department_ids
+msgid "Departments Selection"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model,name:hr_attendance_report.model_hr_attendance_report_download
+msgid "Employee Attendance Excel Report Download"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Employee Attendance Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model,name:hr_attendance_report.model_employee_attendance_report_wizard
+msgid "Employee Attendance Report Wizard"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Employee Name"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.actions.report,name:hr_attendance_report.action_report_attendance_report_wizard
+msgid "Employee Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__hr_employee_ids
+msgid "Employees Selection"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Error creating sheet for employee %(name)s: %(error)s"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Error generating Excel file: %(error)s"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form
+msgid "Excel Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__2
+msgid "February"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__datas_fname
+msgid "Filename"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "From"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__id
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Identification No"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#, python-format
+msgid "Invalid month or year format: %(error)s"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Invalid month or year selection: %(error)s"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__1
+msgid "January"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__7
+msgid "July"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__6
+msgid "June"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__write_date
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "Manager"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Manager Name"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__3
+msgid "March"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__5
+msgid "May"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#, python-format
+msgid "Missing report data."
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__select_month
+msgid "Month"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/report/hr_report.py:0
+#, python-format
+msgid "Month and year are required."
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "N/A"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "No attendance records found for this period"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__11
+msgid "November"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__10
+msgid "October"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.view_employee_attendance_report_wizard_form
+msgid "PDF Report"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Please enter a valid 4-digit year"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Please select a valid month and year."
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Please select at least one employee or department."
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Please select both a month and a year."
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_hr_attendance_report_download__file_name
+msgid "Report File"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__select_all_department
+msgid "Select All Departments"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__select_all_employee
+msgid "Select All Employees"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields.selection,name:hr_attendance_report.selection__employee_attendance_report_wizard__select_month__9
+msgid "September"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "Still Working"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "To"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#, python-format
+msgid "Total Hours:"
+msgstr ""
+
+#. module: hr_attendance_report
+#. odoo-python
+#: code:addons/hr_attendance_report/wizard/employee_attendance_report_wizard.py:0
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+#, python-format
+msgid "Working Hours"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model:ir.model.fields,field_description:hr_attendance_report.field_employee_attendance_report_wizard__select_year
+msgid "Year"
+msgstr ""
+
+#. module: hr_attendance_report
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report.report_one_set
+msgid "hrs"
+msgstr ""

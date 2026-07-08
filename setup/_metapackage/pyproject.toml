@@ -6,6 +6,7 @@ dependencies = [
     "odoo-addon-hr_attendance_calendar_view>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_modification_tracking>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_reason>=17.0dev,<17.1dev",
+    "odoo-addon-hr_attendance_report>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_report_theoretical_time>=17.0dev,<17.1dev",
     "odoo-addon-hr_attendance_rfid>=17.0dev,<17.1dev",
     "odoo-addon-hr_contract_update_overtime>=17.0dev,<17.1dev",
