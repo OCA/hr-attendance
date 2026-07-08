@@ -1,0 +1,2 @@
+- Alba Riera \<alba.riera@creublanca.es\>
+- Cristiano Mafra Junior \<cristiano.mafra@escodoo.com.br\>
