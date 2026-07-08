@@ -1,5 +1,5 @@
 ==========================
-HR Attendance hours report
+HR Attendance Hours Report
 ==========================
 
 .. 
