@@ -9,7 +9,12 @@ from odoo.addons.hr_attendance.controllers.main import HrAttendance
 
 class HrAttendance(HrAttendance):
     # inherited routes
-    @route("/hr_attendance/attendance_user_data", type="json", auth="user")
+    @route(
+        "/hr_attendance/attendance_user_data",
+        type="jsonrpc",
+        auth="user",
+        readonly=True,
+    )
     def user_attendance_data(self):
         response = super().user_attendance_data()
         # try to get the company of the employee to show the correct reasons from
@@ -31,7 +36,7 @@ class HrAttendance(HrAttendance):
         response.update({"reasons": reasons})
         return response
 
-    @route("/hr_attendance/systray_check_in_out", type="json", auth="user")
+    @route("/hr_attendance/systray_check_in_out", type="jsonrpc", auth="user")
     def systray_attendance(self, latitude=False, longitude=False):
         if request.params.get("attendance_reason_id"):
             request.update_context(
@@ -39,20 +44,20 @@ class HrAttendance(HrAttendance):
             )
         return super().systray_attendance(latitude=latitude, longitude=longitude)
 
-    @http.route("/hr_attendance/manual_selection", type="json", auth="public")
-    def manual_selection_with_geolocation(
+    @http.route("/hr_attendance/manual_selection", type="jsonrpc", auth="public")
+    def manual_selection(
         self, token, employee_id, pin_code, latitude=False, longitude=False
     ):
         if request.params.get("attendance_reason_id"):
             request.update_context(
                 attendance_reason_id=int(request.params.get("attendance_reason_id"))
             )
-        return super().manual_selection_with_geolocation(
+        return super().manual_selection(
             token, employee_id, pin_code, latitude, longitude
         )
 
     # new routes
-    @route("/hr_attendance_reason/get_reasons", type="json", auth="public")
+    @route("/hr_attendance_reason/get_reasons", type="jsonrpc", auth="public")
     def attendance_get_reasons(self, token, employee_id, pin_code):
         company = self._get_company(token)
         if company:
@@ -75,7 +80,7 @@ class HrAttendance(HrAttendance):
                 return res
         return {}
 
-    @route("/hr_attendance_reason/reason_settings", type="json", auth="public")
+    @route("/hr_attendance_reason/reason_settings", type="jsonrpc", auth="public")
     def kiosk_reason_settings(self, token):
         company = self._get_company(token)
         if company:
