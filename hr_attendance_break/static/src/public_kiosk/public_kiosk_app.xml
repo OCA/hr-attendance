@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="hr_attendance_break.public_kiosk_app"
+        t-inherit="hr_attendance.public_kiosk_app"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//CardLayout" position="inside">
+            <t t-if="this.state.active_display === 'break_choice'">
+                <KioskBreak
+                    employeeData="this.breakData"
+                    onToggleBreak="() => this.onKioskToggleBreak()"
+                    onCheckout="() => this.onKioskBreakCheckout()"
+                    onClickBack="() => this.kioskReturn()"
+                />
+            </t>
+        </xpath>
+    </t>
+</templates>
