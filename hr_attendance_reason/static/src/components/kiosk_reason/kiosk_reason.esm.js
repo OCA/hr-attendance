@@ -16,7 +16,7 @@ export class KioskReason extends Component {
             attendance_reason_id === "0"
         ) {
             this.notification.add(_t("An attendance reason is required!"), {
-                title: _t("Please, select a reason!"),
+                title: _t("Please, select a reason"),
                 type: "danger",
             });
             return false;
@@ -31,8 +31,10 @@ export class KioskReason extends Component {
 
 KioskReason.props = {
     employeeData: {type: Object},
+    reasons: {type: Array, optional: true},
+    pin_code: {type: [String, Boolean], optional: true},
+    onReasonConfirm: {type: Function},
     onClickBack: {type: Function},
-    onPinConfirm: {type: Function},
 };
 
 KioskReason.template = "hr_attendance_reason.KioskReason";
