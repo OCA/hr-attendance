@@ -299,6 +299,18 @@ msgid "Theoretical Hours"
 msgstr ""
 
 #. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,help:hr_attendance_rest_time_included.field_hr_attendance_rest_time__time_changed_manually
+msgid ""
+"This attendance has been manually changed by user. If attendance is created "
+"from form view, a 60 seconds tolerance will be applied."
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__time_changed_manually
+msgid "Time changed"
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__validated_overtime_hours
 msgid "Validated Extra Hours"
 msgstr ""
