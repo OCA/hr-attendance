@@ -22,6 +22,11 @@ msgid "Action Needed"
 msgstr "Actie vereist"
 
 #. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__message_attachment_count
 msgid "Attachment Count"
 msgstr "Aantal bijlagen"
