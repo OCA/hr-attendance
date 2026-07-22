@@ -17,6 +17,11 @@ msgstr ""
 "X-Generator: Weblate 3.8\n"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
 msgid "Active employees"
 msgstr ""
@@ -37,6 +42,11 @@ msgid "Attendances Analysis"
 msgstr "Anwesenheitsanalyse"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_calendar_public_holiday_line
+msgid "Calendar Public Holiday Line"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.recompute_theoretical_attendance_form
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.wizard_theoretical_time_form_view
 msgid "Cancel"
@@ -45,6 +55,11 @@ msgstr "Abbrechen"
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__company_id
 msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.actions.server,name:hr_attendance_report_theoretical_time.create_empty_attendance_cron_ir_actions_server
+msgid "Create Empty Attendance"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
@@ -189,11 +204,6 @@ msgid "Public Employee"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
-#: model:ir.model,name:hr_attendance_report_theoretical_time.model_hr_holidays_public_line
-msgid "Public Holidays Lines"
-msgstr "Feiertagszeilen"
-
-#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.recompute_theoretical_attendance_form
 msgid "Recompute"
 msgstr ""
@@ -237,6 +247,11 @@ msgid "Report of theoretical time vs attendance time"
 msgstr "Bericht zu theoretischen und tatsächlichen Anwesenheitszeiten"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model,name:hr_attendance_report_theoretical_time.model_resource_calendar
+msgid "Resource Working Time"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.ui.menu,name:hr_attendance_report_theoretical_time.menu_hr_attendance_theoretical_report_select
 msgid "Select Employees"
 msgstr "Angestellte wählen"
@@ -245,7 +260,6 @@ msgstr "Angestellte wählen"
 #. odoo-python
 #: code:addons/hr_attendance_report_theoretical_time/wizards/wizard_theoretical_time.py:0
 #: model:ir.actions.act_window,name:hr_attendance_report_theoretical_time.wizard_theoretical_time_act_window
-#, python-format
 msgid "Select Employees to Analyze Theoretical Time"
 msgstr ""
 "Angestellte wählen um die theoretische Zeit der Anwesenheit zu analysieren."
@@ -315,3 +329,6 @@ msgstr "Assistent für theoretische Anwesenheitszeiten"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__worked_hours
 msgid "Worked"
 msgstr "Gearbeitet"
+
+#~ msgid "Public Holidays Lines"
+#~ msgstr "Feiertagszeilen"
