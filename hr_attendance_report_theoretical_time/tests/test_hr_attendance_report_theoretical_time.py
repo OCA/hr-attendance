@@ -202,6 +202,10 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
     def test_hr_attendance_read_group(self):
         # TODO: Test when having theoretical_hours_start_date set
         # Group by employee
+        self.env["hr.attendance"].action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1947, 1, 1),
+        ).flush_recordset()
         res = self.env["hr.attendance.theoretical.time.report"].read_group(
             [
                 ("date", ">=", "1946-12-23"),
@@ -279,6 +283,31 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(
             report["domain"], [("employee_id", "in", [self.employee_1.id])]
         )
+
+    def test_theoretical_recompute_on_unactive(self):
+        self.assertEqual(self.attendances[0].theoretical_hours, 8)
+        self.attendances[0].active = False
+        leave = self.env["hr.leave"].create(
+            {
+                "date_from": "1946-12-23 00:00:00",
+                "date_to": "1946-12-23 23:59:59",
+                "request_date_from": "1946-12-23",
+                "request_date_to": "1946-12-23",
+                "employee_id": self.employee_1.id,
+                "holiday_status_id": self.leave_type.id,
+            }
+        )
+        leave.action_validate()
+        self.assertEqual(self.attendances[0].theoretical_hours, 0)
+        self.leave_type.include_in_theoretical = True
+        self.env["recompute.theoretical.attendance"].create(
+            {
+                "employee_ids": [Command.link(self.employee_1.id)],
+                "date_from": "1946-12-23 00:00:00",
+                "date_to": "1946-12-23 23:59:59",
+            }
+        ).action_recompute()
+        self.assertEqual(self.attendances[0].theoretical_hours, 8)
 
 
 class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):

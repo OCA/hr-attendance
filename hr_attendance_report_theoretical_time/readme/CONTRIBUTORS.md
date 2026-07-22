@@ -8,3 +8,5 @@
 - [Trobz](https://trobz.com):
   - Dzung Tran \<<dungtd@trobz.com>\>
   - Do Anh Duy \<<duyda@trobz.com>\>
+- [Dixmit](https://dixmit.com)
+  - Enric Tobella
