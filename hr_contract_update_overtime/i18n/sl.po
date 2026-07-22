@@ -6,7 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-07-22 02:40+0000\n"
+"Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: none\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -14,19 +15,20 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: hr_contract_update_overtime
 #: model:ir.model,name:hr_contract_update_overtime.model_hr_contract
 msgid "Employee Contract"
-msgstr ""
+msgstr "Pogodba o zaposlitvi"
 
 #. module: hr_contract_update_overtime
 #. odoo-python
 #: code:addons/hr_contract_update_overtime/models/hr_contract.py:0
 msgid "Overtime updated"
-msgstr ""
+msgstr "Nadure posodobljene"
 
 #. module: hr_contract_update_overtime
 #: model:ir.actions.server,name:hr_contract_update_overtime.hr_contract_model_hr_contract
 msgid "Update Overtime"
-msgstr ""
+msgstr "Posodobi nadure"
