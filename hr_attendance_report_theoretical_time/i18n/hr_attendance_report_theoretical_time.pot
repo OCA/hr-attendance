@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
 msgid "Active employees"
 msgstr ""
@@ -47,6 +52,11 @@ msgstr ""
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__company_id
 msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.actions.server,name:hr_attendance_report_theoretical_time.create_empty_attendance_cron_ir_actions_server
+msgid "Create Empty Attendance"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
