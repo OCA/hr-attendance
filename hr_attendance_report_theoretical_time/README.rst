@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 =====================================
 Theoretical vs Attended Time Analysis
 =====================================
@@ -17,7 +13,7 @@ Theoretical vs Attended Time Analysis
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
@@ -45,12 +41,12 @@ types if specified in them.
 As an example, imagine a work week with 40 theoretical hours, and these
 attendance situation:
 
-- Monday: Worked 10 hours
-- Tuesday: Worked 10 hours
-- Wednesday: Worked 10 hours
-- Thursday: Worked 10 hours
-- Friday: Ask for a compensation leave (said leave type), as already
-  worked 40 hours.
+-  Monday: Worked 10 hours
+-  Tuesday: Worked 10 hours
+-  Wednesday: Worked 10 hours
+-  Thursday: Worked 10 hours
+-  Friday: Ask for a compensation leave (said leave type), as already
+   worked 40 hours.
 
 On the report, whole week should put 40 theoretical hours - 8 per day -
 against 40 worked hours (although they were on previous days, and none
@@ -88,11 +84,11 @@ For including some leave types in the theoretical time, you have to:
 When generating non worked days, this module uses a start date for
 beginning the series generation, which is:
 
-- Manual start date set on the employee.
-- If not set, the greatest of these 2 dates:
+-  Manual start date set on the employee.
+-  If not set, the greatest of these 2 dates:
 
-  - Employee creation date.
-  - Working calendar line start date.
+   -  Employee creation date.
+   -  Working calendar line start date.
 
 For configuring manual start date, you have to:
 
@@ -115,17 +111,17 @@ Usage
 Known issues / Roadmap
 ======================
 
-- Employees with less than 1 week in the company will show full week
-  theoretical hours.
-- Activate ORM cache for improving performance on computing theoretical
-  hours, but assuring that the cache is cleared when the conditions of
-  the computation changes.
-- If you change employee's working time, theoretical hours for non
-  attended days will be computed according this new calendar. You have
-  to define start and end dates inside the calendar for avoiding this
-  side effect.
-- Theoretical hours of affected days when changing the leave type to be
-  included or not in theoretical time are not recomputed.
+-  Employees with less than 1 week in the company will show full week
+   theoretical hours.
+-  Activate ORM cache for improving performance on computing theoretical
+   hours, but assuring that the cache is cleared when the conditions of
+   the computation changes.
+-  If you change employee's working time, theoretical hours for non
+   attended days will be computed according this new calendar. You have
+   to define start and end dates inside the calendar for avoiding this
+   side effect.
+-  Theoretical hours of affected days when changing the leave type to be
+   included or not in theoretical time are not recomputed.
 
 Bug Tracker
 ===========
@@ -148,34 +144,34 @@ Authors
 Contributors
 ------------
 
-- `Tecnativa <https://www.tecnativa.com>`__:
+-  `Tecnativa <https://www.tecnativa.com>`__:
 
-  - Pedro M. Baeza.
-  - David Vidal
-  - Víctor Martínez
-  - Juan José Seguí
+   -  Pedro M. Baeza.
+   -  David Vidal
+   -  Víctor Martínez
+   -  Juan José Seguí
 
-- Pedro Gonzalez <pedro.gonzalez@pesol.es>
-- Aritz Olea <ao@landoo.es>
-- `Trobz <https://trobz.com>`__:
+-  Pedro Gonzalez <pedro.gonzalez@pesol.es>
+-  Aritz Olea <ao@landoo.es>
+-  `Trobz <https://trobz.com>`__:
 
-  - Dzung Tran <dungtd@trobz.com>
-  - Do Anh Duy <duyda@trobz.com>
+   -  Dzung Tran <dungtd@trobz.com>
+   -  Do Anh Duy <duyda@trobz.com>
 
-- `Dixmit <https://dixmit.com>`__
+-  `Dixmit <https://dixmit.com>`__
 
-  - Enric Tobella
+   -  Enric Tobella
 
 Other credits
 -------------
 
 **Images**
 
-- Font Awesome: `Icon <http://fontawesome.io>`__.
+-  Font Awesome: `Icon <http://fontawesome.io>`__.
 
 The development of this module has been financially supported by:
 
-- Camptocamp
+-  Camptocamp
 
 Maintainers
 -----------
