@@ -177,6 +177,15 @@ msgid "ID"
 msgstr "ID"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_leave_theoretical
+msgid ""
+"If you check this mark, leaves in this category won't reduce the number of "
+"leave hours in the attendance report."
+msgstr ""
+"Si marca esta casilla, las ausencias de este tipo no reduciran el número de "
+"horas de ausencia en el informe de asistencia."
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
 msgid ""
 "If you check this mark, leaves in this category won't reduce the number of "
@@ -184,6 +193,11 @@ msgid ""
 msgstr ""
 "Si marca esta casilla, las ausencias de este tipo no reduciran el número de "
 "horas teóricas en el informe de asistencia."
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_leave_theoretical
+msgid "Include in leave hours"
+msgstr "Incluir en horas de ausencia"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
@@ -201,6 +215,16 @@ msgstr "Última modificación por"
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__write_date
 msgid "Last Updated on"
 msgstr "Última modificación en"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__leave_hours
+msgid "Leave"
+msgstr "Ausencia"
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__leave_hours
+msgid "Leave Hours"
+msgstr "Horas ausencia"
 
 #. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
