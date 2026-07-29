@@ -20,3 +20,8 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.reason_on_attendance_screen_default_sign_out",
         readonly=False,
     )
+
+    reason_for_attendance_absence_detection = fields.Many2one(
+        related="company_id.reason_for_attendance_absence_detection",
+        readonly=False,
+    )

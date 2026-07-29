@@ -31,3 +31,14 @@ class ResCompany(models.Model):
         ],
         check_company=True,
     )
+
+    reason_for_attendance_absence_detection = fields.Many2one(
+        "hr.attendance.reason",
+        string="Default attendance reason for absence detection",
+        default=lambda self: self.env.ref(
+            "hr_attendance_reason.attendance_reason_absence_detection",
+            raise_if_not_found=False,
+        ),
+        help="The attendance reason set by the absence detection cron job on "
+        "its generated attendances.",
+    )

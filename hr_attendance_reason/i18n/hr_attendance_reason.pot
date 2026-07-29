@@ -4,14 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 19.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 09:21+0000\n"
+"PO-Revision-Date: 2026-08-05 09:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Absence Detection: Reason for Generated Attendance"
+msgstr ""
 
 #. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__action_type
@@ -43,12 +50,7 @@ msgid "Attendance Reasons"
 msgstr ""
 
 #. module: hr_attendance_reason
-#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_4
-msgid "Bad Weather"
-msgstr ""
-
-#. module: hr_attendance_reason
-#: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
+#: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_code_unique
 msgid "Code must be unique"
 msgstr ""
 
@@ -89,6 +91,12 @@ msgid "Created on"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_for_attendance_absence_detection
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_for_attendance_absence_detection
+msgid "Default attendance reason for absence detection"
+msgstr ""
+
+#. module: hr_attendance_reason
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_on_attendance_screen_default_sign_in
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_on_attendance_screen_default_sign_in
 msgid "Default sign-in reason for attendance screen"
@@ -116,7 +124,11 @@ msgid "Define attendance reason"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__display_name
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__display_name
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -132,18 +144,17 @@ msgid "Error: could not find corresponding employee."
 msgstr ""
 
 #. module: hr_attendance_reason
-#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_2
-msgid "Felt Sick"
-msgstr ""
-
-#. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 msgid "Go back"
 msgstr ""
 
 #. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__id
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_employee__id
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__id
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__id
 msgid "ID"
 msgstr ""
 
@@ -163,11 +174,6 @@ msgid "Leave empty if it is independent"
 msgstr ""
 
 #. module: hr_attendance_reason
-#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_1
-msgid "Manager Manual Amend"
-msgstr ""
-
-#. module: hr_attendance_reason
 #. odoo-javascript
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
 msgid "Please return to the main menu."
@@ -184,11 +190,6 @@ msgstr ""
 #: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
 #: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
 msgid "Please, select a reason!"
-msgstr ""
-
-#. module: hr_attendance_reason
-#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_5
-msgid "Public Transport Strike"
 msgstr ""
 
 #. module: hr_attendance_reason
@@ -261,8 +262,23 @@ msgid "Specifies the reason leaving soon or arriving late"
 msgstr ""
 
 #. module: hr_attendance_reason
-#: model:hr.attendance.reason,name:hr_attendance_reason.hr_act_reason_3
-msgid "Visit Customer"
+#: model:hr.attendance.reason,name:hr_attendance_reason.attendance_reason_absence_detection
+msgid "System generated attendance for missing days"
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,help:hr_attendance_reason.field_res_company__reason_for_attendance_absence_detection
+#: model:ir.model.fields,help:hr_attendance_reason.field_res_config_settings__reason_for_attendance_absence_detection
+msgid ""
+"The attendance reason set by the absence detection cron job on its generated"
+" attendances."
+msgstr ""
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid ""
+"This reason will be set by the absence detection cron job on its generated "
+"attendances."
 msgstr ""
 
 #. module: hr_attendance_reason

@@ -57,6 +57,19 @@
                         </div>
                     </div>
                 </setting>
+
+                <setting
+                    string="Absence Detection: Reason for Generated Attendance"
+                    company_dependent="1"
+                    help="This reason will be set by the absence detection cron job on its generated attendances."
+                >
+                    <field
+                        name="reason_for_attendance_absence_detection"
+                        can_create="true"
+                        can_write="true"
+                        class="w-100"
+                    />
+                </setting>
             </xpath>
         </field>
     </record>
