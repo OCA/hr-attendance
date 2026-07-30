@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="hr_attendance_validation.attendance_menu"
+        t-inherit="hr_attendance.attendance_menu"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('o_att_menu_container')]" position="inside">
+            <div
+                class="d-flex"
+                t-att-class="this.state.checkedIn ? 'align-items-center justify-content-between' : 'flex-column'"
+            >
+                <small class="text-muted">Total week</small>
+                <h2 t-esc="this.hoursWeek" class="mb-0 fs-2" />
+            </div>
+        </xpath>
+    </t>
+
+</templates>

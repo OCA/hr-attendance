@@ -2,7 +2,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from datetime import datetime, timedelta
 
-from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.osv import expression
 
 
@@ -14,34 +15,26 @@ class HrAttendanceValidationSheet(models.Model):
     def _default_from_date(self):
         """returns the monday before last sunday"""
         today = fields.Date.today()
-        return today - timedelta(days=today.weekday() + 7)
+        return fields.Date.subtract(today, days=today.weekday() + 7)
 
     def _default_to_date(self):
         """returns last sunday"""
         today = fields.Date.today()
-        return today - timedelta(days=today.weekday() + 1)
+        return fields.Date.subtract(today, days=today.weekday() + 1)
 
-    def name_get(self):
-        results = []
+    @api.depends("employee_id.name", "date_from")
+    def _compute_display_name(self):
         for rec in self:
-            results.append(
-                (
-                    rec.id,
-                    _("Week %s - %s")
-                    % (
-                        rec.date_from.strftime("%W"),
-                        rec.employee_id.name,
-                    ),
-                )
+            rec.display_name = _("Week %(week_name)s - %(employee_name)s") % dict(
+                week_name=rec.date_from.strftime("%W"),
+                employee_name=rec.employee_id.name,
             )
-        return results
 
     state = fields.Selection(
         [
             ("draft", "To review"),
             ("validated", "Validated"),
         ],
-        string="State",
         required=True,
         default="draft",
     )
@@ -71,7 +64,7 @@ class HrAttendanceValidationSheet(models.Model):
         string="Theoretical (hours)",
         compute="_compute_theoretical_hours",
         store=True,
-        help="heoretical calendar hours to spend by week.",
+        help="theoretical calendar hours to spend by week.",
     )
     attendance_ids = fields.One2many(
         "hr.attendance", inverse_name="validation_sheet_id", string="Attendances"
@@ -79,19 +72,16 @@ class HrAttendanceValidationSheet(models.Model):
     attendance_due_ids = fields.One2many(
         "hr.attendance",
         compute="_compute_attendance_due_ids",
-        string="Valid attendances",
+        string="Used to display attendances in the view.",
     )
     leave_ids = fields.Many2many("hr.leave", string="Leaves")
-    leave_allocation_id = fields.Many2one(
-        "hr.leave.allocation",
-        string="Leave allocation",
-        help="Automatically generated on validation if compensatory_hour > 0",
+    overtime_ids = fields.Many2many(
+        "hr.attendance.overtime",
+        domain=[("adjustment", "=", True), ("duration", "<", 0)],
+        help="Compensatory hours taken",
     )
-    leave_id = fields.Many2one(
-        "hr.leave",
-        string="Leave",
-        help="Automatically generated on validation if "
-        "regularization_compensatory_hour_taken > 0",
+    adjustment_overtime_id = fields.Many2one(
+        "hr.attendance.overtime",
     )
 
     leave_hours = fields.Float(
@@ -123,7 +113,10 @@ class HrAttendanceValidationSheet(models.Model):
         "Overtime due (hours)",
         compute="_compute_attendances_hours",
         store=True,
-        help="Compute number of attendance lines marked as overtime which are marked as due",
+        help=(
+            "Compute number of attendance lines marked as "
+            "overtime which are marked as due"
+        ),
     )
     overtime_not_due_hours = fields.Float(
         "Overtime not due (hours)",
@@ -146,7 +139,12 @@ class HrAttendanceValidationSheet(models.Model):
         "instead alert user to click on it when needs.",
     )
 
-    @api.onchange("employee_id", "date_from", "date_to")
+    @api.onchange(
+        "employee_id",
+        "date_from",
+        "date_to",
+        "employee_id.weekly_attendance_validation",
+    )
     def _onchange_recompute_lines(self):
         self.ensure_one()
         self.require_regeneration = True
@@ -165,17 +163,14 @@ class HrAttendanceValidationSheet(models.Model):
             else:
                 record.theoretical_hours = 0
 
-    def _compute_leaves_fields(self):
+    def _compute_leaves_hours(self):
         self.ensure_one()
 
         leave_hours = 0
-        compensatory_leave_hours = 0
         for leave in self.leave_ids:
             if leave.request_unit_half or leave.request_unit_hours:
                 # we assume time off is recorded by hours
                 leave_hours += leave.number_of_hours_display
-                if leave.holiday_status_id.is_compensatory:
-                    compensatory_leave_hours += leave.number_of_hours_display
             else:
                 # As far leaves can be record on multiple weeks
                 # intersect calendar attendance and leaves date
@@ -187,28 +182,28 @@ class HrAttendanceValidationSheet(models.Model):
                 while current_date <= date_to:
                     current_date_leave_hours = sum(
                         self.calendar_id.attendance_ids.filtered(
-                            lambda att: int(att.dayofweek) == current_date.weekday()
+                            lambda att, current_date=current_date: att.day_period
+                            != "lunch"
+                            and int(att.dayofweek) == current_date.weekday()
                         ).mapped(lambda att: att.hour_to - att.hour_from)
                     )
                     leave_hours += current_date_leave_hours
-                    if leave.holiday_status_id.is_compensatory:
-                        compensatory_leave_hours += current_date_leave_hours
                     current_date += timedelta(days=1)
-        return leave_hours, compensatory_leave_hours
+        return leave_hours
 
-    @api.depends("leave_ids", "leave_ids.holiday_status_id.is_compensatory")
+    @api.depends("leave_ids")
     def _compute_leaves(self):
         for record in self:
-            (
-                record.leave_hours,
-                record.compensatory_leave_hours,
-            ) = record._compute_leaves_fields()
+            leave_hours = record._compute_leaves_hours()
+            record.compensatory_leave_hours = abs(
+                sum(record.overtime_ids.mapped("duration"))
+            )
+            record.leave_hours = leave_hours + record.compensatory_leave_hours
 
     @api.depends(
         "attendance_ids",
         "attendance_ids.is_overtime",
         "attendance_ids.is_overtime_due",
-        "attendance_due_ids",
     )
     def _compute_attendances_hours(self):
         for record in self:
@@ -228,23 +223,32 @@ class HrAttendanceValidationSheet(models.Model):
                 ).mapped("worked_hours")
             )
             record.attendance_total_hours = sum(
-                record.attendance_due_ids.mapped("worked_hours")
+                record.attendance_ids.filtered(
+                    lambda att: not att.is_overtime or att.is_overtime_due
+                ).mapped("worked_hours")
             )
 
     @api.depends(
         "attendance_ids", "attendance_ids.is_overtime", "attendance_ids.is_overtime_due"
     )
     def _compute_attendance_due_ids(self):
+        see_all_attendance = self.env.user.has_group(
+            "hr_attendance.group_hr_attendance_manager"
+        )
         for record in self:
             record.attendance_due_ids = record.attendance_ids.filtered(
-                lambda att: not att.is_overtime or att.is_overtime_due
+                lambda att: see_all_attendance
+                or not att.is_overtime
+                or att.is_overtime_due
             )
 
     def _retrieve_attendance(self):
         """Method that link to hr.attendance between date from and date to"""
-        HrAttendance = self.env["hr.attendance"]
         for record in self:
-            record.attendance_ids = HrAttendance.search(
+            if not record.employee_id.weekly_attendance_validation:
+                record.attendance_ids = self.env["hr.attendance"].browse()
+                continue
+            record.attendance_ids = self.env["hr.attendance"].search(
                 [
                     ("employee_id", "=", record.employee_id.id),
                     ("check_in", ">=", record.date_from),
@@ -252,20 +256,40 @@ class HrAttendanceValidationSheet(models.Model):
                 ],
             )
 
+    def _retrieve_overtime(self):
+        for record in self:
+            if not record.employee_id.weekly_attendance_validation:
+                record.overtime_ids = self.env["hr.attendance.overtime"].browse()
+                continue
+            record.overtime_ids = self.env["hr.attendance.overtime"].search(
+                [
+                    ("employee_id", "=", record.employee_id.id),
+                    ("date", ">=", record.date_from),
+                    ("date", "<=", record.date_to),
+                    ("adjustment", "=", True),
+                    ("duration", "<", 0),
+                ],
+            )
+
     def _retrieve_leave(self):
         """Method that link to hr.leave between date from and date to"""
-        HrLeave = self.env["hr.leave"]
         for record in self:
+            if not record.employee_id.weekly_attendance_validation:
+                record.leave_ids = self.env["hr.leave"].browse()
+                continue
             domain = expression.AND(
                 [
                     [
                         ("state", "in", ["validate", "validate1"]),
                         ("employee_id", "=", record.employee_id.id),
                         (
-                            "holiday_status_id.ignored_in_attendance_validation",
+                            "holiday_status_id.time_type",
                             "=",
-                            False,
+                            "leave",
                         ),
+                        # those leave/allocations use hr.attendance.overtime as
+                        # backend to store data
+                        ("holiday_status_id.overtime_deductible", "=", False),
                     ],
                     expression.OR(
                         [
@@ -283,7 +307,8 @@ class HrAttendanceValidationSheet(models.Model):
                                     [("request_date_to", "<=", record.date_to)],
                                 ]
                             ),
-                            # leaves thats start before and ends after the validation sheet
+                            # leaves thats start before and ends after
+                            # the validation sheet
                             expression.AND(
                                 [
                                     [("request_date_from", "<", record.date_from)],
@@ -294,12 +319,13 @@ class HrAttendanceValidationSheet(models.Model):
                     ),
                 ]
             )
-            record.leave_ids = HrLeave.search(domain)
+            record.leave_ids = self.env["hr.leave"].search(domain)
 
     def action_retrieve_attendance_and_leaves(self):
         """Action to retrieve both attendance and leave lines"""
         self._retrieve_attendance()
         self._retrieve_leave()
+        self._retrieve_overtime()
         # this method can be called by cron, ensure that properly recompute
         # default comp hours
         self._compute_default_compensatory_hour()
@@ -309,54 +335,37 @@ class HrAttendanceValidationSheet(models.Model):
         """Method to validate this sheet and generate leave allocation
         if necessary
         """
-        HrLeave = self.env["hr.leave"]
-        HrAllocation = self.env["hr.leave.allocation"]
-        holiday_status_id = int(
-            self.env["ir.config_parameter"]
-            .with_user(SUPERUSER_ID)
-            ._get_param("hr_attendance_validation.leave_type_id")
-            or self.env.ref("hr_holidays.holiday_status_comp").id
-        )
-
         for record in self:
-            if record.compensatory_hour > 0 and not record.leave_allocation_id:
-                record.leave_allocation_id = HrAllocation.create(
-                    {
-                        "employee_id": record.employee_id.id,
-                        "holiday_status_id": holiday_status_id,
-                        "number_of_days": record.compensatory_hour
-                        / record.calendar_id.hours_per_day,
-                        "holiday_type": "employee",
-                        "state": "validate",
-                        "name": _("Compensatory hours: %s") % record.display_name,
-                        "notes": _(
-                            "Allocation created and validated from attendance "
-                            "validation reviews: %s"
-                        )
-                        % record.display_name,
-                    }
+            if not record.employee_id.weekly_attendance_validation:
+                raise ValidationError(
+                    _(
+                        "Can't validate weekly validation attendance sheets "
+                        "for %(employee_name)s. Please first choose 'Weekly "
+                        "compensatory computation' on employee form."
+                    )
+                    % dict(
+                        employee_name=record.employee_id.name,
+                    )
                 )
+            duration = 0
+            if record.compensatory_hour > 0:
+                duration = record.compensatory_hour
 
-            if (
-                record.regularization_compensatory_hour_taken > 0
-                and not record.leave_id
-            ):
-                record.leave_id = HrLeave.create(
+            if record.regularization_compensatory_hour_taken > 0:
+                duration = -record.regularization_compensatory_hour_taken
+
+            if duration:
+                record.adjustment_overtime_id = self.env[
+                    "hr.attendance.overtime"
+                ].create(
                     {
                         "employee_id": record.employee_id.id,
-                        "holiday_status_id": holiday_status_id,
-                        "number_of_days": record.regularization_compensatory_hour_taken
-                        / record.calendar_id.hours_per_day,
-                        "name": _("Compensatory hours regularization generated from %s")
-                        % record.display_name,
-                        "request_date_from": record.date_to,
-                        "request_date_to": record.date_to,
-                        "date_from": record.date_to,
-                        "date_to": record.date_to,
-                        "request_unit_hours": False,
+                        "date": record.date_to,
+                        "duration": duration,
+                        "duration_real": duration,
+                        "adjustment": True,
                     }
                 )
-                record.leave_id.action_validate()
                 record.action_retrieve_attendance_and_leaves()
             record.state = "validated"
 
@@ -383,7 +392,11 @@ class HrAttendanceValidationSheet(models.Model):
     @api.model
     def generate_reviews(self):
         reviews = self.env["hr.attendance.validation.sheet"]
-        for employee in self.env["hr.employee"].search([("active", "=", True)]):
+        for employee in self.env["hr.employee"].search(
+            [
+                ("weekly_attendance_validation", "=", True),
+            ]
+        ):
             reviews += self.create(
                 {
                     "employee_id": employee.id,
@@ -393,4 +406,6 @@ class HrAttendanceValidationSheet(models.Model):
         return reviews
 
     def action_to_review(self):
+        self.adjustment_overtime_id.unlink()
         self.write({"state": "draft"})
+        self.action_retrieve_attendance_and_leaves()

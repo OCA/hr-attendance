@@ -8,213 +8,327 @@ from odoo.exceptions import AccessError, ValidationError
 from odoo.tests import Form
 from odoo.tests.common import TransactionCase
 
+from odoo.addons.hr_attendance_validation.controllers.main import (
+    HrAttendanceValidation as controller,
+)
+
 
 class TestHrAttendanceValidation(TransactionCase):
-    def setup_employee(self):
-        employee_group = self.env.ref("hr_attendance.group_hr_attendance_user")
-        self.user_employee = self.env["res.users"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env.company.hr_attendance_overtime = True
+        cls.env.company.overtime_start_date = "2021-01-01"
+        cls.setup_employees()
+        cls.setup_public_holidays()
+        cls.setup_leave_type()
+        cls.setup_employees_allocations()
+        cls.setup_employee_holidays()
+        cls.setup_employee_attendances()
+
+    @classmethod
+    def setup_employees(cls):
+        cls.user_employee = cls.env["res.users"].create(
             {
                 "name": "Test User Employee 1",
                 "login": "test 1",
                 "email": "test1@test.com",
-                "groups_id": [(6, 0, [employee_group.id])],
+                "groups_id": [
+                    (
+                        6,
+                        0,
+                        (
+                            cls.env.ref("hr_attendance.group_hr_attendance_own_reader")
+                            | cls.env.ref("base.group_user")
+                        ).ids,
+                    )
+                ],
                 "tz": "UTC",
             }
         )
-        self.employee = self.env["hr.employee"].create(
+        cls.employee = cls.env["hr.employee"].create(
             {
                 "name": "Employee 1",
+                "weekly_attendance_validation": True,
                 "tz": "UTC",
-                "user_id": self.user_employee.id,
+                "user_id": cls.user_employee.id,
             }
         )
-        self.employee2 = self.env["hr.employee"].create(
+        cls.employee2 = cls.env["hr.employee"].create(
             {
                 "name": "Employee 2 without user",
+                "weekly_attendance_validation": True,
+                "tz": "UTC",
+            }
+        )
+        cls.employee3 = cls.env["hr.employee"].create(
+            {
+                "name": "Employee 3 daily contract",
+                "weekly_attendance_validation": False,
                 "tz": "UTC",
             }
         )
 
-    def setup_employee_allocation(self):
-        self.env["hr.leave.allocation"].create(
-            {
-                "employee_id": self.employee2.id,
-                "holiday_status_id": self.leave_comp.id,
-                "number_of_days": 10,
-                "holiday_type": "employee",
-                "state": "validate",
-                "name": "10 days - Compensatory hours",
-            }
-        )
-
-    def setup_employee_holidays(self):
-        self.env["hr.leave.allocation"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_cl.id,
-                "number_of_days": 30,
-                "holiday_type": "employee",
-                "state": "validate",
-            }
-        )
-        self.empl_leave = self.env["hr.leave"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_cl.id,
-                # overlap two weeks
-                "request_date_from": "2021-12-01",
-                "request_date_to": "2021-12-08",
-                "number_of_days": 6,
-            }
-        )
-        self.empl_leave_hour = self.env["hr.leave"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_cl.id,
-                "request_date_from": "2021-12-11",
-                "request_hour_from": "8",
-                "request_hour_to": "10",
-                "request_unit_hours": True,
-                "number_of_days": 0.25,
-            }
-        )
-        self.empl_leave.action_validate()
-        self.empl_leave_hour.action_validate()
-        self.env["hr.leave.allocation"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_comp.id,
-                "number_of_days": 1,
-                "holiday_type": "employee",
-                "state": "validate",
-            }
-        )
-        self.empl_leave_comp = self.env["hr.leave"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_comp.id,
-                "request_date_from": "2021-12-10",
-                "request_hour_from": "8",
-                "request_hour_to": "10",
-                "request_unit_hours": True,
-                "number_of_days": 0.25,
-            }
-        )
-        self.empl_leave_comp.action_validate()
-
-    def setup_employee_remote_days(self):
-        self.env["hr.leave.allocation"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_remote.id,
-                "number_of_days": 5,
-                "holiday_type": "employee",
-                "state": "validate",
-                "name": "5 days - Remote days",
-            }
-        )
-        self.empl_remote = self.env["hr.leave"].create(
-            {
-                "employee_id": self.employee.id,
-                "holiday_status_id": self.leave_remote.id,
-                # overlap two weeks
-                "request_date_from": "2021-12-09",
-                "request_date_to": "2021-12-10",
-                "number_of_days": 1,
-            }
-        )
-        self.empl_remote.action_validate()
-
-    def setup_employee_attendances(self):
-        self.env["hr.attendance"].create(
-            [
-                {  # testing record before not considered
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-05 07:30:00",
-                    "check_out": "2021-12-05 08:00:00",
-                },
-                {  # testing other employee
-                    "employee_id": self.employee2.id,
-                    "check_in": "2021-12-06 08:00:00",
-                    "check_out": "2021-12-06 12:00:00",
-                },
-                {
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-09 07:30:00",
-                    "check_out": "2021-12-09 08:00:00",
-                    "is_overtime": True,
-                },
-                {
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-09 08:00:00",
-                    "check_out": "2021-12-09 12:00:00",
-                    "is_overtime": False,
-                },
-                {
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-09 13:00:00",
-                    "check_out": "2021-12-09 17:00:00",
-                    "is_overtime": False,
-                },
-                {
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-10 14:00:00",
-                    "check_out": "2021-12-10 17:00:00",
-                    "is_overtime": False,
-                },
-                {
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-10 17:00:00",
-                    "check_out": "2021-12-10 18:30:00",
-                    "is_overtime": True,
-                    "is_overtime_due": True,
-                },
-                {  # testing record after not considered
-                    "employee_id": self.employee.id,
-                    "check_in": "2021-12-13 07:30:00",
-                    "check_out": "2021-12-13 08:00:00",
-                },
-            ]
-        )
-
-    def setUp(self):
-        super().setUp()
-        self.HrAttendance = self.env["hr.attendance"]
-        self.HrAttendanceValidation = self.env["hr.attendance.validation.sheet"]
-        self.leave_cl = self.env.ref("hr_holidays.holiday_status_cl")
-        self.leave_cl.is_compensatory = False
-        self.leave_comp = self.env.ref("hr_holidays.holiday_status_comp")
-        self.leave_comp.is_compensatory = True
-        self.leave_remote = self.env["hr.leave.type"].create(
-            {
-                "name": "Remote test",
-                "code": "REM1",
-                "request_unit": "half_day",
-                "color_name": "blue",
-                "allocation_type": "fixed",
-                "leave_validation_type": "no_validation",
-                "create_calendar_meeting": True,
-                "ignored_in_attendance_validation": True,
-            }
-        )
-        self.setup_employee()
-        public_holidays_2021 = self.env["hr.holidays.public"].create(
+    @classmethod
+    def setup_public_holidays(cls):
+        public_holidays_2021 = cls.env["hr.holidays.public"].create(
             {
                 "year": 2021,
-                "country_id": self.employee.address_id.country_id.id,
+                "country_id": cls.employee.address_id.country_id.id,
             }
         )
-        self.env["hr.holidays.public.line"].create(
+        cls.env["hr.holidays.public.line"].create(
             {
                 "name": "Fête nationale",
                 "date": "2021-07-14",
                 "year_id": public_holidays_2021.id,
             }
         )
-        self.setup_employee_allocation()
-        self.setup_employee_holidays()
-        self.setup_employee_remote_days()
-        self.setup_employee_attendances()
+
+    @classmethod
+    def setup_leave_type(cls):
+        cls.leave_type_paid_time_off = cls.env.ref("hr_holidays.holiday_status_cl")
+        cls.leave_type_compensatory = cls.env.ref(
+            "hr_holidays_attendance.holiday_status_extra_hours"
+        )
+        cls.leave_type_compensatory.allows_negative = True
+        cls.leave_type_compensatory.max_allowed_negative = 100
+        cls.leave_type_other_hourly_paid_time_off = cls.env["hr.leave.type"].create(
+            {
+                "name": "Hourly paid off",
+                "request_unit": "half_day",
+                "color": 2,
+                "overtime_deductible": False,
+                "requires_allocation": "yes",
+                "employee_requests": "yes",
+                "allocation_validation_type": "no",
+                "time_type": "leave",
+                "allows_negative": True,
+                "max_allowed_negative": 10,
+                "leave_validation_type": "no_validation",
+                "create_calendar_meeting": True,
+            }
+        )
+        cls.leave_type_remote = cls.env["hr.leave.type"].create(
+            {
+                "name": "Remote time",
+                "request_unit": "half_day",
+                "color": 2,
+                "overtime_deductible": False,
+                "requires_allocation": "yes",
+                "employee_requests": "yes",
+                "allocation_validation_type": "no",
+                "time_type": "other",
+                "allows_negative": True,
+                "max_allowed_negative": 10,
+                "leave_validation_type": "no_validation",
+                "create_calendar_meeting": True,
+            }
+        )
+        cls.leave_type_compensatory2 = cls.env.ref(
+            "hr_holidays_attendance.holiday_status_extra_hours"
+        ).copy({"name": "Compensatory 2"})
+
+    @classmethod
+    def setup_employees_allocations(cls):
+        allocations = cls.env["hr.leave.allocation"].create(
+            [
+                {
+                    "employee_id": cls.employee.id,
+                    "holiday_status_id": cls.leave_type_paid_time_off.id,
+                    "number_of_days": 40,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "holiday_status_id": cls.leave_type_other_hourly_paid_time_off.id,
+                    "number_of_days": 20,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "holiday_status_id": cls.leave_type_remote.id,
+                    "number_of_days": 5,
+                    "holiday_type": "employee",
+                    "name": "5 days - Remote days",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+                {
+                    "employee_id": cls.employee3.id,
+                    "holiday_status_id": cls.leave_type_paid_time_off.id,
+                    "number_of_days": 40,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+            ]
+        )
+        allocations.filtered(
+            lambda allocation: allocation.state != "validate"
+        ).action_validate()
+        assert all(
+            allocations.mapped(lambda allocation: allocation.state == "validate")
+        )
+
+    @classmethod
+    def setup_employee_holidays(cls):
+        cls.empl_leave = cls.env["hr.leave"].create(
+            {
+                "employee_id": cls.employee.id,
+                "holiday_status_id": cls.leave_type_paid_time_off.id,
+                # overlap two weeks
+                "request_date_from": "2021-12-01",
+                "request_date_to": "2021-12-08",
+                "number_of_days": 6,
+            }
+        )
+        cls.empl_leave.action_validate()
+        assert cls.empl_leave.state == "validate"
+        cls.empl_leave_hour = cls.env["hr.leave"].create(
+            {
+                "employee_id": cls.employee.id,
+                "holiday_status_id": cls.leave_type_other_hourly_paid_time_off.id,
+                "request_date_from": "2021-12-09",
+                "request_date_to": "2021-12-09",
+                "request_hour_from": "10",
+                "request_hour_to": "12",
+                "request_unit_hours": True,
+            }
+        )
+        # cls.empl_leave.action_validate()
+        assert cls.empl_leave_hour.state == "validate"
+        cls.empl_leave_comp = cls.env["hr.leave"].create(
+            {
+                "employee_id": cls.employee.id,
+                "holiday_status_id": cls.leave_type_compensatory.id,
+                "request_date_from": "2021-12-09",
+                "request_date_to": "2021-12-09",
+                "request_hour_from": "14",
+                "request_hour_to": "16",
+                "request_unit_hours": True,
+            }
+        )
+
+        cls.empl_leave_comp.action_validate()
+        assert cls.empl_leave_comp.state == "validate"
+        cls.empl_remote = cls.env["hr.leave"].create(
+            {
+                "employee_id": cls.employee.id,
+                "holiday_status_id": cls.leave_type_remote.id,
+                # overlap two weeks
+                "request_date_from": "2021-12-10",
+                "request_date_to": "2021-12-10",
+                "request_hour_from": "14",
+                "request_hour_to": "17",
+                "number_of_days": 0.5,
+            }
+        )
+        cls.empl_remote.action_validate()
+        assert cls.empl_remote.state == "validate"
+        cls.empl_leave = cls.env["hr.leave"].create(
+            {
+                "employee_id": cls.employee3.id,
+                "holiday_status_id": cls.leave_type_paid_time_off.id,
+                # overlap two weeks
+                "request_date_from": "2021-12-07",
+                "request_date_to": "2021-12-08",
+                "number_of_days": 2,
+            }
+        )
+        cls.empl_leave.action_validate()
+        assert cls.empl_leave.state == "validate"
+
+    @classmethod
+    def setup_employee_attendances(cls):
+        cls.env["hr.attendance"].create(
+            [
+                {  # testing record before not considered
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-05 07:30:00",
+                    "check_out": "2021-12-05 08:00:00",
+                },
+                {  # testing other employee
+                    "employee_id": cls.employee2.id,
+                    "check_in": "2021-12-06 08:00:00",
+                    "check_out": "2021-12-06 12:00:00",
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-09 07:30:00",
+                    "check_out": "2021-12-09 08:00:00",
+                    "is_overtime": True,
+                    "is_overtime_due": False,
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-09 08:00:00",
+                    "check_out": "2021-12-09 12:00:00",
+                    "is_overtime": False,
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-09 13:00:00",
+                    "check_out": "2021-12-09 17:00:00",
+                    "is_overtime": False,
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-10 14:00:00",
+                    "check_out": "2021-12-10 17:00:00",
+                    "is_overtime": False,
+                },
+                {
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-10 17:00:00",
+                    "check_out": "2021-12-10 18:30:00",
+                    "is_overtime": True,
+                    "is_overtime_due": True,
+                },
+                {  # testing record after not considered
+                    "employee_id": cls.employee.id,
+                    "check_in": "2021-12-13 07:30:00",
+                    "check_out": "2021-12-13 08:00:00",
+                },
+                {  # employee 3 should create overtime
+                    "employee_id": cls.employee3.id,
+                    "check_in": "2021-12-06 07:30:00",
+                    "check_out": "2021-12-06 19:30:00",
+                },
+                {
+                    "employee_id": cls.employee3.id,
+                    "check_in": "2021-12-09 09:00:00",
+                    "check_out": "2021-12-09 12:00:00",
+                },
+                {
+                    "employee_id": cls.employee3.id,
+                    "check_in": "2021-12-09 14:00:00",
+                    "check_out": "2021-12-09 17:00:00",
+                },
+            ]
+        )
+
+    def setUp(self):
+        super().setUp()
+        self.HrAttendanceValidation = self.env["hr.attendance.validation.sheet"]
+
+    def test_controller_get_user_attendance_data(self):
+        data = controller._get_user_attendance_data(self.employee)
+        # make sure overload from hr_attendance_overtime is still present
+        self.assertTrue("overtime_info" in data)
+        self.assertTrue("hours_current_week" in data)
+
+    def test_controller_get_user_attendance_data_no_employee(self):
+        data = controller._get_user_attendance_data(False)
+        self.assertTrue("hours_current_week" not in data)
 
     def test_new_without_calendar(self):
         validation = self.HrAttendanceValidation.new({})
@@ -225,7 +339,7 @@ class TestHrAttendanceValidation(TransactionCase):
     def test_name_get_missing_employee(self):
         with freeze_time("2021-12-12 20:45", tz_offset=0):
             new_element = self.HrAttendanceValidation.new({})
-            self.assertEqual(new_element.name_get()[0][1], "Week 48 - False")
+            self.assertEqual(new_element.display_name, "Week 48 - False")
 
     def test_require_regeneration(self):
         validation_sheet = self.HrAttendanceValidation.create(
@@ -254,10 +368,10 @@ class TestHrAttendanceValidation(TransactionCase):
                 "date_to": "2021-12-19",
             }
         )
-        res = weeks.name_get()
+        res = weeks.mapped("display_name")
         self.assertEqual(len(res), 2)
-        self.assertEqual(res[0][1], "Week 49 - Employee 1")
-        self.assertEqual(res[1][1], "Week 50 - Employee 1")
+        self.assertEqual(res[0], "Week 49 - Employee 1")
+        self.assertEqual(res[1], "Week 50 - Employee 1")
 
     def test_default_from_date(self):
         with freeze_time("2021-12-12 20:45", tz_offset=0):
@@ -287,8 +401,10 @@ class TestHrAttendanceValidation(TransactionCase):
         validation.date_from = "2021-12-06"
         validation.date_to = "2021-12-12"
         validation.action_retrieve_attendance_and_leaves()
-        self.assertEqual(len(validation.leave_ids), 3)
-        self.assertEqual(validation.leave_hours, 28)
+        self.assertEqual(len(validation.leave_ids), 2)
+        # 2 hours are compensatory leaves that are not retrieve
+        # from hr leaves
+        self.assertEqual(validation.leave_hours, 3 * 8 + 2 + 2)
         self.assertEqual(len(validation.attendance_ids), 5)
 
     def test_action_retrieve_leaves_outer_validation_date(self):
@@ -325,32 +441,14 @@ class TestHrAttendanceValidation(TransactionCase):
         self.assertEqual(validation.regularization_compensatory_hour_taken, 0)
 
     def test_generate_compensatory(self):
-        leaves_before = self.leave_comp.with_context(
-            employee_id=self.employee.id
-        ).remaining_leaves
+        self.assertEqual(self.employee.total_overtime, -2)
         validation = self.validate_week()
         self.assertEqual(validation.state, "validated")
-        self.assertEqual(
-            validation.leave_allocation_id.holiday_status_id.id, self.leave_comp.id
-        )
-        self.leave_comp.refresh()
-        self.assertEqual(
-            self.leave_comp.with_context(employee_id=self.employee.id).remaining_leaves,
-            leaves_before + 0.5,
-        )
-        self.assertTrue(
-            validation.leave_allocation_id.name,
-        )
-        self.assertEqual(
-            validation.leave_allocation_id.notes,
-            "Allocation created and validated from attendance "
-            "validation reviews: Week 49 - Employee 1",
-        )
+        self.assertEqual(validation.adjustment_overtime_id.duration, 0.5)
+        self.assertEqual(self.employee.total_overtime, -1.5)
 
     def test_generate_leaves(self):
-        leaves_before = self.leave_comp.with_context(
-            employee_id=self.employee2.id
-        ).remaining_leaves
+        self.assertEqual(self.employee2.total_overtime, 0)
 
         validation = self.HrAttendanceValidation.create(
             {
@@ -362,19 +460,13 @@ class TestHrAttendanceValidation(TransactionCase):
         validation.action_retrieve_attendance_and_leaves()
         validation.action_validate()
         self.assertEqual(validation.state, "validated")
-        self.assertEqual(validation.leave_id.holiday_status_id.id, self.leave_comp.id)
-        self.leave_comp.refresh()
-        self.assertEqual(validation.regularization_compensatory_hour_taken, 36)
+        self.assertEqual(validation.adjustment_overtime_id.duration, -36)
+        self.assertEqual(self.employee2.total_overtime, -36)
         self.assertEqual(
-            self.leave_comp.with_context(
+            self.leave_type_compensatory.with_context(
                 employee_id=self.employee2.id
-            ).remaining_leaves,
-            leaves_before - validation.regularization_compensatory_hour_taken,
-        )
-        self.assertEqual(
-            validation.leave_id.name,
-            "Compensatory hours regularization generated from "
-            "Week 49 - Employee 2 without user",
+            ).display_name,
+            f"{self.leave_type_compensatory.name} (36:00 credit hours)",
         )
 
     def validate_week(self):
@@ -393,9 +485,8 @@ class TestHrAttendanceValidation(TransactionCase):
         self.validate_week()
         with self.assertRaisesRegex(
             ValidationError,
-            "Cannot create new attendance for employee Employee 1. "
-            "Attendance for the day of the check in 2021-12-12 has already been "
-            "reviewed and validated.",
+            r"Can not edit attendance \(Employee 1, "
+            r"2021-12-12\) which try to update a validated period.",
         ):
             self.env["hr.attendance"].create(
                 [
@@ -466,8 +557,8 @@ class TestHrAttendanceValidation(TransactionCase):
         )
         with self.assertRaisesRegex(
             ValidationError,
-            r"Can not change this attendance \(Employee 1, .*\) "
-            "which has been already reviewed and validated.",
+            r"Can not change this attendance \(Employee 1,.*\) "
+            r"which has been already reviewed and validated.",
         ):
             attendances.write({"is_overtime_due": True})
 
@@ -478,8 +569,8 @@ class TestHrAttendanceValidation(TransactionCase):
         )
         with self.assertRaisesRegex(
             ValidationError,
-            r"Can not change this attendance \(Employee 1, 2021-12-12\) "
-            "which would be moved to a validated day.",
+            r"Can not edit attendance \(Employee 1, 2021-12-12\) "
+            r"which try to update a validated period.",
         ):
             attendances.write(
                 {"check_in": "2021-12-12 22:00", "check_out": "2021-12-12 23:00"}
@@ -487,30 +578,34 @@ class TestHrAttendanceValidation(TransactionCase):
 
     def test_generate_reviews(self):
         reviews = self.HrAttendanceValidation.generate_reviews()
-        self.assertEqual(len(reviews), self.env["hr.employee"].search_count([]))
+        self.assertEqual(len(reviews), 2)
 
     def test_avoid_duplicated_allocation(self):
         # in case allocation is generated
         # we come back to draft mode "to review", removing the
-        # previously created allocatoin is left to the user
-        # once re-validate avoid duplication in allocation
-        count_before = self.env["hr.leave.allocation"].search_count([])
+        # previously created allocation
+        count_before = self.env["hr.attendance.overtime"].search_count([])
         attenance_review_week = self.validate_week()
+        self.assertTrue(attenance_review_week.adjustment_overtime_id)
+        initial_duration = attenance_review_week.adjustment_overtime_id.duration
         self.assertEqual(
-            self.env["hr.leave.allocation"].search_count([]), count_before + 1
+            self.env["hr.attendance.overtime"].search_count([]), count_before + 1
         )
         attenance_review_week.action_to_review()
         self.assertEqual(
-            self.env["hr.leave.allocation"].search_count([]), count_before + 1
+            self.env["hr.attendance.overtime"].search_count([]), count_before
         )
         self.assertEqual(attenance_review_week.state, "draft")
-        self.assertTrue(attenance_review_week.leave_allocation_id)
+        self.assertFalse(attenance_review_week.adjustment_overtime_id)
         attenance_review_week.action_validate()
         self.assertEqual(
-            self.env["hr.leave.allocation"].search_count([]), count_before + 1
+            self.env["hr.attendance.overtime"].search_count([]), count_before + 1
         )
         self.assertEqual(attenance_review_week.state, "validated")
-        self.assertTrue(attenance_review_week.leave_allocation_id)
+        self.assertTrue(attenance_review_week.adjustment_overtime_id)
+        self.assertEqual(
+            attenance_review_week.adjustment_overtime_id.duration, initial_duration
+        )
 
     def test_employee_check_in_out(self):
         # in check-in/check-out processus odoo make sure
@@ -519,9 +614,9 @@ class TestHrAttendanceValidation(TransactionCase):
         # `hr.attendance.validation.sheet`'s records
         employee = self.employee.with_user(self.user_employee)
         with freeze_time("2021-12-30 09:01", tz_offset=0):
-            employee._attendance_action_change()
+            employee.sudo()._attendance_action_change()
         with freeze_time("2021-12-30 11:01", tz_offset=0):
-            employee._attendance_action_change()
+            employee.sudo()._attendance_action_change()
 
     def test_user_can_read_validated_sheet_only(self):
         # employee = self.employee.with_user(self.user_employee)
@@ -538,7 +633,9 @@ class TestHrAttendanceValidation(TransactionCase):
             self.user_employee
         )
         self.assertEqual(HrAttendanceValidationEmployee.search_count([]), 0)
-        with self.assertRaisesRegex(AccessError, "Due to security restrictions.*"):
+        with self.assertRaisesRegex(
+            AccessError, r".*doesn\'t have \'read\' access to.*"
+        ):
             validation.with_user(self.user_employee).read(["date_from"])
         validation.action_validate()
         self.assertEqual(HrAttendanceValidationEmployee.search_count([]), 1)
@@ -559,11 +656,15 @@ class TestHrAttendanceValidation(TransactionCase):
             self.user_employee
         )
         self.assertEqual(HrAttendanceValidationEmployee.search_count([]), 0)
-        with self.assertRaisesRegex(AccessError, "Due to security restrictions.*"):
+        with self.assertRaisesRegex(
+            AccessError, r".*doesn\'t have \'read\' access to.*"
+        ):
             validation.with_user(self.user_employee).read(["date_from"])
         validation.action_validate()
         self.assertEqual(HrAttendanceValidationEmployee.search_count([]), 0)
-        with self.assertRaisesRegex(AccessError, "Due to security restrictions.*"):
+        with self.assertRaisesRegex(
+            AccessError, r".*doesn\'t have \'read\' access to.*"
+        ):
             validation.with_user(self.user_employee).read(["date_from"])
 
     def test_employee_works_hours(self):
@@ -588,3 +689,190 @@ class TestHrAttendanceValidation(TransactionCase):
         )
 
         self.assertEqual(validation.theoretical_hours, 40 - 8)
+
+    def test_employee_3_no_validation(self):
+        validation_sheet = self.HrAttendanceValidation.create(
+            {
+                "employee_id": self.employee3.id,
+                "date_from": "2021-12-06",
+                "date_to": "2021-12-12",
+            }
+        )
+        validation_sheet.action_retrieve_attendance_and_leaves()
+        self.assertFalse(validation_sheet.leave_ids)
+        self.assertFalse(validation_sheet.attendance_ids)
+        self.assertFalse(validation_sheet.attendance_due_ids)
+        with self.assertRaisesRegex(
+            ValidationError,
+            "Can't validate weekly validation attendance sheets "
+            f"for {self.employee3.name}.*",
+        ):
+            validation_sheet.action_validate()
+
+    def test_employee_3_overtime(self):
+        """make sure we do not create regression
+        in odoo mechanisms"""
+        overtimes = self.env["hr.attendance.overtime"].search(
+            [("employee_id", "=", self.employee3.id), ("adjustment", "=", False)]
+        )
+        self.assertEqual(len(overtimes), 2)
+        self.assertEqual(sum(overtimes.mapped("duration_real")), 1)
+
+    def test_leave_requires_allocation(self):
+        self.leave_type_compensatory2.requires_allocation = "yes"
+        self.leave_type_compensatory2.overtime_deductible = True
+        self.leave_type_compensatory2.allows_negative = False
+        self.env["hr.attendance.overtime"].create(
+            {
+                "employee_id": self.employee3.id,
+                "date": "2021-01-05",
+                "duration": 16,
+                "duration_real": 16,
+                "adjustment": True,
+            }
+        )
+        allocations = self.env["hr.leave.allocation"].create(
+            [
+                {
+                    "employee_id": self.employee3.id,
+                    "holiday_status_id": self.leave_type_compensatory2.id,
+                    "number_of_days": 1,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+            ]
+        )
+        allocations.filtered(
+            lambda allocation: allocation.state != "validate"
+        ).action_validate()
+        assert all(
+            allocations.mapped(lambda allocation: allocation.state == "validate")
+        )
+
+        with self.assertRaisesRegex(
+            ValidationError,
+            f"The employee {self.employee3.name} does not have enough "
+            "extra hours to request this leave.",
+        ):
+            self.env["hr.leave"].create(
+                {
+                    "employee_id": self.employee3.id,
+                    "holiday_status_id": self.leave_type_compensatory2.id,
+                    # overlap two weeks
+                    "request_date_from": "2021-12-13",
+                    "request_date_to": "2021-12-15",
+                    "number_of_days": 3,
+                    "state": "draft",
+                }
+            )
+
+    def test_leave_requires_minimum_allocation_raise(self):
+        self.leave_type_compensatory2.requires_allocation = "yes"
+        self.leave_type_compensatory2.overtime_deductible = True
+        self.leave_type_compensatory2.allows_negative = True
+        self.leave_type_compensatory2.max_allowed_negative = 2
+        self.env["hr.attendance.overtime"].create(
+            {
+                "employee_id": self.employee3.id,
+                "date": "2021-01-05",
+                "duration": 16,
+                "duration_real": 16,
+                "adjustment": True,
+            }
+        )
+        allocations = self.env["hr.leave.allocation"].create(
+            [
+                {
+                    "employee_id": self.employee3.id,
+                    "holiday_status_id": self.leave_type_compensatory2.id,
+                    "number_of_days": 1,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+            ]
+        )
+        allocations.filtered(
+            lambda allocation: allocation.state != "validate"
+        ).action_validate()
+        assert all(
+            allocations.mapped(lambda allocation: allocation.state == "validate")
+        )
+
+        with self.assertRaisesRegex(
+            ValidationError,
+            "You cannot request more than 2 "
+            "extra hours requested 24 hours, "
+            "currently 9 hours",
+        ):
+            self.env["hr.leave"].create(
+                {
+                    "employee_id": self.employee3.id,
+                    "holiday_status_id": self.leave_type_compensatory2.id,
+                    # overlap two weeks
+                    "request_date_from": "2021-12-13",
+                    "request_date_to": "2021-12-15",
+                    "number_of_days": 3,
+                    "state": "draft",
+                }
+            )
+
+    def test_leave_requires_minimum_allocation(self):
+        self.leave_type_compensatory2.requires_allocation = "yes"
+        self.leave_type_compensatory2.overtime_deductible = True
+        self.leave_type_compensatory2.allows_negative = True
+        self.leave_type_compensatory2.max_allowed_negative = 35
+        self.env["hr.attendance.overtime"].create(
+            {
+                "employee_id": self.employee3.id,
+                "date": "2021-01-05",
+                "duration": 16,
+                "duration_real": 16,
+                "adjustment": True,
+            }
+        )
+        allocations = self.env["hr.leave.allocation"].create(
+            [
+                {
+                    "employee_id": self.employee3.id,
+                    "holiday_status_id": self.leave_type_compensatory2.id,
+                    "number_of_days": 1,
+                    "holiday_type": "employee",
+                    "date_from": "2021-01-01",
+                    "date_to": "2021-12-31",
+                    "state": "confirm",
+                },
+            ]
+        )
+        allocations.filtered(
+            lambda allocation: allocation.state != "validate"
+        ).action_validate()
+        assert all(
+            allocations.mapped(lambda allocation: allocation.state == "validate")
+        )
+        leave = self.env["hr.leave"].create(
+            {
+                "employee_id": self.employee3.id,
+                "holiday_status_id": self.leave_type_compensatory2.id,
+                # overlap two weeks
+                "request_date_from": "2021-12-13",
+                "request_date_to": "2021-12-15",
+                "number_of_days": 3,
+                "state": "draft",
+            }
+        )
+        leave.action_confirm()
+        leave.action_validate()
+        self.assertEqual(leave.state, "validate")
+
+    def test_leave_type_display_name(self):
+        self.assertEqual(self.leave_type_compensatory2.display_name, "Compensatory 2")
+        self.assertEqual(
+            self.leave_type_compensatory2.with_context(
+                employee_id=self.employee3.id
+            ).display_name,
+            "Compensatory 2 (01:00 hours available)",
+        )

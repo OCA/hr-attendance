@@ -11,21 +11,21 @@
                         string="Validate"
                         type="object"
                         class="btn-primary"
-                        states="draft"
+                        invisible="state != 'draft'"
                         groups="hr_attendance.group_hr_attendance_manager"
                     />
                         <button
                         name="action_retrieve_attendance_and_leaves"
                         string="Retrive attendances and leaves"
                         type="object"
-                        states="draft"
+                        invisible="state != 'draft'"
                         groups="hr_attendance.group_hr_attendance_manager"
                     />
                         <button
                         name="action_to_review"
                         string="To review"
                         type="object"
-                        states="validated"
+                        invisible="state != 'validated'"
                         groups="hr_attendance.group_hr_attendance_manager"
                     />
                         <field
@@ -39,13 +39,10 @@
                         <group>
                             <field
                                 name="employee_id"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                readonly="state == 'validated'"
                                 groups="hr_attendance.group_hr_attendance_manager"
                             />
-                            <field
-                                name="date_from"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
-                            />
+                            <field name="date_from" readonly="state == 'validated'" />
                         </group>
                         <group>
                             <field
@@ -53,10 +50,7 @@
                                 readonly="1"
                                 groups="hr_attendance.group_hr_attendance_manager"
                             />
-                            <field
-                                name="date_to"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
-                            />
+                            <field name="date_to" readonly="state == 'validated'" />
                         </group>
                     </group>
                     <field name="require_regeneration" invisible="1" />
@@ -64,7 +58,7 @@
                         class="alert alert-warning"
                         role="alert"
                         style="margin-bottom:0px;"
-                        attrs="{'invisible': [('require_regeneration', '!=', True)]}"
+                        invisible="not require_regeneration"
                     >
                         <div class="o_row">
                             <p>
@@ -78,12 +72,12 @@
                                 /></p>
                         </div>
                     </div>
-                    <group>
-                        <group>
+                    <div class="row">
+                        <div class="col-lg-6">
                             <field
                                 nolabel="1"
                                 name="attendance_due_ids"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                readonly="state == 'validated'"
                                 options="{'no_open': True}"
                             >
                                 <tree>
@@ -96,8 +90,8 @@
                                     />
                                 </tree>
                             </field>
-                        </group>
-                        <group>
+                        </div>
+                        <div class="col-lg-6">
                             <field name="leave_ids" nolabel="1" readonly="1">
                                 <tree editable="top">
                                     <field name="request_date_from" />
@@ -114,8 +108,8 @@
                                     />
                                 </tree>
                             </field>
-                        </group>
-                    </group>
+                        </div>
+                    </div>
                     <group>
                         <group groups="hr_attendance.group_hr_attendance_manager">
                             <field name="attendance_hours" widget="float_time" />
@@ -133,22 +127,17 @@
                             <field
                                 name="compensatory_hour"
                                 widget="float_time"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
-                                groups="hr_attendance.group_hr_attendance_manager"
-                            />
-                            <field
-                                name="leave_allocation_id"
-                                readonly="1"
+                                readonly="state == 'validated'"
                                 groups="hr_attendance.group_hr_attendance_manager"
                             />
                             <field
                                 name="regularization_compensatory_hour_taken"
                                 widget="float_time"
-                                attrs="{'readonly': [('state', '=', 'validated')]}"
+                                readonly="state == 'validated'"
                                 groups="hr_attendance.group_hr_attendance_manager"
                             />
                             <field
-                                name="leave_id"
+                                name="adjustment_overtime_id"
                                 readonly="1"
                                 groups="hr_attendance.group_hr_attendance_manager"
                             />
@@ -226,48 +215,35 @@
         <field name="name">hr.attendance.validation.sheet.form.manager</field>
         <field name="model">hr.attendance.validation.sheet</field>
         <field name="priority">100</field>
-        <field
-            name="groups_id"
-            eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
-        />
         <field name="arch" type="xml">
-            <field name="attendance_due_ids" position="replace">
+            <field name="check_out" position="after">
                 <field
-                    nolabel="1"
-                    name="attendance_ids"
-                    attrs="{'readonly': [('state', '=', 'validated')]}"
-                    options="{'no_open': True}"
-                >
-                    <tree editable="top">
-                        <field name="check_in" />
-                        <field name="check_out" />
-                        <field
-                            name="time_changed_manually"
-                            readonly="1"
-                            optional="hide"
-                            groups="hr_attendance.group_hr_attendance_manager"
-                        />
-                        <field
-                            name="attendance_reason_ids"
-                            widget="many2many_tags"
-                            optional="hide"
-                            groups="hr_attendance.group_hr_attendance_manager"
-                        />
-                        <field name="worked_hours" widget="float_time" readonly="1" />
-                        <field
-                            name="is_overtime"
-                            groups="hr_attendance.group_hr_attendance_manager"
-                        />
-                        <field
-                            name="is_overtime_due"
-                            attrs="{'readonly': [('is_overtime', '=', False)]}"
-                            groups="hr_attendance.group_hr_attendance_manager"
-                        />
-                    </tree>
-                </field>
+                    name="time_changed_manually"
+                    readonly="1"
+                    optional="hide"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field
+                    name="attendance_reason_ids"
+                    widget="many2many_tags"
+                    optional="hide"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field name="worked_hours" widget="float_time" readonly="1" />
+                <field
+                    name="is_overtime"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field
+                    name="is_overtime_due"
+                    readonly="not is_overtime"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+
             </field>
         </field>
     </record>
+
     <record id="hr_attendance_validation_sheet_view_tree" model="ir.ui.view">
         <field name="name">hr.attendance.validation.sheet.tree</field>
         <field name="model">hr.attendance.validation.sheet</field>
@@ -321,7 +297,7 @@
          <field name="model">hr.attendance.validation.sheet</field>
          <field name="arch" type="xml">
              <pivot
-                string="Attendace validation analysis"
+                string="Attendance validation analysis"
                 disable_linking="True"
                 sample="1"
             >
@@ -362,10 +338,11 @@
             ref="hr_attendance_validation_sheet_views_filter"
         />
     </record>
+
     <menuitem
         id="hr_attendance_validation_sheet_menu"
         name="Attendance validation"
-        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        parent="hr_attendance.menu_hr_attendance_reporting"
         action="hr_attendance_validation_sheet_action"
         sequence="14"
         groups="hr_attendance.group_hr_attendance_manager"
@@ -391,8 +368,8 @@
     <menuitem
         id="hr_attendance_validated_sheet_menu"
         name="Validated attendance"
-        parent="hr_attendance.menu_hr_attendance_root"
+        parent="hr_holidays.menu_hr_holidays_my_leaves"
         action="hr_attendance_validated_sheet_action"
-        sequence="9"
+        sequence="10"
     />
 </odoo>

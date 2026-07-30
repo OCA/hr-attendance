@@ -6,10 +6,16 @@ from dateutil.relativedelta import relativedelta
 from odoo import fields, models
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
 
     hours_current_week = fields.Float(compute="_compute_hours_current_week")
+    weekly_attendance_validation = fields.Boolean(
+        help=(
+            "If true, overtimes are generated based on weekly validation if not "
+            "use default Odoo behaviors."
+        )
+    )
 
     def _compute_hours(self, start_naive, end_naive):
         self.ensure_one()
@@ -18,20 +24,23 @@ class HrEmployeeBase(models.AbstractModel):
                 ("employee_id", "=", self.id),
                 "&",
                 ("check_in", "<=", end_naive),
+                "|",
                 ("check_out", ">=", start_naive),
+                ("check_out", "=", False),
                 "|",
                 ("is_overtime", "=", False),
                 "&",
                 ("is_overtime", "=", True),
                 ("is_overtime_due", "=", True),
-            ]
+            ],
+            order="check_in",
         )
         hours = 0
         for attendance in attendances:
             check_in = max(attendance.check_in, start_naive)
-            check_out = min(attendance.check_out, end_naive)
+            check_out = min(attendance.check_out or fields.Datetime.now(), end_naive)
             hours += (check_out - check_in).total_seconds() / 3600.0
-        return hours
+        return hours, attendances[-1] if attendances else self.env["hr.attendance"]
 
     def _compute_hours_current_week(self):
         now = fields.Datetime.now()
@@ -47,7 +56,7 @@ class HrEmployeeBase(models.AbstractModel):
             )
             start_naive = start_tz.astimezone(pytz.utc).replace(tzinfo=None)
             end_naive = now_tz.astimezone(pytz.utc).replace(tzinfo=None)
-            hours = self._compute_hours(start_naive, end_naive)
+            hours, _last_attendance = self._compute_hours(start_naive, end_naive)
             employee.hours_current_week = round(hours, 2)
 
     def _compute_hours_last_month(self):
@@ -66,7 +75,7 @@ class HrEmployeeBase(models.AbstractModel):
                 day=1, hour=0, minute=0, second=0, microsecond=0
             )
             end_naive = end_tz.astimezone(pytz.utc).replace(tzinfo=None)
-            hours = self._compute_hours(start_naive, end_naive)
+            hours, _last_attendance = self._compute_hours(start_naive, end_naive)
             employee.hours_last_month = round(hours, 2)
             employee.hours_last_month_display = "%g" % employee.hours_last_month
 
@@ -82,26 +91,15 @@ class HrEmployeeBase(models.AbstractModel):
                 hour=0, minute=0
             )  # day start in the employee's timezone
             start_naive = start_tz.astimezone(pytz.utc).replace(tzinfo=None)
-
-            attendances = self.env["hr.attendance"].search(
-                [
-                    ("employee_id", "=", employee.id),
-                    ("check_in", "<=", now),
-                    "|",
-                    ("check_out", ">=", start_naive),
-                    ("check_out", "=", False),
-                    "|",
-                    ("is_overtime", "=", False),
-                    "&",
-                    ("is_overtime", "=", True),
-                    ("is_overtime_due", "=", True),
-                ]
-            )
-
-            worked_hours = 0
-            for attendance in attendances:
-                delta = (attendance.check_out or now) - max(
-                    attendance.check_in, start_naive
-                )
-                worked_hours += delta.total_seconds() / 3600.0
+            worked_hours, last_attendance = employee._compute_hours(start_naive, now)
             employee.hours_today = worked_hours
+            if last_attendance:
+                delta = (
+                    (last_attendance.check_out or now)
+                    - max(last_attendance.check_in, start_naive)
+                ).total_seconds() / 3600.0
+                employee.last_attendance_worked_hours = delta
+                employee.hours_previously_today = employee.hours_today - delta
+            else:
+                employee.last_attendance_worked_hours = 0
+                employee.hours_previously_today = 0
