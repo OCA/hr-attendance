@@ -17,7 +17,11 @@ hr-attendance
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 19.0.1.0.0 |  | Theoretical vs Attended Time Analysis
 
 [//]: # (end addons)
 

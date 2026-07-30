@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-hr-attendance"
+version = "19.0.20260730.0"
+dependencies = [
+    "odoo-addon-hr_attendance_report_theoretical_time==19.0.*",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 19.0",
+]
