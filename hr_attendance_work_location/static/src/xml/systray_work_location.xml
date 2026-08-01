@@ -7,7 +7,7 @@
         t-inherit-mode="extension"
     >
 
-    <xpath expr="//div[hasclass('o_att_menu_container')]" position="inside">
+    <xpath expr="//div[hasclass('o_att_menu_container')]/div[1]" position="before">
         <t
                 t-if="this.wlState.mode === 'manual' and this.wlState.locations.length and !this.state.checkedIn"
             >
