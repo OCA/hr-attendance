@@ -29,7 +29,9 @@ patch(ActivityMenu.prototype, {
         );
         if (companyData) {
             this.wlState.mode = companyData.work_location_mode;
-            this.wlState.selectedId = companyData.manual_work_location_id || false;
+            this.wlState.selectedId = companyData.manual_work_location_id
+                ? companyData.manual_work_location_id[0]
+                : false;
         }
         if (this.wlState.mode === "manual") {
             this.wlState.locations = await this.orm.searchRead(
