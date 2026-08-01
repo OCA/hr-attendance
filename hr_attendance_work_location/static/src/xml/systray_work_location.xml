@@ -15,12 +15,12 @@
                 <small class="text-muted d-block mb-1">Work location</small>
                 <select
                         t-on-change="onWorkLocationChange"
-                        t-att-value="this.wlState.selectedId || ''"
                         class="form-select form-select-sm w-100"
                     >
-                    <option value="">-- No location --</option>
+                    <option value="" t-att-selected="!this.wlState.selectedId">-- No location --</option>
                     <t t-foreach="this.wlState.locations" t-as="loc" t-key="loc.id">
-                        <option t-att-value="loc.id">
+                        <option t-att-value="loc.id"
+                                t-att-selected="loc.id === this.wlState.selectedId">
                             <t t-esc="loc.name" />
                         </option>
                     </t>
