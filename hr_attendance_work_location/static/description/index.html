@@ -371,8 +371,17 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 <p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_work_location"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-17-0/hr-attendance-17-0-hr_attendance_work_location"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module enhances HR Attendance by enabling work location tracking on
-employee attendance records, which can be set at check-in/check-out time
-or updated afterwards.</p>
+employee attendance records. It supports two modes:</p>
+<ul class="simple">
+<li><strong>Automatic (GPS):</strong> Work location is resolved from GPS coordinates
+at check-in and check-out time.</li>
+<li><strong>Manual (Selector):</strong> After employee identification (barcode scan or
+manual selection), an intermediate screen appears where the employee
+selects their work location. The selected location is displayed in
+read-only on the greeting screen.</li>
+</ul>
+<p>In manual mode, work locations also appear as a dropdown in the backend
+systray attendance menu.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">

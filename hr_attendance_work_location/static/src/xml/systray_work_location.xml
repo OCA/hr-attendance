@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t
+        t-name="hr_attendance_work_location.attendance_menu"
+        t-inherit="hr_attendance.attendance_menu"
+        t-inherit-mode="extension"
+    >
+
+    <xpath expr="//div[hasclass('o_att_menu_container')]" position="inside">
+        <t
+                t-if="this.wlState.mode === 'manual' and this.wlState.locations.length and !this.state.checkedIn"
+            >
+            <div class="mb-2">
+                <small class="text-muted d-block mb-1">Work location</small>
+                <select
+                        t-on-change="onWorkLocationChange"
+                        t-att-value="this.wlState.selectedId || ''"
+                        class="form-select form-select-sm w-100"
+                    >
+                    <option value="">-- No location --</option>
+                    <t t-foreach="this.wlState.locations" t-as="loc" t-key="loc.id">
+                        <option t-att-value="loc.id">
+                            <t t-esc="loc.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+        </t>
+    </xpath>
+</t>
+
+</templates>

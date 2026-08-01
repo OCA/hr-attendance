@@ -11,3 +11,15 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.geo_tolerance_meters",
         readonly=False,
     )
+    work_location_mode = fields.Selection(
+        related="company_id.work_location_mode",
+        readonly=False,
+    )
+    manual_work_location_id = fields.Many2one(
+        related="company_id.manual_work_location_id",
+        readonly=False,
+    )
+    work_location_required = fields.Boolean(
+        related="company_id.work_location_required",
+        readonly=False,
+    )
