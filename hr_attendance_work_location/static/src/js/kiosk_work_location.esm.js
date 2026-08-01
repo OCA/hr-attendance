@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import {KioskWorkLocation} from "@hr_attendance_work_location/static/src/js/kiosk_work_location_component.esm";
+import {KioskWorkLocation} from "@hr_attendance_work_location/js/kiosk_work_location_component.esm";
 import PublicKiosk from "@hr_attendance/public_kiosk/public_kiosk_app";
 import {patch} from "@web/core/utils/patch";
 

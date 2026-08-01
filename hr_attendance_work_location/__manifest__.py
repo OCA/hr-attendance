@@ -19,7 +19,8 @@
     "application": False,
     "assets": {
         "web.assets_backend": [
-            "hr_attendance_work_location/static/src/**/*",
+            "hr_attendance_work_location/static/src/js/systray_work_location.esm.js",
+            "hr_attendance_work_location/static/src/xml/systray_work_location.xml",
         ],
         "hr_attendance.assets_public_attendance": [
             "hr_attendance_work_location/static/src/js/kiosk_work_location_component.esm.js",
