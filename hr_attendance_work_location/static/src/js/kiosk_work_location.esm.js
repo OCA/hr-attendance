@@ -11,11 +11,7 @@ patch(PublicKiosk.kioskAttendanceApp.prototype, {
         this.workLocationMode = "automatic";
         this.workLocationRequired = false;
         this.employeeBarcode = null;
-    },
-
-    async mounted() {
-        await super.mounted();
-        await this._loadKioskLocationSettings();
+        this._loadKioskLocationSettings();
     },
 
     async _loadKioskLocationSettings() {
