@@ -181,3 +181,11 @@ class HrAttendance(CoreHrAttendance):
             if attendance and attendance.in_work_location_id:
                 response["in_work_location_name"] = attendance.in_work_location_id.name
         return response
+
+    def _get_user_attendance_data(employee):
+        response = super()._get_user_attendance_data(employee)
+        if employee and employee.attendance_state == "checked_in":
+            attendance = employee.last_attendance_id.sudo()
+            if attendance and attendance.in_work_location_id:
+                response["in_work_location_name"] = attendance.in_work_location_id.name
+        return response
