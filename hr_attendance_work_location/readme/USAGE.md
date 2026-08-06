@@ -30,3 +30,8 @@ accuracy, auto-matching will fail even when the employee is on-site.
 employee belonged to at check-in time. If an employee transfers to a
 different company, their historical attendance records retain the original
 company association.
+
+**Systray display:** When an employee is checked in, the work location
+name appears in the backend systray attendance popup, below the
+check-in time. This lets the employee verify which work location they
+are currently checked in from at a glance.

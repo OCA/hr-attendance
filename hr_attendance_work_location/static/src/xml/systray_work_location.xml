@@ -17,15 +17,32 @@
                         t-on-change="onWorkLocationChange"
                         class="form-select form-select-sm w-100"
                     >
-                    <option value="" t-att-selected="!this.wlState.selectedId">-- No location --</option>
+                    <option
+                            value=""
+                            t-att-selected="!this.wlState.selectedId"
+                        >-- No location --</option>
                     <t t-foreach="this.wlState.locations" t-as="loc" t-key="loc.id">
-                        <option t-att-value="loc.id"
-                                t-att-selected="loc.id === this.wlState.selectedId">
+                        <option
+                                t-att-value="loc.id"
+                                t-att-selected="loc.id === this.wlState.selectedId"
+                            >
                             <t t-esc="loc.name" />
                         </option>
                     </t>
                 </select>
             </div>
+        </t>
+    </xpath>
+
+    <xpath expr="//div[hasclass('att_container')][2]" position="after">
+        <t
+                t-if="this.state.checkedIn and this.employee and this.employee.in_work_location_name"
+            >
+            <small class="d-block text-muted">
+                <i class="fa fa-map-marker" /> <t
+                        t-esc="this.employee.in_work_location_name"
+                    />
+            </small>
         </t>
     </xpath>
 </t>
