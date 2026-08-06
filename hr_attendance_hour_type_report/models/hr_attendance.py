@@ -11,6 +11,13 @@ from odoo import _, api, exceptions, fields, models
 _logger = logging.getLogger(__name__)
 
 
+def _to_timezone(value, timezone):
+    """Convert an Odoo datetime (stored as UTC) to ``timezone``."""
+    if not value.tzinfo:
+        value = pytz.UTC.localize(value)
+    return value.astimezone(timezone)
+
+
 class HrAttendance(models.Model):
     _inherit = "hr.attendance"
 
@@ -44,7 +51,9 @@ class HrAttendance(models.Model):
 
     company_id = fields.Many2one(
         comodel_name="res.company",
-        default=lambda self: self.env.company,
+        related="employee_id.company_id",
+        store=True,
+        readonly=True,
     )
 
     hr_attendance_overtime = fields.Boolean(related="company_id.hr_attendance_overtime")
@@ -67,7 +76,12 @@ class HrAttendance(models.Model):
     )
 
     @api.depends(
-        "company_id.weighting_nighttime_hours", "company_id.weighting_overtime_hours"
+        "worked_hours_nighttime",
+        "worked_hours_overtime",
+        "allow_weighting_nighttime_hours",
+        "allow_weighting_overtime_hours",
+        "company_id.weighting_nighttime_hours",
+        "company_id.weighting_overtime_hours",
     )
     def _compute_weighting_hours(self):
         for rec in self:
@@ -80,10 +94,12 @@ class HrAttendance(models.Model):
             rec.weighting_worked_nighttime_hours = nighttime_hours
             rec.weighting_worked_overtime_hours = overtime_hours
 
-    @api.depends("date")
+    @api.depends("date", "employee_id")
     def _compute_date_type(self):
         for rec in self:
-            if rec.date.weekday() == 6:
+            if not rec.date:
+                rec.date_type = False
+            elif rec.date.weekday() == 6:
                 rec.date_type = "sunday"
             elif self.env["hr.holidays.public"].is_public_holiday(
                 rec.date, rec.employee_id.id
@@ -92,19 +108,28 @@ class HrAttendance(models.Model):
             else:
                 rec.date_type = "normal"
 
-    @api.depends("check_in")
+    @api.depends("check_in", "employee_id.tz")
     def _compute_date(self):
         for rec in self:
             if rec.check_in:
-                rec.date = rec.check_in.date()
+                timezone = pytz.timezone(rec.employee_id.tz or "UTC")
+                rec.date = _to_timezone(rec.check_in, timezone).date()
             else:
                 rec.date = False
 
-    @api.depends("check_in", "check_out")
+    @api.depends(
+        "check_in",
+        "check_out",
+        "employee_id.tz",
+        "employee_id.company_id.hr_night_work_hour_start",
+        "employee_id.company_id.hr_night_work_hour_end",
+        "employee_id.resource_calendar_id.hours_per_day",
+        "hr_attendance_overtime",
+    )
     def _compute_worked_hours(self):
         super()._compute_worked_hours()
         for rec in self:
-            tz_code = rec.employee_id.tz
+            tz_code = rec.employee_id.tz or "UTC"
             tz = pytz.timezone(tz_code)
             rec.worked_hours_nighttime = 0
             rec.worked_hours_daytime = 0
@@ -120,8 +145,8 @@ class HrAttendance(models.Model):
             night_end = rec.employee_id.company_id.hr_night_work_hour_end
             hour_night_end = int(night_end)
             minute_night_end = int(60 * (night_end - hour_night_end))
-            check_in = tz.localize(rec.check_in)
-            check_out = tz.localize(rec.check_out)
+            check_in = _to_timezone(rec.check_in, tz)
+            check_out = _to_timezone(rec.check_out, tz)
             curr_day_night_start = tz.localize(
                 dt.datetime.combine(
                     rec.date, dt.time(hour=hour_night_start, minute=minute_night_start)
