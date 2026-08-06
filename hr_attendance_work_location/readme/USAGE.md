@@ -31,7 +31,9 @@ employee belonged to at check-in time. If an employee transfers to a
 different company, their historical attendance records retain the original
 company association.
 
-**Systray display:** When an employee is checked in, the work location
-name appears in the backend systray attendance popup, below the
-check-in time. This lets the employee verify which work location they
-are currently checked in from at a glance.
+**Systray selector:** In manual mode, the backend systray attendance
+popup shows an editable work location dropdown before both check-in and
+check-out. The location selected at check-in is stored in the
+**Check-in Work Location** field; the one selected at check-out is
+stored in the **Check-out Work Location** field on the attendance
+record.

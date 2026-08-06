@@ -16,6 +16,7 @@ patch(ActivityMenu.prototype, {
             mode: "automatic",
             locations: [],
             selectedId: false,
+            defaultId: false,
         });
         this._loadWorkLocations();
     },
@@ -29,9 +30,10 @@ patch(ActivityMenu.prototype, {
         );
         if (companyData) {
             this.wlState.mode = companyData.work_location_mode;
-            this.wlState.selectedId = companyData.manual_work_location_id
+            this.wlState.defaultId = companyData.manual_work_location_id
                 ? companyData.manual_work_location_id[0]
                 : false;
+            this.wlState.selectedId = this.wlState.defaultId;
         }
         if (this.wlState.mode === "manual") {
             this.wlState.locations = await this.orm.searchRead(
@@ -42,6 +44,22 @@ patch(ActivityMenu.prototype, {
                 ],
                 ["id", "name"]
             );
+        }
+    },
+
+    async searchReadEmployee() {
+        await super.searchReadEmployee(...arguments);
+        if (!this.wlState) {
+            return;
+        }
+        if (
+            this.state.checkedIn &&
+            this.employee &&
+            this.employee.in_work_location_id
+        ) {
+            this.wlState.selectedId = this.employee.in_work_location_id;
+        } else if (!this.state.checkedIn) {
+            this.wlState.selectedId = this.wlState.defaultId || false;
         }
     },
 

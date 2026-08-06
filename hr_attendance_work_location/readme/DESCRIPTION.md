@@ -8,11 +8,9 @@ employee attendance records. It supports two modes:
   selects their work location. The selected location is displayed in
   read-only on the greeting screen.
 
-In manual mode, the work location selector is available before **both
-check-in and check-out**. The selected location is stored in the
-**Check-in Work Location** or **Check-out Work Location** field on the
-attendance record accordingly.
-
-After check-in, the backend systray attendance popup also displays the
-work location name below the check-in time, so employees can verify
-where they are currently checked in from.
+In manual mode, the work location selector is available in the backend
+systray attendance popup before **both check-in and check-out**. The
+selected location is stored in the **Check-in Work Location** or
+**Check-out Work Location** field on the attendance record accordingly.
+The selector is editable at all times, so employees can review or change
+the location before checking in or out.

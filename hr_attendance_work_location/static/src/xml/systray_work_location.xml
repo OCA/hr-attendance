@@ -8,9 +8,7 @@
     >
 
     <xpath expr="//div[hasclass('o_att_menu_container')]/div[1]" position="before">
-        <t
-                t-if="this.wlState.mode === 'manual' and this.wlState.locations.length and !this.state.checkedIn"
-            >
+        <t t-if="this.wlState.mode === 'manual' and this.wlState.locations.length">
             <div class="mb-2">
                 <small class="text-muted d-block mb-1">Work location</small>
                 <select
@@ -31,18 +29,6 @@
                     </t>
                 </select>
             </div>
-        </t>
-    </xpath>
-
-    <xpath expr="//div[hasclass('att_container')][2]" position="after">
-        <t
-                t-if="this.state.checkedIn and this.employee and this.employee.in_work_location_name"
-            >
-            <small class="d-block text-muted">
-                <i class="fa fa-map-marker" /> <t
-                        t-esc="this.employee.in_work_location_name"
-                    />
-            </small>
         </t>
     </xpath>
 </t>
