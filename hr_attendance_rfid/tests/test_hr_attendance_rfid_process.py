@@ -19,11 +19,15 @@ class TestHrAttendance(BaseCommon):
         user = new_test_user(
             cls.env,
             login="hr_attendance_rfid-user",
-            groups="hr_attendance_rfid.group_hr_attendance_rfid,base.group_user",
+            groups="hr_attendance_rfid.group_hr_attendance_rfid,hr_attendance.group_hr_attendance_officer,base.group_user",
         )
         cls.rfid_card_code = "5b3f5"
         cls.env["hr.employee"].create(
-            {"user_id": user.id, "rfid_card_code": cls.rfid_card_code}
+            {
+                "user_id": user.id,
+                "rfid_card_code": cls.rfid_card_code,
+                "attendance_manager_id": user.id,
+            }
         )
         cls.employee_model = cls.env["hr.employee"]
 

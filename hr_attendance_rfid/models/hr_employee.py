@@ -10,15 +10,12 @@ from odoo import api, fields, models
 _logger = logging.getLogger(__name__)
 
 
-class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
-    _sql_constraints = [
-        (
-            "rfid_card_code_uniq",
-            "UNIQUE(rfid_card_code)",
-            "The rfid code should be unique.",
-        )
-    ]
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
+    _rfid_card_code_uniq = models.Constraint(
+        "unique(rfid_card_code)",
+        "The rfid code should be unique.",
+    )
 
     rfid_card_code = fields.Char("RFID Card Code", copy=False)
 
@@ -50,14 +47,14 @@ class HrEmployeeBase(models.AbstractModel):
             res["employee_name"] = employee.name
             res["employee_id"] = employee.id
         else:
-            msg = self.env._("No employee found with card %s") % card_code
+            msg = self.env._("No employee found with card %s", card_code)
             _logger.warning(msg)
             res["error_message"] = msg
             return res
         try:
             attendance = employee._attendance_action_change()
             if attendance:
-                msg = self.env._("Attendance recorded for employee %s") % employee.name
+                msg = self.env._("Attendance recorded for employee %s", employee.name)
                 _logger.debug(msg)
                 res["logged"] = True
                 if attendance.check_out:
@@ -66,9 +63,8 @@ class HrEmployeeBase(models.AbstractModel):
                     res["action"] = "check_in"
                 return res
             else:
-                msg = (
-                    self.env._("No attendance was recorded for employee %s")
-                    % employee.name
+                msg = self.env._(
+                    "No attendance was recorded for employee %s", employee.name
                 )
                 _logger.error(msg)
                 res["error_message"] = msg

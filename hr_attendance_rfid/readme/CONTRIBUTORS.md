@@ -13,3 +13,5 @@
 
 
 - Juany Davila \<<juany.davila@forgeflow.com>\>
+
+- Raphaël Vicini \<<raphael.vicini@acsone.eu>\>
