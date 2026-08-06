@@ -23,9 +23,6 @@ class HrAttendance(CoreHrAttendance):
 
     def _validate_work_location_required(self, company, work_location_id):
         if company.work_location_required and not work_location_id:
-            employee = request.env.user.employee_id
-            if employee and employee.attendance_state == "checked_in":
-                return False
             return {
                 "error": "work_location_required",
                 "message": _("Work location is required."),
