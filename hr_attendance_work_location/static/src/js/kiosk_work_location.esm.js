@@ -52,9 +52,6 @@ patch(PublicKiosk.kioskAttendanceApp.prototype, {
             if (!preflight || !preflight.employee_id) {
                 return super.onBarcodeScanned(barcode);
             }
-            if (preflight.attendance_state === "checked_in") {
-                return super.onBarcodeScanned(barcode);
-            }
             this.employeeBarcode = barcode;
             this.switchDisplay("work_location");
         } finally {
@@ -75,8 +72,6 @@ patch(PublicKiosk.kioskAttendanceApp.prototype, {
             if (employee.use_pin) {
                 this.employeeData = employee;
                 this.switchDisplay("pin");
-            } else if (employee.attendance_state === "checked_in") {
-                await this.onManualSelection(employeeId, false);
             } else {
                 this.employeeId = employeeId;
                 this.enteredPin = false;
