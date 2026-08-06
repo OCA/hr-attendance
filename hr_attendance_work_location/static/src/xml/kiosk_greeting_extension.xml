@@ -22,7 +22,7 @@
     <xpath expr="//KioskGreetings" position="after">
         <t t-if="this.employeeData?.in_work_location_name">
             <div class="text-center text-muted mt-2">
-                <small>Ubicación: <t
+                <small>Location: <t
                             t-esc="this.employeeData.in_work_location_name"
                         /></small>
             </div>

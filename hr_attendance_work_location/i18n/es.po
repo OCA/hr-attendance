@@ -16,17 +16,11 @@ msgstr ""
 
 #. module: hr_attendance_work_location
 #. odoo-javascript
+#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
 #: code:addons/hr_attendance_work_location/static/src/xml/systray_work_location.xml:0
 #, python-format
 msgid "-- No location --"
-msgstr ""
-
-#. module: hr_attendance_work_location
-#. odoo-javascript
-#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
-#, python-format
-msgid "-- Sin ubicación --"
-msgstr ""
+msgstr "-- Sin ubicación --"
 
 #. module: hr_attendance_work_location
 #: model:ir.model,name:hr_attendance_work_location.model_hr_attendance
@@ -38,12 +32,12 @@ msgstr "Asistencia"
 #: code:addons/hr_attendance_work_location/static/src/js/systray_work_location.esm.js:0
 #, python-format
 msgid "Attendance Error"
-msgstr ""
+msgstr "Error de asistencia"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields.selection,name:hr_attendance_work_location.selection__res_company__work_location_mode__automatic
 msgid "Automatic (GPS)"
-msgstr ""
+msgstr "Automática (GPS)"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,help:hr_attendance_work_location.field_res_company__work_location_mode
@@ -52,13 +46,16 @@ msgid ""
 "Automatic: work location is resolved from GPS coordinates at check-in/out. "
 "Manual: employee selects work location from a dropdown in the kiosk/systray."
 msgstr ""
+"Automática: la ubicación de trabajo se resuelve a partir de las coordenadas "
+"GPS en la entrada/salida. Manual: el empleado selecciona la ubicación de "
+"trabajo de un desplegable en el kiosco/systray."
 
 #. module: hr_attendance_work_location
 #. odoo-javascript
 #: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
 #, python-format
-msgid "Cancelar"
-msgstr ""
+msgid "Cancel"
+msgstr "Cancelar"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_hr_attendance__in_work_location_id
@@ -108,22 +105,22 @@ msgstr "Configuración"
 #. odoo-javascript
 #: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
 #, python-format
-msgid "Confirmar"
-msgstr ""
+msgid "Confirm"
+msgstr "Confirmar"
 
 #. module: hr_attendance_work_location
 #. odoo-javascript
 #: code:addons/hr_attendance_work_location/static/src/js/systray_work_location.esm.js:0
 #, python-format
 msgid "Connection lost. Check in/out could not be recorded."
-msgstr ""
+msgstr "Conexión perdida. No se pudo registrar la entrada/salida."
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_res_company__manual_work_location_id
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_res_config_settings__manual_work_location_id
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
 msgid "Default Work Location"
-msgstr ""
+msgstr "Ubicación de trabajo predeterminada"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_hr_work_location__exclude_from_attendance
@@ -143,9 +140,16 @@ msgid "GPS tolerance must be non-negative."
 msgstr "La tolerancia GPS debe ser no negativa."
 
 #. module: hr_attendance_work_location
+#. odoo-javascript
+#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_greeting_extension.xml:0
+#, python-format
+msgid "Location:"
+msgstr "Ubicación:"
+
+#. module: hr_attendance_work_location
 #: model:ir.model.fields.selection,name:hr_attendance_work_location.selection__res_company__work_location_mode__manual
 msgid "Manual (Selector)"
-msgstr ""
+msgstr "Manual (Selector)"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,help:hr_attendance_work_location.field_res_company__manual_work_location_id
@@ -154,6 +158,8 @@ msgid ""
 "Pre-selected work location in the manual selector. Leave empty for no "
 "default."
 msgstr ""
+"Ubicación de trabajo preseleccionada en el selector manual. Déjela vacía "
+"para no usar una predeterminada."
 
 #. module: hr_attendance_work_location
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
@@ -183,28 +189,14 @@ msgstr ""
 #. module: hr_attendance_work_location
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
 msgid "Require Work Location Selection"
-msgstr ""
+msgstr "Requerir selección de ubicación de trabajo"
 
 #. module: hr_attendance_work_location
 #. odoo-javascript
 #: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
 #, python-format
 msgid "Select Work Location"
-msgstr ""
-
-#. module: hr_attendance_work_location
-#. odoo-javascript
-#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
-#, python-format
-msgid "Ubicación de trabajo"
-msgstr ""
-
-#. module: hr_attendance_work_location
-#. odoo-javascript
-#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_greeting_extension.xml:0
-#, python-format
-msgid "Ubicación:"
-msgstr ""
+msgstr "Seleccionar ubicación de trabajo"
 
 #. module: hr_attendance_work_location
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
@@ -216,8 +208,11 @@ msgstr "Los valores aquí establecidos son específicos de la compañía."
 #: model:ir.model.fields,help:hr_attendance_work_location.field_res_config_settings__work_location_required
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
 msgid ""
-"When enabled, the employee must select a work location before checking in."
+"When enabled, the employee must select a work location before checking in or "
+"out."
 msgstr ""
+"Si está activado, el empleado debe seleccionar una ubicación de trabajo "
+"antes de marcar la entrada o la salida."
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,help:hr_attendance_work_location.field_hr_work_location__exclude_from_attendance
@@ -229,7 +224,10 @@ msgstr ""
 "automática de asistencias basada en coordenadas GPS."
 
 #. module: hr_attendance_work_location
+#. odoo-javascript
+#: code:addons/hr_attendance_work_location/static/src/xml/kiosk_work_location.xml:0
 #: model:ir.model,name:hr_attendance_work_location.model_hr_work_location
+#, python-format
 msgid "Work Location"
 msgstr "Ubicación de trabajo"
 
@@ -238,13 +236,13 @@ msgstr "Ubicación de trabajo"
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_res_config_settings__work_location_mode
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
 msgid "Work Location Mode"
-msgstr ""
+msgstr "Modo de ubicación de trabajo"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_res_company__work_location_required
 #: model:ir.model.fields,field_description:hr_attendance_work_location.field_res_config_settings__work_location_required
 msgid "Work Location Required"
-msgstr ""
+msgstr "Ubicación de trabajo requerida"
 
 #. module: hr_attendance_work_location
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
@@ -256,7 +254,7 @@ msgstr "Seguimiento de ubicación de trabajo"
 #: code:addons/hr_attendance_work_location/static/src/xml/systray_work_location.xml:0
 #, python-format
 msgid "Work location"
-msgstr ""
+msgstr "Ubicación de trabajo"
 
 #. module: hr_attendance_work_location
 #: model:ir.model.fields,help:hr_attendance_work_location.field_hr_attendance__in_work_location_id
@@ -273,7 +271,7 @@ msgstr "Ubicación de trabajo en el momento de la salida"
 #: code:addons/hr_attendance_work_location/controllers/main.py:0
 #, python-format
 msgid "Work location is required."
-msgstr ""
+msgstr "La ubicación de trabajo es obligatoria."
 
 #. module: hr_attendance_work_location
 #: model_terms:ir.ui.view,arch_db:hr_attendance_work_location.res_config_settings_view_form
@@ -283,3 +281,8 @@ msgid ""
 "dropdown,\n"
 "                                depending on the mode above."
 msgstr ""
+"La ubicación de trabajo se resuelve automáticamente a partir de las "
+"coordenadas\n"
+"                                GPS o el empleado selecciona la ubicación de "
+"trabajo de un desplegable,\n"
+"                                dependiendo del modo anterior."

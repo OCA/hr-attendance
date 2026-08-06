@@ -31,7 +31,7 @@ class ResCompany(models.Model):
     work_location_required = fields.Boolean(
         default=False,
         help="When enabled, the employee must select a work location "
-        "before checking in.",
+        "before checking in or out.",
     )
 
     _sql_constraints = [

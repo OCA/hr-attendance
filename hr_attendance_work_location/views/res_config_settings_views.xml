@@ -63,7 +63,7 @@
                             for="work_location_required"
                         />
                         <div class="text-muted mt8">
-                            When enabled, the employee must select a work location before checking in.
+                            When enabled, the employee must select a work location before checking in or out.
                         </div>
                     </setting>
                 </block>
