@@ -5,6 +5,8 @@
 
 import datetime
 
+from freezegun import freeze_time
+
 from odoo import Command
 from odoo.tools import SQL, mute_logger
 
@@ -244,6 +246,31 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(res[3]["theoretical_hours"], 0)  # 1946-12-26
         self.assertEqual(res[4]["theoretical_hours"], 8)  # 1946-12-27(virtual)
         self.assertEqual(res[5]["theoretical_hours"], 8)  # 1946-12-30(virtual)
+
+    @mute_logger("odoo.models.unlink")
+    @freeze_time("1947-01-01")
+    def test_hr_attendance_cron_theoretical_hours_start_date(self):
+        self.env["hr.attendance"].action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1947, 1, 1),
+        ).flush_recordset()
+        domain = [
+            ("employee_id", "=", self.employee_1.id),
+            ("active", "=", False),
+            ("check_in", ">=", "1946-12-23"),
+            ("check_in", "<=", "1947-01-01"),
+        ]
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 4)
+        self.employee_1.write({"theoretical_hours_start_date": "1946-12-28"})
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 3)
+        # Remove attendances
+        attendance_model.search(domain).unlink()
+        self.employee_1.write({"theoretical_hours_start_date": "1946-12-28"})
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 3)
 
     def test_change_hr_holidays_public(self):
         self.public_holiday_global.line_ids[0].write({"date": "1946-12-23"})
