@@ -1,11 +1,26 @@
 /** @odoo-module **/
 
 import {ActivityMenu} from "@hr_attendance/components/attendance_menu/attendance_menu";
-import {ConnectionLostError} from "@web/core/network/rpc_service";
-import {_t} from "@web/core/l10n/translation";
 import {patch} from "@web/core/utils/patch";
+import {rpcService} from "@web/core/network/rpc_service";
 import {useService} from "@web/core/utils/hooks";
 import {useState} from "@odoo/owl";
+
+// Selected work location for the NEXT systray check-in/out call. Synced from
+// wlState.selectedId and injected by the rpc wrapper below. Module-scope state
+// survives the dropdown closing, unlike DOM reads.
+let selectedWorkLocationId = false;
+
+const originalStart = rpcService.start;
+rpcService.start = function (env) {
+    const originalRpc = originalStart(env);
+    return function rpc(route, params = {}, settings = {}) {
+        if (route === "/hr_attendance/systray_check_in_out" && selectedWorkLocationId) {
+            params.work_location_id = selectedWorkLocationId;
+        }
+        return originalRpc(route, params, settings);
+    };
+};
 
 patch(ActivityMenu.prototype, {
     setup() {
@@ -45,6 +60,7 @@ patch(ActivityMenu.prototype, {
                 ["id", "name"]
             );
         }
+        selectedWorkLocationId = this.wlState.selectedId;
     },
 
     async searchReadEmployee() {
@@ -61,37 +77,13 @@ patch(ActivityMenu.prototype, {
         } else if (!this.state.checkedIn) {
             this.wlState.selectedId = this.wlState.defaultId || false;
         }
+        selectedWorkLocationId = this.wlState.selectedId;
     },
 
     onWorkLocationChange(ev) {
         this.wlState.selectedId = ev.target.value
             ? parseInt(ev.target.value, 10)
             : false;
-    },
-
-    async checking(latitude = false, longitude = false) {
-        try {
-            await this.rpc("/hr_attendance/systray_check_in_out", {
-                latitude,
-                longitude,
-                work_location_id: this.wlState.selectedId || false,
-            });
-            this.searchReadEmployee();
-        } catch (error) {
-            if (error instanceof ConnectionLostError) {
-                this.notification.add(
-                    _t("Connection lost. Check in/out could not be recorded."),
-                    {
-                        title: _t("Attendance Error"),
-                        type: "danger",
-                        sticky: false,
-                    }
-                );
-            } else {
-                throw error;
-            }
-        } finally {
-            this._attendanceInProgress = false;
-        }
+        selectedWorkLocationId = this.wlState.selectedId;
     },
 });
