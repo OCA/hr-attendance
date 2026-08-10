@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* hr_attendance_autoclose
+# 	* hr_attendance_flexible_autoclose
 #
 msgid ""
 msgstr ""
@@ -15,21 +15,21 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: hr_attendance_autoclose
-#: model:ir.model,name:hr_attendance_autoclose.model_hr_attendance
+#. module: hr_attendance_flexible_autoclose
+#: model:ir.model,name:hr_attendance_flexible_autoclose.model_hr_attendance
 msgid "Attendance"
 msgstr ""
 
-#. module: hr_attendance_autoclose
-#: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.fmel_res_config_settings_view_form
+#. module: hr_attendance_flexible_autoclose
+#: model_terms:ir.ui.view,arch_db:hr_attendance_flexible_autoclose.fmel_res_config_settings_view_form
 msgid ""
 "Automatically Check-Out Employees based on their working schedule with an "
 "additional tolerance."
 msgstr ""
 
-#. module: hr_attendance_autoclose
+#. module: hr_attendance_flexible_autoclose
 #. odoo-python
-#: code:addons/hr_attendance_autoclose/models/hr_attendance.py:0
+#: code:addons/hr_attendance_flexible_autoclose/models/hr_attendance.py:0
 msgid ""
 "This attendance was automatically checked out because the employee exceeded "
 "the allowed time for their scheduled work hours."
