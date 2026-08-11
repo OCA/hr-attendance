@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="hr_attendance_work_location.kiosk_work_location">
+        <div
+            class="o_kiosk_work_location d-flex flex-column align-items-center justify-content-center h-100"
+        >
+            <h3 class="mb-4">Select Work Location</h3>
+
+            <div class="mb-4" style="min-width: 300px;">
+                <label class="text-muted mb-1 d-block">Work Location</label>
+                <select
+                    t-on-change="onWorkLocationChange"
+                    class="form-select form-select-lg"
+                >
+                    <option value="">-- No location --</option>
+                    <t t-foreach="this.props.workLocations" t-as="loc" t-key="loc.id">
+                        <option
+                            t-att-value="loc.id"
+                            t-att-selected="loc.id === this.state.selectedWorkLocationId"
+                        >
+                            <t t-esc="loc.name" />
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-lg" t-on-click="onConfirm">
+                    Confirm
+                </button>
+                <button class="btn btn-secondary btn-lg" t-on-click="onCancel">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>
