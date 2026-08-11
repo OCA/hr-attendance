@@ -1,7 +1,6 @@
+/** @odoo-module **/
 // Copyright 2026 Binhex
 // License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-
-/** @odoo-module **/
 
 import {ActivityMenu} from "@hr_attendance/components/attendance_menu/attendance_menu";
 import {patch} from "@web/core/utils/patch";
