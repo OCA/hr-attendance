@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Search view: filters and group-by for time credit fields -->
+    <record id="hr_attendance_view_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.search.time_credit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="arch" type="xml">
+            <!-- Add filters before the existing check_in_filter -->
+            <xpath expr="//filter[@name='check_in_filter']" position="before">
+                <separator />
+                <filter
+                    string="Has Time Credits"
+                    name="has_time_credits"
+                    domain="[('time_credit_ids', '!=', False)]"
+                />
+                <filter
+                    string="Locked"
+                    name="locked"
+                    domain="[('credit_locked', '=', True)]"
+                />
+                <filter
+                    string="Skipped"
+                    name="skipped"
+                    domain="[('skip_time_credit', '=', True)]"
+                />
+                <separator />
+                <filter
+                    string="Non-Working Day"
+                    name="non_working_day"
+                    domain="[('check_in_day_type', '=', 'non_working_day')]"
+                />
+                <filter
+                    string="Working Day"
+                    name="working_day"
+                    domain="[('check_in_day_type', '=', 'working_day')]"
+                />
+                <separator />
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- List view: add total_credited_hours as optional column -->
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.time_credit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <field name="overtime_hours" position="after">
+                <field
+                    name="total_credited_hours"
+                    string="Credited Hours"
+                    widget="float_time"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- Graph view: add total_credited_hours measure -->
+    <record id="hr_attendance_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.graph.time_credit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_graph" />
+        <field name="arch" type="xml">
+            <field name="worked_hours" position="after">
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Pivot view: add total_credited_hours measure -->
+    <record id="hr_attendance_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.pivot.time_credit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot" />
+        <field name="arch" type="xml">
+            <field name="overtime_hours" position="after">
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+            </field>
+        </field>
+    </record>
+
+    <!-- Form view: check_in_day_type badge after check_in, plus time credit section -->
+    <record id="hr_attendance_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.form.time_credit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="priority">500</field>
+        <field name="arch" type="xml">
+            <field name="check_in" position="after">
+                <field
+                    name="check_in_day_type"
+                    widget="badge"
+                    decoration-success="check_in_day_type == 'working_day'"
+                    decoration-warning="check_in_day_type == 'non_working_day'"
+                />
+                <field name="is_public_holiday" widget="boolean_toggle" readonly="1" />
+            </field>
+            <sheet position="inside">
+                <group name="time_credit_options">
+                    <group>
+                        <field name="skip_time_credit" />
+                        <field name="credit_locked" />
+                        <field name="total_credited_hours" />
+                    </group>
+                </group>
+            <separator string="Time Credits" />
+            <field name="time_credit_ids" nolabel="1" readonly="credit_locked">
+                <tree editable="bottom">
+                    <field name="type_id" />
+                    <field name="minutes" sum="Total" />
+                    <field name="origin" />
+                    <field name="rule_id" readonly="1" optional="hide" />
+                    <field name="note" />
+                    <field name="segment_date" optional="hide" />
+                    <field name="segment_hours" optional="hide" />
+                    <field name="company_id" column_invisible="1" />
+                </tree>
+            </field>
+            </sheet>
+        </field>
+    </record>
+
+    <!-- Server action: force reprocess from list view -->
+    <record id="hr_attendance_action_process" model="ir.actions.server">
+        <field name="name">Process Time Credits</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance" />
+        <field name="binding_model_id" ref="hr_attendance.model_hr_attendance" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_process_time_credits()</field>
+    </record>
+</odoo>

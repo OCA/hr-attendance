@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Search view for time credit lines -->
+    <record id="hr_attendance_time_credit_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.search</field>
+        <field name="model">hr.attendance.time.credit</field>
+        <field name="arch" type="xml">
+            <search string="Time Credits">
+                <field name="type_id" />
+                <field name="employee_id" />
+                <field name="rule_id" />
+                <separator />
+                <filter
+                    string="Automatic"
+                    name="automatic"
+                    domain="[('origin', '=', 'automatic')]"
+                />
+                <filter
+                    string="Manual"
+                    name="manual"
+                    domain="[('origin', '=', 'manual')]"
+                />
+                <separator />
+                <filter
+                    string="This Month"
+                    name="this_month"
+                    domain="[
+                        ('check_in', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d')),
+                        ('check_in', '&lt;', (context_today() + relativedelta(months=1, day=1)).strftime('%Y-%m-%d'))
+                    ]"
+                />
+                <filter
+                    string="Last Month"
+                    name="last_month"
+                    domain="[
+                        ('check_in', '&gt;=', (context_today() + relativedelta(months=-1, day=1)).strftime('%Y-%m-%d')),
+                        ('check_in', '&lt;', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d'))
+                    ]"
+                />
+                <filter string="Check In" name="check_in_filter" date="check_in" />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Type"
+                        name="groupby_type"
+                        context="{'group_by': 'type_id'}"
+                    />
+                    <filter
+                        string="Rule"
+                        name="groupby_rule"
+                        context="{'group_by': 'rule_id'}"
+                    />
+                    <filter
+                        string="Employee"
+                        name="groupby_employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                    <filter
+                        string="Origin"
+                        name="groupby_origin"
+                        context="{'group_by': 'origin'}"
+                    />
+                    <filter
+                        string="Month"
+                        name="groupby_check_in_month"
+                        context="{'group_by': 'check_in:month'}"
+                    />
+                    <filter
+                        string="Segment Date"
+                        name="groupby_segment_date"
+                        context="{'group_by': 'segment_date'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- List view for time credit lines -->
+    <record id="hr_attendance_time_credit_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.tree</field>
+        <field name="model">hr.attendance.time.credit</field>
+        <field name="arch" type="xml">
+            <tree default_order="check_in desc">
+                <field name="employee_id" widget="many2one_avatar_user" />
+                <field name="check_in" />
+                <field name="type_id" />
+                <field name="rule_id" />
+                <field name="minutes" />
+                <field name="origin" />
+                <field name="note" optional="hide" />
+                <field
+                    name="company_id"
+                    optional="hide"
+                    groups="base.group_multi_company"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Graph view for time credit lines -->
+    <record id="hr_attendance_time_credit_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.graph</field>
+        <field name="model">hr.attendance.time.credit</field>
+        <field name="arch" type="xml">
+            <graph string="Time Credits" type="bar">
+                <field name="check_in" type="row" interval="month" />
+                <field name="type_id" type="row" />
+                <field name="minutes" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot view for time credit lines -->
+    <record id="hr_attendance_time_credit_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.pivot</field>
+        <field name="model">hr.attendance.time.credit</field>
+        <field name="arch" type="xml">
+            <pivot string="Time Credits">
+                <field name="employee_id" type="row" />
+                <field name="type_id" type="row" />
+                <field name="check_in" type="col" interval="month" />
+                <field name="minutes" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Window action: browse time credit lines -->
+    <record id="hr_attendance_time_credit_action" model="ir.actions.act_window">
+        <field name="name">Time Credits</field>
+        <field name="res_model">hr.attendance.time.credit</field>
+        <field name="view_mode">tree,graph,pivot</field>
+        <field name="search_view_id" ref="hr_attendance_time_credit_view_search" />
+        <field name="context">
+            {
+                "search_default_groupby_type": 1
+            }
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">No time credit lines found</p>
+            <p>
+                Time credit lines are created automatically by the rule engine
+                whenever a matching attendance is saved.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu item under Reporting -->
+    <menuitem
+        id="hr_attendance_time_credit_menu"
+        name="Time Credits"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        action="hr_attendance_time_credit_action"
+        sequence="10"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+</odoo>

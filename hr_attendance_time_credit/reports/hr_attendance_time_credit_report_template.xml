@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_report_time_credit_monthly" model="ir.actions.report">
+        <field name="name">Time Credit Monthly Report</field>
+        <field name="model">hr.attendance.time.credit.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >hr_attendance_time_credit.report_time_credit_monthly</field>
+        <field
+            name="report_file"
+        >hr_attendance_time_credit.report_time_credit_monthly</field>
+        <field
+            name="print_report_name"
+        >'Time Credit Report %s to %s' % (object.date_from, object.date_to)</field>
+        <field name="paperformat_id" ref="base.paperformat_us" />
+    </record>
+
+    <template id="report_time_credit_monthly">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="wizard">
+                <t t-set="date_from" t-value="wizard.date_from" />
+                <t t-set="date_to" t-value="wizard.date_to" />
+                <t t-set="emp_filter" t-value="wizard.employee_ids" />
+                <t
+                    t-set="att_domain"
+                    t-value="[
+                    ('check_in', '&gt;=', str(date_from) + ' 00:00:00'),
+                    ('check_in', '&lt;=', str(date_to) + ' 23:59:59'),
+                    ('check_out', '!=', False),
+                ]"
+                />
+                <t
+                    t-set="all_attendances"
+                    t-value="
+                    request.env['hr.attendance'].sudo().search(
+                        att_domain + ([('employee_id', 'in', emp_filter.ids)] if emp_filter else []),
+                        order='employee_id, check_in'
+                    )
+                "
+                />
+                <t
+                    t-set="employees"
+                    t-value="all_attendances.mapped('employee_id').sorted('name')"
+                />
+                <t
+                    t-set="all_types"
+                    t-value="
+                    request.env['hr.attendance.time.credit'].sudo().search(
+                        [('attendance_id', 'in', all_attendances.ids)]
+                    ).mapped('type_id').sorted('name')
+                "
+                />
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            Time Credit Monthly Report
+                            <br />
+                            <small>
+                                <t t-esc="date_from" /> — <t t-esc="date_to" />
+                            </small>
+                        </h2>
+
+                        <t t-if="not employees">
+                            <p>No attendance records found for the selected period.</p>
+                        </t>
+
+                        <t t-foreach="employees" t-as="employee">
+                            <t
+                                t-set="emp_atts"
+                                t-value="all_attendances.filtered(lambda a: a.employee_id == employee)"
+                            />
+                            <h4>
+                                <t t-esc="employee.name" />
+                                <t t-if="employee.job_id">
+                                    — <small><t t-esc="employee.job_id.name" /></small>
+                                </t>
+                            </h4>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Worked h.</th>
+                                        <t t-foreach="all_types" t-as="ctype">
+                                            <th><t t-esc="ctype.name" /></th>
+                                        </t>
+                                        <th>Credited h.</th>
+                                        <th>Total h.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="emp_atts" t-as="att">
+                                        <t
+                                            t-set="credits"
+                                            t-value="att.time_credit_ids"
+                                        />
+                                        <t
+                                            t-set="credited_h"
+                                            t-value="sum(credits.mapped('minutes')) / 60.0"
+                                        />
+                                        <tr>
+                                            <td><t t-esc="att.check_in.date()" /></td>
+                                            <td><t
+                                                    t-esc="att.check_in.strftime('%H:%M')"
+                                                /></td>
+                                            <td><t
+                                                    t-esc="att.check_out.strftime('%H:%M')"
+                                                /></td>
+                                            <td><t
+                                                    t-esc="'%.2f' % att.worked_hours"
+                                                /></td>
+                                            <t t-foreach="all_types" t-as="ctype">
+                                                <t
+                                                    t-set="type_min"
+                                                    t-value="
+                                                    sum(credits.filtered(
+                                                        lambda c: c.type_id == ctype
+                                                    ).mapped('minutes'))
+                                                "
+                                                />
+                                                <td>
+                                                    <t t-if="type_min">
+                                                        <t
+                                                            t-esc="'%.2f' % (type_min / 60.0)"
+                                                        />
+                                                    </t>
+                                                </td>
+                                            </t>
+                                            <td><t t-esc="'%.2f' % credited_h" /></td>
+                                            <td>
+                                                <t
+                                                    t-esc="'%.2f' % (att.worked_hours + credited_h)"
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="font-weight-bold">
+                                        <td colspan="4">Total</td>
+                                        <t t-foreach="all_types" t-as="ctype">
+                                            <t
+                                                t-set="tot_min"
+                                                t-value="
+                                                sum(emp_atts.mapped('time_credit_ids').filtered(
+                                                    lambda c: c.type_id == ctype
+                                                ).mapped('minutes'))
+                                            "
+                                            />
+                                            <td>
+                                                <t t-if="tot_min">
+                                                    <t
+                                                        t-esc="'%.2f' % (tot_min / 60.0)"
+                                                    />
+                                                </t>
+                                            </td>
+                                        </t>
+                                        <t
+                                            t-set="tot_credited"
+                                            t-value="sum(emp_atts.mapped('time_credit_ids').mapped('minutes')) / 60.0"
+                                        />
+                                        <t
+                                            t-set="tot_worked"
+                                            t-value="sum(emp_atts.mapped('worked_hours'))"
+                                        />
+                                        <td><t t-esc="'%.2f' % tot_credited" /></td>
+                                        <td><t
+                                                t-esc="'%.2f' % (tot_worked + tot_credited)"
+                                            /></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </t>
+
+                        <t t-if="employees">
+                            <h4 style="margin-top:2em;">Summary</h4>
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Worked Hours</th>
+                                        <th>Credited Hours</th>
+                                        <th>Total Hours</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="employees" t-as="employee">
+                                        <t
+                                            t-set="e_atts"
+                                            t-value="all_attendances.filtered(lambda a: a.employee_id == employee)"
+                                        />
+                                        <t
+                                            t-set="e_worked"
+                                            t-value="sum(e_atts.mapped('worked_hours'))"
+                                        />
+                                        <t
+                                            t-set="e_credited"
+                                            t-value="sum(e_atts.mapped('time_credit_ids').mapped('minutes')) / 60.0"
+                                        />
+                                        <tr>
+                                            <td><t t-esc="employee.name" /></td>
+                                            <td><t t-esc="'%.2f' % e_worked" /></td>
+                                            <td><t t-esc="'%.2f' % e_credited" /></td>
+                                            <td><t
+                                                    t-esc="'%.2f' % (e_worked + e_credited)"
+                                                /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
