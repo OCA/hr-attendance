@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Search view: employee filter, quick filters, groupby options -->
+    <record id="hr_attendance_time_credit_report_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.report.search</field>
+        <field name="model">hr.attendance.time.credit.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Employee filter -->
+                <field name="employee_id" />
+                <!-- Company filter -->
+                <field name="company_id" />
+                <!-- Month filter for quick access to current and previous months -->
+                <separator />
+                <filter
+                    string="This Month"
+                    name="this_month"
+                    domain="[('month', '&gt;=', context_today().replace(day=1)), ('month', '&lt;', (context_today().replace(day=1) + relativedelta(months=1)))]"
+                />
+                <filter
+                    string="Last Month"
+                    name="last_month"
+                    domain="[('month', '&gt;=', (context_today().replace(day=1) + relativedelta(months=-1))), ('month', '&lt;', context_today().replace(day=1))]"
+                />
+                <!-- Group by options -->
+                <separator />
+                <filter
+                    string="Employee"
+                    name="group_by_employee"
+                    context="{'group_by': 'employee_id'}"
+                />
+                <filter
+                    string="Month"
+                    name="group_by_month"
+                    context="{'group_by': 'month'}"
+                />
+                <filter
+                    string="Company"
+                    name="group_by_company"
+                    context="{'group_by': 'company_id'}"
+                />
+            </search>
+        </field>
+    </record>
+
+    <!-- Pivot view: rows=employee, cols=month, measures=worked_hours/total_credited_hours/total_hours/attendance_count -->
+    <record id="hr_attendance_time_credit_report_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.report.pivot</field>
+        <field name="model">hr.attendance.time.credit.report</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="employee_id" type="row" />
+                <field name="month" type="col" interval="month" />
+                <field name="worked_hours" type="measure" widget="float_time" />
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+                <field name="total_hours" type="measure" widget="float_time" />
+                <field name="attendance_count" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Graph view: bar chart, x=month, y=total_credited_hours -->
+    <record id="hr_attendance_time_credit_report_view_graph" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.report.graph</field>
+        <field name="model">hr.attendance.time.credit.report</field>
+        <field name="arch" type="xml">
+            <graph type="bar" stacked="False">
+                <field name="month" type="row" interval="month" />
+                <field name="total_credited_hours" type="measure" widget="float_time" />
+            </graph>
+        </field>
+    </record>
+
+    <!-- List view: columns employee/month/worked_hours/credited_hours/total_hours/attendance_count (read-only) -->
+    <record id="hr_attendance_time_credit_report_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.report.tree</field>
+        <field name="model">hr.attendance.time.credit.report</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="employee_id" />
+                <field name="month" />
+                <field name="worked_hours" widget="float_time" />
+                <field name="total_credited_hours" widget="float_time" />
+                <field name="total_hours" widget="float_time" />
+                <field name="attendance_count" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Manager action: "Monthly Time Credit Summary" menu (sequence 5, under hr_attendance.menu_hr_attendance_reporting) -->
+    <record id="hr_attendance_time_credit_report_action" model="ir.actions.act_window">
+        <field name="name">Monthly Time Credit Summary</field>
+        <field name="res_model">hr.attendance.time.credit.report</field>
+        <field name="view_mode">pivot,graph,tree</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('hr_attendance_time_credit_report_view_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('hr_attendance_time_credit_report_view_graph')}),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_attendance_time_credit_report_view_tree')}),
+        ]"
+        />
+        <field name="context">{'search_default_group_by_month': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No time credit data available yet. Time credit records will appear once attendances are processed.
+            </p>
+        </field>
+    </record>
+
+    <!-- Employee action: "My Time Credits" menu (sequence 15, under hr_attendance.menu_hr_attendance_root) -->
+    <record
+        id="hr_attendance_time_credit_report_my_action"
+        model="ir.actions.act_window"
+    >
+        <field name="name">My Time Credits</field>
+        <field name="res_model">hr.attendance.time.credit.report</field>
+        <field name="view_mode">tree,pivot,graph</field>
+        <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_attendance_time_credit_report_view_tree')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('hr_attendance_time_credit_report_view_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('hr_attendance_time_credit_report_view_graph')}),
+        ]"
+        />
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+        <field name="context">{'search_default_group_by_month': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No time credit data available yet. Time credit records will appear once your attendances are processed.
+            </p>
+        </field>
+    </record>
+
+    <!-- Manager menu: Monthly Time Credit Summary (sequence 5, under hr_attendance.menu_hr_attendance_reporting) -->
+    <menuitem
+        id="hr_attendance_time_credit_report_menu"
+        name="Monthly Time Credit Summary"
+        action="hr_attendance_time_credit_report_action"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        sequence="5"
+    />
+
+    <!-- Employee menu: My Time Credits (sequence 15, under hr_attendance.menu_hr_attendance_root) -->
+    <menuitem
+        id="hr_attendance_time_credit_report_my_menu"
+        name="My Time Credits"
+        action="hr_attendance_time_credit_report_my_action"
+        parent="hr_attendance.menu_hr_attendance_root"
+        sequence="15"
+    />
+</odoo>
