@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_attendance_time_credit_report_rule_company" model="ir.rule">
+        <field name="name">Time Credit Report multi-company</field>
+        <field name="model_id" ref="model_hr_attendance_time_credit_report" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+    </record>
+    <data noupdate="1">
+        <record id="hr_attendance_time_credit_report_rule_manager" model="ir.rule">
+            <field name="name">Time Credit Report Manager: Full access</field>
+            <field name="model_id" ref="model_hr_attendance_time_credit_report" />
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field
+                name="groups"
+                eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
+            />
+        </record>
+        <record id="hr_attendance_time_credit_report_rule_officer" model="ir.rule">
+            <field
+                name="name"
+            >Time Credit Report Officer: Managed employees only</field>
+            <field name="model_id" ref="model_hr_attendance_time_credit_report" />
+            <field name="domain_force">
+                [
+                '|',
+                '&amp;',
+                ('employee_id.attendance_manager_id', '=', user.id),
+                ('employee_id.user_id', '=', user.id),
+                '&amp;',
+                ('employee_id.user_id', '!=', user.id),
+                ('employee_id.attendance_manager_id', '=', user.id)
+                ]
+            </field>
+            <field
+                name="groups"
+                eval="[(4, ref('hr_attendance.group_hr_attendance_officer'))]"
+            />
+        </record>
+        <record id="hr_attendance_time_credit_report_rule_own_reader" model="ir.rule">
+            <field name="name">Time Credit Report: Read own credits only</field>
+            <field name="model_id" ref="model_hr_attendance_time_credit_report" />
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field
+                name="groups"
+                eval="[(4, ref('hr_attendance.group_hr_attendance_own_reader'))]"
+            />
+            <field name="perm_create" eval="0" />
+            <field name="perm_write" eval="0" />
+            <field name="perm_unlink" eval="0" />
+            <field name="perm_read" eval="1" />
+        </record>
+    </data>
+</odoo>
