@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="idsecure_historical_sync_wizard_form" model="ir.ui.view">
+        <field name="name">idsecure.historical.sync.wizard.form</field>
+        <field name="model">idsecure.historical.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Recover Events">
+                <group>
+                    <field name="device_id" readonly="1" force_save="1" />
+                    <field name="date_from" />
+                    <field name="date_to" />
+                    <field name="limit" />
+                </group>
+                <p class="text-muted">
+                    Fetch access events from the iDSecure device for the
+                    selected date range. Use this to recover events that
+                    were missed during a sync outage.
+                </p>
+                <footer>
+                    <button
+                        name="action_sync"
+                        string="Recover Events"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_idsecure_historical_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Recover Events</field>
+        <field name="res_model">idsecure.historical.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

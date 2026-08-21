@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="menu_idsecure_root"
+        name="iDSecure"
+        parent="hr_attendance.menu_hr_attendance_root"
+        sequence="40"
+    />
+    <menuitem
+        id="menu_idsecure_device"
+        name="Devices"
+        parent="menu_idsecure_root"
+        action="action_idsecure_device"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_idsecure_access_log"
+        name="Access Events"
+        parent="menu_idsecure_root"
+        action="action_idsecure_access_log"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_idsecure_sync_wizard"
+        name="Map Employees"
+        parent="menu_idsecure_root"
+        action="action_idsecure_sync_wizard"
+        sequence="30"
+    />
+</odoo>

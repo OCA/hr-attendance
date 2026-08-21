@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="idsecure_access_log_tree" model="ir.ui.view">
+        <field name="name">idsecure.access.log.tree</field>
+        <field name="model">idsecure.access.log</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-danger="state == 'error'"
+                decoration-warning="state == 'no_employee'"
+                decoration-muted="state == 'pending'"
+                default_order="event_time desc"
+            >
+                <field name="event_time" />
+                <field name="employee_name_raw" />
+                <field name="employee_id" />
+                <field name="direction" />
+                <field name="device_name" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'done'"
+                    decoration-danger="state == 'error'"
+                    decoration-warning="state == 'no_employee'"
+                    decoration-info="state == 'pending'"
+                />
+                <field name="attendance_id" optional="hide" />
+                <field name="error_message" optional="hide" />
+                <field name="device_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="idsecure_access_log_form" model="ir.ui.view">
+        <field name="name">idsecure.access.log.form</field>
+        <field name="model">idsecure.access.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_retry"
+                        string="Retry"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', 'not in', ['error', 'no_employee'])]}"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="pending,done"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Event">
+                            <field name="event_time" />
+                            <field name="direction" />
+                            <field name="event_name" />
+                            <field name="event_code" />
+                            <field name="info" />
+                        </group>
+                        <group string="Employee">
+                            <field name="employee_name_raw" />
+                            <field name="employee_id" />
+                            <field name="id_user" />
+                            <field name="card_number" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Device">
+                            <field name="device_id" />
+                            <field name="device_name" />
+                            <field name="area_name" />
+                            <field name="id_log" />
+                        </group>
+                        <group string="Result">
+                            <field name="attendance_id" />
+                            <field
+                                name="error_message"
+                                attrs="{'invisible': [('error_message', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                    <group
+                        string="Raw Data"
+                        attrs="{'invisible': [('raw_data', '=', False)]}"
+                    >
+                        <field name="raw_data" nolabel="1" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="idsecure_access_log_search" model="ir.ui.view">
+        <field name="name">idsecure.access.log.search</field>
+        <field name="model">idsecure.access.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_name_raw" />
+                <field name="employee_id" />
+                <field name="device_id" />
+                <separator />
+                <filter
+                    name="today"
+                    string="Today"
+                    domain="[('event_time', '>=', (context_today()).strftime('%%Y-%%m-%%d'))]"
+                />
+                <filter
+                    name="entries"
+                    string="Entries"
+                    domain="[('direction', '=', 'entry')]"
+                />
+                <filter
+                    name="exits"
+                    string="Exits"
+                    domain="[('direction', '=', 'exit')]"
+                />
+                <separator />
+                <filter
+                    name="done"
+                    string="Registered"
+                    domain="[('state', '=', 'done')]"
+                />
+                <filter
+                    name="errors"
+                    string="Errors"
+                    domain="[('state', 'in', ['error', 'no_employee'])]"
+                />
+                <filter
+                    name="no_employee"
+                    string="No Employee"
+                    domain="[('state', '=', 'no_employee')]"
+                />
+                <separator />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="group_employee"
+                        string="Employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                    <filter
+                        name="group_direction"
+                        string="Direction"
+                        context="{'group_by': 'direction'}"
+                    />
+                    <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                    <filter
+                        name="group_date"
+                        string="Date"
+                        context="{'group_by': 'event_time:day'}"
+                    />
+                    <filter
+                        name="group_device"
+                        string="Device"
+                        context="{'group_by': 'device_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_idsecure_access_log" model="ir.actions.act_window">
+        <field name="name">Access Events</field>
+        <field name="res_model">idsecure.access.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_today': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No access events yet
+            </p>
+            <p>
+                Events will appear here automatically when the iDSecure
+                sync runs. Check your device configuration if you expected
+                to see events.
+            </p>
+        </field>
+    </record>
+
+</odoo>

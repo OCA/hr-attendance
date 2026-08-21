@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="idsecure_sync_wizard_form" model="ir.ui.view">
+        <field name="name">idsecure.sync.wizard.form</field>
+        <field name="model">idsecure.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Map iDSecure Users to Employees">
+                <group>
+                    <p colspan="2">
+                        The following iDSecure users could not be automatically
+                        matched to an Odoo employee. Select the correct employee
+                        for each and click <b>Apply</b> to set the mapping and
+                        reprocess pending events.
+                    </p>
+                </group>
+                <field name="line_ids" nolabel="1">
+                    <tree editable="bottom">
+                        <field name="id_user" readonly="1" />
+                        <field name="idsecure_name" readonly="1" />
+                        <field name="pending_count" readonly="1" />
+                        <field name="employee_id" />
+                    </tree>
+                </field>
+                <footer>
+                    <button
+                        name="action_apply"
+                        string="Apply Mapping"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_idsecure_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Map iDSecure Users</field>
+        <field name="res_model">idsecure.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Add wizard button to access log action -->
+
+</odoo>

@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_idsecure_device_manager,idsecure.device manager,model_idsecure_device,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_idsecure_device_user,idsecure.device user,model_idsecure_device,hr_attendance.group_hr_attendance,1,0,0,0
+access_idsecure_access_log_manager,idsecure.access.log manager,model_idsecure_access_log,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_idsecure_access_log_user,idsecure.access.log user,model_idsecure_access_log,hr_attendance.group_hr_attendance,1,0,0,0
+access_idsecure_company_mapping_manager,idsecure.company.mapping manager,model_idsecure_company_mapping,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_idsecure_company_mapping_user,idsecure.company.mapping user,model_idsecure_company_mapping,hr_attendance.group_hr_attendance,1,0,0,0
+access_idsecure_historical_sync_wizard,idsecure.historical.sync.wizard,model_idsecure_historical_sync_wizard,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_idsecure_sync_wizard,idsecure.sync.wizard,model_idsecure_sync_wizard,hr_attendance.group_hr_attendance_manager,1,1,1,1
+access_idsecure_sync_wizard_line,idsecure.sync.wizard.line,model_idsecure_sync_wizard_line,hr_attendance.group_hr_attendance_manager,1,1,1,1
