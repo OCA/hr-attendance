@@ -4,7 +4,6 @@
 from datetime import datetime, time
 
 from dateutil.relativedelta import relativedelta
-from pytz import timezone, utc
 
 from odoo import api, fields, models
 
@@ -57,54 +56,7 @@ class HrAttendance(models.Model):
                 employee.theoretical_hours_start_date or employee.create_date.date()
             )
             date_from = max(date_from, limit_date_from)
-            sql = """
-            SELECT DISTINCT(check_in)::date
-            FROM hr_attendance
-            WHERE employee_id = %s
-            AND check_out IS NOT NULL
-            AND check_in::date >= %s
-            AND check_in::date <= %s
-            """
-            params = [employee.id, date_from, yesterday]
-            self.env.cr.execute(sql, params)
-            attendance_dates = []
-            for item in self.env.cr.fetchall():
-                attendance_dates.append(item[0])
-            day_from = datetime.combine(date_from, time.min)
-            from_datetime = utc.localize(day_from).astimezone(
-                timezone(employee.tz or "UTC")
+            attendances += employee._action_create_empty_attendance(
+                date_from, day_to.date()
             )
-            to_datetime = utc.localize(day_to).astimezone(
-                timezone(employee.tz or "UTC")
-            )
-            dates_to_create = {}
-            expected_attendances = employee.resource_calendar_id._work_intervals_batch(
-                from_datetime,
-                to_datetime,
-                resources=employee.resource_id,
-                compute_leaves=False,
-            )[employee.resource_id.id]
-            for expected_attendance in expected_attendances:
-                expected_attendance_date = expected_attendance[0].date()
-                if (
-                    expected_attendance_date not in attendance_dates
-                    and expected_attendance_date not in dates_to_create
-                ):
-                    dates_to_create[expected_attendance_date] = expected_attendance
-            attendance_vals = []
-            for date_to_create in dates_to_create:
-                attendance_vals.append(
-                    {
-                        "employee_id": employee.id,
-                        "active": False,
-                        "check_in": dates_to_create[date_to_create][0]
-                        .astimezone(utc)
-                        .replace(tzinfo=None),
-                        "check_out": dates_to_create[date_to_create][0]
-                        .astimezone(utc)
-                        .replace(tzinfo=None)
-                        + relativedelta(minutes=1),
-                    }
-                )
-            attendances |= self.env["hr.attendance"].create(attendance_vals)
         return attendances
