@@ -66,8 +66,17 @@ class HrEmployee(models.Model):
                 ]
             )
         )
+        # It's important to take both check_in and check_out into account because
+        # (although strange) there could be an error where check_in=date1 and
+        # check_out=date2; in that case, we don't want to create a record for date2
+        # because they would overlap.
         attendance_dates = sorted(
-            {check_in.date() for check_in in items.mapped("check_in")}
+            {
+                dt.date()
+                for attendance in items
+                for dt in (attendance.check_in, attendance.check_out)
+                if dt
+            }
         )
         dates_to_create = {}
         expected_attendances = self.resource_calendar_id._work_intervals_batch(
