@@ -272,6 +272,40 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         total_items = attendance_model.search_count(domain)
         self.assertEqual(total_items, 3)
 
+    @mute_logger("odoo.models.unlink")
+    @freeze_time("1947-01-01")
+    def test_hr_attendance_cron_theoretical_hours_start_date_multi_date(self):
+        attendance_model = self.env["hr.attendance"]
+        attendance_model.search([("employee_id", "=", self.employee_1.id)]).unlink()
+        attendance = attendance_model.create(
+            {
+                "employee_id": self.employee_1.id,
+                "check_in": "1946-12-23 08:00:00",
+                "check_out": "1946-12-24 12:00:00",
+            }
+        )
+        attendance_model.action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1946, 12, 25),
+        ).flush_recordset()
+        domain = [
+            ("employee_id", "=", self.employee_1.id),
+            ("active", "=", False),
+            ("check_in", ">=", "1946-12-23"),
+            ("check_in", "<=", "1946-12-25"),
+        ]
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 1)
+        # Fix wrong check_out date
+        attendance.write({"check_out": "1946-12-23 12:00:00"})
+        attendance_model.action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1946, 12, 25),
+        ).flush_recordset()
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 2)
+
     def test_change_hr_holidays_public(self):
         self.public_holiday_global.line_ids[0].write({"date": "1946-12-23"})
         # 1946-12-23
