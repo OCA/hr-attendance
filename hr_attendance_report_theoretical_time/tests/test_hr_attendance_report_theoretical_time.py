@@ -281,18 +281,18 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
             {
                 "employee_id": self.employee_1.id,
                 "check_in": "1946-12-23 08:00:00",
-                "check_out": "1946-12-24 12:00:00",
+                "check_out": "1946-12-25 12:00:00",
             }
         )
         attendance_model.action_create_empty_attendance(
             limit_date_from=datetime.date(1946, 12, 23),
-            limit_date_to=datetime.date(1946, 12, 25),
+            limit_date_to=datetime.date(1946, 12, 26),
         ).flush_recordset()
         domain = [
             ("employee_id", "=", self.employee_1.id),
             ("active", "=", False),
             ("check_in", ">=", "1946-12-23"),
-            ("check_in", "<=", "1946-12-25"),
+            ("check_in", "<=", "1946-12-26"),
         ]
         attendance_model = self.env["hr.attendance"].with_context(active_test=False)
         total_items = attendance_model.search_count(domain)
@@ -301,10 +301,10 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         attendance.write({"check_out": "1946-12-23 12:00:00"})
         attendance_model.action_create_empty_attendance(
             limit_date_from=datetime.date(1946, 12, 23),
-            limit_date_to=datetime.date(1946, 12, 25),
+            limit_date_to=datetime.date(1946, 12, 26),
         ).flush_recordset()
         total_items = attendance_model.search_count(domain)
-        self.assertEqual(total_items, 2)
+        self.assertEqual(total_items, 3)
 
     def test_change_hr_holidays_public(self):
         self.public_holiday_global.line_ids[0].write({"date": "1946-12-23"})
