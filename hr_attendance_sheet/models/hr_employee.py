@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class HrEmployee(models.Model):
-
     _inherit = "hr.employee"
 
     hours_to_work = fields.Float(
@@ -32,7 +31,6 @@ class HrEmployee(models.Model):
 
 
 class HrEmployeePublic(models.Model):
-
     _inherit = "hr.employee.public"
 
     hours_to_work = fields.Float(

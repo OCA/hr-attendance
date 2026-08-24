@@ -34,18 +34,30 @@
                                 <h3>Attendance Sheet</h3>
                             </div>
                             <br />
-                            <h5><b><span t-field="doc.name" /></b></h5>
-                            <h5><b>Total Time:  <span
-                                        t-field="doc.total_time"
-                                    /></b></h5>
-                            <h5><b>Overtime:  <span t-field="doc.overtime" /></b></h5>
+                            <h5>
+                                <b>
+                                    <span t-field="doc.name" />
+                                </b>
+                            </h5>
+                            <h5>
+                                <b>Total Time:  <span t-field="doc.total_time" /></b>
+                            </h5>
+                            <h5>
+                                <b>Overtime:  <span t-field="doc.overtime" /></b>
+                            </h5>
                             <br />
                             <table class="table table-sm" t-if="doc.attendance_ids">
                                 <thead>
                                     <tr>
-                                        <th><strong>Check-In</strong></th>
-                                        <th><strong>Check-Out</strong></th>
-                                        <th><strong>Duration</strong></th>
+                                        <th>
+                                            <strong>Check-In</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Check-Out</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Duration</strong>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,15 +66,15 @@
                                         t-as="attendance"
                                     >
                                         <tr>
-                                            <td><span
-                                                    t-field="attendance.check_in"
-                                                /></td>
-                                            <td><span
-                                                    t-field="attendance.check_out"
-                                                /></td>
-                                            <td><span
-                                                    t-field="attendance.duration"
-                                                /></td>
+                                            <td>
+                                                <span t-field="attendance.check_in" />
+                                            </td>
+                                            <td>
+                                                <span t-field="attendance.check_out" />
+                                            </td>
+                                            <td>
+                                                <span t-field="attendance.duration" />
+                                            </td>
                                         </tr>
                                     </t>
                                 </tbody>
@@ -70,17 +82,19 @@
                             <br />
                             <div>
                                 <h3>Approval Information</h3>
-                                <h5><b>Approver:  <span
-                                            t-field="doc.reviewer_id"
-                                        /></b></h5>
-                                <h5><b>Approved On:  <span
-                                            t-field="doc.reviewed_on"
-                                        /></b></h5>
+                                <h5>
+                                    <b>Approver:  <span t-field="doc.reviewer_id" /></b>
+                                </h5>
+                                <h5>
+                                    <b>Approved On:  <span
+                                        t-field="doc.reviewed_on"
+                                    /></b>
+                                </h5>
                             </div>
                         </div>
                     </t>
                 </t>
             </t>
         </t>
-  </template>
+    </template>
 </odoo>

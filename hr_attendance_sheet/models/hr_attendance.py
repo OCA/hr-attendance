@@ -167,7 +167,7 @@ class HrAttendance(models.Model):
         """Restrict to delete attendance from confirmed/locked sheet"""
         for attendance in self:
             attendance._get_attendance_state()
-        return super(HrAttendance, self).unlink()
+        return super().unlink()
 
     def write(self, vals):
         """Restrict to write attendance from confirmed/locked sheet."""
@@ -177,4 +177,4 @@ class HrAttendance(models.Model):
                 f in vals.keys() for f in protected_fields
             ):
                 attendance._get_attendance_state()
-        return super(HrAttendance, self).write(vals)
+        return super().write(vals)

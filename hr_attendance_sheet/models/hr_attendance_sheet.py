@@ -99,7 +99,7 @@ class HrAttendanceSheet(models.Model):
             ):
                 if sheet.sudo().employee_id.parent_id.user_id.id:
                     sheet.activity_schedule(
-                        "hr_attendance_sheet." "mail_act_attendance_sheet_approval",
+                        "hr_attendance_sheet.mail_act_attendance_sheet_approval",
                         user_id=sheet.sudo().employee_id.parent_id.user_id.id,
                     )
 
@@ -269,7 +269,7 @@ must be set on the Company %s"
     @api.model
     def create(self, vals):
         """On create, link existing attendances."""
-        res = super(HrAttendanceSheet, self).create(vals)
+        res = super().create(vals)
         attendances = self.env["hr.attendance"].search(
             [
                 ("employee_id", "=", res.employee_id.id),
@@ -304,7 +304,7 @@ must be set on the Company %s"
             raise UserError(
                 _("You don't have permission to edit submitted/approved sheets")
             )
-        return super(HrAttendanceSheet, self).write(values)
+        return super().write(values)
 
     # BUTTON ACTIONS
     def attendance_action_change(self):
