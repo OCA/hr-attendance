@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pytz
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 
@@ -30,15 +30,11 @@ class HrAttendance(models.Model):
     company_id = fields.Many2one(
         "res.company", string="Company", related="attendance_sheet_id.company_id"
     )
-    auto_lunch_enabled = fields.Boolean(
-        string="Auto Lunch Enabled", related="company_id.auto_lunch"
-    )
+    auto_lunch_enabled = fields.Boolean(related="company_id.auto_lunch")
     override_auto_lunch = fields.Boolean(
-        string="Override Auto Lunch",
         help="Enable if you don't want the auto lunch to calculate.",
     )
     override_reason = fields.Text(
-        string="Override Reason",
         help="State the reason you are overriding the auto lunch.",
     )
     attendance_admin = fields.Many2one(
@@ -68,10 +64,13 @@ class HrAttendance(models.Model):
     def _get_attendance_state(self):
         """Check and raise error if related sheet is not in 'draft' state"""
         if self.attendance_sheet_id and self.attendance_sheet_id.state == "locked":
-            raise UserError(_("You cannot modify an entry in a locked sheet."))
+            raise UserError(self.env._("You cannot modify an entry in a locked sheet."))
         elif self.attendance_sheet_id.state == "done":
-            # and self.env.user not in self.attendance_sheet_id._get_possible_reviewers()
-            raise UserError(_("You cannot modify an entry in a approved sheet"))
+            # and self.env.user
+            # not in self.attendance_sheet_id._get_possible_reviewers()
+            raise UserError(
+                self.env._("You cannot modify an entry in a approved sheet")
+            )
         return True
 
     # Compute Methods
@@ -143,7 +142,7 @@ class HrAttendance(models.Model):
                                     time_between_attendances = (
                                         delta2.total_seconds() / 3600
                                     )
-                                    rec.write({"auto_lunch": False})
+                                    rec.update({"auto_lunch": False})
                             if (
                                 time_between_attendances
                                 < rec.company_id.auto_lunch_hours
@@ -151,16 +150,16 @@ class HrAttendance(models.Model):
                                 rec.duration = (
                                     delta.total_seconds() / 3600
                                 ) - rec.company_id.auto_lunch_hours
-                                rec.write({"auto_lunch": True})
+                                rec.update({"auto_lunch": True})
                         else:
                             rec.duration = (
                                 delta.total_seconds() / 3600
                             ) - rec.company_id.auto_lunch_hours
-                            rec.write({"auto_lunch": True})
+                            rec.update({"auto_lunch": True})
                     else:
-                        rec.write({"auto_lunch": False})
+                        rec.update({"auto_lunch": False})
                 elif rec.company_id.auto_lunch and rec.auto_lunch:
-                    rec.write({"auto_lunch": False})
+                    rec.update({"auto_lunch": False})
 
     # Unlink/Write/Create Methods
     def unlink(self):

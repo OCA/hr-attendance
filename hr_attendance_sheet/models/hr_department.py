@@ -9,7 +9,6 @@ class HrDepartment(models.Model):
 
     attendance_admin = fields.Many2one(
         "hr.employee",
-        string="Attendance Admin",
         help="""In addition to the employees manager, this person can
         administer attendances for all employees in the department.""",
     )

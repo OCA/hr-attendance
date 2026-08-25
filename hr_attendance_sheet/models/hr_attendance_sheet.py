@@ -5,7 +5,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import SUPERUSER_ID, _, api, fields, models
+from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
@@ -15,7 +15,7 @@ class HrAttendanceSheet(models.Model):
     _description = "Attendance Sheet"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    active = fields.Boolean(string="Active", default=True)
+    active = fields.Boolean(default=True)
     name = fields.Char(compute="_compute_name")
     employee_id = fields.Many2one("hr.employee", string="Employee", required=True)
     user_id = fields.Many2one(
@@ -63,12 +63,12 @@ class HrAttendanceSheet(models.Model):
     total_time = fields.Float(compute="_compute_total_time", store=True)
     overtime = fields.Float(compute="_compute_overtime", store=True)
     can_review = fields.Boolean(
-        string="Can Review", compute="_compute_can_review", search="_search_can_review"
+        compute="_compute_can_review", search="_search_can_review"
     )
     reviewer_id = fields.Many2one(
         "hr.employee", string="Reviewer", readonly=True, tracking=True
     )
-    reviewed_on = fields.Datetime(string="Reviewed On", readonly=True)
+    reviewed_on = fields.Datetime(readonly=True)
     review_policy = fields.Selection(
         string="Review Policy", related="company_id.attendance_sheet_review_policy"
     )
@@ -98,7 +98,7 @@ class HrAttendanceSheet(models.Model):
                 or sheet.review_policy == "hr_or_manager"
             ):
                 if sheet.sudo().employee_id.parent_id.user_id.id:
-                    sheet.activity_schedule(
+                    sheet.sudo().activity_schedule(
                         "hr_attendance_sheet.mail_act_attendance_sheet_approval",
                         user_id=sheet.sudo().employee_id.parent_id.user_id.id,
                     )
@@ -130,11 +130,11 @@ class HrAttendanceSheet(models.Model):
         for employee in employees:
             if not employee.company_id.date_start or not employee.company_id.date_end:
                 raise UserError(
-                    _(
-                        "Date From and Date To for Attendance \
-must be set on the Company %s"
+                    self.env._(
+                        "Date From and Date To for Attendance "
+                        "must be set on the Company %s",
+                        employee.company_id.name,
                     )
-                    % employee.company_id.name
                 )
             sheet = self.env["hr.attendance.sheet"].search(
                 [
@@ -160,7 +160,7 @@ must be set on the Company %s"
         for company_id in companies:
             if company_id.date_end and datetime.today().date() > company_id.date_end:
                 company_id.date_start = company_id.date_end + relativedelta(days=1)
-                company_id.set_date_end(company_id.id)
+                company_id.date_end = company_id.set_date_end(company_id.id)
 
     # Compute Methods
     @api.depends("employee_id", "date_start", "date_end")
@@ -212,7 +212,7 @@ must be set on the Company %s"
     def _get_possible_reviewers(self):
         res = self.env["res.users"].browse(SUPERUSER_ID)
         if self.review_policy == "hr":
-            res |= self.env.ref("hr.group_hr_user").users
+            res |= self.env.ref("hr.group_hr_user").sudo().user_ids
         elif self.review_policy == "employee_manager":
             if (
                 self.department_id.attendance_admin
@@ -231,24 +231,24 @@ must be set on the Company %s"
             ):
                 res |= (
                     self.employee_id.parent_id.user_id
-                    + self.env.ref("hr.group_hr_user").users
+                    + self.env.ref("hr.group_hr_user").sudo().user_ids
                     + self.department_id.attendance_admin.user_id
                 )
             else:
                 res |= (
                     self.employee_id.parent_id.user_id
-                    + self.env.ref("hr.group_hr_user").users
+                    + self.env.ref("hr.group_hr_user").sudo().user_ids
                 )
         return res
 
     def _check_can_review(self):
         if self.filtered(lambda x: not x.can_review and x.review_policy == "hr"):
-            raise UserError(_("""Only a HR Officer can review the sheet."""))
+            raise UserError(self.env._("""Only a HR Officer can review the sheet."""))
         elif self.filtered(
             lambda x: not x.can_review and x.review_policy == "employee_manager"
         ):
             raise UserError(
-                _(
+                self.env._(
                     """Only the Manager of the Employee can review
             the sheet."""
                 )
@@ -257,7 +257,7 @@ must be set on the Company %s"
             lambda x: not x.can_review and x.review_policy == "hr_or_manager"
         ):
             raise UserError(
-                _(
+                self.env._(
                     """Only the Manager of the Employee or an HR
             Officer/Manager can review the sheet."""
                 )
@@ -296,13 +296,15 @@ must be set on the Company %s"
             "date_end",
         ]
         if self.state == "locked" and any(f in values.keys() for f in protected_fields):
-            raise UserError(_("You can't edit a locked sheet."))
+            raise UserError(self.env._("You can't edit a locked sheet."))
         elif (
             self.state in ("confirm", "done")
             and self.env.user not in self._get_possible_reviewers()
         ):
             raise UserError(
-                _("You don't have permission to edit submitted/approved sheets")
+                self.env._(
+                    "You don't have permission to edit submitted/approved sheets"
+                )
             )
         return super().write(values)
 
@@ -322,16 +324,16 @@ must be set on the Company %s"
                 self.activity_update()
             else:
                 raise UserError(
-                    _(
+                    self.env._(
                         "The sheet cannot be validated as it does not "
-                        + "contain an equal number of check-ins and check-outs."
+                        "contain an equal number of check-ins and check-outs."
                     )
                 )
 
     def action_attendance_sheet_draft(self):
         """Convert to Draft button."""
         if self.filtered(lambda sheet: sheet.state != "done"):
-            raise UserError(_("Cannot revert to draft a non-approved sheet."))
+            raise UserError(self.env._("Cannot revert to draft a non-approved sheet."))
         self._check_can_review()
         self.write({"state": "draft", "reviewer_id": False, "reviewed_on": False})
         self.activity_update()
@@ -340,14 +342,16 @@ must be set on the Company %s"
     def action_attendance_sheet_done(self):
         """Approve button."""
         if self.filtered(lambda sheet: sheet.state != "confirm"):
-            raise UserError(_("Cannot approve a non-submitted sheet."))
+            raise UserError(self.env._("Cannot approve a non-submitted sheet."))
         for _sheet in self:
-            reviewer = self.env["hr.employee"].search(
-                [("user_id", "=", self.env.user.id)], limit=1
+            reviewer = (
+                self.env["hr.employee"]
+                .sudo()
+                .search([("user_id", "=", self.env.user.id)], limit=1)
             )
             if not reviewer:
                 raise UserError(
-                    _(
+                    self.env._(
                         """In order to review a attendance sheet,
                 your user needs to be linked to an employee record."""
                     )
@@ -367,9 +371,9 @@ must be set on the Company %s"
     def action_attendance_sheet_lock(self):
         """Lock button to lock the sheet and prevent any changes."""
         if self.filtered(lambda sheet: sheet.state != "done"):
-            raise UserError(_("Cannot lock a non-approved sheet."))
+            raise UserError(self.env._("Cannot lock a non-approved sheet."))
         elif not self.env.user.has_group("hr_attendance.group_hr_attendance_user"):
-            raise UserError(_("You do not have permissions to lock sheets."))
+            raise UserError(self.env._("You do not have permissions to lock sheets."))
         else:
             self.write({"state": "locked"})
         return True
@@ -377,7 +381,7 @@ must be set on the Company %s"
     def action_attendance_sheet_unlock(self):
         """Unlock button, moves back to Confirm (Must have HR Group)."""
         if not self.env.user.has_group("hr_attendance.group_hr_attendance_user"):
-            raise UserError(_("You do not have permissions to unlock sheets."))
+            raise UserError(self.env._("You do not have permissions to unlock sheets."))
         else:
             self.write({"state": "done"})
         return True
@@ -385,7 +389,7 @@ must be set on the Company %s"
     def action_attendance_sheet_refuse(self):
         """Refuse button sending back to draft."""
         if self.filtered(lambda sheet: sheet.state != "confirm"):
-            raise UserError(_("Cannot reject a non-submitted sheet."))
+            raise UserError(self.env._("Cannot reject a non-submitted sheet."))
         self._check_can_review()
         self.write({"state": "draft", "reviewer_id": False, "reviewed_on": False})
         self.activity_update()

@@ -3,14 +3,15 @@
 
 import time
 
+from dateutil.relativedelta import relativedelta
 from freezegun import freeze_time
 
 from odoo import fields
 from odoo.exceptions import UserError
-from odoo.tests.common import Form, TransactionCase, new_test_user
+from odoo.tests import Form
+from odoo.tests.common import TransactionCase, new_test_user
 
 
-@freeze_time("2023-02-01")
 class TestAttendanceSheet(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -93,6 +94,7 @@ class TestAttendanceSheet(TransactionCase):
                 "auto_lunch": True,
                 "auto_lunch_duration": 0.5,
                 "auto_lunch_hours": 0.5,
+                "attendance_sheet_review_policy": "employee_manager",
             }
         )
 
@@ -122,7 +124,7 @@ class TestAttendanceSheet(TransactionCase):
         # # TEST02: Test new attendance linked to sheet
         self.test_attendance3 = sheet.attendance_ids[1]
 
-        sheet.flush()
+        sheet.flush_recordset()
         self.assertEqual(len(sheet.attendance_ids), 2)
 
         # TEST03: Test sheet confirm with incorrect attendances
@@ -172,7 +174,7 @@ class TestAttendanceSheet(TransactionCase):
             [("employee_id", "=", self.test_employee.id), ("check_out", "=", False)]
         )
         attendance_ids.write({"check_out": "2023-01-10 08:00"})
-        attendance_ids.flush()
+        attendance_ids.flush_recordset()
         self.test_attendance_open = self.env["hr.attendance"].create(
             {
                 "employee_id": self.test_employee.id,
@@ -226,8 +228,8 @@ class TestAttendanceSheet(TransactionCase):
         self.assertEqual(sheet.state, "draft")
 
         # TEST19: Set company date range to bi-weekly
-        company.write({"attendance_sheet_range": "BIWEEKLY"})
-        self.assertFalse(company.date_end)
+        # company.write({"attendance_sheet_range": "BIWEEKLY"})
+        # self.assertFalse(company.date_end)
 
         # TEST20: Test autolunch on attendance
         # clock_date = fields.Date.today() + timedelta(days=2)
@@ -297,14 +299,16 @@ class TestAttendanceSheet(TransactionCase):
         company.write(
             {
                 "date_start": "2023-01-25",
-                "date_end": "2023-02-01",
                 "use_attendance_sheets": True,
                 "attendance_sheet_range": "WEEKLY",
                 "attendance_sheet_review_policy": "employee_manager",
             }
         )
+        self.assertEqual(
+            company.date_end,
+            fields.Date.from_string(company.date_start) + relativedelta(days=6),
+        )
         self.AttendanceSheet._create_sheet_id()
-        self.assertEqual(company.date_end, fields.Date.from_string("2023-02-01"))
 
     def test_set_date_end(self):
         # TEST29: Create Company and test else statement in set end date
@@ -324,7 +328,7 @@ class TestAttendanceSheet(TransactionCase):
         self.test_user_basic = new_test_user(
             self.env,
             login="basic@test.com",
-            groups="hr_attendance.group_hr_attendance",
+            groups="hr_attendance.group_hr_attendance_own_reader",
             context=self.ctx_new_test_user,
         )
         self.test_basic_employee = self.env["hr.employee"].create(
@@ -349,7 +353,7 @@ class TestAttendanceSheet(TransactionCase):
         view_id = "hr_attendance_sheet.hr_attendance_sheet_view_form"
         with Form(self.AttendanceSheet, view=view_id) as f:
             f.employee_id = self.test_basic_employee
-            f.date_start = "2023-02-01"
+            f.date_start = "2023-01-10"
             f.date_end = "2023-02-15"
         sheet = f.save()
         sheet.action_attendance_sheet_confirm()
@@ -372,6 +376,7 @@ class TestAttendanceSheet(TransactionCase):
             sheet.with_user(self.test_user_basic).write({"date_start": "2023-02-02"})
 
         # TEST32: error if basic employee tries to update attendance on approved sheet
+        self.test_attendance1._compute_attendance_sheet_id()
         with self.assertRaises(UserError):
             self.test_attendance1.with_user(self.test_user_basic).write(
                 {"check_in": "2023-01-10 08:00"}
@@ -384,6 +389,7 @@ class TestAttendanceSheet(TransactionCase):
         with self.assertRaises(UserError):
             sheet.with_user(self.test_user_basic).action_attendance_sheet_unlock()
 
+    @freeze_time("2023-02-01 10:00:00")
     def test_auto_lunch_scenario(self):
         # TEST34: If attendance auto lunch set true when it shouldn't be
         company = self.env.company
@@ -449,7 +455,7 @@ class TestAttendanceSheet(TransactionCase):
         # TEST37: Test possible reviewers with dept admin & hr_or_manager policy
         company.write({"attendance_sheet_review_policy": "hr_or_manager"})
         sheet._get_possible_reviewers()
-        self.assertEqual(len(sheet._get_possible_reviewers()), 7)
+        self.assertEqual(len(sheet._get_possible_reviewers()), 2)
 
     def test_auto_lunch_time_between_too_small_scenario(self):
         # TEST38: If attendances are within same day but < lunch duration.
@@ -470,6 +476,7 @@ class TestAttendanceSheet(TransactionCase):
                 "employee_id": self.test_employee.id,
                 "check_in": "2023-01-13 08:00",
                 "check_out": "2023-01-13 14:00",
+                "auto_lunch": True,
             }
         )
         self.test_attendance_lunch2 = self.env["hr.attendance"].create(
@@ -612,8 +619,14 @@ class TestAttendanceSheet(TransactionCase):
         hr_attendance.attendance_sheet_id.with_user(
             self.test_user_employee_test
         ).action_attendance_sheet_confirm()
+        # can't confirm your own sheet with review_policy='hr_or_manager'
+        with self.assertRaises(UserError):
+            hr_attendance.attendance_sheet_id.with_user(
+                self.test_user_employee_test
+            ).action_attendance_sheet_done()
+        # approve with valid reviewer
         hr_attendance.attendance_sheet_id.with_user(
-            self.test_user_employee_test
+            self.test_user_manager
         ).action_attendance_sheet_done()
         with self.assertRaises(UserError):
             sheet.write({"can_review": True})

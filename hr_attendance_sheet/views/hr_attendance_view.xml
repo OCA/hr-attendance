@@ -25,11 +25,12 @@
                         <field name="auto_lunch" invisible="1" />
                         <field
                             name="override_auto_lunch"
-                            attrs="{'invisible': [('auto_lunch_enabled', '=', False)]}"
+                            invisible="not auto_lunch_enabled"
                         />
                         <field
                             name="override_reason"
-                            attrs="{'required': [('override_auto_lunch', '=', True)], 'invisible': [('override_auto_lunch', '=', False)]}"
+                            required="override_auto_lunch"
+                            invisible="not override_auto_lunch"
                         />
                         <field name="duration" widget="timesheet_uom" />
                         <field name="attendance_sheet_id" />
@@ -39,7 +40,7 @@
             <sheet position="before">
                 <div
                     class="alert alert-info text-center mb-3"
-                    attrs="{'invisible': [('auto_lunch', '=', False)]}"
+                    invisible="not auto_lunch"
                     role="alert"
                 >
                     Note: This attendance contains an automatically applied lunch period since the duration surpassed the maximum hours allowed without a lunch.
@@ -54,6 +55,6 @@
     >
         <field name="name">Attendances</field>
         <field name="res_model">hr.attendance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

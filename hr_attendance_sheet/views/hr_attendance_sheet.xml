@@ -3,7 +3,7 @@
         <field name="name">hr.attendance.sheet.tree</field>
         <field name="model">hr.attendance.sheet</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-danger="state=='draft'"
                 decoration-info="state=='confirm'"
                 decoration-success="state=='done'"
@@ -14,7 +14,7 @@
                 <field name="employee_id" />
                 <field name="total_time" widget="timesheet_uom" />
                 <field name="overtime" widget="timesheet_uom" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -29,21 +29,21 @@
                         string="Submit to Reviewer"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                        invisible="state != 'draft'"
                     />
                     <button
                         name="action_attendance_sheet_done"
                         string="Approve"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('can_review', '!=', True), ('state', '!=', 'confirm')]}"
+                        invisible="not can_review or state != 'confirm'"
                     />
                     <button
                         name="action_attendance_sheet_lock"
                         string="Lock"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('can_review', '!=', True), ('state', '!=', 'done')]}"
+                        invisible="not can_review or state != 'done'"
                         groups="hr_attendance.group_hr_attendance_manager"
                     />
                     <button
@@ -51,20 +51,20 @@
                         string="Unlock"
                         type="object"
                         class="oe_highlight"
-                        attrs="{'invisible': ['|', ('can_review', '!=', True), ('state', '!=', 'locked')]}"
+                        invisible="not can_review or state != 'locked'"
                         groups="hr_attendance.group_hr_attendance_manager"
                     />
                     <button
                         name="action_attendance_sheet_draft"
                         string="Set to Draft"
                         type="object"
-                        attrs="{'invisible': ['|', ('can_review', '!=', True), ('state', '!=', 'done')]}"
+                        invisible="not can_review or state != 'done'"
                     />
                     <button
                         name="action_attendance_sheet_refuse"
                         string="Refuse"
                         type="object"
-                        attrs="{'invisible': ['|', ('can_review', '!=', True), ('state', '!=', 'confirm')]}"
+                        invisible="not can_review or state != 'confirm'"
                     />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -94,7 +94,7 @@
                                 name="attendance_action_change"
                                 type="object"
                                 class="btn-primary"
-                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                invisible="state != 'draft'"
                             />
                             <group name="time" col="4" colspan="2">
                                 <field name="total_time" widget="timesheet_uom" />
@@ -103,12 +103,12 @@
                             <group name="attendance">
                                 <field
                                     name="attendance_ids"
-                                    attrs="{'readonly': ['|', ('can_review', '!=', True), ('state', '=', 'done')]}"
+                                    readonly="not can_review or state == 'done'"
                                     nolabel="1"
                                     options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"
-                                    context="{'default_employee_id': employee_id, 'default_attendance_sheet_id': active_id}"
+                                    context="{'default_employee_id': employee_id}"
                                 >
-                                    <tree>
+                                    <list>
                                         <field name="employee_id" invisible="1" />
                                         <field
                                             name="attendance_sheet_id"
@@ -122,7 +122,7 @@
                                             readonly="1"
                                         />
                                         <field name="duration" widget="timesheet_uom" />
-                                    </tree>
+                                    </list>
                                 </field>
                             </group>
                             <group name="review" string="Review Information">
@@ -134,7 +134,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
+                <chatter>
                     <field name="message_follower_ids" widget="mail_followers" />
                     <field name="activity_ids" widget="mail_activity" />
                     <field
@@ -142,7 +142,7 @@
                         widget="mail_thread"
                         options="{'post_refresh': 'recipients'}"
                     />
-                </div>
+                </chatter>
             </form>
         </field>
     </record>
@@ -155,7 +155,7 @@
                 <filter
                     string="My Sheets"
                     name="my_attendance_sheets"
-                    domain="[('employee_id.user_id.id', '=', uid)]"
+                    domain="[('employee_id.user_id', '=', uid)]"
                 />
                 <separator />
                 <filter
@@ -195,24 +195,18 @@
                     name="previous_periods"
                     domain="[('date_start','&lt;', context_today().strftime('%Y-%m-%d'))]"
                 />
-                <group expand="0" string="Group By">
-                    <filter
-                        name="state"
-                        string="Stage"
-                        context="{'group_by':'state'}"
-                    />
-                    <filter
-                        name="employee"
-                        string="Employee"
-                        context="{'group_by':'employee_id'}"
-                    />
-                    <separator />
-                    <filter
-                        name="groupby_date_start"
-                        string="Start Date"
-                        context="{'group_by': 'date_start'}"
-                    />
-                </group>
+                <filter name="state" string="Stage" context="{'group_by':'state'}" />
+                <filter
+                    name="employee"
+                    string="Employee"
+                    context="{'group_by':'employee_id'}"
+                />
+                <separator />
+                <filter
+                    name="groupby_date_start"
+                    string="Start Date"
+                    context="{'group_by': 'date_start'}"
+                />
             </search>
         </field>
     </record>
@@ -221,14 +215,14 @@
         <field name="name">All Attendance Sheets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hr.attendance.sheet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="hr_attendance_sheet_view_tree" />
     </record>
     <record id="hr_attendance_sheet_employee_action" model="ir.actions.act_window">
         <field name="name">My Attendance Sheets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hr.attendance.sheet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('employee_id.user_id','=', uid)]</field>
         <field name="view_id" ref="hr_attendance_sheet_view_tree" />
     </record>
@@ -236,7 +230,7 @@
         <field name="name">My Employee's Attendance Sheets</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hr.attendance.sheet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field
             name="domain"
         >[('employee_id.user_id', '!=', uid), '|', ('employee_id.parent_id.user_id', '=', uid),('department_id.attendance_admin.user_id', '=', uid)]</field>
@@ -246,7 +240,7 @@
     <menuitem
         id="hr_attendance_sheet_manager_menu"
         name="Attendance Sheets"
-        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        parent="hr_attendance.menu_hr_attendance_view_attendances_management"
         action="hr_attendance_sheet_manager_action"
         sequence="9"
         groups="hr_attendance.group_hr_attendance_manager"
@@ -257,7 +251,7 @@
         name="Attendance Sheets"
         parent="hr_attendance.menu_hr_attendance_root"
         sequence="10"
-        groups="hr_attendance.group_hr_attendance"
+        groups="hr_attendance.group_hr_attendance_user"
     />
 
     <menuitem
@@ -266,7 +260,7 @@
         parent="hr_attendance_sheet_main_menu"
         action="hr_attendance_sheet_employee_action"
         sequence="20"
-        groups="hr_attendance.group_hr_attendance"
+        groups="hr_attendance.group_hr_attendance_user"
     />
 
     <menuitem
@@ -275,6 +269,6 @@
         parent="hr_attendance_sheet_main_menu"
         action="hr_attendance_sheet_my_employees_action"
         sequence="30"
-        groups="hr_attendance.group_hr_attendance"
+        groups="hr_attendance.group_hr_attendance_user"
     />
 </odoo>
