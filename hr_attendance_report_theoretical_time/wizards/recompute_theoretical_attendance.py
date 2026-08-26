@@ -12,6 +12,7 @@ class RecomputeTheoreticalAttendance(models.TransientModel):
         required=True,
         string="Employees",
         help="Recompute these employees attendances",
+        context={"active_test": False},
     )
     date_from = fields.Datetime(
         string="From", required=True, help="Recompute attendances from this date"

@@ -15,7 +15,11 @@
             <form>
                 <group>
                     <group>
-                        <field name="employee_ids" widget="many2many_tags" />
+                        <field
+                            name="employee_ids"
+                            context="{'active_test': True}"
+                            widget="many2many_tags"
+                        />
                         <field name="date_from" />
                         <field name="date_to" />
                     </group>
