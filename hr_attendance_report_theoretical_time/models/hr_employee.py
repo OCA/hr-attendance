@@ -29,7 +29,7 @@ class HrEmployee(models.Model):
             for item in self:
                 date_from = (
                     item.theoretical_hours_start_date
-                    or fields.Datetime.context_timestamp(item.create_date).date()
+                    or fields.Datetime.context_timestamp(item, item.create_date).date()
                 )
                 attendance_model.sudo().search(
                     [
