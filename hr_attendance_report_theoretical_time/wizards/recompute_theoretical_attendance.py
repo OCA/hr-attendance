@@ -28,6 +28,10 @@ class RecomputeTheoreticalAttendance(models.TransientModel):
 
     def action_recompute(self):
         self.ensure_one()
+        for employee in self.employee_ids:
+            employee._action_create_empty_attendance(
+                self.date_from.date(), self.date_to.date()
+            )
         attendances = (
             self.env["hr.attendance"]
             .with_context(active_test=False)
