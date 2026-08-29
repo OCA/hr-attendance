@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-hr-attendance"
-version = "18.0.20260717.0"
+version = "18.0.20260829.0"
 dependencies = [
     "odoo-addon-hr_attendance_calendar_view==18.0.*",
+    "odoo-addon-hr_attendance_employee_calendar_planning==18.0.*",
     "odoo-addon-hr_attendance_full_history==18.0.*",
     "odoo-addon-hr_attendance_modification_tracking==18.0.*",
     "odoo-addon-hr_attendance_reason==18.0.*",
