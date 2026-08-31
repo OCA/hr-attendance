@@ -91,6 +91,11 @@ msgid "Date"
 msgstr "Datum"
 
 #. module: hr_attendance_report_theoretical_time
+#: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.recompute_theoretical_attendance_form
+msgid "Dates"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__department_id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__department_id
 msgid "Department"
@@ -102,8 +107,15 @@ msgid "Difference"
 msgstr "Razlika"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_calendar_public_holiday_line__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_resource_calendar__display_name
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__display_name
 msgid "Display Name"
 msgstr "Prikazani naziv"
@@ -151,8 +163,15 @@ msgid "From"
 msgstr "Od"
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_calendar_public_holiday_line__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_employee_public__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_resource_calendar__id
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__id
 msgid "ID"
 msgstr "ID"
