@@ -16,9 +16,10 @@ class TestHrAttendanceEmployeeCalendarPlanning(BaseCommon):
                 "name": "Test calendar 1",
                 "attendance_ids": [],
                 "tz": "UTC",
-                "stored_flexible_hours": True,
-                "stored_full_time_required_hours": 20,
+                "flexible_hours": True,
+                "schedule_type": "flexible",
                 "stored_hours_per_day": 4,
+                "hours_per_week": 20,
             }
         )
         cls.employee = cls.env["hr.employee"].create(
@@ -48,7 +49,7 @@ class TestHrAttendanceEmployeeCalendarPlanning(BaseCommon):
             }
         )
         self.assertEqual(attendance.worked_hours, 2)
-        self.assertEqual(attendance.overtime_hours, -2)
+        self.assertEqual(attendance.overtime_hours, 0)
         attendance.unlink()
         attendance_extra = self.env["hr.attendance"].create(
             {
