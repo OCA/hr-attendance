@@ -1,0 +1,63 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.attendance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="55" />
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='hr_attendance']" position="inside">
+                <block title="Attendance Sheets" name="attendance_sheet_settings">
+                    <setting
+                        string="Attendance Sheet Range"
+                        company_dependent="1"
+                        help="Choose which attendance sheet ranges should be used by default."
+                    >
+                        <field
+                            name="attendance_sheet_range"
+                            widget="selection"
+                            required="1"
+                        />
+                    </setting>
+                    <setting
+                        string="Week Starting Day"
+                        company_dependent="1"
+                        help="Choose the week start day."
+                        invisible="attendance_sheet_range not in ('WEEKLY', 'BIWEEKLY')"
+                    >
+                        <field name="attendance_week_start" widget="selection" />
+                    </setting>
+                    <setting
+                        string="Attendance Sheet Review Policy"
+                        company_dependent="1"
+                        help="Choose attendance sheets review policy."
+                    >
+                        <field
+                            name="attendance_sheet_review_policy"
+                            widget="radio"
+                            required="1"
+                        />
+                    </setting>
+                </block>
+                <block title="Attendance Rules" name="attendance_rule_settings">
+                    <setting
+                        string="Auto Lunch"
+                        company_dependent="1"
+                        help="Automatically subtract a lunch break when an attendance exceeds the duration threshold. Duration is the threshold in hours; Lunch Hours is the amount deducted."
+                    >
+                        <field name="auto_lunch" />
+                        <div invisible="not auto_lunch">
+                            <span class="me-2">Duration</span>
+                            <field name="auto_lunch_duration" class="text-center" />
+                            <span class="ms-2">Hours</span>
+                        </div>
+                        <div invisible="not auto_lunch">
+                            <span class="me-2">Lunch Hours</span>
+                            <field name="auto_lunch_hours" class="text-center" />
+                            <span class="ms-2">Hours</span>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
