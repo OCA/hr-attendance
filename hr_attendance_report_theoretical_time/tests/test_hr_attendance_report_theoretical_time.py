@@ -252,7 +252,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(res[5]["theoretical_hours:sum"], 8)  # 1946-12-30(virtual)
 
     @mute_logger("odoo.models.unlink")
-    @freeze_time("1947-01-01")
+    @freeze_time("1947-01-02")
     def test_hr_attendance_cron_theoretical_hours_start_date(self):
         self.env["hr.attendance"].action_create_empty_attendance(
             limit_date_from=datetime.date(1946, 12, 23),

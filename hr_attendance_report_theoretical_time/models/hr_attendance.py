@@ -41,7 +41,7 @@ class HrAttendance(models.Model):
         The goal is to prevent the report from having to calculate data
         directly, so employee attendance records are created for past days
         when they should have clocked in."""
-        today = fields.Date.today()
+        today = fields.Date.context_today(self)
         yesterday = today - relativedelta(days=1)
         today_previous_year = today - relativedelta(years=1)
         limit_date_from = limit_date_from or today_previous_year
@@ -52,11 +52,7 @@ class HrAttendance(models.Model):
             .sudo()
             .search([("resource_calendar_id", "!=", False)])
         ):
-            date_from = (
-                employee.theoretical_hours_start_date or employee.create_date.date()
-            )
-            date_from = max(date_from, limit_date_from)
             attendances += employee._action_create_empty_attendance(
-                date_from, day_to.date()
+                limit_date_from, day_to.date()
             )
         return attendances

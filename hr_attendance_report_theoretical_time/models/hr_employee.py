@@ -29,7 +29,7 @@ class HrEmployee(models.Model):
             for item in self:
                 date_from = (
                     item.theoretical_hours_start_date
-                    or fields.Datetime.context_timestamp(item.create_date).date()
+                    or fields.Datetime.context_timestamp(item, item.create_date).date()
                 )
                 attendance_model.sudo().search(
                     [
@@ -50,8 +50,16 @@ class HrEmployee(models.Model):
         directly, so employee attendance records are created for past days
         when they should have clocked in."""
         self.ensure_one()
+        limit_date_from = (
+            self.theoretical_hours_start_date
+            or fields.Datetime.context_timestamp(self, self.create_date).date()
+        )
+        date_from = max(date_from, limit_date_from)
         day_from = datetime.combine(date_from, time.min)
         from_datetime = utc.localize(day_from).astimezone(timezone(self.tz or "UTC"))
+        today = fields.Date.context_today(self)
+        limit_date_to = today - relativedelta(days=1)
+        date_to = min(date_to, limit_date_to)
         day_to = datetime.combine(date_to, time.max)
         to_datetime = utc.localize(day_to).astimezone(timezone(self.tz or "UTC"))
         items = (
