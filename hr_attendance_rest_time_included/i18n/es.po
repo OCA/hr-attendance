@@ -182,6 +182,11 @@ msgid "Latitude"
 msgstr ""
 
 #. module: hr_attendance_rest_time_included
+#: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__leave_hours
+msgid "Leave Hours"
+msgstr ""
+
+#. module: hr_attendance_rest_time_included
 #: model:ir.model.fields,field_description:hr_attendance_rest_time_included.field_hr_attendance_rest_time__in_longitude
 msgid "Longitude"
 msgstr ""
