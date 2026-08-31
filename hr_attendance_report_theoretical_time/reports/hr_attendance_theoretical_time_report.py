@@ -27,6 +27,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
         readonly=True,
     )
     date = fields.Date(readonly=True)
+    leave_hours = fields.Float(string="Leave", readonly=True)
     worked_hours = fields.Float(string="Worked", readonly=True)
     theoretical_hours = fields.Float(string="Theoric", readonly=True)
     difference = fields.Float(readonly=True)
@@ -40,6 +41,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
             employee_id,
             department_id,
             date,
+            max(leave_hours) AS leave_hours,
             sum(worked_hours) AS worked_hours,
             max(theoretical_hours) AS theoretical_hours,
             sum(worked_hours) - max(theoretical_hours) AS difference
@@ -54,6 +56,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
             ha.employee_id AS employee_id,
             hahe.department_id AS department_id,
             ha.check_in::date AS date,
+            ha.leave_hours AS leave_hours,
             CASE WHEN ha.active THEN ha.worked_hours ELSE 0 END AS worked_hours,
             ha.theoretical_hours AS theoretical_hours
             """
@@ -124,3 +127,34 @@ CREATE or REPLACE VIEW %s as (
             ],
         )
         return res[employee.id]["hours"]
+
+    @api.model
+    def _leave_hours(self, employee, date):
+        if not employee.resource_id.calendar_id:
+            return 0
+        tz = employee.resource_id.calendar_id.tz
+        from_datetime = datetime.combine(
+            date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))
+        )
+        to_datetime = datetime.combine(
+            date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))
+        )
+        data1 = employee._get_work_days_data_batch(
+            from_datetime, to_datetime, compute_leaves=False
+        )
+        data2 = employee._get_work_days_data_batch(
+            from_datetime,
+            to_datetime,
+            compute_leaves=True,
+            # Pass this domain for excluding leaves whose type
+            domain=[
+                "|",
+                ("holiday_id", "=", False),
+                (
+                    "holiday_id.holiday_status_id.include_in_leave_theoretical",
+                    "=",
+                    False,
+                ),
+            ],
+        )
+        return data1[employee.id]["hours"] - data2[employee.id]["hours"]
