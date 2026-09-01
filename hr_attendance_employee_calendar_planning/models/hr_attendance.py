@@ -1,7 +1,7 @@
 # Copyright 2026 Tecnativa - Víctor Martínez
 from collections import defaultdict
 
-from odoo import models
+from odoo import fields, models
 
 
 class HrAattendance(models.Model):
@@ -10,9 +10,11 @@ class HrAattendance(models.Model):
     def _get_worked_hours_in_range(self, start_dt, end_dt):
         # It is important to define the appropriate context keys so that the value is
         # as expected.
+        from_date = fields.Datetime.context_timestamp(self, start_dt).date()
+        to_date = fields.Datetime.context_timestamp(self, end_dt).date()
         self = self.with_context(
-            flexible_hours_from_date=start_dt.date(),
-            flexible_hours_to_date=end_dt.date(),
+            flexible_hours_from_date=from_date,
+            flexible_hours_to_date=to_date,
         )
         # TODO: Try to remove the call to that compute in hr_employee_calendar_planning
         self.employee_id._compute_is_flexible()
