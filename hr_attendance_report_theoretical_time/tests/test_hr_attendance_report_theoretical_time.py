@@ -277,6 +277,39 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(total_items, 3)
 
     @mute_logger("odoo.models.unlink")
+    @freeze_time("1947-01-02")
+    def test_hr_attendance_cron_theoretical_hours_end_date(self):
+        self.employee_1.departure_date = "1946-12-25"
+        self.env["hr.attendance"].search(
+            [
+                ("employee_id", "=", self.employee_1.id),
+            ]
+        ).unlink()
+        self.env["hr.attendance"].action_create_empty_attendance(
+            limit_date_from=datetime.date(1946, 12, 23),
+            limit_date_to=datetime.date(1947, 1, 1),
+        ).flush_recordset()
+        domain = [
+            ("employee_id", "=", self.employee_1.id),
+            ("active", "=", False),
+            ("check_in", ">=", "1946-12-23"),
+            ("check_in", "<=", "1947-01-01"),
+        ]
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 3)
+        # Change departure_date to "1946-12-28"
+        self.employee_1.write({"departure_date": "1946-12-28"})
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 5)
+        # Change departure_date again to "1946-12-25"
+        self.employee_1.write({"departure_date": "1946-12-25"})
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        total_items = attendance_model.search_count(domain)
+        self.assertEqual(total_items, 3)
+
+    @mute_logger("odoo.models.unlink")
     @freeze_time("1947-01-01")
     def test_hr_attendance_cron_theoretical_hours_start_date_multi_date(self):
         attendance_model = self.env["hr.attendance"]
