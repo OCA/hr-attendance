@@ -30,8 +30,8 @@ class HrAattendance(models.Model):
         for employee, attendance_dates in employee_attendance_dates.items():
             data_item = defaultdict(set)
             data_item[employee] = attendance_dates
-            start_date = min(check_in for check_in, _check_out in attendance_dates)
-            end_date = max(check_out for _check_in, check_out in attendance_dates)
+            start_date = min(day for _datetime_date, day in attendance_dates)
+            end_date = max(day for _datetime_date, day in attendance_dates)
             items = self.filtered(
                 lambda x, employee=employee: x.exists() and x.employee_id == employee
             )
