@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_hr_employee_form_inherit_location_block" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.location.block</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <field name="category_ids" position="after">
+                <field name="bypass_geolocation_check" />
+            </field>
+        </field>
+    </record>
+</odoo>
