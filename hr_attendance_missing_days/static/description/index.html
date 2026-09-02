@@ -369,15 +369,17 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:14140f914d671ae2a6dcb45632700b88906ccec2abe52643c512ac5de601207d
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_missing_days"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-17-0/hr-attendance-17-0-hr_attendance_missing_days"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_missing_days"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-18-0/hr-attendance-18-0-hr_attendance_missing_days"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This modules generates attendances for employee with 0 minutes for
 working days with missing attendances. The configured reason is set to
 make it easier for filtering. This can be used to generate pseudo
 attendances for working days otherwise Odoo wouldn’t reduce the overtime
 of the employee.</p>
 <ol class="arabic simple">
-<li>Go to <em>Attendances &gt; Configuration &gt; Missing Days</em></li>
+<li>Go to <em>Attendances &gt; Configuration &gt; Settings &gt; Missing Attendance</em></li>
 <li>Select a reason to set for the created attendances</li>
+<li>Set the start date from which the attendances have to be generated.
+Leave it empty to disable the generation.</li>
 </ol>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
@@ -396,7 +398,7 @@ of the employee.</p>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/hr-attendance/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_missing_days%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_missing_days%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -412,6 +414,10 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <ul class="simple">
 <li>initOS GmbH (initOS.com)</li>
 <li><a class="reference external" href="https://www.heliconia.io">Heliconia Solutions Pvt. Ltd.</a></li>
+<li><a class="reference external" href="https://www.grupoisonor.es">Grupo Isonor</a>:<ul>
+<li>David Palanca Martínez</li>
+</ul>
+</li>
 </ul>
 </div>
 <div class="section" id="maintainers">
@@ -423,7 +429,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/17.0/hr_attendance_missing_days">OCA/hr-attendance</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_missing_days">OCA/hr-attendance</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>

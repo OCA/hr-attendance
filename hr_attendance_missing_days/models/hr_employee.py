@@ -37,15 +37,37 @@ class Employee(models.Model):
         for emp in self.search([]):
             emp._create_missing_attendances(date_from, date_to)
 
+    def _get_attended_dates(self, dt_from, dt_to, tz):
+        """Return the dates already covered by an attendance of the employee"""
+        self.ensure_one()
+        attendance_records = self.attendance_ids.filtered_domain(
+            [
+                ("check_in", ">=", dt_from.replace(tzinfo=None)),
+                ("check_in", "<=", dt_to.replace(tzinfo=None)),
+            ]
+        )
+        attended_dates = set()
+        for fname in ("check_in", "check_out"):
+            for attendance_date in attendance_records.mapped(fname):
+                if attendance_date:  # Handle empty check_out field
+                    attended_dates.add(ensure_tz(attendance_date, tz).date())
+        return attended_dates
+
     def _create_missing_attendances(self, date_from=None, date_to=None):
         self.ensure_one()
+
+        if not self.resource_calendar_id:
+            return
 
         reason = self.env.company.sudo().attendance_missing_days_reason
         if not reason:
             return
 
         if not date_from:
-            date_from = self.env.company.sudo().overtime_start_date
+            date_from = self.env.company.sudo().attendance_missing_days_start_date
+
+        if not date_from:
+            return
 
         if not date_to:
             date_to = date.today()
@@ -78,23 +100,11 @@ class Employee(models.Model):
         intervals = self._get_work_intervals_batch(dt_from, dt_to)
         work_dates = {}
         for start, _stop, _attendance in sorted(intervals):
-            start_date = start.date()
+            start_date = ensure_tz(start, tz).date()
             if start_date not in work_dates:
                 work_dates[start_date] = ensure_tz(start, pytz.utc).replace(tzinfo=None)
 
-        domain = [
-            ("check_in", ">=", dt_from.replace(tzinfo=None)),
-            ("check_in", "<=", dt_to.replace(tzinfo=None)),
-        ]
-        attendance_records = self.attendance_ids.filtered_domain(domain)
-
-        attendances = set()
-        for attendance_date in attendance_records.mapped("check_in"):
-            if attendance_date:
-                attendances.add(ensure_tz(attendance_date, tz).date())
-        for attendance_date in attendance_records.mapped("check_out"):
-            if attendance_date:  # Handle empty check_out field
-                attendances.add(ensure_tz(attendance_date, tz).date())
+        attendances = self._get_attended_dates(dt_from, dt_to, tz)
 
         vals = []
         for missing in set(work_dates) - attendances:

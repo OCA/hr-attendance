@@ -11,3 +11,7 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.attendance_missing_days_reason",
         readonly=False,
     )
+    attendance_missing_days_start_date = fields.Date(
+        related="company_id.attendance_missing_days_start_date",
+        readonly=False,
+    )

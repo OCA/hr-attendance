@@ -14,3 +14,7 @@ class ResCompany(models.Model):
             raise_if_not_found=False,
         ),
     )
+    attendance_missing_days_start_date = fields.Date(
+        help="Earliest date taken into account when generating attendances for "
+        "missing days. Leave empty to disable the generation.",
+    )

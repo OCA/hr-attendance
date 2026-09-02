@@ -22,7 +22,7 @@ class TestAttendance(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.env.company.overtime_start_date = datetime(2020, 1, 1)
+        cls.env.company.attendance_missing_days_start_date = date(2020, 1, 1)
 
         cls.employee = cls.env["hr.employee"].create(
             {
