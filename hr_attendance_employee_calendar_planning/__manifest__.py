@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     "name": "Attendance employee calendar planning",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
     "license": "AGPL-3",
