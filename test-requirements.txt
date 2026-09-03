@@ -1,0 +1,1 @@
+odoo-addon-hr_employee_calendar_planning @ git+https://github.com/OCA/hr.git@refs/pull/1618/head#subdirectory=hr_employee_calendar_planning
