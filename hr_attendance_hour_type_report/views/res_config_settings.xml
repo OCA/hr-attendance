@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//app[@name='hr_attendance']/block[@name='overtime_settings']"
+                position="after"
+            >
+                <block
+                    title="Night Hours"
+                    name="attendance_night_hours_setting_container"
+                >
+                    <setting
+                        company_dependent="1"
+                        help="Set the beginning and end of the night work period. This is set in the company's timezone (configured on the partner of the company)."
+                    >
+                        <div class="row">
+                            <label class="col-lg-3" for="hr_night_work_hour_start">
+                                Beginning of night work time
+                            </label>
+                            <field
+                                name="hr_night_work_hour_start"
+                                widget="float_time"
+                            />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-3" for="hr_night_work_hour_end">
+                                End of night work time
+                            </label>
+                            <field name="hr_night_work_hour_end" widget="float_time" />
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
