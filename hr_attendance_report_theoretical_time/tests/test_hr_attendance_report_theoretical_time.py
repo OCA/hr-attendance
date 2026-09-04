@@ -154,7 +154,9 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(self.attendances[5].theoretical_hours, 0)
         # 1946-12-26 - Employee on Holidays
         self.assertEqual(self.attendances[6].theoretical_hours, 0)
+        self.assertEqual(self.attendances[6].leave_hours, 8)
         self.assertEqual(self.attendances[7].theoretical_hours, 0)
+        self.assertEqual(self.attendances[7].leave_hours, 8)
         # EMPLOYEE 2
         # 1946-12-23 - Public holidays for state of employee 2
         self.assertEqual(self.attendances[8].theoretical_hours, 0)
@@ -167,7 +169,9 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         self.assertEqual(self.attendances[13].theoretical_hours, 0)
         # 1946-12-26 - Employee 2 leave
         self.assertEqual(self.attendances[14].theoretical_hours, 8)
+        self.assertEqual(self.attendances[14].leave_hours, 0)
         self.assertEqual(self.attendances[15].theoretical_hours, 8)
+        self.assertEqual(self.attendances[15].leave_hours, 0)
 
     @mute_logger("odoo.models.unlink")
     def test_theoretical_hours_recompute(self):
@@ -328,9 +332,11 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
     def test_hr_holidays_status_include_in_theoretical(self):
         obj = self.env["hr.attendance.theoretical.time.report"]
         self.leave.holiday_status_id.include_in_theoretical = True
+        self.leave.holiday_status_id.include_in_leave_theoretical = True
         # 1946-12-26 - Employee 1
         a = self.attendances[6]
         self.assertEqual(obj._theoretical_hours(a.employee_id, a.check_in), 8)
+        self.assertEqual(obj._leave_hours(a.employee_id, a.check_in), 0)
 
     def test_wizard_theoretical_time(self):
         department = self.env["hr.department"].create({"name": "Department"})
@@ -352,6 +358,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
     @mute_logger("odoo.models.unlink")
     def test_theoretical_recompute_on_unactive(self):
         self.assertEqual(self.attendances[0].theoretical_hours, 8)
+        self.assertEqual(self.attendances[0].leave_hours, 0)
         self.attendances[0].active = False
         leave = self.env["hr.leave"].create(
             {
@@ -365,6 +372,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         )
         leave.action_approve()
         self.assertEqual(self.attendances[0].theoretical_hours, 0)
+        self.assertEqual(self.attendances[0].leave_hours, 0)
         self.leave_type.include_in_theoretical = True
         self.env["recompute.theoretical.attendance"].create(
             {
@@ -374,6 +382,7 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
             }
         ).action_recompute()
         self.assertEqual(self.attendances[0].theoretical_hours, 8)
+        self.assertEqual(self.attendances[0].leave_hours, 8)
 
 
 class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):

@@ -52,6 +52,7 @@
                 <field name="worked_hours" type="measure" widget="float_time" />
                 <field name="theoretical_hours" type="measure" widget="float_time" />
                 <field name="difference" type="measure" widget="float_time" />
+                <field name="leave_hours" type="measure" widget="float_time" />
             </pivot>
         </field>
     </record>
