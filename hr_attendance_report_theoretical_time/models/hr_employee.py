@@ -103,7 +103,13 @@ class HrEmployee(models.Model):
             }
         )
         dates_to_create = {}
-        expected_attendances = self.resource_calendar_id._work_intervals_batch(
+        calendar = self.resource_calendar_id.with_context(
+            # It is important to define these context values so that
+            # `hr_holidays_public` excludes the corresponding public holidays
+            exclude_public_holidays=True,
+            employee_id=self.id,
+        )
+        expected_attendances = calendar._work_intervals_batch(
             from_datetime,
             to_datetime,
             resources=self.resource_id,
