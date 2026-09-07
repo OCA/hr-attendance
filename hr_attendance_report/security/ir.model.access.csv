@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_attendance_report_wizard,access_employee_attendance_report_wizard,model_employee_attendance_report_wizard,hr_attendance.group_hr_attendance_officer,1,1,1,1
+access_hr_attendance_report_download,access_hr_attendance_report_download,model_hr_attendance_report_download,hr_attendance.group_hr_attendance_officer,1,1,1,1
