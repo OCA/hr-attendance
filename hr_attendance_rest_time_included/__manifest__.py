@@ -14,6 +14,7 @@
         "views/hr_attendance_views.xml",
         "views/hr_attendance_rest_time_views.xml",
         "views/hr_attendance_reason_views.xml",
+        "report/hr_attendance_report_views.xml",
     ],
     "installable": True,
     "application": False,
