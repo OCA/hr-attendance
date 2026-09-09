@@ -86,3 +86,7 @@ docs/_build/
 
 # OCA rules
 !static/lib/
+
+# on-prem deployment (added by odoo-deploy tooling)
+deployment/addons/
+deployment/.env

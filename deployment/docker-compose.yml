@@ -1,0 +1,120 @@
+version: "3.8"
+
+# One Odoo instance per addon repo (Odoo has no native path-prefix routing),
+# fronted by nginx which maps /HRattendance, /timesheet, /purchaseworkflow,
+# /HRexpense to each instance. Shared Postgres server, separate DB per service.
+# Secrets/config come from .env (see .env.example) — never hardcode here.
+#
+# This compose file lives inside the odoo-hr-attendance repo itself, under
+# deployment/. The hr-attendance service mounts the repo root (../) directly
+# as its addons source; the other 3 services are cloned into ./addons by
+# clone.sh.
+
+x-odoo-common: &odoo-common
+  image: odoo:${ODOO_VERSION:-17.0}
+  restart: unless-stopped
+  depends_on:
+    - db
+  environment:
+    HOST: db
+    USER: ${POSTGRES_USER}
+    PASSWORD: ${POSTGRES_PASSWORD}
+
+services:
+  db:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  odoo-hr-attendance:
+    <<: *odoo-common
+    environment:
+      HOST: db
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: hr_attendance
+      ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD}
+      LIST_DB: "False"
+    volumes:
+      - ../:/mnt/extra-addons
+      - odoo_attendance_data:/var/lib/odoo
+    command: >
+      odoo -d hr_attendance --db_host=db --db_user=${POSTGRES_USER} --db_password=${POSTGRES_PASSWORD}
+      --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+      --proxy-mode
+
+  odoo-timesheet:
+    <<: *odoo-common
+    environment:
+      HOST: db
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: timesheet
+      ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD}
+      LIST_DB: "False"
+    volumes:
+      - ./addons/odoo-timesheet:/mnt/extra-addons
+      - odoo_timesheet_data:/var/lib/odoo
+    command: >
+      odoo -d timesheet --db_host=db --db_user=${POSTGRES_USER} --db_password=${POSTGRES_PASSWORD}
+      --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+      --proxy-mode
+
+  odoo-purchase-workflow:
+    <<: *odoo-common
+    environment:
+      HOST: db
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: purchase_workflow
+      ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD}
+      LIST_DB: "False"
+    volumes:
+      - ./addons/odoo-purchase-workflow:/mnt/extra-addons
+      - odoo_purchase_data:/var/lib/odoo
+    command: >
+      odoo -d purchase_workflow --db_host=db --db_user=${POSTGRES_USER} --db_password=${POSTGRES_PASSWORD}
+      --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+      --proxy-mode
+
+  odoo-hr-expense:
+    <<: *odoo-common
+    environment:
+      HOST: db
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: hr_expense
+      ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD}
+      LIST_DB: "False"
+    volumes:
+      - ./addons/odoo-hr-expense:/mnt/extra-addons
+      - odoo_expense_data:/var/lib/odoo
+    command: >
+      odoo -d hr_expense --db_host=db --db_user=${POSTGRES_USER} --db_password=${POSTGRES_PASSWORD}
+      --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+      --proxy-mode
+
+  nginx:
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - odoo-hr-attendance
+      - odoo-timesheet
+      - odoo-purchase-workflow
+      - odoo-hr-expense
+
+volumes:
+  db_data:
+  odoo_attendance_data:
+  odoo_timesheet_data:
+  odoo_purchase_data:
+  odoo_expense_data:

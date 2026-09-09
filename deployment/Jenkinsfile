@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+
+    // Trigger manually, on a schedule, or via webhook from any of the 4 addon repos.
+    // triggers { cron('H 2 * * *') }
+
+    environment {
+        DEPLOY_DIR = '/opt/odoo-deploy'   // path on the on-prem VM
+        DEPLOY_HOST = credentials('odoo-vm-ssh-host')   // e.g. deploy@10.0.0.5, Jenkins credential
+        SSH_CRED_ID = 'odoo-vm-ssh-key'
+    }
+
+    stages {
+        stage('Checkout odoo-hr-attendance (contains deployment/)') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Sync repo (module code + deployment/) to VM') {
+            steps {
+                sshagent(credentials: [env.SSH_CRED_ID]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_HOST} 'mkdir -p ${DEPLOY_DIR}'
+                        rsync -avz --delete \
+                          --exclude '.git' \
+                          --exclude 'deployment/addons' \
+                          --exclude 'deployment/.env' \
+                          ./ ${DEPLOY_HOST}:${DEPLOY_DIR}/
+                    """
+                }
+            }
+        }
+
+        stage('Deploy (clone other 3 addon repos + docker compose up)') {
+            steps {
+                sshagent(credentials: [env.SSH_CRED_ID]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_HOST} '\
+                          cd ${DEPLOY_DIR}/deployment && chmod +x clone.sh deploy.sh && ./deploy.sh'
+                    """
+                }
+            }
+        }
+
+        stage('Health check') {
+            steps {
+                sshagent(credentials: [env.SSH_CRED_ID]) {
+                    sh """
+                        ssh -o StrictHostKeyChecking=no ${DEPLOY_HOST} '\
+                          docker compose -f ${DEPLOY_DIR}/deployment/docker-compose.yml ps'
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo 'Deployment failed — check stage logs above.'
+        }
+        success {
+            echo 'Deployed. Endpoints: /HRattendance/ /timesheet/ /purchaseworkflow/ /HRexpense/'
+        }
+    }
+}
