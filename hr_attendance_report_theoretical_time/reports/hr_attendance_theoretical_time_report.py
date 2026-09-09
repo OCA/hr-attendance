@@ -107,11 +107,16 @@ CREATE or REPLACE VIEW %s as (
         if not employee.resource_id.calendar_id:
             return 0
         tz = employee.resource_id.calendar_id.tz
+        tz_obj = pytz.timezone(tz)
         res = employee.with_context(
             exclude_public_holidays=True, employee_id=employee.id
         )._get_work_days_data_batch(
-            datetime.combine(date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))),
-            datetime.combine(date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))),
+            tz_obj.localize(datetime.combine(date, time.min))
+            .astimezone(pytz.UTC)
+            .replace(tzinfo=None),
+            tz_obj.localize(datetime.combine(date, time.max))
+            .astimezone(pytz.UTC)
+            .replace(tzinfo=None),
             # Pass this domain for excluding leaves whose type is included in
             # theoretical hours
             domain=[
