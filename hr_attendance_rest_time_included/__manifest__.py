@@ -2,7 +2,7 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Hr attendance rest time included",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "summary": "Rest time of employee's is included during their working hours",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/hr-attendance",
