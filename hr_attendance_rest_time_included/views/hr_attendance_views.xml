@@ -42,16 +42,6 @@
             </field>
         </field>
     </record>
-    <record id="hr_attendance_view_pivot" model="ir.ui.view">
-        <field name="name">hr.attendance.pivot.imherit</field>
-        <field name="model">hr.attendance</field>
-        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_pivot" />
-        <field name="arch" type="xml">
-            <field name="worked_hours" position="after">
-                <field name="rest_hours" widget="float_time" />
-            </field>
-        </field>
-    </record>
     <record id="hr_attendance_view_graph" model="ir.ui.view">
         <field name="name">hr.attendance.graph.inherit</field>
         <field name="model">hr.attendance</field>
