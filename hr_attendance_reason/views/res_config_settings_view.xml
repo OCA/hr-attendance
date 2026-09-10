@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.hr.attendance.reason</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//app[@name='hr_attendance']//block[@name='kiosk_mode_setting_container']"
+                position="inside"
+            >
+                <setting
+                    company_dependent="1"
+                    string="Attendance Reasons"
+                    help="Show reasons on attendance screen"
+                >
+                    <field name="show_reason_on_attendance_screen" />
+                    <div
+                        class="content-group"
+                        invisible="not show_reason_on_attendance_screen"
+                    >
+                        <div class="mt16 d-flex">
+                            <label
+                                for="required_reason_on_attendance_screen"
+                                string="Reason is required"
+                                class="o_light_label"
+                            />
+                            <field
+                                name="required_reason_on_attendance_screen"
+                                nolabel="1"
+                                class="ml16"
+                            />
+                        </div>
+                        <div class="mt16 row">
+                            <label
+                                for="reason_on_attendance_screen_default_sign_in"
+                                string="Default value for sign-in"
+                                class="o_light_label col-lg-4"
+                            />
+                            <field
+                                name="reason_on_attendance_screen_default_sign_in"
+                                nolabel="1"
+                            />
+                        </div>
+                        <div class="mt16 row">
+                            <label
+                                for="reason_on_attendance_screen_default_sign_out"
+                                string="Default value for sign-out"
+                                class="o_light_label col-lg-4"
+                            />
+                            <field
+                                name="reason_on_attendance_screen_default_sign_out"
+                                nolabel="1"
+                            />
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
