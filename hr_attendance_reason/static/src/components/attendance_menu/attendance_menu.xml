@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="attendance_menu_reason"
+        t-inherit="hr_attendance.attendance_menu"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('o_att_menu_container')]" position="after">
+            <div
+                class="reasons_lists"
+                t-if="this.employee.reasons and this.employee.show_reason_on_attendance_screen"
+            >
+                <h4 class="mt8">Reason</h4>
+                <select
+                    id="attendance_reason"
+                    t-ref="attendance_reason"
+                    t-attf-class="o_hr_attendance_reason o_input_dropdown o_input o_field_widget {{ this.employee.required_reason_on_attendance_screen ? 'o_required_modifier' : '' }}"
+                >
+                    <option value="0" />
+                    <t
+                        t-foreach="this.employee.reasons"
+                        t-as="reason"
+                        t-key="reason_index"
+                    >
+                        <option
+                            t-att-value="reason.id"
+                            t-esc="reason.name"
+                            t-att-selected="reason.id === (reason.action_type === 'sign_in' ?
+                            this.employee.default_sign_in_reason_id : this.employee.default_sign_out_reason_id)"
+                        />
+                    </t>
+                </select>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,262 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_reason
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-25 08:09+0000\n"
+"PO-Revision-Date: 2024-11-25 08:09+0000\n"
+"Last-Translator: Tom Tietze <tom.tietze@manatec.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__action_type
+msgid "Action Type"
+msgstr "Тип на действието"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
+msgid "An attendance reason is required!"
+msgstr "Необходимо е да посочите причина за присъствие!"
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_attendance
+msgid "Attendance"
+msgstr "Присъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance__attendance_reason_ids
+msgid "Attendance Reason"
+msgstr "Причина за отсъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.actions.act_window,name:hr_attendance_reason.hr_attendance_reason_action
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Attendance Reasons"
+msgstr "Причини за отсъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model.constraint,message:hr_attendance_reason.constraint_hr_attendance_reason_unique_code
+msgid "Code must be unique"
+msgstr "Кода трябва да е уникален"
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_res_company
+msgid "Companies"
+msgstr "Фирми"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__company_id
+msgid "Company"
+msgstr "Фирма"
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_res_config_settings
+msgid "Config Settings"
+msgstr "Конфигурационни настройки"
+
+#. module: hr_attendance_reason
+#: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_settings_redefinition_menu
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Continue"
+msgstr "Продължи"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__create_uid
+msgid "Created by"
+msgstr "Създаден от"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__create_date
+msgid "Created on"
+msgstr "Създаден на"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_on_attendance_screen_default_sign_in
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_on_attendance_screen_default_sign_in
+msgid "Default sign-in reason for attendance screen"
+msgstr "Причина за влизане по подразбиране за екрана за присъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__reason_on_attendance_screen_default_sign_out
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__reason_on_attendance_screen_default_sign_out
+msgid "Default sign-out reason for attendance screen"
+msgstr "Причина за отписване по подразбиране за екрана за присъствие"
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Default value for sign-in"
+msgstr "Стойност по подразбиране за вписване"
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Default value for sign-out"
+msgstr "Стойност по подразбиране за отписване"
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.hr_attendance_reason_view_form
+msgid "Define attendance reason"
+msgstr "Дефинирай причини за отсъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__display_name
+msgid "Display Name"
+msgstr "Име за показване"
+
+#. module: hr_attendance_reason
+#: model:ir.model,name:hr_attendance_reason.model_hr_employee
+msgid "Employee"
+msgstr "Служител"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Error: could not find corresponding employee."
+msgstr "Грешка: Не беше открит съответващ служител."
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Go back"
+msgstr "Върнете се назад"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__id
+msgid "ID"
+msgstr "ИН"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__write_uid
+msgid "Last Updated by"
+msgstr "Последно актуализирано от"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__write_date
+msgid "Last Updated on"
+msgstr "Последно актуализирано на"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__action_type
+msgid "Leave empty if it is independent"
+msgstr "Остави празно ако не е зависимо"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Please return to the main menu."
+msgstr "Моля, върнете се в основното меню."
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "Please select a reason to"
+msgstr "Моля, изберете причина за"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.esm.js:0
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.esm.js:0
+msgid "Please, select a reason!"
+msgstr "Моля, изберете причина!"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/attendance_menu/attendance_menu.xml:0
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__name
+msgid "Reason"
+msgstr "Причина"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__code
+msgid "Reason Code"
+msgstr "Код на причина"
+
+#. module: hr_attendance_reason
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Reason is required"
+msgstr "Необходима е причина"
+
+#. module: hr_attendance_reason
+#: model:ir.ui.menu,name:hr_attendance_reason.hr_attendance_reason_menu
+msgid "Reasons"
+msgstr "Причини"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__required_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__required_reason_on_attendance_screen
+msgid "Required reason on attendance screen"
+msgstr "Задължителна причина на екрана за присъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__sequence
+msgid "Sequence"
+msgstr "Последователност"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_hr_attendance_reason__show_on_attendance_screen
+msgid "Show on attendance screen?"
+msgstr "Показване на екрана за присъствие?"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_company__show_reason_on_attendance_screen
+#: model:ir.model.fields,field_description:hr_attendance_reason.field_res_config_settings__show_reason_on_attendance_screen
+#: model_terms:ir.ui.view,arch_db:hr_attendance_reason.res_config_settings_view_form
+msgid "Show reasons on attendance screen"
+msgstr "Показване на причините на екрана за присъствие"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_in
+msgid "Sign in"
+msgstr "Вписване"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+#: model:ir.model.fields.selection,name:hr_attendance_reason.selection__hr_attendance_reason__action_type__sign_out
+msgid "Sign out"
+msgstr "Отписване"
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance__attendance_reason_ids
+msgid ""
+"Specifies the reason for signing In/signing Out in case of less or extra "
+"hours."
+msgstr ""
+"Уточни причината за Вписване/Отписване при по-малко или повече часове."
+
+#. module: hr_attendance_reason
+#: model:ir.model.fields,help:hr_attendance_reason.field_hr_attendance_reason__name
+msgid "Specifies the reason leaving soon or arriving late"
+msgstr "Уточни причината за тръгване по-рано или закъснение"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/public_kiosk/public_kiosk_app.esm.js:0
+msgid "Wrong Pin"
+msgstr "Грешен пин"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "check in"
+msgstr "регистрация"
+
+#. module: hr_attendance_reason
+#. odoo-javascript
+#: code:addons/hr_attendance_reason/static/src/components/kiosk_reason/kiosk_reason.xml:0
+msgid "check out"
+msgstr "да се отметнете"

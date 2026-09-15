@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="public_kiosk_reason"
+        t-inherit="hr_attendance.public_kiosk_app"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//CardLayout" position="inside">
+            <t t-if="this.state.active_display === 'reason'">
+                <KioskReason
+                    employeeData="this.employeeData"
+                    reasons="this.reasons"
+                    pin_code="this.pin_code"
+                    onReasonConfirm="(employee_id, pin_code, attendance_reason_id) => this.onReasonSelection(employee_id, pin_code, attendance_reason_id)"
+                    onClickBack="() => this.kioskReturn()"
+                />
+                <input t-ref="attendance_reason" type="hidden" />
+            </t>
+        </xpath>
+    </t>
+</templates>
