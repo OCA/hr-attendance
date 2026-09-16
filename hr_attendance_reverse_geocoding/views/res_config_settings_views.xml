@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form_geocoding" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.geocoding</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='overtime_settings']" position="after">
+
+                <h2>Reverse Geocode</h2>
+                <div class="row mt16 o_settings_container" name="reserve geocode">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Geocode Provider</span>
+                            <div class="text-muted">
+                                An external service that converts GPS coordinates into readable addresses.
+                            </div>
+                            <div class="content-group mt8">
+                                <div class="row">
+                                    <label
+                                        for="attendance_geocode_provider"
+                                        class="col-lg-4 o_light_label"
+                                    />
+                                    <field name="attendance_geocode_provider" />
+                                </div>
+                                <div class="row mt4">
+                                    <label
+                                        for="attendance_geocode_api_key"
+                                        class="col-lg-4 o_light_label"
+                                    />
+                                    <field
+                                        name="attendance_geocode_api_key"
+                                        password="True"
+                                    />
+                                </div>
+                                <div class="row mt4">
+                                    <label
+                                        for="attendance_geocode_endpoint"
+                                        class="col-lg-4 o_light_label"
+                                    />
+                                    <field name="attendance_geocode_endpoint" />
+                                </div>
+                                <div class="row mt4">
+                                    <label
+                                        for="geolocation_rounding_precision"
+                                        class="col-lg-4 o_light_label"
+                                    />
+                                    <field name="geolocation_rounding_precision" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

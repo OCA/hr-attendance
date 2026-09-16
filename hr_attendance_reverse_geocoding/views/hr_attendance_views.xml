@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hr_attendance_view_form_geocoding" model="ir.ui.view">
+        <field name="name">hr.attendance.form.geocoding</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Geocode" name="geocoding">
+                        <group string="Check-In" name="geocoding_checkin">
+                            <group>
+                                <field
+                                    name="check_in_geocode_status"
+                                    widget="badge"
+                                    decoration-success="check_in_geocode_status == 'done'"
+                                    decoration-warning="check_in_geocode_status == 'pending'"
+                                    decoration-danger="check_in_geocode_status == 'error'"
+                                />
+                                <field name="check_in_geocode_provider" />
+                            </group>
+                            <group>
+                                <field name="check_in_address" />
+                                <field
+                                    name="check_in_map_url"
+                                    widget="url"
+                                    attrs="{'invisible': [('check_in_map_url', '=', False)]}"
+                                />
+                            </group>
+                            <group
+                                attrs="{'invisible': [('check_in_geocode_status', '!=', 'error')]}"
+                            >
+                                <field name="check_in_geocode_error" />
+                            </group>
+                        </group>
+
+                        <group
+                            string="Check-out"
+                            name="geocoding_checkout"
+                            attrs="{'invisible': [('check_out', '=', False)]}"
+                        >
+                            <group>
+                                <field
+                                    name="check_out_geocode_status"
+                                    widget="badge"
+                                    decoration-success="check_out_geocode_status == 'done'"
+                                    decoration-warning="check_out_geocode_status == 'pending'"
+                                    decoration-danger="check_out_geocode_status == 'error'"
+                                />
+                                <field name="check_out_geocode_provider" />
+                            </group>
+                            <group>
+                                <field name="check_out_address" />
+                                <field
+                                    name="check_out_map_url"
+                                    widget="url"
+                                    attrs="{'invisible': [('check_out_map_url', '=', False)]}"
+                                />
+                            </group>
+                            <group
+                                groups="hr.group_hr_manager,base.group_system"
+                                attrs="{'invisible': [('check_out_geocode_status', '!=', 'error')]}"
+                            >
+                                <field name="check_out_geocode_error" />
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
