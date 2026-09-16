@@ -1,0 +1,1 @@
+No configuration needed. Requires existing attendance records to display data.
