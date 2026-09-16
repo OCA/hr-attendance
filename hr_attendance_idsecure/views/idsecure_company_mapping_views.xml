@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="idsecure_company_mapping_tree" model="ir.ui.view">
+        <field name="name">idsecure.company.mapping.tree</field>
+        <field name="model">idsecure.company.mapping</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="idsecure_group_id" />
+                <field name="idsecure_id_type" />
+                <field name="company_id" />
+                <field name="employee_type" />
+                <field name="import_attendance" />
+                <field name="device_id" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_idsecure_company_mapping" model="ir.actions.act_window">
+        <field name="name">Company Mappings</field>
+        <field name="res_model">idsecure.company.mapping</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>
