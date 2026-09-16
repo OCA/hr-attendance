@@ -10,6 +10,7 @@
     "installable": True,
     "depends": ["hr_attendance", "hr_holidays_public"],
     "data": [
+        "data/ir_cron.xml",
         "security/ir.model.access.csv",
         "security/hr_attendance_report_theoretical_time_security.xml",
         "views/hr_leave_type_views.xml",

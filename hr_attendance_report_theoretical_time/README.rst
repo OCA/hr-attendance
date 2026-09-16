@@ -1,3 +1,7 @@
+.. image:: https://odoo-community.org/readme-banner-image
+   :target: https://odoo-community.org/get-involved?utm_source=readme
+   :alt: Odoo Community Association
+
 =====================================
 Theoretical vs Attended Time Analysis
 =====================================
@@ -13,7 +17,7 @@ Theoretical vs Attended Time Analysis
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
@@ -145,11 +149,16 @@ Contributors
   * Pedro M. Baeza.
   * David Vidal
   * Víctor Martínez
+  * Juan José Seguí
 * Pedro Gonzalez <pedro.gonzalez@pesol.es>
 * Aritz Olea <ao@landoo.es>
 * `Trobz <https://trobz.com>`__:
 
   * Dzung Tran <dungtd@trobz.com>
+  * Do Anh Duy <duyda@trobz.com>
+* `Dixmit <https://dixmit.com>`__:
+
+  * Enric Tobella
 
 Other credits
 ~~~~~~~~~~~~~
