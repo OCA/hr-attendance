@@ -169,10 +169,22 @@ msgid "ID"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_leave_theoretical
+msgid ""
+"If you check this mark, leaves in this category won't reduce the number of "
+"leave hours in the attendance report."
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
 msgid ""
 "If you check this mark, leaves in this category won't reduce the number of "
 "theoretical hours in the attendance report."
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_leave_theoretical
+msgid "Include in leave hours"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time
@@ -190,6 +202,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_recompute_theoretical_attendance__write_date
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_wizard_theoretical_time__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__leave_hours
+msgid "Leave"
+msgstr ""
+
+#. module: hr_attendance_report_theoretical_time
+#: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__leave_hours
+msgid "Leave Hours"
 msgstr ""
 
 #. module: hr_attendance_report_theoretical_time

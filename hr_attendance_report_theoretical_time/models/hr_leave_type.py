@@ -12,3 +12,8 @@ class HrLeaveType(models.Model):
         help="If you check this mark, leaves in this category won't reduce "
         "the number of theoretical hours in the attendance report.",
     )
+    include_in_leave_theoretical = fields.Boolean(
+        string="Include in leave hours",
+        help="If you check this mark, leaves in this category won't reduce "
+        "the number of leave hours in the attendance report.",
+    )

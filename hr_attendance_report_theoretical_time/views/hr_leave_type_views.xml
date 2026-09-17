@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <field name="request_unit" position="after">
                 <field name="include_in_theoretical" />
+                <field name="include_in_leave_theoretical" />
             </field>
         </field>
     </record>

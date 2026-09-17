@@ -25,6 +25,7 @@ class RecomputeTheoreticalAttendance(models.TransientModel):
         """This method allows other modules to extend it to perform other actions
         and/or execute other methods compute from the corresponding attendances."""
         attendances._compute_theoretical_hours()
+        attendances._compute_leave_hours()
 
     def action_recompute(self):
         self.ensure_one()
