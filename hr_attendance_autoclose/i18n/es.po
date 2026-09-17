@@ -81,6 +81,11 @@ msgid "Max Hours Per Day"
 msgstr "Horas Máximas por Día"
 
 #. module: hr_attendance_autoclose
+#: model:hr.attendance.reason,name:hr_attendance_autoclose.hr_attendance_reason_check_out
+msgid "System automatic check out due to inactivity"
+msgstr ""
+
+#. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "This reason will be added to an attendance\n"

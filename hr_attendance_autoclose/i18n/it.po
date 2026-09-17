@@ -83,6 +83,11 @@ msgid "Max Hours Per Day"
 msgstr "Massimo di ore al giorno"
 
 #. module: hr_attendance_autoclose
+#: model:hr.attendance.reason,name:hr_attendance_autoclose.hr_attendance_reason_check_out
+msgid "System automatic check out due to inactivity"
+msgstr "Presenza chiusa automaticamente dal sistema causa inattività"
+
+#. module: hr_attendance_autoclose
 #: model_terms:ir.ui.view,arch_db:hr_attendance_autoclose.res_config_settings_view_form
 msgid ""
 "This reason will be added to an attendance\n"
@@ -130,6 +135,3 @@ msgstr "Ore lavorate"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Ultima modifica il"
-
-#~ msgid "System automatic check out due to inactivity"
-#~ msgstr "Presenza chiusa automaticamente dal sistema causa inattività"
