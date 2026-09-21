@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-09-03 11:46+0000\n"
+"PO-Revision-Date: 2026-09-21 11:48+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -181,6 +181,8 @@ msgid ""
 "If you check this mark, leaves in this category won't reduce the number of "
 "leave hours in the attendance report."
 msgstr ""
+"Se si seleziona questa opzione, i permessi in questa categoria non riducono "
+"le ore di permesso nel resoconto presenze."
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,help:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
@@ -194,7 +196,7 @@ msgstr ""
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_leave_theoretical
 msgid "Include in leave hours"
-msgstr ""
+msgstr "Includi nelle ore permesso"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_leave_type__include_in_theoretical
@@ -216,12 +218,12 @@ msgstr "Ultimo aggiornamento il"
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance_theoretical_time_report__leave_hours
 msgid "Leave"
-msgstr ""
+msgstr "Permesso"
 
 #. module: hr_attendance_report_theoretical_time
 #: model:ir.model.fields,field_description:hr_attendance_report_theoretical_time.field_hr_attendance__leave_hours
 msgid "Leave Hours"
-msgstr ""
+msgstr "Ore permesso"
 
 #. module: hr_attendance_report_theoretical_time
 #: model_terms:ir.ui.view,arch_db:hr_attendance_report_theoretical_time.hr_attendance_theoretical_view_filter
