@@ -1,0 +1,27 @@
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+{
+    "name": "HR Attendance Time Credit",
+    "version": "17.0.1.0.0",
+    "category": "Human Resources",
+    "summary": "Rule-based engine to compute time credits on attendance records",
+    "website": "https://github.com/OCA/hr-attendance",
+    "author": "Binhex, Odoo Community Association (OCA)",
+    "license": "LGPL-3",
+    "installable": True,
+    "depends": ["hr_attendance", "resource"],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/hr_attendance_time_credit_type_security.xml",
+        "security/hr_attendance_time_credit_rule_security.xml",
+        "security/hr_attendance_time_credit_security.xml",
+        "security/hr_attendance_time_credit_report_security.xml",
+        "data/ir_cron_data.xml",
+        "views/hr_attendance_time_credit_type_views.xml",
+        "views/hr_attendance_time_credit_rule_views.xml",
+        "views/hr_attendance_time_credit_views.xml",
+        "views/hr_attendance_views.xml",
+        "views/hr_attendance_time_credit_report_views.xml",
+        "views/hr_attendance_time_credit_wizard_views.xml",
+        "reports/hr_attendance_time_credit_report_template.xml",
+    ],
+}

@@ -1,0 +1,920 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_time_credit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.report,print_report_name:hr_attendance_time_credit.action_report_time_credit_monthly
+msgid "'Time Credit Report %s to %s' % (object.date_from, object.date_to)"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__active
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__attendance_id
+msgid "Attendance"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__attendance_count
+msgid "Attendance Count"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance_time_credit
+msgid "Attendance Time Credit"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance_time_credit_report
+msgid "Attendance Time Credit Monthly Report"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance_time_credit_rule
+msgid "Attendance Time Credit Rule"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance_time_credit_type
+msgid "Attendance Time Credit Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__attendance_id
+msgid "Attendance record this credit line belongs to."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.server,name:hr_attendance_time_credit.ir_cron_process_attendance_time_credits_ir_actions_server
+msgid "Attendance: Process Time Credit Rules"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit__origin__automatic
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Automatic"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__calendar_id
+msgid "Calendar"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__segment_date
+msgid ""
+"Calendar date this credit line applies to. Set when the parent attendance "
+"spans multiple days and the rule uses per-day evaluation."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__type_id
+msgid ""
+"Category of time credit granted, e.g. travel time, dressing time, paid "
+"break, sunday premium."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__check_in
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Check In"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__check_in_day_type
+msgid "Check In Day Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Check-in"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__check_in
+msgid "Check-in time derived from the linked attendance record."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Check-out"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__code
+msgid "Code"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__company_id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__company_id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__company_id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__company_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_report_view_search
+msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__company_id
+msgid "Company derived from the employee linked to the attendance record."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_type__company_id
+msgid "Company that owns this credit type."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__condition_action_id
+msgid "Condition Server Action"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__condition_type
+msgid "Condition Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__segment_mode__consolidate
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_type__segment_mode__consolidate
+msgid "Consolidated"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__create_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__create_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__create_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__credit_locked
+msgid "Credit Locked"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__credit_type_id
+msgid "Credit Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_tree
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Credited Hours"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Credited h."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Date"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__check_in_day_type
+msgid ""
+"Day type based on the employee's working schedule. A day with no scheduled "
+"attendance in the resource calendar is classified as non-working (weekend or"
+" rest day)."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_type__segment_mode
+msgid ""
+"Default mode for rules of this type. 'Segmented' evaluates each calendar-day"
+" segment independently (current default). 'Consolidated' produces one credit"
+" line per attendance for midnight-crossing attendances."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__name
+msgid ""
+"Descriptive name that identifies the purpose of this rule, e.g. 'Travel "
+"Time', 'Dressing Time', 'Sunday Premium'."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__display_name
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__display_name
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__display_name
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__display_name
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__domain
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__condition_type__domain
+msgid "Domain"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__condition_type
+msgid ""
+"Domain: Odoo domain filter on the attendance record. Server Action: "
+"delegates condition evaluation to an ir.actions.server of type 'code'. The "
+"action must set `action = True` to trigger the rule."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__minutes
+msgid "Duration of the time credit expressed in minutes."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__employee_id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__employee_id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_report_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Employee"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__employee_id
+msgid "Employee derived from the linked attendance record."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__employee_ids
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_wizard_view_form
+msgid "Employees"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__segment_mode
+msgid ""
+"Empty = inherit from credit type. 'Consolidated' produces one credit line "
+"per attendance even when it crosses midnight. 'Segmented' evaluates each "
+"calendar-day segment independently (current default behavior)."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__date_to
+msgid "End date of the reporting period (inclusive)."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__sequence
+msgid ""
+"Evaluation order; rules with a lower sequence number are applied first."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__factor_base
+msgid "Factor Base"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__factor_value
+msgid "Factor Value"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__month
+msgid "First day of the month this row covers."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__minutes_type__fixed
+msgid "Fixed"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_fixed
+msgid "Fixed number of minutes granted when the rule condition is satisfied."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_type
+msgid ""
+"Fixed: a constant number of minutes. Server Action: computes minutes "
+"dynamically via an ir.actions.server of type 'code'. The action must set "
+"`action = <integer>` with the number of minutes. Worked Time Factor: credits"
+" additional time as a multiple of worked hours (or accumulated credited "
+"hours). E.g. factor 1.5 on 8h → 4h extra credit."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__date_from
+msgid "From"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_filter
+msgid "Has Time Credits"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__segment_hours
+msgid "Hours in this specific day segment. Set alongside segment_date."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_type__name
+msgid ""
+"Human-readable label for this credit type, e.g. 'Travel Time', 'Dressing "
+"Time', 'Paid Break', 'Sunday Premium'."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__id
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_type__active
+msgid ""
+"If unchecked, this credit type will be hidden and unavailable for new rules."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__active
+msgid "If unchecked, this rule is skipped during time credit processing."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__origin
+msgid ""
+"Indicates whether this credit was computed automatically by the rule engine "
+"or added manually by a user."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__segment_mode__
+msgid "Inherit from credit type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__is_public_holiday
+msgid "Is Public Holiday"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_report_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Last Month"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__write_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__write_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__write_date
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__employee_ids
+msgid "Leave empty to include all employees visible to the current user."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_filter
+msgid "Locked"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit__origin__manual
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Manual"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_cap
+msgid ""
+"Maximum minutes this rule can grant per attendance (0 = no cap). Applied "
+"after the rate multiplier."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__minutes
+msgid "Minutes"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_cap
+msgid "Minutes Cap"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_fixed
+msgid "Minutes Fixed"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_action_id
+msgid "Minutes Server Action"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_type
+msgid "Minutes Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__month
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_report_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Month"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_report_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_report_menu
+msgid "Monthly Time Credit Summary"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__rate
+msgid ""
+"Multiplier applied to the computed minutes before rounding. Use 0.5 to grant"
+" half the computed time, 1.5 for time and a half, etc."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__factor_value
+msgid ""
+"Multiplier applied to worked time when minutes_type is 'worked_time_factor'."
+" The credit equals the additional time beyond the base: minutes = base_hours"
+" * 60 * (factor - 1.0). E.g. factor 1.5 on 8 hours → 4 hours credit → total "
+"12 hours."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_report_my_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_report_my_menu
+msgid "My Time Credits"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__name
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__name
+msgid "Name"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "No attendance records found for the selected period."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.actions.act_window,help:hr_attendance_time_credit.hr_attendance_time_credit_report_action
+msgid ""
+"No time credit data available yet. Time credit records will appear once "
+"attendances are processed."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.actions.act_window,help:hr_attendance_time_credit.hr_attendance_time_credit_report_my_action
+msgid ""
+"No time credit data available yet. Time credit records will appear once your"
+" attendances are processed."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.actions.act_window,help:hr_attendance_time_credit.hr_attendance_time_credit_action
+msgid "No time credit lines found"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance__check_in_day_type__non_working_day
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_filter
+msgid "Non-Working Day"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__note
+msgid "Note"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__attendance_count
+msgid "Number of closed attendance records in this month."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__domain
+msgid ""
+"Odoo domain filter evaluated against the attendance record. The rule applies"
+" only when the attendance matches this domain."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__note
+msgid "Optional description or justification for this credit line."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__origin
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Origin"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_wizard_view_form
+msgid "Period"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_wizard_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_wizard_menu
+msgid "Print Monthly Report"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_wizard_view_form
+msgid "Print Report"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_wizard_view_form
+msgid "Print Time Credit Monthly Report"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.server,name:hr_attendance_time_credit.hr_attendance_action_process
+msgid "Process Time Credits"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__rate
+msgid "Rate"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__employee_id
+msgid ""
+"Restrict this rule to a specific employee. Takes priority over calendar- and"
+" company-level rules for the same credit type."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__company_id
+msgid ""
+"Restrict this rule to attendances belonging to employees of this company."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__calendar_id
+msgid ""
+"Restrict this rule to employees using this specific work calendar. Takes "
+"priority over company-level rules for the same credit type."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__rule_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Rule"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit__rule_id
+msgid ""
+"Rule that generated this credit line. Empty for manually created credits."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__segment_date
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Segment Date"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__segment_hours
+msgid "Segment Hours"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__segment_mode
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_type__segment_mode
+msgid "Segment Mode"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__segment_mode__segment
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_type__segment_mode__segment
+msgid "Segmented"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__condition_type__server_action
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__minutes_type__server_action
+msgid "Server Action"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__condition_action_id
+msgid ""
+"Server action evaluated to determine if the rule applies. The action code "
+"must set `action = True` for the rule to trigger. Available context: record "
+"(the attendance), env, model, datetime, dateutil, time, timezone."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__minutes_action_id
+msgid ""
+"Server action that computes the credit minutes. The action code must set "
+"`action = <integer>` with the minutes value. Available context: record (the "
+"attendance), env, model, datetime, dateutil, time, timezone."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_type__code
+msgid ""
+"Short unique identifier for this credit type, e.g. 'travel', "
+"'sunday_premium', 'holiday_surcharge'. Must be unique per company."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__skip_time_credit
+msgid "Skip Time Credit"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_filter
+msgid "Skipped"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__date_from
+msgid "Start date of the reporting period (inclusive)."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Summary"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.constraint,message:hr_attendance_time_credit.constraint_hr_attendance_time_credit_type_code_company_uniq
+msgid "The code must be unique per company."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_report_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "This Month"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__time_credit_ids
+msgid "Time Credit"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.report,name:hr_attendance_time_credit.action_report_time_credit_monthly
+msgid "Time Credit Monthly Report"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid ""
+"Time Credit Monthly Report\n"
+"                            <br/>"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model,name:hr_attendance_time_credit.model_hr_attendance_time_credit_report_wizard
+msgid "Time Credit Monthly Report Wizard"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_rule_view_form
+msgid "Time Credit Rule"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_rule_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_rule_menu
+msgid "Time Credit Rules"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_type_view_form
+msgid "Time Credit Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_type_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_type_menu
+msgid "Time Credit Types"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.actions.act_window,name:hr_attendance_time_credit.hr_attendance_time_credit_action
+#: model:ir.ui.menu,name:hr_attendance_time_credit.hr_attendance_time_credit_menu
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_graph
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_pivot
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_form
+msgid "Time Credits"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.actions.act_window,help:hr_attendance_time_credit.hr_attendance_time_credit_action
+msgid ""
+"Time credit lines are created automatically by the rule engine\n"
+"                whenever a matching attendance is saved."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__time_credit_ids
+msgid ""
+"Time credits applied to this attendance record, either automatically by the "
+"rule engine or added manually by a manager."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report_wizard__date_to
+msgid "To"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Total"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance__total_credited_hours
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_credited_hours
+msgid "Total Credited Hours"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_credited_minutes
+msgid "Total Credited Minutes"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_hours
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Total Hours"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_credited_hours
+msgid "Total credited minutes expressed in hours."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Total h."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_credited_minutes
+msgid "Total time credit minutes granted in this month."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__worked_hours
+msgid "Total worked hours for closed attendances in this month."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__is_public_holiday
+msgid ""
+"True when the check-in date (in the employee's local timezone) is covered by"
+" a global calendar leave on the employee's work schedule. Employee-specific "
+"leave days are not considered public holidays."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit__type_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_time_credit_view_search
+msgid "Type"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__credit_type_id
+msgid ""
+"Type of time credit that will be created when this rule's condition is met."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_rule__factor_base
+msgid ""
+"What the factor is applied to when minutes_type is 'worked_time_factor'. "
+"'Worked Hours + Prior Credits' uses the accumulated total from rules "
+"evaluated earlier (lower sequence number)."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__credit_locked
+msgid ""
+"When enabled, credit lines on this record are frozen: automatic "
+"recomputation, rule-change cascades, cron sweeps and manual force reprocess "
+"are all skipped. Unlock the record before making changes."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__skip_time_credit
+msgid ""
+"When enabled, the time credit rule engine will ignore this attendance record"
+" entirely. Restricted to attendance managers to prevent employees from "
+"excluding themselves from credit computation."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,field_description:hr_attendance_time_credit.field_hr_attendance_time_credit_report__worked_hours
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Worked Hours"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__factor_base__credited_hours
+msgid "Worked Hours + Prior Credits"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__factor_base__worked_hours
+msgid "Worked Hours Only"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance_time_credit_rule__minutes_type__worked_time_factor
+msgid "Worked Time Factor"
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.report_time_credit_monthly
+msgid "Worked h."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance__total_credited_hours
+msgid ""
+"Worked hours plus all credited minutes converted to hours. Time credits "
+"represent supplementary credits (travel time, dressing time, paid breaks, "
+"weekend premiums, etc.) that are distinct from worked time; this field "
+"combines both for reporting and payroll reference."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields,help:hr_attendance_time_credit.field_hr_attendance_time_credit_report__total_hours
+msgid "Worked hours plus credited hours for this month."
+msgstr ""
+
+#. module: hr_attendance_time_credit
+#: model:ir.model.fields.selection,name:hr_attendance_time_credit.selection__hr_attendance__check_in_day_type__working_day
+#: model_terms:ir.ui.view,arch_db:hr_attendance_time_credit.hr_attendance_view_filter
+msgid "Working Day"
+msgstr ""
