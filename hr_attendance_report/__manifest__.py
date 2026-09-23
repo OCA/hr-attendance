@@ -3,7 +3,7 @@
 
 {
     "name": "Hr Attendance Report",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Attendance",
     "summary": "Wizard to generate attendance reports in PDF and Excel.",
     "license": "AGPL-3",
@@ -11,6 +11,7 @@
     "website": "https://github.com/OCA/hr-attendance",
     "depends": [
         "hr_attendance",
+        "hr_holidays",
         "hr",
     ],
     "data": [

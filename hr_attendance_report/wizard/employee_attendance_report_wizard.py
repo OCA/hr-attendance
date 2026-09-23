@@ -6,7 +6,6 @@ import datetime
 from calendar import monthrange
 from io import BytesIO
 
-import pytz
 import xlsxwriter
 
 from odoo import _, api, fields, models
@@ -53,6 +52,7 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
     select_all_department = fields.Boolean(
         default=False, string="Select All Departments"
     )
+    include_approved_absences = fields.Boolean(default=True)
     select_month = fields.Selection(
         MONTH_SELECTION,
         string="Month",
@@ -123,11 +123,17 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
             return start, end
         except (ValueError, TypeError) as e:
             raise ValidationError(
-                _("Invalid month or year selection: %(error)s") % {"error": str(e)}
+                _("Invalid month or year selection: %(error)s", error=str(e))
             ) from e
 
     def _get_selected_employees(self):
         """Get employees from direct selection and department selection."""
+        if not self.env.user.has_group("hr_attendance.group_hr_attendance_manager"):
+            employees = self.env["hr.employee"].search([("user_id", "=", self.env.uid)])
+            if not employees:
+                raise ValidationError(_("No employee is linked to the current user."))
+            return employees
+
         employees = self.hr_employee_ids
 
         if self.hr_department_ids:
@@ -164,126 +170,348 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         ).report_action(self, data=data)
 
     def _create_excel_sheet_for_employee(
-        self, workbook, employee, start_date, end_date, attendances
+        self, workbook, employee, start_date, end_date, employee_data
     ):
         """Create an Excel sheet for a single employee's attendance data."""
         # Create sheet with truncated name (Excel limit is 31 chars)
         sheet_name = employee.name[:31] if len(employee.name) > 31 else employee.name
         sheet = workbook.add_worksheet(sheet_name)
 
-        # Define styles
-        date_format = workbook.add_format({"num_format": "yyyy/mm/dd hh:mm:ss"})
+        navy = "#17324D"
+        teal = "#2A7F8E"
+        slate = "#52667A"
+        pale_blue = "#EEF4F6"
+        border_color = "#D9E2E8"
+        stripe_color = "#F8FAFB"
+        absence_color = "#FFF5E6"
+        absence_text = "#79501A"
 
-        header_style = workbook.add_format(
-            {
-                "align": "center",
-                "bold": True,
-                "font_color": "black",
-                "border": 1,
-                "bg_color": "#CC99FF",
-            }
-        )
-
-        center_style = workbook.add_format({"align": "center"})
         title_style = workbook.add_format(
             {
+                "font_name": "Arial",
+                "font_size": 20,
                 "align": "center",
+                "valign": "vcenter",
                 "bold": True,
-                "font_color": "black",
-                "font_size": 15,
+                "font_color": "#FFFFFF",
+                "bg_color": navy,
+            }
+        )
+        subtitle_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 9,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": "#BFE2E7",
+                "bg_color": navy,
+            }
+        )
+        period_label_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 8,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": "#D8F0F3",
+                "bg_color": teal,
+                "border": 1,
+                "border_color": teal,
+            }
+        )
+        period_value_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 10,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": "#FFFFFF",
+                "bg_color": teal,
+                "border": 1,
+                "border_color": teal,
+            }
+        )
+        info_label_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 8,
+                "align": "left",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": slate,
+                "bg_color": "#F3F6F8",
+                "border": 1,
+                "border_color": border_color,
+            }
+        )
+        info_value_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 10,
+                "align": "left",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": navy,
+                "border": 1,
+                "border_color": border_color,
+            }
+        )
+        summary_label_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 8,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": slate,
+                "bg_color": pale_blue,
+                "top": 3,
+                "top_color": teal,
+            }
+        )
+        summary_value_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 16,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": navy,
+                "bg_color": pale_blue,
+            }
+        )
+        table_header_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 9,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": "#FFFFFF",
+                "bg_color": navy,
+                "border": 1,
+                "border_color": navy,
             }
         )
 
-        # Set column widths
-        sheet.set_column(0, 3, 27)
+        body_common = {
+            "font_name": "Arial",
+            "font_size": 9,
+            "align": "center",
+            "valign": "vcenter",
+            "font_color": "#243342",
+            "border": 1,
+            "border_color": border_color,
+        }
+        row_styles = {}
+        for style_name, background, font_color in (
+            ("body", "#FFFFFF", "#243342"),
+            ("stripe", stripe_color, "#243342"),
+            ("absence", absence_color, absence_text),
+        ):
+            row_style = {
+                **body_common,
+                "bg_color": background,
+                "font_color": font_color,
+            }
+            row_styles[style_name] = {
+                "date": workbook.add_format({**row_style, "num_format": "dd/mm/yyyy"}),
+                "datetime": workbook.add_format(
+                    {**row_style, "num_format": "dd/mm/yyyy hh:mm"}
+                ),
+                "text": workbook.add_format(row_style),
+                "hours": workbook.add_format({**row_style, "bold": True}),
+            }
 
-        # Set row heights
-        sheet.set_row(0, 12.5)
-        sheet.set_row(1, 12.5)
-
-        # Write title
-        sheet.merge_range(0, 0, 1, 3, _("Employee Attendance Report"), title_style)
-
-        # Write date range
-        sheet.write(2, 0, _("From"), header_style)
-        sheet.write(2, 1, _("To"), header_style)
-        sheet.write(3, 0, start_date, date_format)
-        sheet.write(3, 1, end_date, date_format)
-
-        # Write employee info headers
-        sheet.write(5, 0, _("Employee Name"), header_style)
-        sheet.write(5, 1, _("Identification No"), header_style)
-        sheet.write(5, 2, _("Manager Name"), header_style)
-        sheet.write(5, 3, _("Department"), header_style)
-
-        # Use sudo() consistently for restricted fields
-        emp_sudo = employee.sudo()
-        sheet.write(6, 0, employee.name or "", center_style)
-        sheet.write(6, 1, emp_sudo.identification_id or "N/A", center_style)
-        sheet.write(
-            6,
-            2,
-            employee.parent_id.name if employee.parent_id else "N/A",
-            center_style,
+        total_label_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 10,
+                "align": "right",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": navy,
+                "bg_color": "#DCEBEF",
+                "border": 1,
+                "border_color": teal,
+            }
         )
-        sheet.write(
-            6,
-            3,
-            employee.department_id.name if employee.department_id else "N/A",
-            center_style,
+        total_value_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 11,
+                "align": "center",
+                "valign": "vcenter",
+                "bold": True,
+                "font_color": "#FFFFFF",
+                "bg_color": teal,
+                "border": 1,
+                "border_color": teal,
+            }
+        )
+        empty_style = workbook.add_format(
+            {
+                "font_name": "Arial",
+                "font_size": 9,
+                "align": "center",
+                "valign": "vcenter",
+                "italic": True,
+                "font_color": "#728394",
+                "bg_color": stripe_color,
+                "border": 1,
+                "border_color": border_color,
+            }
         )
 
-        # Write company info
-        sheet.write(7, 0, _("Company"), header_style)
-        sheet.write(7, 1, _("CIF"), header_style)
-        sheet.write(8, 0, employee.company_id.name or "N/A", center_style)
-        sheet.write(8, 1, employee.company_id.vat or "N/A", center_style)
+        hours_unit = _("hrs")
 
-        # Write attendance headers
-        sheet.write(10, 0, _("Check In"), header_style)
-        sheet.write(10, 1, _("Check Out"), header_style)
-        sheet.write(10, 2, _("Working Hours"), header_style)
+        def format_hours(value):
+            total_minutes = round(value * 60)
+            return f"{total_minutes // 60:02d}:{total_minutes % 60:02d} {hours_unit}"
 
-        # Write attendance data
-        row = 11
-        total_hours = 0
-        user_tz = pytz.timezone(self.env.user.tz or "UTC")
-        for att in attendances:
-            check_in = (
-                pytz.utc.localize(att.check_in).astimezone(user_tz).replace(tzinfo=None)
-                if att.check_in
-                else ""
+        sheet.hide_gridlines(2)
+        sheet.set_tab_color(teal)
+        sheet.set_column(0, 0, 14)
+        sheet.set_column(1, 1, 24)
+        sheet.set_column(2, 3, 21)
+        sheet.set_column(4, 4, 17)
+        sheet.set_row(0, 30)
+        sheet.set_row(1, 18)
+        sheet.set_row(2, 22)
+
+        sheet.merge_range(0, 0, 0, 4, _("Employee Attendance Report"), title_style)
+        sheet.merge_range(1, 0, 1, 4, employee_data["company_name"], subtitle_style)
+        sheet.write(2, 0, _("From"), period_label_style)
+        sheet.merge_range(
+            2, 1, 2, 2, start_date.strftime("%d/%m/%Y"), period_value_style
+        )
+        sheet.write(2, 3, _("To"), period_label_style)
+        sheet.write(2, 4, end_date.strftime("%d/%m/%Y"), period_value_style)
+
+        employee_fields = (
+            (_("Employee Name"), employee_data["emp_name"]),
+            (_("Identification No"), employee_data["emp_identification"]),
+            (_("Manager Name"), employee_data["manager"]),
+            (_("Department"), employee_data["department"]),
+            (_("Company"), employee_data["company_name"]),
+            (_("CIF"), employee_data["company_vat"]),
+        )
+        for row, ((left_label, left_value), (right_label, right_value)) in enumerate(
+            zip(employee_fields[::2], employee_fields[1::2], strict=False), start=4
+        ):
+            sheet.write(row, 0, left_label, info_label_style)
+            sheet.merge_range(row, 1, row, 2, left_value, info_value_style)
+            sheet.write(row, 3, right_label, info_label_style)
+            sheet.write(row, 4, right_value, info_value_style)
+            sheet.set_row(row, 21)
+
+        summary_cards = (
+            (
+                0,
+                1,
+                _("Total Days Worked:"),
+                employee_data["total_days"],
+            ),
+            (2, 3, _("Total Hours:"), format_hours(employee_data["total_hours"])),
+            (
+                4,
+                4,
+                _("Average Hours/Day:"),
+                format_hours(employee_data["avg_hours_per_day"]),
+            ),
+        )
+        for first_col, last_col, label, value in summary_cards:
+            if first_col == last_col:
+                sheet.write(8, first_col, label, summary_label_style)
+                sheet.write(9, first_col, value, summary_value_style)
+            else:
+                sheet.merge_range(8, first_col, 8, last_col, label, summary_label_style)
+                sheet.merge_range(9, first_col, 9, last_col, value, summary_value_style)
+        sheet.set_row(8, 18)
+        sheet.set_row(9, 28)
+
+        table_header_row = 11
+        sheet.write(table_header_row, 0, _("Date"), table_header_style)
+        sheet.write(table_header_row, 1, _("Type"), table_header_style)
+        sheet.write(table_header_row, 2, _("Check In"), table_header_style)
+        sheet.write(table_header_row, 3, _("Check Out"), table_header_style)
+        sheet.write(table_header_row, 4, _("Working Hours"), table_header_style)
+        sheet.set_row(table_header_row, 23)
+
+        # Write attendance and absence data
+        row = table_header_row + 1
+        for line in employee_data["lines"]:
+            style_name = (
+                "absence"
+                if line["kind"] == "absence"
+                else "stripe"
+                if (row - table_header_row) % 2 == 0
+                else "body"
             )
-            check_out = (
-                pytz.utc.localize(att.check_out)
-                .astimezone(user_tz)
-                .replace(tzinfo=None)
-                if att.check_out
-                else "N/A"
-            )
-            sheet.write(row, 0, check_in or "", date_format)
-            sheet.write(row, 1, check_out or "N/A", date_format)
-
-            worked_hours = att.worked_hours or 0
-            total_hours += worked_hours
-
-            # Convert decimal hours to HH:MM format
-            hours = int(worked_hours)
-            minutes = int((worked_hours - hours) * 60)
-            time_display = f"{hours:02d}:{minutes:02d} hrs"
-
-            sheet.write(row, 2, time_display, center_style)
+            styles = row_styles[style_name]
+            report_date = datetime.datetime.combine(line["date"], datetime.time.min)
+            sheet.write_datetime(row, 0, report_date, styles["date"])
+            sheet.write(row, 1, line["type"], styles["text"])
+            if line["kind"] == "attendance":
+                sheet.write_datetime(row, 2, line["check_in_local"], styles["datetime"])
+                if line["check_out_local"]:
+                    sheet.write_datetime(
+                        row, 3, line["check_out_local"], styles["datetime"]
+                    )
+                else:
+                    sheet.write(row, 3, _("Still Working"), styles["text"])
+                sheet.write(
+                    row,
+                    4,
+                    format_hours(line["worked_hours"]),
+                    styles["hours"],
+                )
+            else:
+                sheet.write(row, 2, "-", styles["text"])
+                sheet.write(row, 3, "-", styles["text"])
+                sheet.write(row, 4, "-", styles["hours"])
+            sheet.set_row(row, 20)
             row += 1
 
-        # Add total hours row
-        if attendances:
-            # Convert total to HH:MM format
-            total_hours_int = int(total_hours)
-            total_minutes = int((total_hours - total_hours_int) * 60)
-            total_display = f"{total_hours_int:02d}:{total_minutes:02d} hrs"
+        if employee_data["lines"]:
+            total_row = row + 1
+            sheet.merge_range(
+                total_row, 0, total_row, 3, _("Total Hours:"), total_label_style
+            )
+            sheet.write(
+                total_row,
+                4,
+                format_hours(employee_data["total_hours"]),
+                total_value_style,
+            )
+            sheet.set_row(total_row, 23)
+            last_data_row = row - 1
+        else:
+            sheet.merge_range(
+                row,
+                0,
+                row,
+                4,
+                _("No attendance or absence records found for this period"),
+                empty_style,
+            )
+            sheet.set_row(row, 30)
+            total_row = row
+            last_data_row = table_header_row
 
-            sheet.write(row + 1, 1, _("Total Hours:"), header_style)
-            sheet.write(row + 1, 2, total_display, header_style)
+        sheet.autofilter(table_header_row, 0, last_data_row, 4)
+        sheet.freeze_panes(table_header_row + 1, 0)
+        sheet.repeat_rows(table_header_row)
+        sheet.set_landscape()
+        sheet.set_paper(9)
+        sheet.fit_to_pages(1, 0)
+        sheet.set_margins(0.3, 0.3, 0.5, 0.5)
+        sheet.center_horizontally()
+        sheet.set_footer("&C&P / &N")
+        sheet.print_area(0, 0, total_row, 4)
 
         return sheet
 
@@ -295,20 +523,15 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         start_date, end_date = self._get_month_date_range()
         employees = self._get_selected_employees()
 
-        # Single search for all employees' attendances (performance optimization)
-        all_attendances = self.env["hr.attendance"].search(
-            [
-                ("employee_id", "in", employees.ids),
-                ("check_in", ">=", start_date),
-                ("check_in", "<=", end_date),
-            ],
-            order="employee_id, check_in",
+        employee_data = self.env[
+            "report.hr_attendance_report.report_one_set"
+        ]._generate_employee_data(
+            employees,
+            start_date,
+            end_date,
+            include_absences=self.include_approved_absences,
         )
-
-        # Group attendances by employee_id
-        attendances_by_employee = {}
-        for att in all_attendances:
-            attendances_by_employee.setdefault(att.employee_id.id, []).append(att)
+        employee_data_by_id = {item["emp_id"]: item for item in employee_data}
 
         # Create workbook
         stream = BytesIO()
@@ -320,14 +543,20 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
         # Create sheets for each employee
         for employee in employees:
             try:
-                emp_attendances = attendances_by_employee.get(employee.id, [])
                 self._create_excel_sheet_for_employee(
-                    workbook, employee, start_date, end_date, emp_attendances
+                    workbook,
+                    employee,
+                    start_date,
+                    end_date,
+                    employee_data_by_id[employee.id],
                 )
             except Exception as e:
                 raise ValidationError(
-                    _("Error creating sheet for employee %(name)s: %(error)s")
-                    % {"name": employee.name, "error": str(e)}
+                    _(
+                        "Error creating sheet for employee %(name)s: %(error)s",
+                        name=employee.name,
+                        error=str(e),
+                    )
                 ) from e
 
         # Save workbook to stream
@@ -336,7 +565,7 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
             out = base64.encodebytes(stream.getvalue())
         except Exception as e:
             raise ValidationError(
-                _("Error generating Excel file: %(error)s") % {"error": str(e)}
+                _("Error generating Excel file: %(error)s", error=str(e))
             ) from e
         finally:
             stream.close()

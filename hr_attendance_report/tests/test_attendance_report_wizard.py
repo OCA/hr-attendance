@@ -83,6 +83,18 @@ class TestAttendanceReportWizard(TransactionCase):
         self.assertEqual(wizard.select_year, "2025")
         self.assertFalse(wizard.select_all_employee)
         self.assertFalse(wizard.select_all_department)
+        self.assertTrue(wizard.include_approved_absences)
+
+    def test_include_approved_absences_can_be_disabled(self):
+        wizard = self.env["employee.attendance.report.wizard"].create(
+            {
+                "select_month": "1",
+                "select_year": "2025",
+                "include_approved_absences": False,
+            }
+        )
+
+        self.assertFalse(wizard.include_approved_absences)
 
     def test_get_month_date_range(self):
         """Test date range calculation"""

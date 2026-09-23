@@ -379,6 +379,128 @@ class TestAttendancePdfReport(TransactionCase):
         self.assertEqual(emp_data["total_days"], 2)
         self.assertGreater(emp_data["total_hours"], 0)
 
+    def _create_leave(self, employee, date_from, date_to, validate=True):
+        leave_type = self.env["hr.leave.type"].create(
+            {
+                "name": "Attendance Report Test Leave",
+                "requires_allocation": "no",
+                "leave_validation_type": "no_validation",
+            }
+        )
+        leave = self.env["hr.leave"].create(
+            {
+                "name": "Attendance Report Test Leave",
+                "employee_id": employee.id,
+                "holiday_status_id": leave_type.id,
+                "request_date_from": date_from,
+                "request_date_to": date_to,
+            }
+        )
+        if validate and leave.state != "validate":
+            leave.action_validate()
+        elif not validate and leave.state == "validate":
+            leave.sudo().write({"state": "confirm"})
+        return leave
+
+    def test_approved_absence_is_optional_and_does_not_change_totals(self):
+        self._create_leave(
+            self.employee1,
+            datetime.date(2025, 1, 20),
+            datetime.date(2025, 1, 20),
+        )
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+        start_date = datetime.date(2025, 1, 1)
+        end_date = datetime.date(2025, 1, 31)
+
+        with_absences = report_model._generate_employee_data(
+            self.employee1, start_date, end_date, include_absences=True
+        )[0]
+        without_absences = report_model._generate_employee_data(
+            self.employee1, start_date, end_date, include_absences=False
+        )[0]
+
+        self.assertEqual(len(with_absences["absences"]), 1)
+        self.assertEqual(
+            with_absences["absences"][0]["date"], datetime.date(2025, 1, 20)
+        )
+        self.assertFalse(without_absences["absences"])
+        self.assertEqual(with_absences["total_hours"], without_absences["total_hours"])
+        self.assertEqual(with_absences["total_days"], without_absences["total_days"])
+
+    def test_unapproved_absence_is_not_included(self):
+        leave = self._create_leave(
+            self.employee1,
+            datetime.date(2025, 1, 21),
+            datetime.date(2025, 1, 21),
+            validate=False,
+        )
+        self.assertNotEqual(leave.state, "validate")
+
+        employee_data = self.env[
+            "report.hr_attendance_report.report_one_set"
+        ]._generate_employee_data(
+            self.employee1,
+            datetime.date(2025, 1, 1),
+            datetime.date(2025, 1, 31),
+            include_absences=True,
+        )[0]
+
+        self.assertFalse(employee_data["absences"])
+
+    def test_attendance_on_last_day_of_month_is_included(self):
+        attendance = self.env["hr.attendance"].create(
+            {
+                "employee_id": self.employee1.id,
+                "check_in": datetime.datetime(2025, 1, 31, 9, 0),
+                "check_out": datetime.datetime(2025, 1, 31, 17, 0),
+            }
+        )
+
+        employee_data = self.env[
+            "report.hr_attendance_report.report_one_set"
+        ]._generate_employee_data(
+            self.employee1,
+            datetime.date(2025, 1, 1),
+            datetime.date(2025, 1, 31),
+            include_absences=False,
+        )[0]
+
+        self.assertIn(
+            attendance.check_in,
+            [line["check_in"] for line in employee_data["attendances"]],
+        )
+
+    def test_attendance_uses_employee_local_date(self):
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "Timezone Employee",
+                "tz": "America/Los_Angeles",
+            }
+        )
+        attendance = self.env["hr.attendance"].create(
+            {
+                "employee_id": employee.id,
+                "check_in": datetime.datetime(2025, 2, 1, 7, 30),
+                "check_out": datetime.datetime(2025, 2, 1, 8, 30),
+            }
+        )
+
+        employee_data = self.env[
+            "report.hr_attendance_report.report_one_set"
+        ]._generate_employee_data(
+            employee,
+            datetime.date(2025, 1, 1),
+            datetime.date(2025, 1, 31),
+            include_absences=False,
+        )[0]
+
+        line = next(
+            line
+            for line in employee_data["attendances"]
+            if line["check_in"] == attendance.check_in
+        )
+        self.assertEqual(line["date"], datetime.date(2025, 1, 31))
+
     def test_generate_employee_data_employee_with_barcode(self):
         report_model = self.env["report.hr_attendance_report.report_one_set"]
 
