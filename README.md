@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[hr_attendance_employee_calendar_planning](hr_attendance_employee_calendar_planning/) | 19.0.1.0.0 | <a href='https://github.com/victoralmau'><img src='https://github.com/victoralmau.png' width='32' height='32' style='border-radius:50%;' alt='victoralmau'/></a> | Attendance employee calendar planning
 [hr_attendance_reason](hr_attendance_reason/) | 19.0.1.0.0 |  | HR Attendance Reason
 [hr_attendance_report_theoretical_time](hr_attendance_report_theoretical_time/) | 19.0.1.1.0 |  | Theoretical vs Attended Time Analysis
 
