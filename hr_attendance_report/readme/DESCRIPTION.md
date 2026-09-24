@@ -1,5 +1,5 @@
 This module provides comprehensive attendance reporting functionality
 for Odoo HR. It allows HR managers and employees to generate detailed
 attendance reports in both PDF and Excel formats with flexible filtering
-options. Reports can also include final-approved employee absences on the
-correct local date.
+options. If Odoo Time Off is installed, reports can also include
+final-approved employee absences on the correct local date.

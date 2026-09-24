@@ -31,8 +31,8 @@ Hr Attendance Report
 This module provides comprehensive attendance reporting functionality
 for Odoo HR. It allows HR managers and employees to generate detailed
 attendance reports in both PDF and Excel formats with flexible filtering
-options. Reports can also include final-approved employee absences on
-the correct local date.
+options. If Odoo Time Off is installed, reports can also include
+final-approved employee absences on the correct local date.
 
 **Table of contents**
 
@@ -47,8 +47,9 @@ To generate attendance reports:
 1. Go to **Attendances > Reports > Attendance Report**
 2. Select the desired month and year
 3. Choose employees directly or select by departments
-4. Keep **Include Approved Absences** enabled to add final-approved time
-   off to the report, or disable it to report attendances only
+4. If Odoo Time Off is installed, keep **Include Approved Absences**
+   enabled to add final-approved time off to the report, or disable it
+   to report attendances only
 5. Click **Generate PDF Report** or **Generate Excel Report**
 
 **Report Options:**
@@ -60,13 +61,14 @@ To generate attendance reports:
 - **Select All**: Quick options to select all employees or departments
 - **Mixed Selection**: Combine direct employee and department selections
 - **Approved Absences**: Include final-approved employee absences on the
-  corresponding local report date
+  corresponding local report date when Odoo Time Off is installed
 
 **Report Content:**
 
 - Employee information (name, manager, department)
 - Daily attendance records with check-in/check-out times
-- Approved absences, respecting workday and natural-day leave types
+- Approved absences, respecting workday and natural-day leave types when
+  Odoo Time Off is installed
 - Working hours in HH:MM format
 - Total hours and days worked per employee
 - Professional formatting suitable for HR documentation

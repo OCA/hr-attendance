@@ -52,6 +52,7 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
     select_all_department = fields.Boolean(
         default=False, string="Select All Departments"
     )
+    has_hr_holidays = fields.Boolean(compute="_compute_has_hr_holidays")
     include_approved_absences = fields.Boolean(default=True)
     select_month = fields.Selection(
         MONTH_SELECTION,
@@ -78,6 +79,11 @@ class EmployeeAttendanceReportWizard(models.TransientModel):
             if employee:
                 res["hr_employee_ids"] = [(6, 0, [employee.id])]
         return res
+
+    def _compute_has_hr_holidays(self):
+        has_hr_holidays = "hr.leave" in self.env.registry
+        for wizard in self:
+            wizard.has_hr_holidays = has_hr_holidays
 
     @api.constrains("select_year")
     def _check_year_format(self):

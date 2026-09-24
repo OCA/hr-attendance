@@ -18,6 +18,9 @@ class HrReport(models.AbstractModel):
     _name = "report.hr_attendance_report.report_one_set"
     _description = "Attendance PDF Report"
 
+    def _has_hr_holidays(self):
+        return "hr.leave" in self.env.registry
+
     @api.model
     def _get_report_values(self, docids, data=None):
         """Generate report values for PDF attendance report."""
@@ -167,6 +170,7 @@ class HrReport(models.AbstractModel):
         self, employees, start_date, end_date, include_absences=True
     ):
         """Generate timezone-aware attendance and approved absence data."""
+        include_absences = include_absences and self._has_hr_holidays()
         employee_info_list = []
         boundaries = {
             employee.id: self._employee_month_bounds(employee, start_date, end_date)
@@ -190,7 +194,7 @@ class HrReport(models.AbstractModel):
             else self.env["hr.attendance"]
         )
 
-        approved_leaves = self.env["hr.leave"]
+        approved_leaves = False
         if include_absences and employees:
             allowed_employee_ids = employees.filtered(
                 lambda employee: employee.company_id in self.env.companies

@@ -84,6 +84,7 @@ class TestAttendanceReportWizard(TransactionCase):
         self.assertFalse(wizard.select_all_employee)
         self.assertFalse(wizard.select_all_department)
         self.assertTrue(wizard.include_approved_absences)
+        self.assertEqual(wizard.has_hr_holidays, "hr.leave" in self.env.registry)
 
     def test_include_approved_absences_can_be_disabled(self):
         wizard = self.env["employee.attendance.report.wizard"].create(

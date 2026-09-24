@@ -3,6 +3,7 @@
 
 import datetime
 import logging
+from unittest.mock import patch
 
 from odoo.exceptions import ValidationError
 from odoo.tests.common import TransactionCase
@@ -380,6 +381,8 @@ class TestAttendancePdfReport(TransactionCase):
         self.assertGreater(emp_data["total_hours"], 0)
 
     def _create_leave(self, employee, date_from, date_to, validate=True):
+        if "hr.leave" not in self.env.registry:
+            self.skipTest("hr_holidays is not installed")
         leave_type = self.env["hr.leave.type"].create(
             {
                 "name": "Attendance Report Test Leave",
@@ -401,6 +404,20 @@ class TestAttendancePdfReport(TransactionCase):
         elif not validate and leave.state == "validate":
             leave.sudo().write({"state": "confirm"})
         return leave
+
+    def test_absence_option_is_safe_without_hr_holidays(self):
+        report_model = self.env["report.hr_attendance_report.report_one_set"]
+
+        with patch.object(type(report_model), "_has_hr_holidays", return_value=False):
+            employee_data = report_model._generate_employee_data(
+                self.employee1,
+                datetime.date(2025, 1, 1),
+                datetime.date(2025, 1, 31),
+                include_absences=True,
+            )[0]
+
+        self.assertFalse(employee_data["absences"])
+        self.assertEqual(employee_data["lines"], employee_data["attendances"])
 
     def test_approved_absence_is_optional_and_does_not_change_totals(self):
         self._create_leave(

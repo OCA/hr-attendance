@@ -14,7 +14,11 @@
                     </group>
                 </group>
                 <group>
-                    <field name="include_approved_absences" />
+                    <field name="has_hr_holidays" invisible="1" />
+                    <field
+                        name="include_approved_absences"
+                        invisible="not has_hr_holidays"
+                    />
                 </group>
                 <group>
                     <field
