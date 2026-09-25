@@ -1,0 +1,29 @@
+# Copyright 2025 Álvaro Alonso Bada - Grupo Isonor
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+{
+    "name": "Hr Attendance Report",
+    "version": "18.0.1.0.0",
+    "category": "Attendance",
+    "summary": "Wizard to generate attendance reports in PDF and Excel.",
+    "license": "AGPL-3",
+    "author": "Grupo Isonor, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/hr-attendance",
+    "depends": [
+        "hr_attendance",
+        "hr",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "report/employee_attendance_report_wizard_form.xml",
+        "report/employee_attendance_report_wizard_view.xml",
+        "wizard/employee_attendance_report_wizard_view.xml",
+        "wizard/excel_report.xml",
+        "report/report_menu.xml",
+        "views/hr_employee_view.xml",
+    ],
+    "demo": [],
+    "auto_install": False,
+    "application": False,
+    "installable": True,
+}
