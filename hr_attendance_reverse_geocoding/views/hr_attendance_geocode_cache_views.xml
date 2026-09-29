@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="hr_attendance_geocode_cache_view_list" model="ir.ui.view">
+        <field name="name">hr.attendance.geocode.cache.list</field>
+        <field name="model">hr.attendance.geocode.cache</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="latitude_normalize" />
+                <field name="longtide_normalize" />
+                <field name="address" />
+                <field name="provider" />
+                <field name="map_url" widget="url" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_attendance_geocode_cache_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.geocode.cache.form</field>
+        <field name="model">hr.attendance.geocode.cache</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Coordinates">
+                            <field name="latitude_normalize" />
+                            <field name="longtide_normalize" />
+                        </group>
+                        <group string="Response">
+                            <field name="address" />
+                            <field name="provider" />
+                            <field name="map_url" widget="url" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_attendance_geocode_cache" model="ir.actions.act_window">
+        <field name="name">Geocoding Cache</field>
+        <field name="res_model">hr.attendance.geocode.cache</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Cache is empty
+            </p>
+            <p>
+                Records are created automatically when
+                the reverse geocoding for a check-in is resolved.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+        id="menu_hr_attendance_geocode_cache"
+        name="Geocode Cache"
+        parent="hr_attendance.menu_hr_attendance_root"
+        action="action_hr_attendance_geocode_cache"
+        groups="hr.group_hr_manager,base.group_system"
+        sequence="100"
+    />
+
+</odoo>
