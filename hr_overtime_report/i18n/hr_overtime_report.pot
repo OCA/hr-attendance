@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_overtime_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-02 07:39+0000\n"
+"PO-Revision-Date: 2025-12-02 07:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Active Employees"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Date"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Employee"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model:ir.ui.menu,name:hr_overtime_report.hr_attendance_overtime_menu
+msgid "Extra Hours"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Negative Overtime"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_calendar_view
+msgid "Overtime Calendar"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_graph_view
+msgid "Overtime Graph"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model:ir.actions.act_window,name:hr_overtime_report.action_hr_attendance_overtime
+msgid "Overtime Report"
+msgstr ""
+
+#. module: hr_overtime_report
+#: model_terms:ir.ui.view,arch_db:hr_overtime_report.hr_attendance_overtime_view_search
+msgid "Positive Overtime"
+msgstr ""
