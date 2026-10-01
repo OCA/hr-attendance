@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_break_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.break.list</field>
+        <field name="model">hr.attendance.break</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="employee_id" />
+                <field name="break_type" />
+                <field name="break_start" />
+                <field name="break_stop" />
+                <field name="duration" widget="float_time" sum="Total" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_attendance_break_view_pivot" model="ir.ui.view">
+        <field name="name">hr.attendance.break.pivot</field>
+        <field name="model">hr.attendance.break</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="employee_id" type="row" />
+                <field name="break_start" interval="day" type="col" />
+                <field name="duration" type="measure" widget="float_time" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="hr_attendance_break_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.break.search</field>
+        <field name="model">hr.attendance.break</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id" />
+                <field name="break_type" />
+                <filter
+                    name="running"
+                    string="Running"
+                    domain="[('break_stop', '=', False)]"
+                />
+                <group>
+                    <filter
+                        name="group_employee"
+                        string="Employee"
+                        context="{'group_by': 'employee_id'}"
+                    />
+                    <filter
+                        name="group_type"
+                        string="Break Type"
+                        context="{'group_by': 'break_type'}"
+                    />
+                    <filter
+                        name="group_day"
+                        string="Day"
+                        context="{'group_by': 'break_start:day'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_attendance_break_action" model="ir.actions.act_window">
+        <field name="name">Attendance Breaks</field>
+        <field name="res_model">hr.attendance.break</field>
+        <field name="view_mode">list,pivot</field>
+        <field name="search_view_id" ref="hr_attendance_break_view_search" />
+    </record>
+
+    <menuitem
+        id="menu_hr_attendance_break"
+        name="Breaks"
+        parent="hr_attendance.menu_hr_attendance_reporting"
+        action="hr_attendance_break_action"
+        sequence="20"
+        groups="hr_attendance.group_hr_attendance_officer"
+    />
+</odoo>
