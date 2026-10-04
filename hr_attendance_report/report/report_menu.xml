@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_employee_attendance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Attendance Report</field>
+        <field name="res_model">employee.attendance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_employee_attendance_report_wizard_form" />
+    </record>
+
+    <record id="hr_attendance.menu_hr_attendance_reporting" model="ir.ui.menu">
+        <field name="action" ref="action_employee_attendance_report_wizard" />
+    </record>
+</odoo>
