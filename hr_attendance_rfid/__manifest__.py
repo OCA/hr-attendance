@@ -4,7 +4,7 @@
 
 {
     "name": "HR Attendance RFID",
-    "version": "15.0.1.0.3",
+    "version": "15.0.1.0.4",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Comunitea, ForgeFlow, Odoo Community Association (OCA)",
