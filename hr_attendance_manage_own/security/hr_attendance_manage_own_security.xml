@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_hr_attendance_own_manager" model="res.groups">
+        <field name="name">User: Manage own attendances</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+        <field
+            name="implied_ids"
+            eval="[Command.link(ref('hr_attendance.group_hr_attendance_own_reader'))]"
+        />
+        <field
+            name="comment"
+        >Users with this group can create and edit their own attendance records except for disallowed fields</field>
+    </record>
+    <record id="hr_attendance.menu_hr_attendance_root" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[Command.link(ref('group_hr_attendance_own_manager'))]"
+        />
+    </record>
+    <record id="hr_attendance.menu_hr_attendance_view_attendances" model="ir.ui.menu">
+        <field
+            name="groups_id"
+            eval="[Command.link(ref('group_hr_attendance_own_manager'))]"
+        />
+    </record>
+    <data noupdate="1">
+        <record id="hr_attendance_rule_own_manager" model="ir.rule">
+            <field name="name">User: Manage own attendances</field>
+            <field name="model_id" ref="hr_attendance.model_hr_attendance" />
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field
+                name="groups"
+                eval="[Command.link(ref('group_hr_attendance_own_manager'))]"
+            />
+        </record>
+    </data>
+</odoo>
