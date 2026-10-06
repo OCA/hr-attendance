@@ -17,7 +17,9 @@ class HrEmployee(models.Model):
         "The rfid code should be unique.",
     )
 
-    rfid_card_code = fields.Char("RFID Card Code", copy=False)
+    rfid_card_code = fields.Char(
+        "RFID Card Code", copy=False, groups="hr.group_hr_user"
+    )
 
     @api.model
     def register_attendance(self, card_code):
