@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="check_attendance_cron">
+        <field name="name">Generate previous week attendance review</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field
+            name="nextcall"
+            eval="(DateTime.now() + timedelta(days=-DateTime.today().weekday(), weeks=1)).strftime('%Y-%m-%d 02:00:00') "
+        />
+        <field name="doall" eval="True" />
+        <field
+            name="model_id"
+            ref="hr_attendance_validation.model_hr_attendance_validation_sheet"
+        />
+        <field name="state">code</field>
+        <field name="code">
+            model.generate_reviews()
+        </field>
+    </record>
+</odoo>

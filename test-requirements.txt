@@ -1,0 +1,2 @@
+odoo-addon-hr-holidays-public @ git+https://github.com/OCA/hr-holidays.git@refs/pull/225/head#subdirectory=hr_holidays_public
+odoo-addon-hr-attendance-overtime  @ git+https://github.com/OCA/hr-attendance.git@refs/pull/234/head#subdirectory=hr_attendance_overtime
