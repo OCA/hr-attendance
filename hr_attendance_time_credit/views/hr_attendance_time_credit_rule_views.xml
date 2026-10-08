@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_time_credit_rule_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.rule.form</field>
+        <field name="model">hr.attendance.time.credit.rule</field>
+        <field name="arch" type="xml">
+            <form string="Time Credit Rule">
+                <sheet>
+                    <group col="4">
+                        <field name="name" />
+                        <field name="sequence" />
+                        <field name="active" />
+                        <field name="company_id" groups="base.group_multi_company" />
+                        <field name="calendar_id" />
+                        <field name="employee_id" />
+                        <field name="credit_type_id" />
+                        <field name="condition_type" />
+                        <field
+                            name="domain"
+                            widget="domain"
+                            options="{'model': 'hr.attendance'}"
+                            invisible="condition_type != 'domain'"
+                        />
+                        <field
+                            name="condition_action_id"
+                            invisible="condition_type != 'server_action'"
+                        />
+                        <field name="minutes_type" />
+                        <field
+                            name="minutes_fixed"
+                            invisible="minutes_type != 'fixed'"
+                        />
+                        <field
+                            name="minutes_action_id"
+                            invisible="minutes_type != 'server_action'"
+                        />
+                        <field
+                            name="factor_value"
+                            invisible="minutes_type != 'worked_time_factor'"
+                        />
+                        <field
+                            name="factor_base"
+                            invisible="minutes_type != 'worked_time_factor'"
+                        />
+                        <field name="rate" />
+                        <field name="minutes_cap" />
+                        <field name="segment_mode" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_attendance_time_credit_rule_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.time.credit.rule.tree</field>
+        <field name="model">hr.attendance.time.credit.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="credit_type_id" />
+                <field name="condition_type" />
+                <field name="minutes_type" />
+                <field name="calendar_id" optional="hide" />
+                <field name="employee_id" optional="hide" />
+                <field name="active" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_attendance_time_credit_rule_action" model="ir.actions.act_window">
+        <field name="name">Time Credit Rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.attendance.time.credit.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="hr_attendance_time_credit_rule_menu"
+        name="Time Credit Rules"
+        parent="hr_attendance.menu_hr_attendance_settings"
+        action="hr_attendance_time_credit_rule_action"
+        sequence="130"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+</odoo>
