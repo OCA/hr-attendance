@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <!-- Default configuration values -->
+        <record id="param_geocode_provider" model="ir.config_parameter">
+            <field name="key">hr_attendance_reverse_geocoding.provider</field>
+            <field name="value">mapbox</field>
+        </record>
+
+        <record id="param_geocode_api_key" model="ir.config_parameter">
+            <field name="key">hr_attendance_reverse_geocoding.api_key</field>
+            <field name="value" />
+        </record>
+
+        <record id="param_geocode_endpoint" model="ir.config_parameter">
+            <field name="key">hr_attendance_reverse_geocoding.endpoint</field>
+            <field name="value" />
+        </record>
+
+        <record id="param_geolocation_rounding_precision" model="ir.config_parameter">
+            <field name="key">hr_attendance_reverse_geocoding.rounding_precision</field>
+            <field name="value">4</field>
+        </record>
+</odoo>
