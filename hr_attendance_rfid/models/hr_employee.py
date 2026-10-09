@@ -56,7 +56,8 @@ class HrEmployeeBase(models.AbstractModel):
             res["error_message"] = msg
             return res
         try:
-            attendance = employee._attendance_action_change()
+            with self.env.cr.savepoint():
+                attendance = employee._attendance_action_change()
             if attendance:
                 msg = _("Attendance recorded for employee %s") % employee.name
                 _logger.debug(msg)
