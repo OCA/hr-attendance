@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_hr_attendance_report_pdf_wizard_form" model="ir.ui.view">
+        <field name="name">hr.attendance.report.wizard.form</field>
+        <field name="model">hr.attendance.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Attendance Report Wizard">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_from" />
+                            <field name="report_type" widget="radio" />
+                            <field
+                                name="employee_ids"
+                                widget="many2many_tags"
+                                attrs="{'required': [['report_type', '=', 'individual']],
+                                        'invisible': [['report_type', '!=', 'individual']]}"
+                            />
+                            <field
+                                name="department_ids"
+                                widget="many2many_tags"
+                                attrs="{'required': [['report_type', '=', 'department']],
+                                        'invisible': [['report_type', '!=', 'department']]}"
+                            />
+                        </group>
+                        <group>
+                            <field name="date_to" />
+                            <field
+                                name="detailed"
+                                attrs="{'invisible': [['report_type', '=', 'department']]}"
+                            />
+                            <field
+                                name="include_open_attendances"
+                                attrs="{'invisible': [['report_type', '=', 'department']]}"
+                            />
+                            <field name="time_format" />
+                            <field name="company_id" options="{'no_create': True}" />
+                        </group>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button
+                        name="action_print_report"
+                        string="Create PDF"
+                        type="object"
+                        class="btn-primary"
+                        icon="fa-print"
+                    />
+                    <button string="Cancelar" class="btn-secondary" special="cancel" />
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_attendance_report_pdf_wizard" model="ir.actions.act_window">
+        <field name="name">Attendance Report</field>
+        <field name="res_model">hr.attendance.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hr_attendance_report_pdf_wizard_form" />
+        <field name="target">new</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_hr_attendance_report_pdfing"
+        name="PDF Reports"
+        parent="hr_attendance.menu_hr_attendance_root"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_hr_attendance_pdf_report"
+        name="Attendance Report"
+        parent="menu_hr_attendance_report_pdfing"
+        action="action_hr_attendance_report_pdf_wizard"
+        sequence="10"
+    />
+
+</odoo>
