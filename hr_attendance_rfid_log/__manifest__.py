@@ -1,0 +1,28 @@
+# Copyright 2026 - nurzeit.de
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
+
+{
+    "name": "HR Attendance RFID Log",
+    "version": "16.0.1.0.0",
+    "category": "Human Resources",
+    "website": "https://github.com/OCA/hr-attendance",
+    "author": "NURZEIT GmbH, Odoo Community Association (OCA)",
+    "maintainers": ["lubusax"],
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ["hr_attendance_rfid"],
+    "external_dependencies": {
+        "python": [
+            "freezegun",
+        ],
+    },  # noqa: E231
+    "data": [
+        "data/ir_cron_data.xml",
+        "data/system_parameters.xml",
+        "security/groups.xml",
+        "security/ir.model.access.csv",
+        "views/hr_attendance_log_view.xml",
+        "wizards/hr_rfid_log_assign_employee.xml",
+    ],
+}
