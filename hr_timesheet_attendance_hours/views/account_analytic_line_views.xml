@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="hr_timesheet_line_tree_user_attendance" model="ir.ui.view">
+        <field name="name">account.analytic.line.tree.user.attendance_hours</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user" />
+        <field name="arch" type="xml">
+            <field name="unit_amount" position="after">
+                <field name="attendance_hours" widget="float_time" optional="show" />
+                <field
+                    name="attendance_status"
+                    widget="badge"
+                    optional="show"
+                    decoration-danger="attendance_status == 'over'"
+                    decoration-warning="attendance_status == 'warn'"
+                    decoration-success="attendance_status == 'ok'"
+                />
+                <field
+                    name="daily_timesheet_hours"
+                    widget="float_time"
+                    optional="hide"
+                />
+            </field>
+        </field>
+    </record>
+
+</odoo>
