@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="hr_employee_view_form_idsecure" model="ir.ui.view">
+        <field name="name">hr.employee.form.idsecure</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <!-- Add idsecure_id to HR Settings tab -->
+            <xpath expr="//group[@name='identification_group']" position="inside">
+                <field name="idsecure_id" />
+            </xpath>
+
+            <!-- Add stat button for access events -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button
+                    class="oe_stat_button"
+                    type="action"
+                    name="%(hr_attendance_idsecure.action_idsecure_access_log)d"
+                    icon="fa-building-o"
+                    context="{'search_default_employee_id': active_id}"
+                    attrs="{'invisible': [('idsecure_log_count', '=', 0)]}"
+                >
+                    <field
+                        name="idsecure_log_count"
+                        widget="statinfo"
+                        string="Access Events"
+                    />
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

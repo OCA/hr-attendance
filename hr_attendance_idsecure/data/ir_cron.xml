@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+        <record id="ir_cron_idsecure_sync" model="ir.cron">
+            <field name="name">iDSecure: Sync Access Events</field>
+            <field name="model_id" ref="model_idsecure_device" />
+            <field name="state">code</field>
+            <field name="code">model.cron_sync_all_devices()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="priority">5</field>
+        </record>
+    </odoo>
