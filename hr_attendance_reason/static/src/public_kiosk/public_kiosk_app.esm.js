@@ -1,8 +1,8 @@
 import {KioskReason} from "@hr_attendance_reason/components/kiosk_reason/kiosk_reason.esm";
-import {patch} from "@web/core/utils/patch";
 import PublicKiosk from "@hr_attendance/public_kiosk/public_kiosk_app";
-import {rpc} from "@web/core/network/rpc";
 import {_t} from "@web/core/l10n/translation";
+import {patch} from "@web/core/utils/patch";
+import {rpc} from "@web/core/network/rpc";
 
 patch(PublicKiosk.kioskAttendanceApp.prototype, {
     setup() {
