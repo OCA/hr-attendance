@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_resource_calendar_rest_time_rule_user,resource.calendar.rest.time.rule user,model_resource_calendar_rest_time_rule,base.group_user,1,0,0,0
+access_resource_calendar_rest_time_rule_manager,resource.calendar.rest.time.rule manager,model_resource_calendar_rest_time_rule,hr_attendance.group_hr_attendance_manager,1,1,1,1
