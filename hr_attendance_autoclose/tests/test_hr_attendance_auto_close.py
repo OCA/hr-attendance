@@ -18,11 +18,21 @@ class TestHrAttendanceReason(BaseCommon):
         super().setUpClass()
         cls.hr_attendance = cls.env["hr.attendance"]
         cls.employee = cls.env["hr.employee"].create({"name": "Employee"})
+        # Force UTC to ensure deterministic lunch deduction (09:00-20:00 UTC includes
+        # 12:00-13:00)
+        cls.env.company.resource_calendar_id.write({"tz": "UTC"})
+        cls.employee.write({"tz": "UTC"})
+        cls.employee.resource_id.write({"tz": "UTC"})
         new_test_user(cls.env, login="test-user")
 
     def test_employee_edit(self):
-        dti = datetime.now()
-        dto = datetime.now() + relativedelta(hours=7)
+        # We use a fixed weekday (Wednesday) to ensure lunch break is deducted
+        # correctly.
+        # relativedelta(weekday=2, weeks=-1) gets the previous Wednesday.
+        now_dt = datetime.now() + relativedelta(weekday=2, weeks=-1)
+        now_dt = now_dt.replace(hour=9, minute=0, second=0, microsecond=0)
+        dti = now_dt
+        dto = now_dt + relativedelta(hours=7)
         att = self.hr_attendance.create(
             {
                 "employee_id": self.employee.id,
@@ -31,15 +41,13 @@ class TestHrAttendanceReason(BaseCommon):
             }
         )
         self.assertEqual(att.open_worked_hours, 7.0, "Wrong hours")
-        dt = datetime.now().replace(
-            hour=0, minute=0, second=0, microsecond=0
-        ) - relativedelta(hours=15)
+        dt = now_dt.replace(hour=0, minute=0, second=0, microsecond=0) - relativedelta(
+            hours=15
+        )
         att = self.hr_attendance.create(
             {"employee_id": self.employee.id, "check_in": dt.strftime(DF)}
         )
         self.hr_attendance.check_for_incomplete_attendances()
-        # worked_hours are now 10 hours, because Odoo adds 1 hour to lunch, see:
-        # https://github.com/odoo/odoo/commit/2eda54348de1bd42fc2a1bed94cd8b7a3ebf405d
         self.assertEqual(att.worked_hours, 10.0, "Attendance not closed")
         reason = self.env.company.hr_attendance_autoclose_reason
         reason.unlink()
