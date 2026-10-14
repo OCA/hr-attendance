@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+<t
+        t-name="hr_attendance_work_location.kiosk_greeting_extension"
+        t-inherit="hr_attendance.public_kiosk_app"
+        t-inherit-mode="extension"
+    >
+
+    <xpath expr="//CardLayout" position="inside">
+        <t t-if="this.state.active_display === 'work_location'">
+            <KioskWorkLocation
+                    workLocations="this.workLocations"
+                    defaultWorkLocationId="this.state.selectedWorkLocationId"
+                    workLocationRequired="this.workLocationRequired"
+                    onConfirm="(id) => this.onWorkLocationConfirm(id)"
+                    onCancel="() => this.switchDisplay('main')"
+                />
+        </t>
+    </xpath>
+
+    <xpath expr="//KioskGreetings" position="after">
+        <t t-if="this.employeeData?.in_work_location_name">
+            <div class="text-center text-muted mt-2">
+                <small>Location: <t
+                            t-esc="this.employeeData.in_work_location_name"
+                        /></small>
+            </div>
+        </t>
+    </xpath>
+</t>
+
+</templates>
