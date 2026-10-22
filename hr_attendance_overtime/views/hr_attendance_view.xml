@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="hr_attendance_view_form">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="is_overtime" />
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='check_out']" position="after">
+                <field name="is_overtime" />
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.search</field>
+        <field name="model">hr.attendance</field>
+        <field name="type">search</field>
+        <field name="priority">120</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="arch" type="xml">
+            <filter name="nocheckout" position="after">
+                <separator />
+                <filter
+                    name="is_overtime"
+                    string="On time"
+                    domain="[('is_overtime', '=', False)]"
+                />
+                <filter
+                    name="is_overtime"
+                    string="Overtime"
+                    domain="[('is_overtime', '=', True)]"
+                />
+                <separator />
+            </filter>
+            <filter name="groupby_check_out" position="after">
+                <filter
+                    name="group_by_is_overtime"
+                    string="Overtime"
+                    context="{'group_by':'is_overtime'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

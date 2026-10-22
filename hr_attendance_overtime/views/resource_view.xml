@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+
+    <!-- RESOURCE.CALENDAR.ATTENDANCE -->
+    <record id="view_resource_calendar_attendance_tree" model="ir.ui.view">
+        <field name="name">resource.calendar.attendance.tree</field>
+        <field name="model">resource.calendar.attendance</field>
+        <field
+            name="inherit_id"
+            ref="resource.view_resource_calendar_attendance_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="hour_from" position="before">
+                <field name="hour_check_in_from" widget="float_time" />
+            </field>
+            <field name="hour_from" position="after">
+                <field name="hour_check_in_to" widget="float_time" />
+            </field>
+            <field name="hour_to" position="before">
+                <field name="hour_check_out_from" widget="float_time" />
+            </field>
+            <field name="hour_to" position="after">
+                <field name="hour_check_out_to" widget="float_time" />
+            </field>
+        </field>
+    </record>
+
+
+    <record id="view_resource_calendar_attendance_form" model="ir.ui.view">
+        <field name="name">resource.calendar.attendance.form</field>
+        <field name="model">resource.calendar.attendance</field>
+        <field
+            name="inherit_id"
+            ref="resource.view_resource_calendar_attendance_form"
+        />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group/div[hasclass('o_row')]" position="replace">
+                <div class="o_row">
+                    <field name="hour_check_in_from" widget="float_time" /> -
+                    <field name="hour_from" widget="float_time" /> -
+                    <field name="hour_check_in_to" widget="float_time" /> -
+                    <field name="hour_check_out_from" widget="float_time" /> -
+                    <field name="hour_to" widget="float_time" /> -
+                    <field name="hour_check_out_to" widget="float_time" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
