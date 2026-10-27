@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_one_set">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <style>
+                    .attendance-report {
+                        color: #243342;
+                        font-family: Arial, sans-serif;
+                        font-size: 10px;
+                    }
+                    .attendance-report .report-banner {
+                        background-color: #17324d;
+                        border-collapse: collapse;
+                        color: #ffffff;
+                        margin-bottom: 14px;
+                        width: 100%;
+                    }
+                    .attendance-report .banner-content {
+                        padding: 18px 20px;
+                        vertical-align: middle;
+                    }
+                    .attendance-report .company-name {
+                        color: #8fd3dc;
+                        font-size: 9px;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                        margin-bottom: 5px;
+                        text-transform: uppercase;
+                    }
+                    .attendance-report .report-title {
+                        color: #ffffff;
+                        font-size: 23px;
+                        font-weight: bold;
+                        line-height: 1.1;
+                        margin: 0;
+                    }
+                    .attendance-report .period-cell {
+                        background-color: #2a7f8e;
+                        padding: 13px 15px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .attendance-report .period-value {
+                        color: #ffffff;
+                        font-size: 14px;
+                        font-weight: bold;
+                        margin-top: 2px;
+                    }
+                    .attendance-report .info-card {
+                        border: 1px solid #d9e2e8;
+                        border-collapse: collapse;
+                        margin-bottom: 12px;
+                        width: 100%;
+                    }
+                    .attendance-report .info-card td {
+                        border-bottom: 1px solid #e7edf1;
+                        padding: 7px 9px;
+                    }
+                    .attendance-report .info-card tr:last-child td {
+                        border-bottom: 0;
+                    }
+                    .attendance-report .info-label {
+                        background-color: #f3f6f8;
+                        color: #52667a;
+                        font-size: 8px;
+                        letter-spacing: 0.35px;
+                        text-transform: uppercase;
+                    }
+                    .attendance-report .info-value {
+                        color: #17324d;
+                        font-weight: bold;
+                    }
+                    .attendance-report .summary-table {
+                        border-collapse: separate;
+                        border-spacing: 5px 0;
+                        margin: 0 -5px 14px;
+                        width: 101.5%;
+                    }
+                    .attendance-report .summary-card {
+                        background-color: #eef4f6;
+                        border-top: 3px solid #2a7f8e;
+                        padding: 10px 12px;
+                        text-align: center;
+                        width: 33.33%;
+                    }
+                    .attendance-report .summary-label {
+                        color: #52667a;
+                        display: block;
+                        font-size: 8px;
+                        letter-spacing: 0.35px;
+                        margin-bottom: 4px;
+                        text-transform: uppercase;
+                    }
+                    .attendance-report .summary-value {
+                        color: #17324d;
+                        display: block;
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    .attendance-report .records-table {
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    .attendance-report .records-table thead {
+                        display: table-header-group;
+                    }
+                    .attendance-report .records-table th {
+                        background-color: #17324d;
+                        border: 1px solid #17324d;
+                        color: #ffffff;
+                        font-size: 8px;
+                        letter-spacing: 0.35px;
+                        padding: 8px 6px;
+                        text-align: center;
+                        text-transform: uppercase;
+                    }
+                    .attendance-report .records-table td {
+                        border-bottom: 1px solid #dfe7ec;
+                        border-left: 1px solid #edf1f4;
+                        border-right: 1px solid #edf1f4;
+                        padding: 7px 6px;
+                        text-align: center;
+                        vertical-align: middle;
+                    }
+                    .attendance-report .records-table tbody tr {
+                        page-break-inside: avoid;
+                    }
+                    .attendance-report .attendance-row:nth-child(even) td {
+                        background-color: #f8fafb;
+                    }
+                    .attendance-report .absence-row td {
+                        background-color: #fff5e6;
+                        color: #79501a;
+                    }
+                    .attendance-report .absence-row td:first-child {
+                        border-left: 3px solid #e2a23a;
+                    }
+                    .attendance-report .total-row td {
+                        background-color: #dcebef;
+                        border-bottom: 0;
+                        color: #17324d;
+                        font-size: 10px;
+                        padding: 9px 7px;
+                    }
+                    .attendance-report .empty-row td {
+                        background-color: #f8fafb;
+                        color: #728394;
+                        font-style: italic;
+                        padding: 18px 8px;
+                    }
+                </style>
+
+                <t t-foreach="employees_data" t-as="employee">
+                    <div class="page attendance-report">
+                        <t
+                            t-set="total_minutes"
+                            t-value="round(employee['total_hours'] * 60)"
+                        />
+                        <t
+                            t-set="average_minutes"
+                            t-value="round(employee['avg_hours_per_day'] * 60)"
+                        />
+                        <table class="report-banner">
+                            <tr>
+                                <td class="banner-content" style="width: 72%;">
+                                    <div class="company-name">
+                                        <t t-out="employee['company_name']" />
+                                    </div>
+                                    <h1 class="report-title">Attendance Report</h1>
+                                </td>
+                                <td class="period-cell" style="width: 28%;">
+                                    <div class="period-value">
+                                        <t t-out="month_name" /> <t t-out="year" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="info-card">
+                            <tr>
+                                <td class="info-label" style="width: 18%;">
+                                    Employee Name
+                                </td>
+                                <td class="info-value" style="width: 32%;">
+                                    <t t-out="employee['emp_name']" />
+                                </td>
+                                <td class="info-label" style="width: 18%;">
+                                    Identification No
+                                </td>
+                                <td class="info-value" style="width: 32%;">
+                                    <t t-out="employee['emp_identification']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="info-label">Manager</td>
+                                <td class="info-value">
+                                    <t t-out="employee['manager']" />
+                                </td>
+                                <td class="info-label">Department</td>
+                                <td class="info-value">
+                                    <t t-out="employee['department']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="info-label"><strong>Company:</strong></td>
+                                <td class="info-value">
+                                    <t t-out="employee['company_name']" />
+                                </td>
+                                <td class="info-label"><strong>CIF:</strong></td>
+                                <td class="info-value">
+                                    <t t-out="employee['company_vat']" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="summary-table">
+                            <tr>
+                                <td class="summary-card">
+                                    <span
+                                        class="summary-label"
+                                        t-out="total_days_label"
+                                    />
+                                    <span class="summary-value">
+                                        <t t-out="employee['total_days']" />
+                                    </span>
+                                </td>
+                                <td class="summary-card">
+                                    <span
+                                        class="summary-label"
+                                        t-out="total_hours_label"
+                                    />
+                                    <span class="summary-value">
+                                        <t
+                                            t-out="'%02d:%02d' % (total_minutes // 60, total_minutes % 60)"
+                                        /> hrs
+                                    </span>
+                                </td>
+                                <td class="summary-card">
+                                    <span
+                                        class="summary-label"
+                                        t-out="average_hours_label"
+                                    />
+                                    <span class="summary-value">
+                                        <t
+                                            t-out="'%02d:%02d' % (average_minutes // 60, average_minutes % 60)"
+                                        /> hrs
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table class="records-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 14%;">Date</th>
+                                    <th style="width: 22%;">Type</th>
+                                    <th style="width: 24%;">Check In</th>
+                                    <th style="width: 24%;">Check Out</th>
+                                    <th style="width: 16%;">Working Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-if="employee['lines']">
+                                    <t t-foreach="employee['lines']" t-as="line">
+                                        <tr
+                                            t-att-class="'absence-row' if line['kind'] == 'absence' else 'attendance-row'"
+                                        >
+                                            <td>
+                                                <span
+                                                    t-out="line['date']"
+                                                    t-options="{'widget': 'date'}"
+                                                />
+                                            </td>
+                                            <td><t t-out="line['type']" /></td>
+                                            <td>
+                                                <t t-if="line['check_in']">
+                                                    <span
+                                                        t-out="line['check_in']"
+                                                        t-options="{'widget': 'datetime'}"
+                                                    />
+                                                </t>
+                                                <t t-else="">-</t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line['check_out']">
+                                                    <span
+                                                        t-out="line['check_out']"
+                                                        t-options="{'widget': 'datetime'}"
+                                                    />
+                                                </t>
+                                                <t
+                                                    t-elif="line['kind'] == 'attendance'"
+                                                >Still Working</t>
+                                                <t t-else="">-</t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line['kind'] == 'attendance'">
+                                                    <t
+                                                        t-set="line_minutes"
+                                                        t-value="round(line['worked_hours'] * 60)"
+                                                    />
+                                                    <t
+                                                        t-out="'%02d:%02d' % (line_minutes // 60, line_minutes % 60)"
+                                                    /> hrs
+                                                </t>
+                                                <t t-else="">-</t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr class="total-row">
+                                        <td colspan="4" style="text-align: right;">
+                                            <strong>Total:</strong>
+                                        </td>
+                                        <td>
+                                            <strong><t
+                                                    t-out="'%02d:%02d' % (total_minutes // 60, total_minutes % 60)"
+                                                /> hrs</strong>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-else="">
+                                    <tr class="empty-row">
+                                        <td colspan="5">
+                                            No attendance or absence records found for this period
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div t-if="not employee_last" style="page-break-after: always;" />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
