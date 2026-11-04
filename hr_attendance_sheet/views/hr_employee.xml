@@ -1,0 +1,14 @@
+<odoo>
+    <record id="hr_attendance_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <group name="identification_group" position="inside">
+                <field name="use_attendance_sheets" string="Attendance Sheets" />
+                <field name="attendance_admin" />
+                <field name="hours_to_work" />
+            </group>
+        </field>
+    </record>
+</odoo>
