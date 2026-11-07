@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_overtime_views_filter" model="ir.ui.view">
+        <field name="name">hr.attendance.overtime.filter</field>
+        <field name="model">hr.attendance.overtime</field>
+        <field name="type">search</field>
+        <field name="priority">160</field>
+        <field name="arch" type="xml">
+
+                <search string="Search sheet">
+                    <field
+                    name="employee_id"
+                    string="Employee"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+
+                    <group expand="0" string="Group By">
+                        <filter
+                        name="employee"
+                        string="Employee"
+                        context="{'group_by':'employee_id'}"
+                        groups="hr_attendance.group_hr_attendance_manager"
+                    />
+                        <separator />
+                        <filter
+                        string="Date"
+                        name="date"
+                        context="{'group_by': 'date'}"
+                    />
+                    </group>
+               </search>
+        </field>
+    </record>
+
+
+    <record id="hr_attendance_overtime_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.overtime.tree</field>
+        <field name="model">hr.attendance.overtime</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id" />
+                <field name="company_id" optional="hide" />
+                <field name="date" />
+                <field
+                    name="duration"
+                    widget="float_time"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                    optional="show"
+                />
+                <field
+                    name="duration_real"
+                    widget="float_time"
+                    optional="show"
+                    groups="hr_attendance.group_hr_attendance_manager"
+                />
+                <field name="adjustment" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_attendance_overtime_view_pivot" model="ir.ui.view">
+         <field name="name">hr.attendance.overtime.pivot</field>
+         <field name="model">hr.attendance.overtime</field>
+         <field name="arch" type="xml">
+             <pivot
+                string="Attendance overtime analysis"
+                disable_linking="True"
+                sample="1"
+            >
+                 <field name="employee_id" type="row" />
+                 <field name="date" type="col" interval="year" />
+                 <field name="duration" type="measure" widget="float_time" />
+                 <field name="duration_real" type="measure" widget="float_time" />
+             </pivot>
+         </field>
+    </record>
+
+    <record id="hr_attendance_overtime_action" model="ir.actions.act_window">
+        <field name="name">Attendance overtime</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.attendance.overtime</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="hr_attendance_overtime_view_tree" />
+        <field name="search_view_id" ref="hr_attendance_overtime_views_filter" />
+    </record>
+
+    <menuitem
+        id="hr_attendance_overtime_menu"
+        name="Overtime"
+        parent="hr_holidays.menu_hr_holidays_report"
+        action="hr_attendance_overtime_action"
+        sequence="9"
+        groups="hr_attendance.group_hr_attendance_manager"
+    />
+</odoo>

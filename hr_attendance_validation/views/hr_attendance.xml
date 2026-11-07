@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2021 Pierre Verkest
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="hr_attendance_view_form">
+        <field name="name">hr.attendance.form</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="priority">160</field>
+        <field name="arch" type="xml">
+            <field name="is_overtime" position="after">
+                <field name="is_overtime_due" />
+                <field name="validation_sheet_id" readonly="1" />
+            </field>
+        </field>
+    </record>
+    <record id="hr_attendance_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.tree</field>
+        <field name="model">hr.attendance</field>
+        <field name="type">tree</field>
+        <field name="priority">160</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_overtime']" position="after">
+                <field name="is_overtime_due" optional="show" />
+                <field name="validation_sheet_id" readonly="1" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_attendance_view_search" model="ir.ui.view">
+        <field name="name">hr.attendance.search</field>
+        <field name="model">hr.attendance</field>
+        <field name="type">search</field>
+        <field name="priority">160</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+        <field name="arch" type="xml">
+            <filter name="is_overtime" position="after">
+                <separator />
+                <filter
+                    name="is_overtime_due_false"
+                    string="Overtime not due"
+                    domain="[('is_overtime', '=', True), ('is_overtime_due', '=', False)]"
+                />
+                <filter
+                    name="is_overtime_due_true"
+                    string="Overtime due"
+                    domain="[('is_overtime', '=', True), ('is_overtime_due', '=', True)]"
+                />
+                <separator />
+            </filter>
+            <filter name="group_by_is_overtime" position="after">
+                <filter
+                    name="group_by_is_overtime_due"
+                    string="Overtime due"
+                    context="{'group_by':'is_overtime_due'}"
+                />
+                <filter
+                    name="group_by_validation_sheet_id"
+                    string="Review sheet"
+                    context="{'group_by':'validation_sheet_id'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>
