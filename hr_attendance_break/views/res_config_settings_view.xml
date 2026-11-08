@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.hr.attendance.break</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//app[@name='hr_attendance']//block[@name='kiosk_mode_setting_container']"
+                position="inside"
+            >
+                <setting
+                    company_dependent="1"
+                    string="Break Rounding"
+                    help="Round each recorded attendance break to the nearest number of minutes. Set to 0 to keep the exact duration."
+                >
+                    <field name="attendance_break_rounding_minutes" />
+                    <span class="text-muted">minutes (0 = no rounding)</span>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

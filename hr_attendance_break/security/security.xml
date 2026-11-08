@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="rule_multi_company_hr_attendance_break" model="ir.rule">
+        <field name="name">Attendance Break multi-company</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|',('company_id','=',False),('company_id','in',company_ids)]</field>
+    </record>
+
+    <record id="rule_hr_attendance_break_own" model="ir.rule">
+        <field name="name">Attendance Break: own records</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field name="groups" eval="[(4, ref('base.group_user'))]" />
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+    </record>
+
+    <record id="rule_hr_attendance_break_manager" model="ir.rule">
+        <field name="name">Attendance Break: all records (manager)</field>
+        <field name="model_id" ref="model_hr_attendance_break" />
+        <field
+            name="groups"
+            eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"
+        />
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+</odoo>

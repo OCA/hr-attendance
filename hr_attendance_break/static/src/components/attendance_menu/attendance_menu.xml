@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+        t-name="hr_attendance_break.attendance_menu"
+        t-inherit="hr_attendance.attendance_menu"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('o_att_menu_container')]" position="inside">
+            <button
+                t-if="this.state.checkedIn"
+                class="o_hr_attendance_break_button btn w-100 mt-2"
+                t-att-class="this.state.onBreak ? 'btn-success' : 'btn-secondary'"
+                t-on-click="() => this.toggleBreak()"
+            >
+                <i
+                    class="fa me-1"
+                    t-att-class="this.state.onBreak ? 'fa-play' : 'fa-pause'"
+                    role="img"
+                    aria-label="Break"
+                />
+                <span t-if="this.state.onBreak">End Break</span>
+                <span t-else="">Start Break</span>
+            </button>
+        </xpath>
+    </t>
+</templates>

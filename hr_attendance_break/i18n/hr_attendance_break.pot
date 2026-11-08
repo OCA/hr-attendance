@@ -1,0 +1,156 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_break
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance
+msgid "Attendance"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance_break
+msgid "Attendance Break"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.actions.act_window,name:hr_attendance_break.hr_attendance_break_action
+msgid "Attendance Breaks"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.attendance_menu
+msgid "Break"
+msgstr ""
+
+#. module: hr_attendance_break
+#. odoo-javascript
+#: code:addons/hr_attendance_break/static/src/components/kiosk_break/kiosk_break.xml:0
+msgid "Check out"
+msgstr ""
+
+#. module: hr_attendance_break
+#. odoo-javascript
+#: code:addons/hr_attendance_break/static/src/components/kiosk_break/kiosk_break.xml:0
+msgid "Go back"
+msgstr ""
+
+#. module: hr_attendance_break
+#. odoo-javascript
+#: code:addons/hr_attendance_break/static/src/components/kiosk_break/kiosk_break.xml:0
+msgid "What would you like to do?"
+msgstr ""
+
+#. module: hr_attendance_break
+#. odoo-javascript
+#: code:addons/hr_attendance_break/static/src/components/kiosk_break/kiosk_break.xml:0
+msgid "You are currently on a break"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_stop
+msgid "Break End"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__break_hours
+msgid "Break Hours"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.res_config_settings_view_form
+msgid "Break Rounding"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_company__attendance_break_rounding_minutes
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_config_settings__attendance_break_rounding_minutes
+msgid "Break Rounding (minutes)"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_start
+msgid "Break Start"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_type
+msgid "Break Type"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__break_ids
+#: model:ir.ui.menu,name:hr_attendance_break.menu_hr_attendance_break
+msgid "Breaks"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields.selection,name:hr_attendance_break.selection__hr_attendance_break__break_type__coffee
+msgid "Coffee"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__company_id
+msgid "Company"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__duration
+msgid "Duration"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_employee
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.attendance_menu
+msgid "End Break"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields.selection,name:hr_attendance_break.selection__hr_attendance_break__break_type__lunch
+msgid "Lunch"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__net_worked_hours
+msgid "Net Worked Hours"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__is_on_break
+msgid "On Break"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model:ir.model.fields.selection,name:hr_attendance_break.selection__hr_attendance_break__break_type__other
+msgid "Other"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Running"
+msgstr ""
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.attendance_menu
+msgid "Start Break"
+msgstr ""
+
+#. module: hr_attendance_break
+#: code:addons/hr_attendance_break/models/hr_employee.py:0
+msgid "You must be checked in to record a break."
+msgstr ""
