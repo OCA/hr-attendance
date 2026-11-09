@@ -16,9 +16,7 @@ class HrAttendanceTheoreticalTimeReport(models.Model):
     _auto = False
     _rec_name = "date"
     _order = "date,employee_id,theoretical_hours desc"
-    employee_id = fields.Many2one(
-        comodel_name="hr.employee", string="Employee", readonly=True
-    )
+    employee_id = fields.Many2one(comodel_name="hr.employee", readonly=True)
     company_id = fields.Many2one(related="employee_id.company_id")
     department_id = fields.Many2one(
         comodel_name="hr.department",

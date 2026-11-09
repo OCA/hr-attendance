@@ -15,7 +15,6 @@ class HrAttendanceReason(models.Model):
     sequence = fields.Integer()
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
     )
     name = fields.Char(
         string="Reason",
