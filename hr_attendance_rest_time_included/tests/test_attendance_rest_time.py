@@ -1,6 +1,9 @@
 # Copyright 2025 Tecnativa - Eduardo Ezerouali
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
+from datetime import timedelta
+
+from odoo import fields
 from odoo.tests import tagged
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -21,9 +24,6 @@ class TestHrAttendanceRestTime(BaseCommon):
             {"name": "Rest Time", "rest_time_included": True}
         )
 
-        # Base datetime fixed for test (avoids duplicate overtime)
-        cls.base_datetime = "2025-12-22 08:00:00"
-
     def test_01_create_attendance_and_open_rest_time(self):
         """Test opening and closing a rest time via attendance toggle"""
 
@@ -31,7 +31,7 @@ class TestHrAttendanceRestTime(BaseCommon):
         attendance = self.env["hr.attendance"].create(
             {
                 "employee_id": self.employee.id,
-                "check_in": self.base_datetime,
+                "check_in": fields.Datetime.now() - timedelta(hours=2),
                 "check_out": False,
             }
         )
