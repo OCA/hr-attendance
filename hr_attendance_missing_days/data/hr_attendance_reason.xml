@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="attendance_reason_missing_days" model="hr.attendance.reason">
+        <field name="name">System generated attendances for missing days</field>
+        <field name="code">S-GMD</field>
+    </record>
+</odoo>
