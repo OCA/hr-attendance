@@ -1,0 +1,133 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_block_by_geolocation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-21 08:59+0000\n"
+"PO-Revision-Date: 2025-10-21 08:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.actions.act_window,name:hr_attendance_block_by_geolocation.action_hr_attendance_location
+#: model:ir.ui.menu,name:hr_attendance_block_by_geolocation.menu_hr_attendance_location_root
+msgid "Authorized Locations"
+msgstr "Zonas Autorizadas"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model,name:hr_attendance_block_by_geolocation.model_hr_attendance_location
+msgid "Authorized location for HR attendance"
+msgstr "Zonas Autorizadas"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model,name:hr_attendance_block_by_geolocation.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,help:hr_attendance_block_by_geolocation.field_hr_employee__bypass_geolocation_check
+msgid "If checked, this employee can clock in/out from any location."
+msgstr "Si está marcado, este empleado puede fichar desde cualquier ubicación."
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_employee__bypass_geolocation_check
+msgid "Ignore geolocation restrictions"
+msgstr "Ignorar las restricciones por geolocalización"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__latitude
+msgid "Latitude"
+msgstr "Latitud"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__longitude
+msgid "Longitude"
+msgstr "Longitud"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__note
+msgid "Note"
+msgstr "Nota"
+
+#. module: hr_attendance_block_by_geolocation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_block_by_geolocation.view_hr_attendance_location_form
+msgid "Notes"
+msgstr "Notas"
+
+#. module: hr_attendance_block_by_geolocation
+#: model_terms:ir.ui.view,arch_db:hr_attendance_block_by_geolocation.view_hr_attendance_location_form
+#: model_terms:ir.ui.view,arch_db:hr_attendance_block_by_geolocation.view_hr_attendance_location_tree
+msgid "Open map"
+msgstr "Abrir mapa"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__radius_m
+msgid "Radius (m)"
+msgstr "Radio (m)"
+
+#. module: hr_attendance_block_by_geolocation
+#: model:ir.model.fields,field_description:hr_attendance_block_by_geolocation.field_hr_attendance_location__map_url
+msgid "View on map"
+msgstr "Ver en mapa"
+
+#. module: hr_attendance_block_by_geolocation
+#. odoo-python
+#: code:addons/hr_attendance_block_by_geolocation/models/hr_employee.py:0
+msgid ""
+"You are outside an authorized area for clocking in. Create a new area or go "
+"to an authorized zone."
+msgstr ""
+"No estás en una zona autorizada para fichar. Crea una nueva área o ves a una"
+" zona autorizada."
+
+#. module: hr_attendance_block_by_geolocation
+#. odoo-python
+#: code:addons/hr_attendance_block_by_geolocation/controllers/main.py:0
+msgid ""
+"You are outside an authorized area for clocking in.Create a new area or go "
+"to an authorized zone."
+msgstr ""
+"No estás en una zona autorizada para fichar. Crea una nueva área o ves a una"
+" zona autorizada."
