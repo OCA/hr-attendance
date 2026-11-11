@@ -2,6 +2,5 @@
 <odoo>
     <record id="group_hr_attendance_rfid" model="res.groups">
         <field name="name">RFID Attendance</field>
-        <field name="category_id" ref="base.module_category_hidden" />
     </record>
 </odoo>

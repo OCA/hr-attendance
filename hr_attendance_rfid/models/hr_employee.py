@@ -11,16 +11,14 @@ _logger = logging.getLogger(__name__)
 
 
 class HrEmployeeBase(models.AbstractModel):
-    _inherit = "hr.employee.base"
-    _sql_constraints = [
-        (
-            "rfid_card_code_uniq",
-            "UNIQUE(rfid_card_code)",
-            "The rfid code should be unique.",
-        )
-    ]
+    _inherit = "hr.employee"
+    _rfid_card_code_uniq = models.Constraint(
+        "UNIQUE(rfid_card_code)",
+        "The rfid code should be unique.",
+    )
 
     rfid_card_code = fields.Char("RFID Card Code", copy=False)
+    barcode = fields.Char(string="Badge ID")
 
     @api.model
     def register_attendance(self, card_code):
@@ -42,6 +40,9 @@ class HrEmployeeBase(models.AbstractModel):
             "logged": False,
             "action": "FALSE",
         }
+        if not card_code.strip():
+            res["error_message"] = self.env._("Card code is required.")
+            return res
         # We need to apply sudo() because a RFID basic user does not have access to
         # hr.employee. Hr.employee.public model does not have the
         # _attendance_action_change() method that will be used later.
@@ -50,14 +51,15 @@ class HrEmployeeBase(models.AbstractModel):
             res["employee_name"] = employee.name
             res["employee_id"] = employee.id
         else:
-            msg = self.env._("No employee found with card %s") % card_code
+            msg = self.env._("No employee found with card %s", card_code)
             _logger.warning(msg)
             res["error_message"] = msg
             return res
         try:
-            attendance = employee._attendance_action_change()
+            employee._attendance_action_change()
+            attendance = employee.last_attendance_id
             if attendance:
-                msg = self.env._("Attendance recorded for employee %s") % employee.name
+                msg = self.env._("Attendance recorded for employee %s", employee.name)
                 _logger.debug(msg)
                 res["logged"] = True
                 if attendance.check_out:
@@ -66,14 +68,13 @@ class HrEmployeeBase(models.AbstractModel):
                     res["action"] = "check_in"
                 return res
             else:
-                msg = (
-                    self.env._("No attendance was recorded for employee %s")
-                    % employee.name
+                msg = self.env._(
+                    "No attendance was recorded for employee %s", employee.name
                 )
                 _logger.error(msg)
                 res["error_message"] = msg
                 return res
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             res["error_message"] = repr(e)
             _logger.error(repr(e))
         return res

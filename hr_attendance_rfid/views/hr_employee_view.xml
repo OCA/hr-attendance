@@ -14,6 +14,10 @@
                     groups="hr_attendance.group_hr_attendance_officer"
                 />
             </field>
+            <!-- Only needed to change the field label -->
+            <xpath expr="//field[@name='barcode']" position="attributes">
+                <attribute name="string">Badge Number</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -10,6 +10,7 @@
 
   > - Víctor Martínez
   > - David Bañón Gil
+  > - Andrii Kompaniiets
 
 
 - Juany Davila \<<juany.davila@forgeflow.com>\>
