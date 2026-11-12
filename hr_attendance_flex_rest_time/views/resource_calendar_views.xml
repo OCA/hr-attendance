@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="resource_calendar_form_rest_time" model="ir.ui.view">
+        <field name="name">resource.calendar.form.rest.time</field>
+        <field name="model">resource.calendar</field>
+        <field name="inherit_id" ref="resource.resource_calendar_form" />
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group string="Rest Time Rules" invisible="not flexible_hours">
+                    <field name="rest_time_rule_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="min_hours" widget="float_time" />
+                            <field name="rest_time" widget="float_time" />
+                        </list>
+                    </field>
+                </group>
+            </notebook>
+        </field>
+    </record>
+</odoo>
