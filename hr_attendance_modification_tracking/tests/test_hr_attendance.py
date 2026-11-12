@@ -164,3 +164,75 @@ class TestHrAttendanceTracking(BaseCommon):
             "Cannot create new attendance record for",
             e.exception.args[0],
         )
+
+    def test_attendance_edit_09(self):
+        # Use case 9:
+        # Change the check-out of a closed attendance, even within the tolerance
+        # Expected: manually_changed = True
+        dti = fields.Datetime.now() - timedelta(seconds=15)
+        dto = fields.Datetime.now()
+        att = self.hr_attendance.create(
+            {
+                "employee_id": self.employee_06.id,
+                "check_in": dti,
+                "check_out": dto,
+            }
+        )
+        self.assertFalse(att.time_changed_manually)
+        att.write({"check_out": dto + timedelta(seconds=5)})
+        self.assertEqual(
+            att.time_changed_manually,
+            True,
+            "Use case 9: Wrong value, check-out changed.",
+        )
+
+    def test_attendance_edit_10(self):
+        # Use case 10:
+        # Clear the check-out of a closed attendance
+        # Expected: manually_changed = False
+        dti = fields.Datetime.now() - timedelta(seconds=15)
+        dto = fields.Datetime.now()
+        att = self.hr_attendance.create(
+            {
+                "employee_id": self.employee_06.id,
+                "check_in": dti,
+                "check_out": dto,
+            }
+        )
+        att.write({"check_out": False})
+        self.assertEqual(
+            att.time_changed_manually,
+            False,
+            "Use case 10: Wrong value, no time entered.",
+        )
+
+    def test_check_manual_time_change_without_now(self):
+        self.assertFalse(
+            self.hr_attendance._check_manual_time_change(
+                "check_in", fields.Datetime.now()
+            )
+        )
+        self.assertTrue(
+            self.hr_attendance._check_manual_time_change(
+                "check_in", fields.Datetime.now() - timedelta(minutes=10)
+            )
+        )
+
+    def test_attendance_employee_tracking(self):
+        attendance_model = self.hr_attendance.with_context(
+            tracking_disable=False, mail_notrack=False
+        )
+        att = attendance_model.create(
+            {"employee_id": self.employee_06.id, "check_in": fields.Datetime.now()}
+        )
+        # Values are tracked from the next transaction on, as in the interface.
+        self.env.flush_all()
+        self.env.cr.precommit.run()
+        att.write({"employee_id": self.employee_05.id})
+        self.env.flush_all()
+        self.env.cr.precommit.run()
+        att.invalidate_recordset(["message_ids"])
+        self.assertIn(
+            "employee_id",
+            att.message_ids.tracking_value_ids.field_id.mapped("name"),
+        )
