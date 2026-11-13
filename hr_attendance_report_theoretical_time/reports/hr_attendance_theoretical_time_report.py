@@ -114,7 +114,9 @@ CREATE or REPLACE VIEW %s as (
             return 0
         tz = employee.resource_id.calendar_id.tz
         res = employee.with_context(
-            exclude_public_holidays=True, employee_id=employee.id
+            exclude_public_holidays=True,
+            employee_id=employee.id,
+            use_actual_interval_hours_for_flexible_calendar=True,
         )._get_work_days_data_batch(
             datetime.combine(date, time(0, 0, 0, 0, tzinfo=pytz.timezone(tz))),
             datetime.combine(date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))),
@@ -138,6 +140,9 @@ CREATE or REPLACE VIEW %s as (
         )
         to_datetime = datetime.combine(
             date, time(23, 59, 59, 99999, tzinfo=pytz.timezone(tz))
+        )
+        employee = employee.with_context(
+            use_actual_interval_hours_for_flexible_calendar=True
         )
         data1 = employee._get_work_days_data_batch(
             from_datetime, to_datetime, compute_leaves=False

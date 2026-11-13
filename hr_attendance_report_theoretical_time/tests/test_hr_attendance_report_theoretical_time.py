@@ -7,7 +7,7 @@ import datetime
 
 from freezegun import freeze_time
 
-from odoo import Command
+from odoo import Command, fields
 from odoo.tools import SQL, mute_logger
 
 from odoo.addons.base.tests.common import BaseCommon
@@ -425,6 +425,138 @@ class TestHrAttendanceReportTheoreticalTime(TestHrAttendanceReportTheoreticalTim
         ).action_recompute()
         self.assertEqual(self.attendances[0].theoretical_hours, 8)
         self.assertEqual(self.attendances[0].leave_hours, 8)
+
+    def test_employee_flexible_hours_data(self):
+        flexible_calendar = self.env["resource.calendar"].create(
+            {
+                "name": "Test Flexible Calendar",
+                "attendance_ids": False,
+                "tz": "UTC",
+                "flexible_hours": True,
+                "full_time_required_hours": 40,
+                "hours_per_day": 8,
+            }
+        )
+        employee = self.env["hr.employee"].create(
+            {
+                "name": "Test employee flexible calendar",
+                "resource_calendar_id": flexible_calendar.id,
+                "address_id": self.address_1.id,
+                "theoretical_hours_start_date": "2022-01-01",
+                "departure_date": "2022-02-01",
+            }
+        )
+        self.env.company.resource_calendar_id = flexible_calendar
+        leave_type_hour = self.HrLeaveType.create(
+            {
+                "name": "Leave Type Test (hour)",
+                "exclude_public_holidays": True,
+                "requires_allocation": "no",
+                "request_unit": "hour",
+            }
+        )
+        leave_type_day = self.HrLeaveType.create(
+            {
+                "name": "Leave Type Test (day)",
+                "exclude_public_holidays": True,
+                "requires_allocation": "no",
+                "request_unit": "day",
+            }
+        )
+        leave_a = self.HrLeave.with_context(partner=employee.address_id.id).create(
+            {
+                "date_from": "2022-01-10 15:30:00",
+                "date_to": "2022-01-10 16:30:00",
+                "request_date_from": "2022-01-10",
+                "request_date_to": "2022-01-10",
+                "request_unit_hours": True,
+                "request_hour_from": 15.5,
+                "request_hour_to": 16.5,
+                "employee_id": employee.id,
+                "holiday_status_id": leave_type_hour.id,
+            }
+        )
+        leave_a.action_validate()
+        leave_b = self.HrLeave.with_context(partner=employee.address_id.id).create(
+            {
+                "date_from": "2022-01-11 16:30:00",
+                "date_to": "2022-01-11 17:30:00",
+                "request_date_from": "2022-01-11",
+                "request_date_to": "2022-01-11",
+                "request_unit_hours": True,
+                "request_hour_from": 16.5,
+                "request_hour_to": 17.5,
+                "employee_id": employee.id,
+                "holiday_status_id": leave_type_hour.id,
+            }
+        )
+        leave_b.action_validate()
+        leave_c = self.HrLeave.with_context(partner=employee.address_id.id).create(
+            {
+                "request_date_from": "2022-01-12",
+                "request_date_to": "2022-01-13",
+                "employee_id": employee.id,
+                "holiday_status_id": leave_type_day.id,
+            }
+        )
+        leave_c.action_validate()
+        employee._action_create_empty_attendance(
+            fields.Date.from_string("2022-01-10"),
+            fields.Date.from_string("2022-01-14"),
+        )
+        attendance_model = self.env["hr.attendance"].with_context(active_test=False)
+        attendances = attendance_model.search(
+            [
+                ("employee_id", "=", employee.id),
+                ("check_in", ">=", "2022-01-10 00:00:00"),
+                ("check_out", "<=", "2022-01-14 23:59:59"),
+            ]
+        )
+        date_10 = fields.Date.from_string("2022-01-10")
+        attendance_10 = attendances.filtered(
+            lambda x: x.check_in.date() == date_10 and x.check_out.date() == date_10
+        )
+        self.assertEqual(attendance_10.theoretical_hours, 7)
+        self.assertEqual(attendance_10.leave_hours, 1)
+        date_11 = fields.Date.from_string("2022-01-11")
+        attendance_11 = attendances.filtered(
+            lambda x: x.check_in.date() == date_11 and x.check_out.date() == date_11
+        )
+        self.assertEqual(attendance_11.theoretical_hours, 7)
+        self.assertEqual(attendance_11.leave_hours, 1)
+        date_12 = fields.Date.from_string("2022-01-12")
+        attendance_12 = attendances.filtered(
+            lambda x: x.check_in.date() == date_12 and x.check_out.date() == date_12
+        )
+        self.assertEqual(attendance_12.theoretical_hours, 0)
+        self.assertEqual(attendance_12.leave_hours, 8)
+        date_13 = fields.Date.from_string("2022-01-13")
+        attendance_13 = attendances.filtered(
+            lambda x: x.check_in.date() == date_13 and x.check_out.date() == date_13
+        )
+        self.assertEqual(attendance_13.theoretical_hours, 0)
+        self.assertEqual(attendance_13.leave_hours, 8)
+        date_14 = fields.Date.from_string("2022-01-14")
+        attendance_14 = attendances.filtered(
+            lambda x: x.check_in.date() == date_14 and x.check_out.date() == date_14
+        )
+        self.assertEqual(attendance_14.theoretical_hours, 8)
+        self.assertEqual(attendance_14.leave_hours, 0)
+        # recompute again with include_in_theoretical=True
+        leave_type_hour.include_in_theoretical = True
+        leave_type_day.include_in_theoretical = True
+        attendances._compute_theoretical_hours()
+        attendances._compute_leave_hours()
+        self.assertEqual(attendance_10.theoretical_hours, 8)
+        self.assertEqual(attendance_10.leave_hours, 1)
+        self.assertEqual(attendance_11.theoretical_hours, 8)
+        self.assertEqual(attendance_11.leave_hours, 1)
+        self.assertEqual(attendance_12.theoretical_hours, 8)
+        self.assertEqual(attendance_12.leave_hours, 8)
+        self.assertEqual(attendance_13.theoretical_hours, 8)
+        self.assertEqual(attendance_13.leave_hours, 8)
+        self.assertEqual(attendance_14.theoretical_hours, 8)
+        self.assertEqual(attendance_14.leave_hours, 0)
 
 
 class TestHrAttendanceReportTheoreticalTimeResource(BaseCommon):
