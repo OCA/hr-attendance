@@ -1,0 +1,1 @@
+odoo-addon-resource @ git+https://github.com/odoo/odoo.git@refs/pull/302684/head#subdirectory=resource
