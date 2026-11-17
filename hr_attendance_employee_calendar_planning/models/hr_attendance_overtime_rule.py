@@ -23,22 +23,3 @@ class HrAttendanceOvertimeRule(models.Model):
         return super()._generate_overtime_vals_v2(
             min_check_in, max_check_out, attendances, schedules_intervals_by_employee
         )
-
-    def _get_daterange_overtime_undertime_intervals_for_quantity_rule(
-        self, start, stop, attendance_intervals, schedule
-    ):
-        # It is important to define the appropriate context keys so that the value is
-        # as expected.
-        self = self.with_context(
-            flexible_hours_from_date=fields.Datetime.context_timestamp(
-                self, start
-            ).date(),
-            flexible_hours_to_date=fields.Datetime.context_timestamp(self, stop).date(),
-        )
-        employees = self.env["hr.employee"]
-        for _a_start, _a_stop, attendance in attendance_intervals:
-            employees += attendance.employee_id
-        employees.resource_calendar_id._compute_flexible_hours()
-        return super()._get_daterange_overtime_undertime_intervals_for_quantity_rule(
-            start, stop, attendance_intervals, schedule
-        )
