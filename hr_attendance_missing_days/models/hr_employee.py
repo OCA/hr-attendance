@@ -81,6 +81,7 @@ class Employee(models.Model):
             ensure_tz(attendance_date, tz).date()
             for attendance_date in attendance_records.mapped("check_in")
             + attendance_records.mapped("check_out")
+            if attendance_date
         }
 
         vals = []
