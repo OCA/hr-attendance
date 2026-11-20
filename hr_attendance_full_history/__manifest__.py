@@ -4,7 +4,7 @@
 {
     "name": "HR Attendance Full History",
     "summary": "Let employees read their full attendance history",
-    "version": "18.0.1.0.0",
+    "version": "20.0.1.0.0",
     "development_status": "Alpha",
     "category": "Human Resources/Attendances",
     "website": "https://github.com/OCA/hr-attendance",
@@ -13,7 +13,4 @@
     "license": "LGPL-3",
     "installable": True,
     "depends": ["hr_attendance"],
-    "data": [
-        "views/res_users_view.xml",
-    ],
 }

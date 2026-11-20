@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
-<title>README.rst</title>
+<title>HR Attendance Full History</title>
 <style type="text/css">
 
 /*
@@ -374,7 +374,7 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:b4bd5cfdd4f6c6ffc056d6741c801aa22d3c4d9bc8902dbf810f194fb461452f
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_full_history"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-18-0/hr-attendance-18-0-hr_attendance_full_history"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/hr-attendance/tree/20.0/hr_attendance_full_history"><img alt="OCA/hr-attendance" src="https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/hr-attendance-20-0/hr-attendance-20-0-hr_attendance_full_history"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&amp;target_branch=20.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module allows employees to view their complete attendance history,
 and not only since day 1 of current month.</p>
 <div class="admonition important">
@@ -401,16 +401,23 @@ Only for development or testing purpose, do not use in production.
 <h2><a class="toc-backref" href="#toc-entry-1">Usage</a></h2>
 <p>To use this module, you need to:</p>
 <ol class="arabic simple">
-<li>Go to <em>My profile</em>, using the top-right menu with your user avatar.</li>
-<li>Click on the smart button <em>This month</em>.</li>
-<li>Remove the <em>This month</em> filter.</li>
+<li>Open your employee form, for example through <em>My Profile</em> in the
+top-right menu with your user avatar.</li>
+<li>Click on the smart button with the hours worked this month.</li>
+<li>Remove the <em>Date</em> filter, or change its period, to see older
+attendances.</li>
 </ol>
 </div>
 <div class="section" id="known-issues-roadmap">
 <h2><a class="toc-backref" href="#toc-entry-2">Known issues / Roadmap</a></h2>
 <ul class="simple">
-<li>Remove in Odoo 19. Employees can see all their attendances through
-their employee form.</li>
+<li>Odoo 19.0 already let employees see all their attendances, but Odoo
+20.0 restricts them again to the current month. Remove this module if
+a future version lifts that restriction.</li>
+<li>In Odoo 20.0, users with the <em>Self Attendance Edit</em> right can already
+see their full history through <em>Attendances &gt; My Attendances</em>. This
+module is still needed for employees that can only read their own
+attendances.</li>
 </ul>
 </div>
 <div class="section" id="bug-tracker">
@@ -418,7 +425,7 @@ their employee form.</li>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/hr-attendance/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_full_history%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_full_history%0Aversion:%2020.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -446,7 +453,7 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
 <p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainers</a>:</p>
 <p><a class="reference external image-reference" href="https://github.com/rblasco"><img alt="rblasco" src="https://github.com/rblasco.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/yajo"><img alt="yajo" src="https://github.com/yajo.png?size=40px" /></a></p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_full_history">OCA/hr-attendance</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/hr-attendance/tree/20.0/hr_attendance_full_history">OCA/hr-attendance</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>

@@ -21,13 +21,13 @@ HR Attendance Full History
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fhr--attendance-lightgray.png?logo=github
-    :target: https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_full_history
+    :target: https://github.com/OCA/hr-attendance/tree/20.0/hr_attendance_full_history
     :alt: OCA/hr-attendance
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/hr-attendance-18-0/hr-attendance-18-0-hr_attendance_full_history
+    :target: https://translation.odoo-community.org/projects/hr-attendance-20-0/hr-attendance-20-0-hr_attendance_full_history
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=18.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/hr-attendance&target_branch=20.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -50,15 +50,22 @@ Usage
 
 To use this module, you need to:
 
-1. Go to *My profile*, using the top-right menu with your user avatar.
-2. Click on the smart button *This month*.
-3. Remove the *This month* filter.
+1. Open your employee form, for example through *My Profile* in the
+   top-right menu with your user avatar.
+2. Click on the smart button with the hours worked this month.
+3. Remove the *Date* filter, or change its period, to see older
+   attendances.
 
 Known issues / Roadmap
 ======================
 
-- Remove in Odoo 19. Employees can see all their attendances through
-  their employee form.
+- Odoo 19.0 already let employees see all their attendances, but Odoo
+  20.0 restricts them again to the current month. Remove this module if
+  a future version lifts that restriction.
+- In Odoo 20.0, users with the *Self Attendance Edit* right can already
+  see their full history through *Attendances > My Attendances*. This
+  module is still needed for employees that can only read their own
+  attendances.
 
 Bug Tracker
 ===========
@@ -66,7 +73,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/hr-attendance/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_full_history%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/hr-attendance/issues/new?body=module:%20hr_attendance_full_history%0Aversion:%2020.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -107,6 +114,6 @@ Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-rblasco| |maintainer-yajo| 
 
-This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/18.0/hr_attendance_full_history>`_ project on GitHub.
+This module is part of the `OCA/hr-attendance <https://github.com/OCA/hr-attendance/tree/20.0/hr_attendance_full_history>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
