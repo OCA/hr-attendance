@@ -32,23 +32,27 @@ HR Attendance Break
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module lets employees record **breaks** during their attendance
-(clocked-in) time, directly from the attendance menu in the top bar
-("attendance circle").
+This module records employee **breaks** during their attendance, for
+labour-compliance reporting (are breaks taken, are they too long?) and
+to compute the worked hours net of unpaid breaks.
 
-A break is always available while an employee is checked in, regardless
-of what they are working on. Each break is stored as an individual
-record with its own start and end time, so a full working day can
-contain several breaks (for example a morning coffee, a lunch break and
-an afternoon coffee).
+Breaks are recorded with the usual check out / check in buttons, using
+the attendance reasons of ``hr_attendance_reason``: checking out with a
+reason linked to a break type starts a break, and the next check in ends
+it. The attendance of the day is reopened, so a working day stays one
+attendance that can hold several breaks (morning coffee, lunch,
+afternoon coffee).
 
-For every attendance the module computes:
+Each break type is either **paid** or **unpaid**. For every attendance
+the module computes:
 
 - **Break Hours**: the total time spent on breaks.
-- **Net Worked Hours**: the worked hours minus the breaks.
+- **Unpaid Break Hours**: the unpaid break time. Time overlapping the
+  lunch break of the employee's working schedule is not counted, as Odoo
+  already excludes it from the worked hours.
+- **Net Worked Hours**: the worked hours minus the unpaid breaks.
 
-This is useful to monitor, for compliance purposes, whether employees
-take breaks that are too long.
+The worked hours computed by Odoo are left untouched.
 
 **Table of contents**
 
@@ -58,40 +62,62 @@ take breaks that are too long.
 Configuration
 =============
 
-To configure break rounding:
+To configure breaks:
 
-1. Go to *Attendances > Configuration > Settings*.
-2. In the *Break Rounding* setting, enter the number of minutes each
-   break should be rounded to (for example 5 or 15).
-3. Leave it at ``0`` to keep the exact break duration (default).
+1. Go to *Attendances > Configuration > Break Types* and review the
+   break types. *Paid Break* and *Unpaid Break* are created on
+   installation.
+2. Go to *Attendances > Configuration > Reasons* and create a reason for
+   each kind of break (for example *Coffee Break* and *Lunch Break*),
+   with *Action Type* set to *Sign out*, *Show on attendance screen?*
+   checked and the matching *Break Type*.
+3. Go to *Attendances > Configuration > Settings* and, under *Attendance
+   Reasons*, enable showing the reasons on the attendance screen, so
+   employees can pick the break reason when checking out. To keep
+   checking out at the end of the day free of friction, leave the reason
+   optional.
+4. Optionally, in the *Break Rounding* setting, enter the number of
+   minutes each break should be rounded to (for example 5 or 15). Leave
+   it at ``0`` to keep the exact break duration (default).
 
 Usage
 =====
 
 To record a break:
 
-1. Check in from the attendance menu in the top bar (the attendance
-   circle).
-2. While checked in, click **Start Break** in the same menu. The button
-   turns into **End Break**.
-3. Click **End Break** when the break is over. The break is stored with
-   its start and end time.
-4. Repeat as many times as needed during the day.
+1. Check in as usual, from the attendance menu in the top bar or the
+   kiosk.
+2. To start a break, check out and pick a break reason (for example
+   *Lunch Break*).
+3. To end the break, check in again. The break is closed and the
+   attendance of the day is reopened, instead of a new attendance being
+   created.
+4. Repeat as many times as needed during the day, and check out without
+   a break reason at the end of the day.
 
-When the employee checks out, any break that is still running is
-automatically closed.
-
-On the **attendance kiosk**, a checked-in employee who selects their
-name (and enters their PIN if required) is offered a choice between
-*Start/End Break* and *Check out*, so breaks can be recorded from a
-shared terminal too.
+A break that is not ended on the same day (the employee went home after
+starting a break) is discarded: the attendance keeps the check out time
+of the break start, and the next check in starts a new attendance.
 
 To review breaks:
 
 - Open an attendance record to see its breaks and the resulting *Break
-  Hours* and *Net Worked Hours*.
+  Hours*, *Unpaid Break Hours* and *Net Worked Hours*.
 - Go to *Attendances > Reporting > Breaks* for a list and pivot view of
-  all breaks, grouped by employee, day or break type.
+  all breaks, grouped by employee, day or break type, with paid / unpaid
+  filters.
+
+Known issues / Roadmap
+======================
+
+- ``hr_attendance_rest_time_included`` (Tecnativa, up to 18.0) records
+  breaks with the same check out / check in flow, but in a model of its
+  own and always as paid time. Once it is migrated to 19.0, it could
+  store its breaks in ``hr.attendance.break``, using a paid break type,
+  so both modules share the same data.
+- Starting a break directly from the kiosk without picking a reason,
+  through a default break reason, could reduce the number of taps
+  further.
 
 Bug Tracker
 ===========

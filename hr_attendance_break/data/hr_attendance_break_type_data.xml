@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="break_type_paid" model="hr.attendance.break.type">
+        <field name="name">Paid Break</field>
+        <field name="sequence">10</field>
+        <field name="paid" eval="True" />
+    </record>
+    <record id="break_type_unpaid" model="hr.attendance.break.type">
+        <field name="name">Unpaid Break</field>
+        <field name="sequence">20</field>
+        <field name="paid" eval="False" />
+    </record>
+</odoo>

@@ -8,22 +8,18 @@
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo Community Association (OCA)",
     "license": "LGPL-3",
-    "installable": True,
-    "depends": ["hr_attendance"],
+    "depends": ["hr_attendance_reason"],
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
+        "data/hr_attendance_break_type_data.xml",
+        "views/hr_attendance_break_type_view.xml",
         "views/hr_attendance_break_view.xml",
+        "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
         "views/res_config_settings_view.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "hr_attendance_break/static/src/components/attendance_menu/**/*",
-        ],
-        "hr_attendance.assets_public_attendance": [
-            "hr_attendance_break/static/src/components/kiosk_break/**/*",
-            "hr_attendance_break/static/src/public_kiosk/**/*",
-        ],
-    },
+    "demo": [
+        "demo/hr_attendance_reason_demo.xml",
+    ],
 }

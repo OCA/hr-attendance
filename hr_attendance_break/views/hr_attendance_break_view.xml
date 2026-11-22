@@ -6,7 +6,8 @@
         <field name="arch" type="xml">
             <list>
                 <field name="employee_id" />
-                <field name="break_type" />
+                <field name="break_type_id" />
+                <field name="paid" optional="show" />
                 <field name="break_start" />
                 <field name="break_stop" />
                 <field name="duration" widget="float_time" sum="Total" />
@@ -33,7 +34,10 @@
         <field name="arch" type="xml">
             <search>
                 <field name="employee_id" />
-                <field name="break_type" />
+                <field name="break_type_id" />
+                <filter name="paid" string="Paid" domain="[('paid', '=', True)]" />
+                <filter name="unpaid" string="Unpaid" domain="[('paid', '=', False)]" />
+                <separator />
                 <filter
                     name="running"
                     string="Running"
@@ -48,7 +52,7 @@
                     <filter
                         name="group_type"
                         string="Break Type"
-                        context="{'group_by': 'break_type'}"
+                        context="{'group_by': 'break_type_id'}"
                     />
                     <filter
                         name="group_day"

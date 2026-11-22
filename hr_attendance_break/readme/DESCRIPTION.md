@@ -1,15 +1,20 @@
-This module lets employees record **breaks** during their attendance (clocked-in)
-time, directly from the attendance menu in the top bar ("attendance circle").
+This module records employee **breaks** during their attendance, for
+labour-compliance reporting (are breaks taken, are they too long?) and to
+compute the worked hours net of unpaid breaks.
 
-A break is always available while an employee is checked in, regardless of what
-they are working on. Each break is stored as an individual record with its own
-start and end time, so a full working day can contain several breaks (for
-example a morning coffee, a lunch break and an afternoon coffee).
+Breaks are recorded with the usual check out / check in buttons, using the
+attendance reasons of `hr_attendance_reason`: checking out with a reason linked
+to a break type starts a break, and the next check in ends it. The attendance
+of the day is reopened, so a working day stays one attendance that can hold
+several breaks (morning coffee, lunch, afternoon coffee).
 
-For every attendance the module computes:
+Each break type is either **paid** or **unpaid**. For every attendance the
+module computes:
 
 - **Break Hours**: the total time spent on breaks.
-- **Net Worked Hours**: the worked hours minus the breaks.
+- **Unpaid Break Hours**: the unpaid break time. Time overlapping the lunch
+  break of the employee's working schedule is not counted, as Odoo already
+  excludes it from the worked hours.
+- **Net Worked Hours**: the worked hours minus the unpaid breaks.
 
-This is useful to monitor, for compliance purposes, whether employees take breaks
-that are too long.
+The worked hours computed by Odoo are left untouched.

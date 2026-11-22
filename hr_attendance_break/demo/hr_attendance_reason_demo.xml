@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="hr_attendance_reason_coffee_break" model="hr.attendance.reason">
+        <field name="name">Coffee Break</field>
+        <field name="code">BRK</field>
+        <field name="action_type">sign_out</field>
+        <field name="show_on_attendance_screen" eval="True" />
+        <field name="break_type_id" ref="break_type_paid" />
+    </record>
+    <record id="hr_attendance_reason_lunch_break" model="hr.attendance.reason">
+        <field name="name">Lunch Break</field>
+        <field name="code">LUNCH</field>
+        <field name="action_type">sign_out</field>
+        <field name="show_on_attendance_screen" eval="True" />
+        <field name="break_type_id" ref="break_type_unpaid" />
+    </record>
+</odoo>

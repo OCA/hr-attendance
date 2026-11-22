@@ -1,9 +1,10 @@
 # Copyright 2026 Odoo Community Association (OCA)
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from odoo.exceptions import UserError
+from freezegun import freeze_time
+
 from odoo.tests import common
 
 
@@ -12,84 +13,168 @@ class TestHrAttendanceBreak(common.TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.company = cls.env.ref("base.main_company")
-        cls.employee = cls.env["hr.employee"].create({"name": "Break Tester"})
-
-    def _check_in(self, check_in=None):
-        return self.env["hr.attendance"].create(
+        cls.company.attendance_break_rounding_minutes = 0
+        cls.calendar = cls.env["resource.calendar"].create(
+            {"name": "Break Test Calendar", "tz": "UTC"}
+        )
+        # Monday 08:00-17:00 with a lunch break from 12:00 to 13:00
+        cls.calendar.attendance_ids = [(5, 0, 0)] + [
+            (0, 0, vals)
+            for vals in (
+                {
+                    "name": "Monday Morning",
+                    "dayofweek": "0",
+                    "hour_from": 8,
+                    "hour_to": 12,
+                    "day_period": "morning",
+                },
+                {
+                    "name": "Monday Lunch",
+                    "dayofweek": "0",
+                    "hour_from": 12,
+                    "hour_to": 13,
+                    "day_period": "lunch",
+                },
+                {
+                    "name": "Monday Afternoon",
+                    "dayofweek": "0",
+                    "hour_from": 13,
+                    "hour_to": 17,
+                    "day_period": "afternoon",
+                },
+            )
+        ]
+        cls.employee = cls.env["hr.employee"].create(
             {
-                "employee_id": self.employee.id,
-                "check_in": check_in or datetime(2026, 1, 5, 8, 0, 0),
+                "name": "Break Tester",
+                "tz": "UTC",
+                "resource_calendar_id": cls.calendar.id,
             }
         )
-
-    def test_toggle_break_creates_and_closes(self):
-        self._check_in()
-        # Start a break
-        on_break = self.employee.attendance_toggle_break()
-        self.assertTrue(on_break)
-        attendance = self.employee._get_open_attendance()
-        self.assertEqual(len(attendance.break_ids), 1)
-        self.assertTrue(attendance.is_on_break)
-        self.assertFalse(attendance.break_ids.break_stop)
-        # End the break
-        on_break = self.employee.attendance_toggle_break()
-        self.assertFalse(on_break)
-        self.assertFalse(attendance.is_on_break)
-        self.assertTrue(attendance.break_ids.break_stop)
-
-    def test_multiple_breaks_sum(self):
-        # A full day (08:00 -> 17:00) with three breaks.
-        attendance = self._check_in()
-        attendance.check_out = datetime(2026, 1, 5, 17, 0, 0)
-        # Three closed breaks of 15, 30 and 15 minutes = 1.0 h total.
-        base = datetime(2026, 1, 5, 10, 0, 0)
-        for start_offset, minutes in ((0, 15), (150, 30), (300, 15)):
-            start = base + timedelta(minutes=start_offset)
-            self.env["hr.attendance.break"].create(
-                {
-                    "attendance_id": attendance.id,
-                    "break_start": start,
-                    "break_stop": start + timedelta(minutes=minutes),
-                }
-            )
-        self.assertEqual(len(attendance.break_ids), 3)
-        self.assertAlmostEqual(attendance.break_hours, 1.0, places=2)
-        # The module's guarantee: net worked = worked - breaks.
-        self.assertGreater(attendance.worked_hours, 1.0)
-        self.assertAlmostEqual(
-            attendance.net_worked_hours,
-            attendance.worked_hours - 1.0,
-            places=2,
+        cls.paid_type = cls.env.ref("hr_attendance_break.break_type_paid")
+        cls.unpaid_type = cls.env.ref("hr_attendance_break.break_type_unpaid")
+        Reason = cls.env["hr.attendance.reason"]
+        cls.coffee_reason = Reason.create(
+            {
+                "name": "Test Coffee",
+                "code": "TCOF",
+                "action_type": "sign_out",
+                "break_type_id": cls.paid_type.id,
+            }
+        )
+        cls.lunch_reason = Reason.create(
+            {
+                "name": "Test Lunch",
+                "code": "TLUN",
+                "action_type": "sign_out",
+                "break_type_id": cls.unpaid_type.id,
+            }
+        )
+        cls.sick_reason = Reason.create(
+            {"name": "Test Sick", "code": "TSICK", "action_type": "sign_out"}
         )
 
-    def test_auto_close_break_on_checkout(self):
-        self._check_in()
-        self.employee.attendance_toggle_break()
-        attendance = self.employee._get_open_attendance()
-        self.assertTrue(attendance.is_on_break)
-        # Checking out must auto-close the running break.
-        self.employee._attendance_action_change()
-        self.assertTrue(attendance.check_out)
-        self.assertTrue(attendance.break_ids.break_stop)
-        self.assertFalse(attendance.is_on_break)
+    def _action(self, when, reason=None):
+        employee = self.employee
+        if reason:
+            employee = employee.with_context(attendance_reason_id=reason.id)
+        with freeze_time(when):
+            return employee._attendance_action_change()
 
-    def test_rounding(self):
-        attendance = self._check_in()
-        vals = {
-            "attendance_id": attendance.id,
-            "break_start": datetime(2026, 1, 5, 10, 0, 0),
-            "break_stop": datetime(2026, 1, 5, 10, 12, 0),
-        }
-        # No rounding -> exact 12 minutes (0.2 h).
-        self.company.attendance_break_rounding_minutes = 0
-        rec = self.env["hr.attendance.break"].create(vals)
-        self.assertAlmostEqual(rec.duration, 0.2, places=2)
-        # Round to nearest 15 minutes -> 12 minutes becomes 0.25 h.
+    def test_check_out_with_break_reason_starts_break(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 10, 0), self.coffee_reason)
+        self.assertEqual(self.employee.attendance_state, "checked_out")
+        self.assertEqual(len(attendance.break_ids), 1)
+        brk = attendance.break_ids
+        self.assertEqual(brk.break_start, datetime(2026, 1, 5, 10, 0))
+        self.assertFalse(brk.break_stop)
+        self.assertEqual(brk.break_type_id, self.paid_type)
+        self.assertIn(self.coffee_reason, attendance.attendance_reason_ids)
+
+    def test_check_in_ends_break_and_reopens_attendance(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 10, 0), self.coffee_reason)
+        resumed = self._action(datetime(2026, 1, 5, 10, 15))
+        self.assertEqual(resumed, attendance)
+        self.assertFalse(attendance.check_out)
+        self.assertEqual(self.employee.attendance_state, "checked_in")
+        self.assertEqual(attendance.break_ids.break_stop, datetime(2026, 1, 5, 10, 15))
+        self.assertAlmostEqual(attendance.break_ids.duration, 0.25)
+        self.assertEqual(
+            self.env["hr.attendance"].search_count(
+                [("employee_id", "=", self.employee.id)]
+            ),
+            1,
+        )
+
+    def test_check_out_without_break_reason(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 12, 0), self.sick_reason)
+        self.assertFalse(attendance.break_ids)
+        attendance = self._action(datetime(2026, 1, 5, 13, 0))
+        self.assertFalse(attendance.break_ids)
+        self.assertEqual(attendance.check_in, datetime(2026, 1, 5, 13, 0))
+
+    def test_full_day_paid_and_unpaid_breaks(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 10, 0), self.coffee_reason)
+        self._action(datetime(2026, 1, 5, 10, 15))
+        self._action(datetime(2026, 1, 5, 13, 0), self.lunch_reason)
+        self._action(datetime(2026, 1, 5, 13, 30))
+        self._action(datetime(2026, 1, 5, 15, 0), self.coffee_reason)
+        self._action(datetime(2026, 1, 5, 15, 15))
+        self._action(datetime(2026, 1, 5, 17, 0))
+        self.assertEqual(len(attendance.break_ids), 3)
+        self.assertEqual(attendance.check_out, datetime(2026, 1, 5, 17, 0))
+        # The schedule lunch (12:00-13:00) is already excluded by Odoo
+        self.assertAlmostEqual(attendance.worked_hours, 8.0)
+        self.assertAlmostEqual(attendance.break_hours, 1.0)
+        self.assertAlmostEqual(attendance.unpaid_break_hours, 0.5)
+        self.assertAlmostEqual(attendance.net_worked_hours, 7.5)
+
+    def test_unpaid_break_during_schedule_lunch_not_deducted_twice(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        # 11:30 -> 13:00: only the 30 minutes before the schedule lunch count
+        self._action(datetime(2026, 1, 5, 11, 30), self.lunch_reason)
+        self._action(datetime(2026, 1, 5, 13, 0))
+        self._action(datetime(2026, 1, 5, 17, 0))
+        self.assertAlmostEqual(attendance.worked_hours, 8.0)
+        self.assertAlmostEqual(attendance.break_hours, 1.5)
+        self.assertAlmostEqual(attendance.unpaid_break_hours, 0.5)
+        self.assertAlmostEqual(attendance.net_worked_hours, 7.5)
+
+    def test_break_left_open_previous_day(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 16, 0), self.coffee_reason)
+        new_attendance = self._action(datetime(2026, 1, 6, 8, 0))
+        self.assertNotEqual(new_attendance, attendance)
+        self.assertEqual(attendance.check_out, datetime(2026, 1, 5, 16, 0))
+        self.assertFalse(attendance.break_ids)
+        self.assertEqual(new_attendance.check_in, datetime(2026, 1, 6, 8, 0))
+
+    def test_break_not_resumed_after_manual_change(self):
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 12, 0), self.lunch_reason)
+        attendance.check_out = datetime(2026, 1, 5, 12, 5)
+        new_attendance = self._action(datetime(2026, 1, 5, 12, 30))
+        self.assertNotEqual(new_attendance, attendance)
+        self.assertFalse(attendance.break_ids)
+
+    def test_break_rounding(self):
         self.company.attendance_break_rounding_minutes = 15
-        rec.invalidate_recordset(["duration"])
-        self.assertAlmostEqual(rec.duration, 0.25, places=2)
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 14, 0), self.lunch_reason)
+        self._action(datetime(2026, 1, 5, 14, 37))
+        self._action(datetime(2026, 1, 5, 17, 0))
+        self.assertAlmostEqual(attendance.break_ids.duration, 0.5)
+        self.assertAlmostEqual(attendance.unpaid_break_hours, 0.5)
 
-    def test_toggle_break_requires_checkin(self):
-        # No open attendance -> cannot record a break.
-        with self.assertRaises(UserError):
-            self.employee.attendance_toggle_break()
+    def test_reason_added_on_resume(self):
+        sign_in_reason = self.env["hr.attendance.reason"].create(
+            {"name": "Test Back", "code": "TBACK", "action_type": "sign_in"}
+        )
+        attendance = self._action(datetime(2026, 1, 5, 8, 0))
+        self._action(datetime(2026, 1, 5, 10, 0), self.coffee_reason)
+        self._action(datetime(2026, 1, 5, 10, 15), sign_in_reason)
+        self.assertIn(sign_in_reason, attendance.attendance_reason_ids)

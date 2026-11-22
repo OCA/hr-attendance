@@ -17,54 +17,40 @@ class HrAttendance(models.Model):
         aggregator="sum",
         help="Total break time recorded during this attendance.",
     )
+    unpaid_break_hours = fields.Float(
+        compute="_compute_break_hours",
+        store=True,
+        aggregator="sum",
+        help="Unpaid break time deducted from the worked hours. Time that "
+        "overlaps the lunch break of the working schedule is not deducted "
+        "twice, as it is already excluded from the worked hours.",
+    )
     net_worked_hours = fields.Float(
         compute="_compute_break_hours",
         store=True,
         aggregator="sum",
-        help="Worked hours minus the recorded breaks.",
-    )
-    is_on_break = fields.Boolean(
-        string="On Break",
-        compute="_compute_is_on_break",
-        help="The employee currently has an open (running) break.",
+        help="Worked hours minus the unpaid breaks.",
     )
 
-    @api.depends("break_ids.duration", "worked_hours")
+    @api.depends(
+        "break_ids.duration",
+        "break_ids.paid",
+        "worked_hours",
+    )
     def _compute_break_hours(self):
         for attendance in self:
-            attendance.break_hours = sum(attendance.break_ids.mapped("duration"))
+            breaks = attendance.break_ids.filtered("break_stop")
+            attendance.break_hours = sum(breaks.mapped("duration"))
+            unpaid = 0.0
+            if attendance.check_out:
+                for brk in breaks.filtered(lambda b: not b.paid):
+                    unpaid += brk._apply_rounding(
+                        attendance._get_worked_hours_in_range(
+                            brk.break_start, brk.break_stop
+                        ),
+                        brk.company_id.attendance_break_rounding_minutes,
+                    )
+            attendance.unpaid_break_hours = unpaid
             attendance.net_worked_hours = max(
-                0.0, attendance.worked_hours - attendance.break_hours
+                0.0, (attendance.worked_hours or 0.0) - unpaid
             )
-
-    @api.depends("break_ids.break_stop")
-    def _compute_is_on_break(self):
-        for attendance in self:
-            attendance.is_on_break = any(not b.break_stop for b in attendance.break_ids)
-
-    def _get_open_break(self):
-        self.ensure_one()
-        return self.break_ids.filtered(lambda b: not b.break_stop)[:1]
-
-    def _close_open_breaks(self, stop_dt=None):
-        """Close any running break, e.g. when the attendance is checked out."""
-        stop_dt = stop_dt or fields.Datetime.now()
-        for attendance in self:
-            open_breaks = attendance.break_ids.filtered(lambda b: not b.break_stop)
-            open_breaks.write({"break_stop": stop_dt})
-
-    def toggle_break(self):
-        """Start a break if none is running, otherwise end the running one.
-
-        Returns ``True`` when the employee ends up on a break, ``False`` when the
-        break has just been closed.
-        """
-        self.ensure_one()
-        open_break = self._get_open_break()
-        if open_break:
-            open_break.break_stop = fields.Datetime.now()
-            return False
-        self.env["hr.attendance.break"].create(
-            {"attendance_id": self.id, "break_start": fields.Datetime.now()}
-        )
-        return True

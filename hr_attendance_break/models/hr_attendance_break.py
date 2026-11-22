@@ -29,15 +29,12 @@ class HrAttendanceBreak(models.Model):
         default=fields.Datetime.now,
     )
     break_stop = fields.Datetime(string="Break End")
-    break_type = fields.Selection(
-        selection=[
-            ("coffee", "Coffee"),
-            ("lunch", "Lunch"),
-            ("other", "Other"),
-        ],
-        default="other",
+    break_type_id = fields.Many2one(
+        comodel_name="hr.attendance.break.type",
+        string="Break Type",
         required=True,
     )
+    paid = fields.Boolean(related="break_type_id.paid", store=True)
     duration = fields.Float(
         compute="_compute_duration",
         store=True,
