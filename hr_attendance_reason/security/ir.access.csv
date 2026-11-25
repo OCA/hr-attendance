@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_hr_attendance_reason_employee,hr.attendance.reason.employee,hr.attendance.reason,base.group_user,r,
+access_hr_attendance_reason_manager,hr.attendance.reason.manager,hr.attendance.reason,hr_attendance.group_hr_attendance_manager,crud,
+rule_multi_company_hr_attendance_reason,Attendance Reason multi-company,hr.attendance.reason,,crud,"[('company_id', 'in', company_ids + [False])]"
