@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
     <record id="hr_act_reason_1" model="hr.attendance.reason">
         <field name="name">Manager Manual Amend</field>
