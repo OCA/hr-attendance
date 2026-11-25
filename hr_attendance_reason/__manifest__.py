@@ -4,7 +4,7 @@
 
 {
     "name": "HR Attendance Reason",
-    "version": "19.0.1.0.0",
+    "version": "20.0.1.0.0",
     "category": "Human Resources",
     "website": "https://github.com/OCA/hr-attendance",
     "author": "Odoo S.A., Tecnativa, Odoo Community Association (OCA)",
@@ -12,8 +12,7 @@
     "installable": True,
     "depends": ["hr_attendance"],
     "data": [
-        "security/ir.model.access.csv",
-        "security/security.xml",
+        "security/ir.access.csv",
         "views/hr_attendance_reason_view.xml",
         "views/hr_attendance_view.xml",
         "views/res_config_settings_view.xml",
@@ -21,12 +20,16 @@
     "demo": [
         "demo/hr_attendance_reason_demo.xml",
     ],
+    # backend gets only the systray select, the kiosk bundle gets only the kiosk screen
     "assets": {
         "web.assets_backend": [
-            "hr_attendance_reason/static/src/**/*",
+            "hr_attendance_reason/static/src/components/attendance_menu/**/*",
+            "hr_attendance_reason/static/src/scss/**/*",
         ],
         "hr_attendance.assets_public_attendance": [
-            "hr_attendance_reason/static/src/**/*",
+            "hr_attendance_reason/static/src/components/kiosk_reason/**/*",
+            "hr_attendance_reason/static/src/public_kiosk/**/*",
+            "hr_attendance_reason/static/src/scss/**/*",
         ],
     },
 }

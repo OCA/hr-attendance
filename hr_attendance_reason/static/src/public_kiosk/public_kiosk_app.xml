@@ -14,7 +14,6 @@
                     onReasonConfirm="(employee_id, pin_code, attendance_reason_id) => this.onReasonSelection(employee_id, pin_code, attendance_reason_id)"
                     onClickBack="() => this.kioskReturn()"
                 />
-                <input t-ref="attendance_reason" type="hidden" />
             </t>
         </xpath>
     </t>

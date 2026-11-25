@@ -1,16 +1,27 @@
-import {Component, useRef} from "@odoo/owl";
+import {Component, signal, t, useProps} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 import {_t} from "@web/core/l10n/translation";
 
 export class KioskReason extends Component {
+    static template = "hr_attendance_reason.KioskReason";
+
+    props = useProps({
+        employeeData: t.object(),
+        reasons: t.array().optional(),
+        pin_code: t.or([t.string(), t.boolean()]).optional(),
+        onReasonConfirm: t.function(),
+        onClickBack: t.function(),
+    });
+
+    attendanceReasonRef = signal.ref();
+
     setup() {
         this.notification = useService("notification");
         this.checkedIn = this.props.employeeData.attendance_state === "checked_in";
-        this.attendance_reason = useRef("attendance_reason");
     }
 
     async onClickSelectReason() {
-        const attendance_reason_id = this.attendance_reason.el.value;
+        const attendance_reason_id = this.attendanceReasonRef().value;
         if (
             this.props.employeeData.required_reason_on_attendance_screen &&
             attendance_reason_id === "0"
@@ -28,13 +39,3 @@ export class KioskReason extends Component {
         );
     }
 }
-
-KioskReason.props = {
-    employeeData: {type: Object},
-    reasons: {type: Array, optional: true},
-    pin_code: {type: [String, Boolean], optional: true},
-    onReasonConfirm: {type: Function},
-    onClickBack: {type: Function},
-};
-
-KioskReason.template = "hr_attendance_reason.KioskReason";

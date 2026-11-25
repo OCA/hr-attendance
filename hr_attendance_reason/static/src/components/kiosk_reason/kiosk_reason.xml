@@ -15,28 +15,28 @@
                             <t t-set="employeeAvatarHeight" t-value="'60'" />
                         </t>
                         <h3 class="mt-2 mb-1">
-                            <t t-esc="this.props.employeeData.employee_name" />
+                            <t t-out="this.props.employeeData.employee_name" />
                         </h3>
                         <h5 class="text-muted my-0">
                             Please select a reason to
-                            <t t-if="checkedIn">check out</t>
+                            <t t-if="this.checkedIn">check out</t>
                             <t t-else="">check in</t>
                         </h5>
                         <div class="mt-3 reasons_lists" t-if="this.props.reasons">
                             <select
                                 id="attendance_reason"
-                                t-ref="attendance_reason"
+                                t-ref="this.attendanceReasonRef"
                                 t-attf-class="o_hr_attendance_reason {{ this.props.employeeData.required_reason_on_attendance_screen ? 'o_attendance_reason_required' : '' }}"
                             >
                                 <option value="0" />
                                 <t
                                     t-foreach="this.props.reasons"
                                     t-as="reason"
-                                    t-key="reason_index"
+                                    t-key="reason.id"
                                 >
                                     <option
                                         t-att-value="reason.id"
-                                        t-esc="reason.name"
+                                        t-out="reason.name"
                                         t-att-selected="reason.id === (reason.action_type === 'sign_in' ?
                                         this.props.employeeData.default_sign_in_reason_id : this.props.employeeData.default_sign_out_reason_id)"
                                     />
@@ -61,7 +61,7 @@
                     class="btn btn-light btn-lg rounded-pill px-5"
                     t-on-click="() => this.props.onClickBack()"
                 >
-                    <i class="oi oi-chevron-left me-2" />
+                    <i class="oi me-2" data-icon="chevron_backward" />
                     <span>Go back</span>
                 </button>
             </div>

@@ -10,3 +10,4 @@
 - Dhara Solanki \<<dhara.solanki@initos.com>\>
 - [manaTec](https://www.manatec.de/):
   - Tom Tietze
+- Mario Castillo López <@mcastillol14>

@@ -37,23 +37,46 @@ class HrAttendance(HrAttendance):
         return response
 
     @route("/hr_attendance/systray_check_in_out", type="jsonrpc", auth="user")
-    def systray_attendance(self, latitude=False, longitude=False):
-        if request.params.get("attendance_reason_id"):
-            request.update_context(
-                attendance_reason_id=int(request.params.get("attendance_reason_id"))
-            )
-        return super().systray_attendance(latitude=latitude, longitude=longitude)
+    def systray_attendance(
+        self,
+        latitude=False,
+        longitude=False,
+        check_in_image=None,
+        attendance_reason_id=None,
+    ):
+        # Core replaces the whole context when checking in/out from the systray,
+        # so the reason can't travel in it: it is applied once the check is done
+        employee = request.env.user.with_company(
+            self._get_active_company(request)
+        ).employee_id
+        snapshot = employee._attendance_reason_snapshot()
+        response = super().systray_attendance(
+            latitude=latitude, longitude=longitude, check_in_image=check_in_image
+        )
+        employee._attendance_reason_apply(attendance_reason_id, snapshot)
+        return response
 
     @http.route("/hr_attendance/manual_selection", type="jsonrpc", auth="public")
     def manual_selection(
-        self, token, employee_id, pin_code, latitude=False, longitude=False
+        self,
+        token,
+        employee_id,
+        pin_code,
+        latitude=False,
+        longitude=False,
+        check_in_image=None,
+        attendance_reason_id=None,
     ):
-        if request.params.get("attendance_reason_id"):
-            request.update_context(
-                attendance_reason_id=int(request.params.get("attendance_reason_id"))
-            )
+        # The model validates the reason; here the id is passed on as received
+        if attendance_reason_id:
+            request.update_context(attendance_reason_id=attendance_reason_id)
         return super().manual_selection(
-            token, employee_id, pin_code, latitude, longitude
+            token,
+            employee_id,
+            pin_code,
+            latitude=latitude,
+            longitude=longitude,
+            check_in_image=check_in_image,
         )
 
     # new routes
