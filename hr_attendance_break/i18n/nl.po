@@ -1,0 +1,307 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_attendance_break
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-22 19:34+0000\n"
+"PO-Revision-Date: 2026-07-15 00:00+0000\n"
+"Last-Translator: bosd <ebo@stefcy.com>\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.res_config_settings_view_form
+msgid "<span class=\"text-muted\">minutes (0 = no rounding)</span>"
+msgstr "<span class=\"text-muted\">minuten (0 = niet afronden)</span>"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__active
+msgid "Active"
+msgstr "Actief"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__attendance_id
+msgid "Attendance"
+msgstr "Aanwezigheid"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance_break
+msgid "Attendance Break"
+msgstr "Aanwezigheidspauze"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance_break_type
+msgid "Attendance Break Type"
+msgstr "Aanwezigheidspauzetype"
+
+#. module: hr_attendance_break
+#: model:ir.actions.act_window,name:hr_attendance_break.hr_attendance_break_action
+msgid "Attendance Breaks"
+msgstr "Aanwezigheidspauzes"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_attendance_reason
+msgid "Attendance Reason"
+msgstr "Aanwezigheidsreden"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__break_ids
+msgid "Break"
+msgstr "Pauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_stop
+msgid "Break End"
+msgstr "Einde pauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__break_hours
+msgid "Break Hours"
+msgstr "Pauze-uren"
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.res_config_settings_view_form
+msgid "Break Rounding"
+msgstr "Pauze-afronding"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_company__attendance_break_rounding_minutes
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_config_settings__attendance_break_rounding_minutes
+msgid "Break Rounding (minutes)"
+msgstr "Pauze-afronding (minuten)"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_start
+msgid "Break Start"
+msgstr "Begin pauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__break_type_id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_reason__break_type_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Break Type"
+msgstr "Pauzetype"
+
+#. module: hr_attendance_break
+#: model:ir.actions.act_window,name:hr_attendance_break.hr_attendance_break_type_action
+#: model:ir.ui.menu,name:hr_attendance_break.menu_hr_attendance_break_type
+msgid "Break Types"
+msgstr "Pauzetypes"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance_break__duration
+msgid "Break length in hours, rounded according to the company setting."
+msgstr "Pauzeduur in uren, afgerond volgens de bedrijfsinstelling."
+
+#. module: hr_attendance_break
+#: model:ir.ui.menu,name:hr_attendance_break.menu_hr_attendance_break
+msgid "Breaks"
+msgstr "Pauzes"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance_reason__break_type_id
+msgid ""
+"Checking out with this reason starts a break of this type. The break ends "
+"when the employee checks in again."
+msgstr ""
+"Uitklokken met deze reden start een pauze van dit type. De pauze eindigt "
+"wanneer de werknemer weer inklokt."
+
+#. module: hr_attendance_break
+#: model:hr.attendance.reason,name:hr_attendance_break.hr_attendance_reason_coffee_break
+msgid "Coffee Break"
+msgstr "Koffiepauze"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_res_company
+msgid "Companies"
+msgstr "Bedrijven"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__company_id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__company_id
+msgid "Company"
+msgstr "Bedrijf"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuratie-instellingen"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__create_uid
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__create_date
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Day"
+msgstr "Dag"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_reason__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_company__display_name
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Weergavenaam"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__duration
+msgid "Duration"
+msgstr "Duur"
+
+#. module: hr_attendance_break
+#: model:ir.model,name:hr_attendance_break.model_hr_employee
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__employee_id
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Employee"
+msgstr "Werknemer"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_reason__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_employee__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_company__id
+#: model:ir.model.fields,field_description:hr_attendance_break.field_res_config_settings__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__write_uid
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__write_date
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: hr_attendance_break
+#: model:hr.attendance.reason,name:hr_attendance_break.hr_attendance_reason_lunch_break
+msgid "Lunch Break"
+msgstr "Lunchpauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__name
+msgid "Name"
+msgstr "Naam"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__net_worked_hours
+msgid "Net Worked Hours"
+msgstr "Netto gewerkte uren"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break__paid
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__paid
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Paid"
+msgstr "Betaald"
+
+#. module: hr_attendance_break
+#: model:hr.attendance.break.type,name:hr_attendance_break.break_type_paid
+msgid "Paid Break"
+msgstr "Betaalde pauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance_break__paid
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance_break_type__paid
+msgid ""
+"Paid breaks count as worked time. Unpaid breaks are deducted from the net "
+"worked hours of the attendance."
+msgstr ""
+"Betaalde pauzes tellen als gewerkte tijd. Onbetaalde pauzes worden "
+"afgetrokken van de netto gewerkte uren van de aanwezigheid."
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.res_config_settings_view_form
+msgid ""
+"Round each recorded attendance break to the nearest number of minutes. Set "
+"to 0 to keep the exact duration."
+msgstr ""
+"Rond elke geregistreerde pauze af op het dichtstbijzijnde aantal minuten. "
+"Zet op 0 om de exacte duur te behouden."
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_res_company__attendance_break_rounding_minutes
+#: model:ir.model.fields,help:hr_attendance_break.field_res_config_settings__attendance_break_rounding_minutes
+msgid ""
+"Round each recorded break to the nearest number of minutes. Set to 0 to "
+"disable rounding and keep the exact duration."
+msgstr ""
+"Rond elke geregistreerde pauze af op het dichtstbijzijnde aantal minuten. "
+"Zet op 0 om niet af te ronden en de exacte duur te behouden."
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Running"
+msgstr "Lopend"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance_break_type__sequence
+msgid "Sequence"
+msgstr "Volgorde"
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_tree
+msgid "Total"
+msgstr "Totaal"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance__break_hours
+msgid "Total break time recorded during this attendance."
+msgstr "Totale pauzetijd geregistreerd tijdens deze aanwezigheid."
+
+#. module: hr_attendance_break
+#: model_terms:ir.ui.view,arch_db:hr_attendance_break.hr_attendance_break_view_search
+msgid "Unpaid"
+msgstr "Onbetaald"
+
+#. module: hr_attendance_break
+#: model:hr.attendance.break.type,name:hr_attendance_break.break_type_unpaid
+msgid "Unpaid Break"
+msgstr "Onbetaalde pauze"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,field_description:hr_attendance_break.field_hr_attendance__unpaid_break_hours
+msgid "Unpaid Break Hours"
+msgstr "Onbetaalde pauze-uren"
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance__unpaid_break_hours
+msgid ""
+"Unpaid break time deducted from the worked hours. Time that overlaps the "
+"lunch break of the working schedule is not deducted twice, as it is already "
+"excluded from the worked hours."
+msgstr ""
+"Onbetaalde pauzetijd die van de gewerkte uren wordt afgetrokken. Tijd die "
+"overlapt met de lunchpauze van het werkrooster wordt niet dubbel "
+"afgetrokken, omdat die al niet tot de gewerkte uren behoort."
+
+#. module: hr_attendance_break
+#: model:ir.model.fields,help:hr_attendance_break.field_hr_attendance__net_worked_hours
+msgid "Worked hours minus the unpaid breaks."
+msgstr "Gewerkte uren min de onbetaalde pauzes."

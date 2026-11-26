@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_attendance_reason_view_form" model="ir.ui.view">
+        <field name="name">hr.attendance.reason.form.break</field>
+        <field name="model">hr.attendance.reason</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance_reason.hr_attendance_reason_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="action_type" position="after">
+                <field name="break_type_id" invisible="action_type == 'sign_in'" />
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_attendance_reason_view_tree" model="ir.ui.view">
+        <field name="name">hr.attendance.reason.list.break</field>
+        <field name="model">hr.attendance.reason</field>
+        <field
+            name="inherit_id"
+            ref="hr_attendance_reason.hr_attendance_reason_view_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="action_type" position="after">
+                <field name="break_type_id" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>
