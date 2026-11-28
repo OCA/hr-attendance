@@ -1,0 +1,4 @@
+- initOS GmbH (initOS.com)
+- [Heliconia Solutions Pvt. Ltd.](https://www.heliconia.io)
+- [Grupo Isonor](https://www.grupoisonor.es):
+  - David Palanca Martínez
